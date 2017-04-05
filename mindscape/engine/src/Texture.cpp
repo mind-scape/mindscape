@@ -2,7 +2,7 @@
 
 using namespace engine;
 
-bool Texture::loadImageFromFile(std::string image_path){
+bool Texture::LoadImageFromFile(std::string image_path){
   free();
 
   SDL_Texture* new_texture = NULL;
@@ -30,7 +30,7 @@ bool Texture::loadImageFromFile(std::string image_path){
   return texture != NULL;
 }
 
-void Texture::free(){
+void Texture::Free(){
   if( texture != NULL){
     SDL_DestroyTexture(texture);
     texture = NULL;
@@ -39,15 +39,15 @@ void Texture::free(){
   }
 }
 
-void Texture::render(int x,int y){
+void Texture::Render(int x,int y){
   SDL_Rect render_quad = { x, y, width, height };
   SDL_RenderCopy( renderer, texture, NULL, &render_quad );
 }
 
-int Texture::getWidth(){
+int Texture::GetWidth(){
   return width;
 }
 
-int Texture::get Height(){
+int Texture::get GetHeight(){
   return height;
 }

@@ -13,12 +13,16 @@ namespace engine{
  
       void Run();
       static Game* GetInstance();
+      bool Game_Init();
+      void Close();
  
     private:
       static Game* instance;
       std::string game_name);
-      std::pair<int,int> window_dimensions();
-  }
+      std::pair<int,int> window_dimensions;
+      SDL_Window* window;
+      SDL_Renderer* renderer;
+  };
 
 }
 

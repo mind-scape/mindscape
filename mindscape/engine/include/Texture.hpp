@@ -10,11 +10,11 @@ namespace engine{
       Texture(SDL_Renderer* p_renderer): renderer(p_renderer){}
       ~Texture()
 
-      bool loadImageFromFile(std::string image_path);
-      int getWidth();
-      int getHeight();
-      void free();
-      void render(int x,int y);
+      bool LoadImageFromFile(std::string image_path);
+      int GetWidth();
+      int GetHeight();
+      void Free();
+      void Render(int x,int y);
 
     private:
       int width;
@@ -22,6 +22,6 @@ namespace engine{
 
       SDL_Texture* texture;
       SDL_Renderer* renderer;
-  }
+  };
 
 }
