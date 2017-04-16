@@ -1,23 +1,24 @@
-#include <Texture.hpp>
+#include "../include/texture.hpp"
+#include <string>
 
 using namespace engine;
 
-bool Texture::LoadImageFromFile(std::string image_path){
+bool Texture::load_image_from_file(std::string image_path){
   free();
 
   SDL_Texture* new_texture = NULL;
 
-  SDL_Surfacei* loaded_surface = IMG_Load( image_path.c_str() );
+  SDL_Surface* loaded_surface = IMG_Load( image_path.c_str() );
   if( loaded_surface != NULL ){
     new_texture = SDL_CreateTextureFromSurface( renderer, loaded_surface );
-    if(new_texture != null){
+    if(new_texture != NULL){
 
       width = loaded_surface->w;
       height = loaded_surface->h;
 
     }else{
 
-      printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+      printf( "Unable to create texture from %s! SDL Error: %s\n", image_path.c_str(), SDL_GetError() );
 
     }
 
@@ -30,7 +31,7 @@ bool Texture::LoadImageFromFile(std::string image_path){
   return texture != NULL;
 }
 
-void Texture::Free(){
+void Texture::free(){
   if( texture != NULL){
     SDL_DestroyTexture(texture);
     texture = NULL;
@@ -39,15 +40,15 @@ void Texture::Free(){
   }
 }
 
-void Texture::Render(int x,int y){
+void Texture::render(int x,int y){
   SDL_Rect render_quad = { x, y, width, height };
   SDL_RenderCopy( renderer, texture, NULL, &render_quad );
 }
 
-int Texture::GetWidth(){
+int Texture::get_width(){
   return width;
 }
 
-int Texture::get GetHeight(){
+int Texture::get_height(){
   return height;
 }
