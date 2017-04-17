@@ -1,11 +1,8 @@
 #include "../include/game.hpp"
-#include "../include/image.hpp"
 
 using namespace engine;
 
 Game* Game::instance = nullptr;
-Image* image_1;
-
 
 Game& Game::get_instance(){
   if(!instance){
@@ -24,7 +21,6 @@ bool Game::game_init(){
     if(window != NULL){
       renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
       if(renderer != NULL){
-        SDL_SetRenderDrawColor(renderer,0xFF,0xFF,0xFF,0xFF);
         int img_flags = IMG_INIT_PNG;
         if(!(IMG_Init(IMG_INIT_PNG) & img_flags)){
           printf("SDL_image could not initialize some resources! SDL_image Error: %s",IMG_GetError());

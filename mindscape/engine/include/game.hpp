@@ -1,8 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
-
 #include "SDL2basics.hpp"
 #include <string>
+#include "../include/image.hpp"
 
 namespace engine{
 
@@ -23,6 +23,7 @@ namespace engine{
       std::pair<int,int> window_dimensions;
       SDL_Window* window;
       SDL_Renderer* renderer;
+      Image* image_1;
   };
 
 }
