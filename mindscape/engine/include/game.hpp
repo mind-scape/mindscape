@@ -11,12 +11,13 @@ namespace engine{
       Game(){};
       ~Game(){};
  
+      static Game& get_instance();
       void run();
       bool game_init();
       void close();
       bool load_media();
       void set_information(std::string name,std::pair<int,int> dimensions); 
-      static Game instance;
+      static Game* instance;
  
       std::string game_name;
       std::pair<int,int> window_dimensions;

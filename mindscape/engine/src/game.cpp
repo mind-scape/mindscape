@@ -3,8 +3,18 @@
 
 using namespace engine;
 
-Game Game::instance;
-Image * image_1;
+Game* Game::instance = nullptr;
+Image* image_1;
+
+
+Game& Game::get_instance(){
+  if(!instance){
+    instance = new Game();
+  }
+  return *instance;
+}
+
+
 
 bool Game::game_init(){
   bool result = true;

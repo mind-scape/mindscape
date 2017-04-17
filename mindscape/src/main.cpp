@@ -8,8 +8,9 @@ using namespace engine;
 
 int main(int,char**){
   
-  Game::instance.set_information(globals::game_name,globals::window_size);
-  Game::instance.run();
+  Game& game = Game::get_instance();
+  game.set_information(globals::game_name,globals::window_size);
+  game.run();
 
   return 0;
 }
