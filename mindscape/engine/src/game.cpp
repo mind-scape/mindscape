@@ -1,10 +1,10 @@
 #include "../include/game.hpp"
-#include "../include/texture.hpp"
+#include "../include/image.hpp"
 
 using namespace engine;
 
 Game Game::instance;
-Texture * textura_1;
+Image * image_1;
 
 bool Game::game_init(){
   bool result = true;
@@ -39,7 +39,7 @@ bool Game::load_media(){
   bool success_on_load = true;
   std::string path = "../assets/images/image1.png";
   
-  if(!textura_1->load_image_from_file(path.c_str())){
+  if(!image_1->load(path.c_str())){
     printf("Failed to load media at %s\n",path.c_str());
     success_on_load = false;
   } 
@@ -49,7 +49,7 @@ bool Game::load_media(){
 
 void Game::close(){
   //TODO add steps to deallocate all rendered textures
-  textura_1->free(); 
+  image_1->free(); 
 
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
@@ -62,7 +62,7 @@ void Game::close(){
 
 void Game::run(){ 
   if(game_init()){
-    textura_1 = new Texture(renderer);
+    image_1 = new Image(renderer);
 
     if(load_media()){
       bool quit_event = false;
@@ -79,7 +79,7 @@ void Game::run(){
         SDL_SetRenderDrawColor(renderer,0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
 
-        textura_1->render(0,0);
+        image_1->render(0,0);
 
         SDL_RenderPresent(renderer);
       }       

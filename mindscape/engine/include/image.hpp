@@ -1,17 +1,18 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#ifndef IMAGE_H
+#define IMAGE_H
 
 #include "SDL2basics.hpp"
+#include "component.hpp"
 #include <string>
 
 namespace engine{
 
-  class Texture{
+  class Image : public Component{
     public:
-      Texture(SDL_Renderer* p_renderer): renderer(p_renderer),texture(NULL),width(0),height(0) {}
-      ~Texture(){}
+      Image(SDL_Renderer* p_renderer): renderer(p_renderer),texture(NULL),width(0),height(0) {}
+      ~Image(){}
 
-      bool load_image_from_file(std::string image_path);
+      bool load(std::string image_path);
       int get_width();
       int get_height();
       void free();
