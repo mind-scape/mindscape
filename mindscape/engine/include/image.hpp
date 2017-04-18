@@ -9,6 +9,11 @@ namespace engine{
 
   class Image : public Component{
     public:
+      SDL_Texture* texture;
+      SDL_Renderer* renderer;
+      int width;
+      int height;
+
       Image(SDL_Renderer* p_renderer): renderer(p_renderer),texture(NULL),width(0),height(0) {}
       ~Image(){}
 
@@ -17,11 +22,6 @@ namespace engine{
       int get_height();
       void free();
       void render(int x,int y);
-
-      SDL_Texture* texture;
-      SDL_Renderer* renderer;
-      int width;
-      int height;
   };
 
 }
