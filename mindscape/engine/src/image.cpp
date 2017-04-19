@@ -35,10 +35,15 @@ void Image::free(){
     height = 0;
   }
 }
-
+/*
 void Image::render(int x,int y){
   SDL_Rect render_quad = { x, y, width, height };
   SDL_RenderCopy( renderer, texture, NULL, &render_quad );
+}
+*/
+void Image::render(int x,int y,SDL_Rect* ret){
+  SDL_Rect render_quad = { x, y, ret->w, ret->h};
+  SDL_RenderCopy( renderer, texture, ret, &render_quad );
 }
 
 int Image::get_width(){

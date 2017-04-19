@@ -21,7 +21,7 @@ namespace engine{
       int get_width();
       int get_height();
       void free();
-      void render(int x,int y);
+      void render(int x,int y,SDL_Rect* rect);
   };
 
 }

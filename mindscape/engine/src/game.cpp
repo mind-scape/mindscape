@@ -1,8 +1,16 @@
 #include "../include/game.hpp"
+#include <iostream>
 
 using namespace engine;
 
-Game* Game::instance = nullptr;
+typedef struct info{
+  int x;
+  int y;
+  int width;
+  int height;
+}info;
+
+Game* Game::instance = NULL;
 
 void throw_error(const char* function){
   printf("Something's wrong in %s\n", function);
@@ -27,12 +35,12 @@ void Game::game_init(){
   }
 
   window = SDL_CreateWindow(game_name.c_str(),SDL_WINDOWPOS_UNDEFINED,
-                            SDL_WINDOWPOS_UNDEFINED,window_dimensions.first,
-                            window_dimensions.second,SDL_WINDOW_SHOWN);
+      SDL_WINDOWPOS_UNDEFINED,window_dimensions.first,
+      window_dimensions.second,SDL_WINDOW_SHOWN);
   if(!window){
     throw_error("SDL_CreateWindow");
   }
-  renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
+  renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   if(!renderer){
     throw_error("SDL_CreateRenderer");
   }
@@ -40,10 +48,16 @@ void Game::game_init(){
 
 bool Game::load_media(){
   bool success_on_load = true;
-  std::string path = "../assets/images/image1.png";
+  std::string path_1 = "../assets/images/scott.png";
+  std::string path_2 = "../assets/images/background.png";
 
-  if(!image_1->load(path.c_str())){
-    printf("Failed to load media at %s\n",path.c_str());
+  if(!images[1]->load(path_1.c_str())){
+    printf("Failed to load media at %s\n",path_1.c_str());
+    success_on_load = false;
+  }
+
+  if(!images[2]->load(path_2.c_str())){
+    printf("Failed to load media at %s\n",path_2.c_str());
     success_on_load = false;
   }
 
@@ -52,7 +66,8 @@ bool Game::load_media(){
 
 void Game::close(){
   //TODO add steps to deallocate all rendered textures
-  image_1->free();
+  images[1]->free();
+  images[2]->free();
 
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
@@ -65,12 +80,27 @@ void Game::close(){
 
 void Game::run(){
   game_init();
-  image_1 = new Image(renderer);
+  images[1] = new Image(renderer);
+  images[2] = new Image(renderer);
+  info inf;
+
+  int right_cont = 0, left_cont = 0;
+
+  inf.x = 0;
+  inf.y = 0;
+  inf.width = 108;
+  inf.height = 140;
+  std::pair<int,int> pos; pos.first =240;pos.second = 350;
 
   if(load_media()){
     bool quit_event = false;
 
-    SDL_Event e;
+    SDL_Event e; 
+    SDL_Rect ret; SDL_Rect* rt = &ret;
+    SDL_Rect ret_2; SDL_Rect* rt_2 = &ret_2;
+  
+    ret.x = 0; ret.y = 0; ret.w = 108; ret.h = 140;
+    ret_2.x = 0; ret_2.y = 0; ret_2.w = 800; ret_2.h = 600;
 
     while(!quit_event){
       while(SDL_PollEvent( &e ) != 0){
@@ -78,18 +108,44 @@ void Game::run(){
           quit_event = true;
         }
       }
+      const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+      if( currentKeyStates[ SDL_SCANCODE_LEFT ] ){
+        
+        right_cont++;
+        if(right_cont == 5){
+          if(ret.y == 0) ret.y = 140;
+          ret.x -= 108;
+          if(ret.x < 0) ret.x = 756;
+          right_cont = 0;
+
+          pos.first -= 20;
+          if(pos.first < 0) pos.first = 700;
+        }
+      }
+      else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] ){
+        left_cont++;
+        if(left_cont == 5){
+          if(ret.y == 140) ret.y = 0;
+          ret.x+=108;
+          if(ret.x == 864) ret.x = 0;
+          left_cont = 0;
+
+          pos.first += 20;
+          if(pos.first > 700) pos.first = 0;   
+        }
+      }
 
       SDL_SetRenderDrawColor(renderer,0xFF, 0xFF, 0xFF, 0xFF);
       SDL_RenderClear(renderer);
-
-      image_1->render(0,0);
-
+      images[2]->render(0,0,rt_2);
+      images[1]->render(pos.first,pos.second,rt);
       SDL_RenderPresent(renderer);
     }
   }
   else{
     printf("Medias could not be loaded\n");
   }
+
   close();
 }
 
