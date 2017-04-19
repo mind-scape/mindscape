@@ -3,13 +3,6 @@
 
 using namespace engine;
 
-typedef struct info{
-  int x;
-  int y;
-  int width;
-  int height;
-}info;
-
 Game* Game::instance = NULL;
 
 void throw_error(const char* function){
@@ -82,14 +75,9 @@ void Game::run(){
   game_init();
   images[1] = new Image(renderer);
   images[2] = new Image(renderer);
-  info inf;
 
   int right_cont = 0, left_cont = 0;
 
-  inf.x = 0;
-  inf.y = 0;
-  inf.width = 108;
-  inf.height = 140;
   std::pair<int,int> pos; pos.first =240;pos.second = 350;
 
   if(load_media()){
