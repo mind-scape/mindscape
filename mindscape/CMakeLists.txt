@@ -25,4 +25,5 @@ include_directories(${ENGINE_INCLUDE})
 # Creating executable and adding libraries to CMake
 
 add_executable(mindscape ${SOURCES})
+set_property(TARGET mindscape PROPERTY CXX_STANDARD 11)
 target_link_libraries(mindscape engine SDL2 SDL2_image SDL2_ttf SDL2_mixer)
