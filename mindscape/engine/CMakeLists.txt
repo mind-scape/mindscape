@@ -1,5 +1,7 @@
 # Creating Variables
 
+set(GCC_COVERAGE_COMPILE_FLAGS "-std=c++11")
+add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
 set(ENGINE_INCLUDE "${PROJECT_SOURCE_DIR}/engine/include")
 set(ENGINE_SRC "${PROJECT_SOURCE_DIR}/engine/src")
 file(GLOB_RECURSE SOURCES "${ENGINE_SRC}/*.cpp")

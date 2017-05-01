@@ -20,7 +20,7 @@ bool Image::load(std::string image_path){
 
     SDL_FreeSurface( loaded_surface );
   }else{
-    printf("Unable to load image %s! Image error: %s\n",image_path.c_str(), IMG_GetError() ); 
+    printf("Unable to load image %s! Image error: %s\n",image_path.c_str(), IMG_GetError() );
   }
 
   texture = new_texture;
