@@ -21,8 +21,7 @@ namespace engine {
 
       virtual bool load(){};
       virtual void free(){};
-      virtual void render(){};
-      void add_component(Component & component);
+      void add_component(Component* component);
   };
 
 }

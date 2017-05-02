@@ -40,27 +40,16 @@ void Game::game_init(){
 }
 
 bool Game::load_media(){
-  bool success_on_load = true;
-  std::string path_1 = "../assets/images/scott.png";
-  std::string path_2 = "../assets/images/background.png";
-
-  if(!images[1]->load(path_1.c_str())){
-    printf("Failed to load media at %s\n",path_1.c_str());
-    success_on_load = false;
+  for(auto scene : scenes){
+    scene.second->load();
   }
-
-  if(!images[2]->load(path_2.c_str())){
-    printf("Failed to load media at %s\n",path_2.c_str());
-    success_on_load = false;
-  }
-
-  return success_on_load;
+  return true;
 }
 
 void Game::close(){
   //TODO add steps to deallocate all rendered textures
-  images[1]->free();
-  images[2]->free();
+  // images[1]->free();
+  // images[2]->free();
 
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
@@ -73,9 +62,6 @@ void Game::close(){
 
 void Game::run(){
   game_init();
-  images[1] = new Image(renderer);
-  images[2] = new Image(renderer);
-
   int right_cont = 0, left_cont = 0;
 
   std::pair<int,int> pos; pos.first =240;pos.second = 350;
@@ -83,10 +69,10 @@ void Game::run(){
   if(load_media()){
     bool quit_event = false;
 
-    SDL_Event e; 
+    SDL_Event e;
     SDL_Rect ret; SDL_Rect* rt = &ret;
     SDL_Rect ret_2; SDL_Rect* rt_2 = &ret_2;
-  
+
     ret.x = 0; ret.y = 0; ret.w = 108; ret.h = 140;
     ret_2.x = 0; ret_2.y = 0; ret_2.w = 800; ret_2.h = 600;
 
@@ -98,7 +84,7 @@ void Game::run(){
       }
       const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
       if( currentKeyStates[ SDL_SCANCODE_LEFT ] ){
-        
+
         right_cont++;
         if(right_cont == 5){
           if(ret.y == 0) ret.y = 140;
@@ -119,14 +105,14 @@ void Game::run(){
           left_cont = 0;
 
           pos.first += 20;
-          if(pos.first > 700) pos.first = 0;   
+          if(pos.first > 700) pos.first = 0;
         }
       }
 
       SDL_SetRenderDrawColor(renderer,0xFF, 0xFF, 0xFF, 0xFF);
       SDL_RenderClear(renderer);
-      images[2]->render(0,0,rt_2);
-      images[1]->render(pos.first,pos.second,rt);
+//      images2->render(0,0,rt_2);
+//      images1->render(pos.first,pos.second,rt);
       SDL_RenderPresent(renderer);
     }
   }
@@ -140,4 +126,12 @@ void Game::run(){
 void Game::set_information(std::string name,std::pair<int,int> dimensions){
   game_name = name;
   window_dimensions = dimensions;
+}
+
+void Game::add_scene(std::string name, Scene* scene){
+  scenes.insert({name, scene});
+}
+
+void Game::change_scene(Scene* scene){
+  actual_scene = scene;
 }

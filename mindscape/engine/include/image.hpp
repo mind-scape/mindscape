@@ -1,4 +1,4 @@
-//TODO set render and another methods to private 
+//TODO set render and another methods to private
 
 #ifndef IMAGE_H
 #define IMAGE_H
@@ -13,13 +13,19 @@ namespace engine{
     public:
       SDL_Texture* texture;
       SDL_Renderer* renderer;
+      std::string image_path;
       int width;
       int height;
 
-      Image(SDL_Renderer* p_renderer): renderer(p_renderer),texture(NULL),width(0),height(0),Component("image") {}
+      Image(SDL_Renderer* p_renderer, std::string path): renderer(p_renderer),
+                                                          texture(NULL),
+                                                          image_path(path),
+                                                          width(0),
+                                                          height(0),
+                                                          Component("image") {}
       ~Image(){}
 
-      bool load(std::string image_path);
+      bool load();
       int get_width();
       int get_height();
       void free();

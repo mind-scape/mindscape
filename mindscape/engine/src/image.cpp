@@ -3,7 +3,7 @@
 
 using namespace engine;
 
-bool Image::load(std::string image_path){
+bool Image::load(){
   free();
 
   SDL_Texture* new_texture = NULL;
