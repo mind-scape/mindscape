@@ -14,13 +14,11 @@ file(GLOB SOURCES "${SRC_DIR}/*.cpp")
 set(COMPILE_FLAGS "-std=c++11 -W -std=c++0x -Wall -pedantic -Wshadow -O2 -g")
 
 # Adding subdirectory which has it's own CMakeList
-
 add_subdirectory(${ENGINE})
 
 # Including header files
 
-include_directories("${INCLUDE_DIR}")
-include_directories(${ENGINE_INCLUDE})
+include_directories(${INCLUDE_DIR})
 
 # Creating executable and adding libraries to CMake
 

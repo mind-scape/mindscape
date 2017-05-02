@@ -1,5 +1,5 @@
-#include "../include/little_girl.hpp"
-#include "../include/component.hpp"
+#include "little_girl.hpp"
+#include "component.hpp"
 
 using namespace engine;
 

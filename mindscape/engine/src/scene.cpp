@@ -1,4 +1,4 @@
-#include "../include/scene.hpp"
+#include "scene.hpp"
 
 using namespace engine;
 

@@ -1,0 +1,3 @@
+file (GLOB ENGINE_HEADER_FILES *.hpp)
+
+add_library(ENGINE_HEADER ${ENGINE_HEADER_FILES})

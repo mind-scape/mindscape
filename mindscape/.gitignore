@@ -1,2 +1,5 @@
 build
 bin
+
+# Ignoring YCM personal configuration file
+.ycm_extra_conf.py
