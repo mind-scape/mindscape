@@ -10,6 +10,10 @@ unsigned Time::time_elapsed() {
     return m_time_elapsed;
 }
 
+unsigned real_time_elapsed() {
+  return SDL_GetTicks();
+}
+
 void Time::pause_timer() {
     if(m_current_state == RUNNING) {
         unsigned now = real_time_elapsed();

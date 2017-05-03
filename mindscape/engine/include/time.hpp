@@ -1,6 +1,8 @@
 #ifndef TIME_H
 #define TIME_H
 
+#include <SDL2/SDL.h>
+
 namespace engine {
   typedef enum {RUNNING, PAUSED} state;
 
@@ -10,7 +12,7 @@ namespace engine {
       unsigned m_last_update;
       state m_current_statue;
 
-      virtual unsigned real_time_elapsed() const = 0;
+      unsigned real_time_elapsed();
       void update_time(unsigned now);
 
     public:

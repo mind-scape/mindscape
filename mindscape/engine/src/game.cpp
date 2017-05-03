@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "time.hpp"
 #include <iostream>
 
 using namespace engine;
@@ -76,6 +77,9 @@ void Game::run(){
           quit_event = true;
         }
       }
+
+      unsigned now = time::time_elapsed();
+      
 
       SDL_SetRenderDrawColor(renderer,0xFF, 0xFF, 0xFF, 0xFF);
       SDL_RenderClear(renderer);
