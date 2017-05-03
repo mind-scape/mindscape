@@ -70,49 +70,15 @@ void Game::run(){
     bool quit_event = false;
 
     SDL_Event e;
-    SDL_Rect ret; SDL_Rect* rt = &ret;
-    SDL_Rect ret_2; SDL_Rect* rt_2 = &ret_2;
-
-    ret.x = 0; ret.y = 0; ret.w = 108; ret.h = 140;
-    ret_2.x = 0; ret_2.y = 0; ret_2.w = 800; ret_2.h = 600;
-
     while(!quit_event){
       while(SDL_PollEvent( &e ) != 0){
         if(e.type == SDL_QUIT){
           quit_event = true;
         }
       }
-      const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-      if( currentKeyStates[ SDL_SCANCODE_LEFT ] ){
-
-        right_cont++;
-        if(right_cont == 5){
-          if(ret.y == 0) ret.y = 140;
-          ret.x -= 108;
-          if(ret.x < 0) ret.x = 756;
-          right_cont = 0;
-
-          pos.first -= 20;
-          if(pos.first < 0) pos.first = 700;
-        }
-      }
-      else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] ){
-        left_cont++;
-        if(left_cont == 5){
-          if(ret.y == 140) ret.y = 0;
-          ret.x+=108;
-          if(ret.x == 864) ret.x = 0;
-          left_cont = 0;
-
-          pos.first += 20;
-          if(pos.first > 700) pos.first = 0;
-        }
-      }
 
       SDL_SetRenderDrawColor(renderer,0xFF, 0xFF, 0xFF, 0xFF);
       SDL_RenderClear(renderer);
-//      images2->render(0,0,rt_2);
-//      images1->render(pos.first,pos.second,rt);
       SDL_RenderPresent(renderer);
     }
   }
