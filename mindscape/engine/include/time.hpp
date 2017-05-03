@@ -5,12 +5,6 @@ namespace engine {
   typedef enum {RUNNING, PAUSED} state;
 
   class Time {
-    public:
-      virtual ~Time() = default;
-      unsigned time_elapsed();
-      void pause_timer();
-      void resume_time();
-
     protected:
       unsigned m_time_elapsed;
       unsigned m_last_update;
@@ -18,6 +12,12 @@ namespace engine {
 
       virtual unsigned real_time_elapsed() const = 0;
       void update_time(unsigned now);
+
+    public:
+      virtual ~Time() = default;
+      unsigned time_elapsed();
+      void pause_timer();
+      void resume_timer();
   };
 }
 
