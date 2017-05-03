@@ -3,13 +3,15 @@
 #include "SDL2basics.hpp"
 #include <string>
 #include <unordered_map>
-#include "../include/image.hpp"
-#include "../include/scene.hpp"
+#include "image.hpp"
+#include "scene.hpp"
 
 namespace engine{
 
   class Game{
     public:
+      enum class State {RUNNING, PAUSED, QUIT};
+
       static Game* instance;
       std::string game_name;
       std::pair<int,int> window_dimensions;
@@ -17,7 +19,7 @@ namespace engine{
       SDL_Renderer* renderer;
       std::unordered_map<std::string, Scene*> scenes;
       Scene* actual_scene;
-
+      State game_state;
       Game(){};
       ~Game(){};
 
