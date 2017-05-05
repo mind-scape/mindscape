@@ -1,5 +1,5 @@
-#ifndef LITTLE_GIRL_H 
-#define LITTLE_GIRL_H 
+#ifndef LITTLE_GIRL_H
+#define LITTLE_GIRL_H
 
 #include "SDL2basics.hpp"
 #include "game_object.hpp"
@@ -11,7 +11,7 @@
 namespace engine {
 
   class LittleGirl : public GameObject {
-    LittleGirl(std::string p_name):GameObject("LittleGirl"){};
+    LittleGirl(std::string p_name, std::pair<int, int> position):GameObject("LittleGirl", position){};
     ~LittleGirl(){};
 
     bool load();

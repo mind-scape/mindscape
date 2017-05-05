@@ -24,8 +24,8 @@ namespace engine{
       ~Game(){};
 
       static Game& get_instance();
-      void run();
       void game_init();
+      void run();
       void close();
       bool load_media();
       void set_information(std::string name,std::pair<int,int> dimensions);

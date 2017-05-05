@@ -9,9 +9,10 @@ class Level : public Scene{
 	public:
     Level(){};
 		~Level(){};
-
+		
 		void load();
 		void free();
+		void draw();
 };
 
 #endif

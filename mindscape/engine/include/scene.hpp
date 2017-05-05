@@ -15,7 +15,7 @@ class Scene {
 		~Scene(){};
 
 		void add_object(std::string name, engine::GameObject* object);
-		virtual void render(){};
+		virtual void draw(){};
 		virtual void load(){};
 		virtual void free(){};
 };

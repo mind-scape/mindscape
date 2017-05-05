@@ -6,6 +6,7 @@
 #include "SDL2basics.hpp"
 #include "component.hpp"
 #include <string>
+#include <iostream>
 
 namespace engine{
 
@@ -17,19 +18,19 @@ namespace engine{
       int width;
       int height;
 
-      Image(SDL_Renderer* p_renderer, std::string path): renderer(p_renderer),
+      Image(SDL_Renderer* p_renderer, std::string path, std::pair<int, int> place, bool isactive, std::pair<int, int> wh): renderer(p_renderer),
                                                           texture(NULL),
                                                           image_path(path),
-                                                          width(0),
-                                                          height(0),
-                                                          Component("image") {}
+                                                          width(wh.first),
+                                                          height(wh.second),
+                                                          Component("image", place, isactive) {}
       ~Image(){}
 
       bool load();
       int get_width();
       int get_height();
       void free();
-      void render(int x,int y,SDL_Rect* rect);
+      void draw(int x, int y);
   };
 
 }

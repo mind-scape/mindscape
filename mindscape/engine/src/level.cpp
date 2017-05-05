@@ -13,3 +13,9 @@ void Level::free(){
     go.second->free();
   }
 }
+
+void Level::draw(){
+  for(auto object : objects){
+    object.second->draw();
+  }
+}

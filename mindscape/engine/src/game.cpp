@@ -62,7 +62,6 @@ void Game::close(){
 }
 
 void Game::run(){
-  game_init();
   int right_cont = 0, left_cont = 0;
 
   std::pair<int,int> pos; pos.first =240;pos.second = 350;
@@ -79,10 +78,9 @@ void Game::run(){
       }
 
       //unsigned now = time::time_elapsed();
-      
-
       SDL_SetRenderDrawColor(renderer,0xFF, 0xFF, 0xFF, 0xFF);
       SDL_RenderClear(renderer);
+      actual_scene->draw();
       SDL_RenderPresent(renderer);
     }
   }

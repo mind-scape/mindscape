@@ -12,16 +12,20 @@ namespace engine {
   class GameObject{
     public:
       std::string name;
-      std::unordered_map< std::string ,std::vector<Component *> > components;
+      std::vector<Component*> audios;
+      std::vector<Component*> images;
+      std::vector<Component*> texts;
       std::pair<int,int> position;
 
       GameObject();
-      GameObject(std::string p_name):name(p_name){};
+      GameObject(std::string p_name, std::pair<int, int> posi):name(p_name),
+                                                              position(posi){};
       ~GameObject(){};
 
-      virtual bool load(){};
+      bool load();
       virtual void free(){};
-      void add_component(Component* component);
+      void draw();
+      void add_component(std::string, Component*);
   };
 
 }
