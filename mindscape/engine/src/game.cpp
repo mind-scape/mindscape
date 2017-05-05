@@ -115,3 +115,4 @@ void Game::add_scene(std::string name, Scene* scene){
 void Game::change_scene(Scene* scene){
   actual_scene = scene;
 }
+
