@@ -10,7 +10,7 @@ namespace engine {
     protected:
       unsigned m_time_elapsed;
       unsigned m_last_update;
-      state m_current_statue;
+      state m_current_state;
 
       unsigned real_time_elapsed();
       void update_time(unsigned now);
