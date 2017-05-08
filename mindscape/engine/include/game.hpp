@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include "image.hpp"
+#include "audio.hpp"
 #include "scene.hpp"
 
 namespace engine{

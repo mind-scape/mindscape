@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <string>
 #include "../engine/include/game.hpp"
+#include "../engine/include/audio.hpp"
 #include "../engine/include/image.hpp"
 #include "../engine/include/scene.hpp"
 #include "../engine/include/level.hpp"
@@ -19,6 +20,7 @@ int main(int,char**){
   std::pair<int, int> whsecondimage (108, 140);
   Image* images1 = new Image(game.renderer, "../assets/images/scott.png", place, true, whfirstimage);
   Image* images2 = new Image(game.renderer, "../assets/images/background.png", place, true, whsecondimage);
+  Audio* music = new Audio("../assets/audio/loop1-1.mp3", "music")
   GameObject* boy = new GameObject("boy", anotherplace);
   GameObject* background = new GameObject("background", anotherplace);
   boy->add_component("image", images1);
