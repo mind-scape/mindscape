@@ -17,6 +17,9 @@ bool GameObject::load(){
   for(auto image : images){
       image->load();
   }
+  for(auto audio : audios){
+    audio->load();
+  }
   return true;
 }
 
@@ -25,5 +28,8 @@ void GameObject::draw(){
     if(image->active){
       image->draw(position.first, position.second);
     }
+  }
+  for(auto audio : audios){
+    audio->draw(position.first, position.second);
   }
 }

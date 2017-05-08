@@ -11,24 +11,27 @@ namespace engine{
 
     public:
     //private:
-
+        enum class audio_type {music, chunk};
         std::string audio_path;
-        std::string audio_type;
+        audio_type m_audio_type;
         int audio_repeat;
         int audio_chanel;
+        bool playing;
 
         Mix_Music *audio_music;
         Mix_Chunk *audio_chunk;
 
 
-        Audio(std::string path, std::string type, int repeat = 0, int chanel = -1)
-                 : audio_path(path), audio_type(type), audio_repeat(repeat), audio_chanel(chanel), audio_music(NULL), audio_chunk(NULL) {}
+        Audio(std::string path, audio_type m_type = audio_type::music, int repeat = 0, int chanel = -1)
+                 : audio_path(path), m_audio_type(m_type), audio_repeat(repeat), audio_chanel(chanel), audio_music(NULL), audio_chunk(NULL) {}
 
         ~Audio(){}
 
         bool load();
         void free();
         void draw(int x, int y);
+        void play_chunk();
+        void play_music();
 
     };
 

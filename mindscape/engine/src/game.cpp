@@ -28,6 +28,11 @@ void Game::game_init(){
     throw_error("IMG_Init");
   }
 
+  if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 512 ) < 0 )
+  {
+    printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+  }
+
   window = SDL_CreateWindow(game_name.c_str(),SDL_WINDOWPOS_UNDEFINED,
       SDL_WINDOWPOS_UNDEFINED,window_dimensions.first,
       window_dimensions.second,SDL_WINDOW_SHOWN);

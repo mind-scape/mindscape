@@ -6,14 +6,13 @@
 using namespace engine;
 
 bool Audio::load(){
-
-    if(audio_type.compare("music") == 0){
+    if(m_audio_type == audio_type::music){
             audio_music = Mix_LoadMUS(audio_path.c_str());
             if(!audio_music){
                 printf("\nAudio error %s\n", Mix_GetError());
                 return false;
             }
-    }else if(audio_type.compare("chunk") == 0){
+    }else if(m_audio_type == audio_type::chunk){
         audio_chunk = Mix_LoadWAV(audio_path.c_str());
             if(!audio_music){
                 printf("\nAudio error %s\n", Mix_GetError());
@@ -37,8 +36,8 @@ void Audio::free(){
 }
 
 void Audio::draw(int x, int y){
-
-    if(audio_type.compare("music") == 0){
+/*
+    if(m_audio_type == audio_type::music){
             if( Mix_PlayingMusic() == 0 ){
                  //Play the music
                 //-1 argument == endless repetitions
@@ -53,9 +52,30 @@ void Audio::draw(int x, int y){
                     Mix_PauseMusic();
                 }
             }
-    }else if(audio_type.compare("chunk") == 0){
+    }else if(m_audio_type == audio_type::chunk){
             Mix_PlayChannel( audio_chanel, audio_chunk, audio_repeat);
     } else {
             printf("\nError while playing this audio: %s\n", audio_path.c_str());
         }
+
+*/
+
+        if(m_audio_type == audio_type::music && !Mix_PlayingMusic()){
+            play_music();
+        } else {
+            Mix_ResumeMusic();
+        }
+
+
+        if(m_audio_type == audio_type::chunk){
+            play_chunk();
+        }
+}
+
+void Audio::play_chunk(){
+    Mix_PlayChannel( audio_chanel, audio_chunk, audio_repeat);
+}
+
+void Audio::play_music(){
+    Mix_PlayMusic(audio_music, -1 );
 }

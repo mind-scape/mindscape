@@ -20,15 +20,18 @@ int main(int,char**){
   std::pair<int, int> whsecondimage (108, 140);
   Image* images1 = new Image(game.renderer, "../assets/images/scott.png", place, true, whfirstimage);
   Image* images2 = new Image(game.renderer, "../assets/images/background.png", place, true, whsecondimage);
-  Audio* music = new Audio("../assets/audio/loop1-1.mp3", "music")
+  Audio* music = new Audio("../assets/audio/loop1-1.mp3", Audio::audio_type::music);
   GameObject* boy = new GameObject("boy", anotherplace);
   GameObject* background = new GameObject("background", anotherplace);
+  GameObject* audio_loop = new GameObject("audio_loop", place);
   boy->add_component("image", images1);
   background->add_component("image", images2);
+  audio_loop-> add_component("audio", music);
 
   Level* level1 = new Level();
   level1->add_object("boy", boy);
   level1->add_object("background", background);
+  level1->add_object("audio_loop", audio_loop);
   game.add_scene("first level", level1);
   game.change_scene(level1);
   game.run();
