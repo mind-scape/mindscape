@@ -36,29 +36,6 @@ void Audio::free(){
 }
 
 void Audio::draw(int x, int y){
-/*
-    if(m_audio_type == audio_type::music){
-            if( Mix_PlayingMusic() == 0 ){
-                 //Play the music
-                //-1 argument == endless repetitions
-                Mix_PlayMusic(audio_music, -1 );
-            }else{
-                //If the music is paused
-                if( Mix_PausedMusic() == 1 ){
-                    //Resume the music
-                    Mix_ResumeMusic();
-                }else{
-                    //Pause the music
-                    Mix_PauseMusic();
-                }
-            }
-    }else if(m_audio_type == audio_type::chunk){
-            Mix_PlayChannel( audio_chanel, audio_chunk, audio_repeat);
-    } else {
-            printf("\nError while playing this audio: %s\n", audio_path.c_str());
-        }
-
-*/
 
         if(m_audio_type == audio_type::music && !Mix_PlayingMusic()){
             play_music();
@@ -78,4 +55,12 @@ void Audio::play_chunk(){
 
 void Audio::play_music(){
     Mix_PlayMusic(audio_music, -1 );
+}
+
+void Audio::pause_music(){
+    if(m_audio_type == audio_type::music && Mix_PlayingMusic()){
+        Mix_PauseMusic();
+    } else {
+        Mix_ResumeMusic();
+    }
 }

@@ -32,6 +32,8 @@ namespace engine{
         void draw(int x, int y);
         void play_chunk();
         void play_music();
+        void pause_music();
+
 
     };
 
