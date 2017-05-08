@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include "image.hpp"
 #include "audio.hpp"
+#include "text.hpp"
 #include "scene.hpp"
 
 namespace engine{

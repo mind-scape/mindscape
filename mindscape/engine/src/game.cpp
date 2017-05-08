@@ -33,6 +33,11 @@ void Game::game_init(){
     printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
   }
 
+    if(TTF_Init() == -1)
+  {
+    throw_error("TTF_Init");
+  }
+
   window = SDL_CreateWindow(game_name.c_str(),SDL_WINDOWPOS_UNDEFINED,
       SDL_WINDOWPOS_UNDEFINED,window_dimensions.first,
       window_dimensions.second,SDL_WINDOW_SHOWN);
@@ -83,7 +88,7 @@ void Game::run(){
       }
 
       //unsigned now = time::time_elapsed();
-      SDL_SetRenderDrawColor(renderer,0xFF, 0xFF, 0xFF, 0xFF);
+      SDL_SetRenderDrawColor(renderer,0xAA, 0xAA, 0xAA, 0xAA);
       SDL_RenderClear(renderer);
       actual_scene->draw();
       SDL_RenderPresent(renderer);

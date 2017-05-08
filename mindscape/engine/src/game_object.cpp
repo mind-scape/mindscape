@@ -5,10 +5,10 @@ using namespace engine;
 void GameObject::add_component(std::string type, Component* component){
   if(type == "audio"){
     audios.push_back(component);
-  }else if(type == "image"){
-    images.push_back(component);
-  }else{
+  }else if(type == "text"){
     texts.push_back(component);
+  }else{
+    images.push_back(component);
   }
 }
 
@@ -19,6 +19,9 @@ bool GameObject::load(){
   }
   for(auto audio : audios){
     audio->load();
+  }
+  for(auto text : texts){
+    text->load();
   }
   return true;
 }
@@ -31,5 +34,8 @@ void GameObject::draw(){
   }
   for(auto audio : audios){
     audio->draw(position.first, position.second);
+  }
+  for(auto text : texts){
+    text->draw(position.first, position.second);
   }
 }
