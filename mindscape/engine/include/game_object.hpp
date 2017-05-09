@@ -16,6 +16,7 @@ namespace engine {
       std::vector<Component*> images;
       std::vector<Component*> texts;
       std::pair<int,int> position;
+      std::map<std::int,std::string> translations;
 
       GameObject();
       GameObject(std::string p_name, std::pair<int, int> posi):name(p_name),

@@ -98,5 +98,25 @@ KeyboardEvent::KeyMap KeyboardEvent::keymap = {
   {SDLK_F9, KeyboardEvent::F9},
   {SDLK_F10, KeyboardEvent::F10},
   {SDLK_F11, KeyboardEvent::F11},
-  {SDLK_F12, KeyboardEvent::F12}
+  {SDLK_F12, KeyboardEvent::F12},
 };
+
+static KeyboardEvent::Modifier key_modifier(Uint16 modifier){
+  switch (modifier){
+    case KMOD_CAPS:
+      return KeyboardEvent::CAPS;
+
+    case KMOD_SHIFT:
+      return KeyboardEvent::SHIFT;
+
+    case KMOD_ALT:
+      return KeyboardEvent::ALT;
+
+    case KMOD_CTRL:
+      return KeyboardEvent::CONTROL;
+
+    default:
+      return KeyboardEvent::NONE;
+  }
+}
+
