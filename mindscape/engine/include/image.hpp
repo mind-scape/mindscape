@@ -15,14 +15,18 @@ namespace engine{
       SDL_Texture* texture;
       SDL_Renderer* renderer;
       std::string image_path;
-      int width;
-      int height;
+      std::pair<int, int> dimensionOnScreen, dimensionOnTexture, coordinatesOnTexture;
 
-      Image(SDL_Renderer* p_renderer, std::string path, std::pair<int, int> place, bool isactive, std::pair<int, int> wh): renderer(p_renderer),
+
+      // int width;
+      // int height;
+
+      Image(SDL_Renderer* p_renderer, std::string path, std::pair<int, int> place, bool isactive, std::pair<int, int> wh, std::pair<int, int> dimTex, std::pair<int, int> corTex): renderer(p_renderer),
                                                           texture(NULL),
                                                           image_path(path),
-                                                          width(wh.first),
-                                                          height(wh.second),
+                                                          dimensionOnScreen(wh),
+                                                          dimensionOnTexture(dimTex),
+                                                          coordinatesOnTexture(corTex),
                                                           Component("image", place, isactive) {}
       ~Image(){}
 

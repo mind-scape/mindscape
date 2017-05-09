@@ -12,8 +12,8 @@ bool Image::load(){
   if( loaded_surface != NULL ){
     new_texture = SDL_CreateTextureFromSurface( renderer, loaded_surface );
     if(new_texture != NULL){
-      width = loaded_surface->w;
-      height = loaded_surface->h;
+      dimensionOnScreen.first = loaded_surface->w;
+      dimensionOnScreen.second = loaded_surface->h;
     }else{
       printf( "Unable to create texture from %s! SDL Error: %s\n", image_path.c_str(), SDL_GetError() );
     }
@@ -31,22 +31,23 @@ void Image::free(){
   if( texture != NULL){
     SDL_DestroyTexture(texture);
     texture = NULL;
-    width = 0;
-    height = 0;
+    dimensionOnScreen.first = 0;
+    dimensionOnScreen.second = 0;
   }
 }
 
 void Image::draw(int x, int y){
-  SDL_Rect ret = {0, 0, width, height};
-  SDL_Rect render_quad = {x, y, width, height};
+  SDL_Rect ret = {coordinatesOnTexture.first,coordinatesOnTexture.second, dimensionOnTexture.first, dimensionOnTexture.second};
+  // This render_quad tells where the image will appear in the screen
+  SDL_Rect render_quad = {x, y, dimensionOnScreen.first, dimensionOnScreen.second};
   SDL_RenderCopy(renderer, texture, &ret, &render_quad);
 }
 
 
 int Image::get_width(){
-  return width;
+  return dimensionOnScreen.first;
 }
 
 int Image::get_height(){
-  return height;
+  return dimensionOnScreen.second;
 }

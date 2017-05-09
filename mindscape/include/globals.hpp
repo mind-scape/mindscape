@@ -6,8 +6,8 @@
 
 namespace globals{
 
-  const std::string game_name = "Mind Scape";
-  const std::pair<int,int> window_size(1280,960);
+  const std::string game_name = "MindScape";
+  const std::pair<int,int> window_size(1280,720);
 
 }
 
