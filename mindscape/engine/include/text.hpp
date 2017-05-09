@@ -31,7 +31,7 @@ namespace engine{
                 int font_size,
                 SDL_Renderer* p_renderer,
                 Color t_color = Color(),
-                Color t_bg_color =Color(0xAA, 0xAA, 0xAA, 0xAA))
+                Color t_bg_color =Color(0x00, 0x00, 0x00, 0x00))
 
             : text_for_view(text), text_font_path(font_path),text_font_size(font_size),
               renderer(p_renderer), text_color(t_color), text_background_color(t_bg_color),

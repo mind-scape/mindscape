@@ -11,10 +11,44 @@
 
 using namespace engine;
 
+Level * main_menu(Game game){
+
+    //Higth, Weigths, Positions
+    std::pair<int, int> bg_dimensions(1280,960);
+    std::pair<int, int> bg_position(0,0);
+    std::pair<int, int> title_position(350,050);
+
+    //Components
+    Image* bg_menu = new Image(game.renderer, "../assets/images/menu_screen.jpg", bg_position, true, bg_dimensions);
+    Text* title_menu = new Text("MindScape", "../assets/fonts/FFF_Tusj.ttf", 120, game.renderer);
+    Audio* music = new Audio("../assets/audios/loop1-1.mp3", Audio::audio_type::music);
+
+    //Game Objects
+    GameObject* background = new GameObject("background_menu", bg_position);
+    GameObject* audio_loop = new GameObject("audio_loop", bg_position);
+    GameObject* title = new GameObject("title_menu", title_position);
+
+    //Constituting game objects
+    background->add_component("bg_image", bg_menu);
+    audio_loop-> add_component("audio", music);
+    title-> add_component("title_menu", title_menu);
+
+    Level* main_menu = new Level();
+
+    main_menu->add_object("title_menu", title);
+    main_menu->add_object("bg_menu", background);
+    main_menu->add_object("audio_loop", audio_loop);
+
+    return main_menu;
+
+}
+
 int main(int,char**){
   Game& game = Game::get_instance();
   game.set_information(globals::game_name,globals::window_size);
   game.game_init();
+
+  /*
   std::pair<int, int> place (0, 0);
   std::pair<int, int> anotherplace (100, 100);
   std::pair<int, int> whfirstimage (600, 800);
@@ -22,25 +56,28 @@ int main(int,char**){
   std::pair<int, int> titleplace (0, 400);
   Image* images1 = new Image(game.renderer, "../assets/images/scott.png", place, true, whfirstimage);
   Image* images2 = new Image(game.renderer, "../assets/images/background.png", place, true, whsecondimage);
-  Audio* music = new Audio("../assets/audios/loop1-1.mp3", Audio::audio_type::music);
-  Text* title = new Text("MindScape", "../assets/fonts/FFF_Tusj.ttf", 120, game.renderer);
   GameObject* boy = new GameObject("boy", anotherplace);
   GameObject* background = new GameObject("background", place);
-  GameObject* audio_loop = new GameObject("audio_loop", place);
-  GameObject* title_menu = new GameObject("title", titleplace);
   boy->add_component("image", images1);
   background->add_component("image", images2);
-  audio_loop-> add_component("audio", music);
-  title_menu-> add_component("title_menu", title);
+
 
   Level* level1 = new Level();
+  menu = main_menu(game);
+
   level1->add_object("boy", boy);
   level1->add_object("background", background);
-  level1->add_object("audio_loop", audio_loop);
-  level1->add_object("title", title_menu);
   game.add_scene("first level", level1);
-  game.change_scene(level1);
+  */
+
+  Level* menu = new Level();
+  menu = main_menu(game);
+
+  game.add_scene("main_menu", menu);
+  game.change_scene(menu);
   game.run();
 
   return 0;
 }
+
+
