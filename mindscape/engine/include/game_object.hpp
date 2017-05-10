@@ -2,10 +2,12 @@
 #define GAME_OBJECT_H
 
 #include <iostream>
+#include <map>
 #include <unordered_map>
 #include <vector>
 #include <string>
 #include "component.hpp"
+#include "../../include/game_event.hpp"
 
 namespace engine {
 
@@ -16,17 +18,18 @@ namespace engine {
       std::vector<Component*> images;
       std::vector<Component*> texts;
       std::pair<int,int> position;
-      std::map<std::int,std::string> translations;
+      std::map<int,std::string> translations;
 
       GameObject();
-      GameObject(std::string p_name, std::pair<int, int> posi):name(p_name),
-                                                              position(posi){};
+      GameObject(std::string p_name, std::pair<int, int> p_position):name(p_name),
+                                                              position(p_position){};
       ~GameObject(){};
 
       bool load();
       virtual void free(){};
       void draw();
       void add_component(std::string, Component*);
+      virtual void on_event();
   };
 
 }

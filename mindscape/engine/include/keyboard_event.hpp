@@ -35,6 +35,7 @@ namespace engine {
       Key key() const { return keymap[SDL_key]; }
       Modifier modifier() const { return m_modifier; }
       bool repeated() const { return m_repeated; }
+      static Modifier key_modifier(Uint16 modifier);
 
     private:
       State m_state;

@@ -12,6 +12,6 @@ std::list<GameEvent> Translator::keyboard_events_to_game_events(std::list<Keyboa
         auto game_event = GameEvent(game_object.name, game_object.translations[key]);
         game_events.push_back(game_event);
       }
-    }                 
-  } 
+    }
+  }
 }

@@ -22,7 +22,7 @@ namespace engine{
       std::unordered_map<std::string, Scene*> scenes;
       Scene* actual_scene;
       State game_state;
-      
+
       Game(){};
       ~Game(){};
 
