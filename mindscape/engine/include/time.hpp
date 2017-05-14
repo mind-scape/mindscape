@@ -1,3 +1,5 @@
+//TODO Check if it's correct maintain all below methods as static
+
 #ifndef TIME_H
 #define TIME_H
 
@@ -7,19 +9,18 @@ namespace engine {
   typedef enum {RUNNING, PAUSED} state;
 
   class Time {
-    protected:
-      unsigned m_time_elapsed;
-      unsigned m_last_update;
-      state m_current_state;
-
-      unsigned real_time_elapsed();
-      void update_time(unsigned now);
-
     public:
       virtual ~Time() = default;
-      unsigned time_elapsed();
-      void pause_timer();
-      void resume_timer();
+      static unsigned time_elapsed();
+      static void pause_timer();
+      static void resume_timer();
+      static unsigned real_time_elapsed();
+      static void update_time(unsigned now);
+    protected:
+      static unsigned m_time_elapsed;
+      static unsigned m_last_update;
+      static state m_current_state;
+
   };
 }
 

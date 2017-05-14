@@ -20,7 +20,7 @@ namespace engine {
       std::pair<int,int> position;
       std::map<int,std::string> translations;
 
-      GameObject();
+      GameObject(){};
       GameObject(std::string p_name, std::pair<int, int> p_position):name(p_name),
                                                               position(p_position){};
       ~GameObject(){};
@@ -29,7 +29,7 @@ namespace engine {
       virtual void free(){};
       void draw();
       void add_component(std::string, Component*);
-      virtual void on_event();
+      virtual void on_event(GameEvent);
   };
 
 }

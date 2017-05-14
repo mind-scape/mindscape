@@ -1,14 +1,6 @@
 #include "../include/little_girl.hpp"
-#include "../include/component.hpp"
 
 using namespace engine;
-
-LittleGirl::translations = {
-  {72,"MOVE_LEFT"},
-  {73,"MOVE_RIGHT"},
-  {74,"JUMP"},
-  {75,"CROUCH"},
-};
 
 bool LittleGirl::load(){
     for(auto image : images){
@@ -43,7 +35,7 @@ void LittleGirl::add_component(Component & component){
 */
 
 void LittleGirl::on_event(GameEvent game_event){
-  std::string event_name = game_event.event_name;
+  std::string event_name = game_event.game_event_name;
   if(event_name == "JUMP"){
      
   }else if(event_name == "CROUCH"){

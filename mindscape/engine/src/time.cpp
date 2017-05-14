@@ -10,7 +10,7 @@ unsigned Time::time_elapsed() {
     return m_time_elapsed;
 }
 
-unsigned real_time_elapsed() {
+unsigned Time::real_time_elapsed() {
   return SDL_GetTicks();
 }
 

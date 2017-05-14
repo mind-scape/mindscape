@@ -87,7 +87,7 @@ void Game::run(){
         }
       }
 
-      unsigned now = time::time_elapsed();
+      unsigned now = Time::time_elapsed();
 
       SDL_SetRenderDrawColor(renderer,0xAA, 0xAA, 0xAA, 0xAA);
 

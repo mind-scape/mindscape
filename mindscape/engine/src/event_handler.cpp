@@ -8,14 +8,11 @@ void EventHandler::dispatch_pending_events(unsigned now){
   auto keyboard_events = pending_keyboard_events(now);
   auto game_events = Translator::keyboard_events_to_game_events(keyboard_events);
 
-  game_events.sort();                                                 
+  //game_events.sort();                                                 
 
-  for (auto event : game_events)                                      
-  {                                                                   
+  for (auto event : game_events){                                                                   
     for (auto listener : listeners)                                 
-      if (listener->on_event(event)){                              
-        //break;                     
-      }                             
+      listener->on_event(event);                              
   }
 
   Translator::game_events.clear();                                                                   
@@ -85,10 +82,10 @@ void EventHandler::get_events_until_now(unsigned now){
   last_update = now;                                                           
 }
 
-static void EventHandler::add_listener(GameObject * listener){
-  if(listener != NULL) listeners.push_back(translator);
+void EventHandler::add_listener(GameObject * listener){
+  if(listener != NULL) listeners.push_back(listener);
 }
 
-static void EventHandler::add_listener(GameObject * listener){
-  if(listener != NULL) listeners.remove(translator);
+void EventHandler::remove_listener(GameObject * listener){
+  if(listener != NULL) listeners.remove(listener);
 }
