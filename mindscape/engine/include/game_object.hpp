@@ -29,7 +29,7 @@ namespace engine {
       virtual void free(){};
       void draw();
       void add_component(std::string, Component*);
-      virtual void on_event(GameEvent);
+      virtual void on_event(GameEvent){};
   };
 
 }
