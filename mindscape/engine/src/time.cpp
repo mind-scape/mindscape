@@ -2,8 +2,12 @@
 
 using namespace engine;
 
+unsigned Time::m_time_elapsed;
+unsigned Time::m_last_update;
+state Time::m_current_state;
+
 unsigned Time::time_elapsed() {
-    if(m_current_state == RUNNING) {
+    if(Time::m_current_state == RUNNING) {
         unsigned now = real_time_elapsed();
         update_time(now);
     }
@@ -15,18 +19,18 @@ unsigned Time::real_time_elapsed() {
 }
 
 void Time::pause_timer() {
-    if(m_current_state == RUNNING) {
+    if(Time::m_current_state == RUNNING) {
         unsigned now = real_time_elapsed();
         update_time(now);
-        m_current_state = PAUSED;
+        Time::m_current_state = PAUSED;
     }
 }
 
 void Time::resume_timer() {
-    if(m_current_state == PAUSED) {
+    if(Time::m_current_state == PAUSED) {
         unsigned now = real_time_elapsed();
         m_last_update = now;
-        m_current_state = RUNNING;
+        Time::m_current_state = RUNNING;
     }
 }
 
