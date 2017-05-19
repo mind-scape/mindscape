@@ -18,6 +18,8 @@ class Scene {
 		virtual void draw(){};
 		virtual void load(){};
 		virtual void free(){};
+    void activate_game_object(std::string name);
+    void deactivate_game_object(std::string name);
 };
 
 #endif

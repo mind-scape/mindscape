@@ -11,8 +11,9 @@ void EventHandler::dispatch_pending_events(unsigned now){
   //game_events.sort();                                                 
 
   for (auto event : game_events){                                                                   
-    for (auto listener : listeners)                                 
-      listener->on_event(event);                              
+    for (auto listener : listeners)
+      if(listener->name == event.solver) 
+        listener->on_event(event);                              
   }
 
   Translator::game_events.clear();                                                                   

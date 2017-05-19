@@ -1,3 +1,5 @@
+//TODO discover how overwrite static attribute
+
 #ifndef LITTLE_GIRL_H
 #define LITTLE_GIRL_H
 

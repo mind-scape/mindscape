@@ -48,12 +48,12 @@ int main(int,char**){
   game.set_information(globals::game_name,globals::window_size);
   game.game_init();
 
-  std::pair<int, int> place (100, 500);
+  std::pair<int, int> place (0, 0);
   std::pair<int, int> anotherplace (0, 0);
-  std::pair<int, int> whfirstimage (720, 1280);
-  std::pair<int, int> whsecondimage (108, 140);
+  //std::pair<int, int> whfirstimage (576, 1024);
+  //std::pair<int, int> whsecondimage (108, 140);
   Image* images1 = new Image(game.renderer, "../assets/images/scott.png", place, true, std::make_pair(108, 140), std::make_pair(108, 140), anotherplace);
-  Image* images2 = new Image(game.renderer, "../assets/images/hdcenario.jpg", place, true, std::make_pair(720, 1280), std::make_pair(720, 1280), anotherplace);
+  Image* images2 = new Image(game.renderer, "../assets/images/background.png", place, true, std::make_pair(576, 1024), std::make_pair(576, 1024), anotherplace);
   GameObject* boy = new GameObject("boy", place);
   GameObject* background = new GameObject("background", anotherplace);
   boy->add_component("image", images1);
@@ -65,6 +65,7 @@ int main(int,char**){
 
   level1->add_object("boy", boy);
   level1->add_object("background", background);
+  level1->activate_game_object("boy");level1->activate_game_object("background");
   game.add_scene("first level", level1);
 
   // Level* menu = new Level();
