@@ -11,10 +11,7 @@ bool Image::load(){
   SDL_Surface* loaded_surface = IMG_Load( image_path.c_str() );
   if( loaded_surface != NULL ){
     new_texture = SDL_CreateTextureFromSurface( renderer, loaded_surface );
-    if(new_texture != NULL){
-      dimensionOnScreen.first = loaded_surface->w;
-      dimensionOnScreen.second = loaded_surface->h;
-    }else{
+    if(new_texture == NULL){
       printf( "Unable to create texture from %s! SDL Error: %s\n", image_path.c_str(), SDL_GetError() );
     }
 
@@ -39,10 +36,15 @@ void Image::free(){
 void Image::draw(int x, int y){
   SDL_Rect ret = {coordinatesOnTexture.first,coordinatesOnTexture.second, dimensionOnTexture.first, dimensionOnTexture.second};
   // This render_quad tells where the image will appear in the screen
-  SDL_Rect render_quad = {x, y, dimensionOnScreen.first, dimensionOnScreen.second};
+  SDL_Rect render_quad = {x, y, this->get_width(), this->get_height()};
   SDL_RenderCopy(renderer, texture, &ret, &render_quad);
 }
 
+void Image::set_values(std::pair<int, int> _dimensionOnScreen, std::pair<int, int> _dimensionOnTexture, std::pair<int, int> _coordinatesOnTexture){
+  dimensionOnScreen = _dimensionOnScreen;
+  dimensionOnTexture = _dimensionOnTexture;
+  coordinatesOnTexture = _coordinatesOnTexture;
+}
 
 int Image::get_width(){
   return dimensionOnScreen.first;
