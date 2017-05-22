@@ -13,20 +13,21 @@ namespace engine {
 
   class LittleGirl : public GameObject {
     public:
-      LittleGirl(std::string p_name, std::pair<int, int> position):GameObject("LittleGirl", position){};
+      LittleGirl(std::string p_name, std::pair<int, int> position):GameObject("LittleGirl", position,
+      {
+          {71,"MOVE_LEFT"},
+          {72,"MOVE_RIGHT"},
+          {73,"JUMP"},
+          {74,"CROUCH"},
+      }){};
+
       ~LittleGirl(){};
 
       bool load();
       void free();
       void update();
       void on_event(GameEvent game_event);
-      
-      std::map<int,std::string> translations = {
-        {72,"MOVE_LEFT"},
-        {73,"MOVE_RIGHT"},
-        {74,"JUMP"},
-        {75,"CROUCH"},
-      };
+
   };
 
 }

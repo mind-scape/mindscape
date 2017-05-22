@@ -14,7 +14,7 @@ namespace engine{
 
     public:
       static std::list<GameEvent> keyboard_events_to_game_events(std::list<KeyboardEvent>);
-      static std::list<GameEvent> game_events;
+      //static std::list<GameEvent> game_events;
   };
 
 }

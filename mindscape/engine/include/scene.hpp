@@ -6,20 +6,25 @@
 #include <vector>
 #include <string>
 #include "game_object.hpp"
+#include "event_handler.hpp"
 
-class Scene {
-	public:
-		std::unordered_map<std::string, engine::GameObject*> objects;
+namespace engine{
 
-		Scene(){};
-		~Scene(){};
+  class Scene {
+    public:
+      std::unordered_map<std::string, engine::GameObject*> objects;
 
-		void add_object(std::string name, engine::GameObject* object);
-		virtual void draw(){};
-		virtual void load(){};
-		virtual void free(){};
-    void activate_game_object(std::string name);
-    void deactivate_game_object(std::string name);
-};
+      Scene(){};
+      ~Scene(){};
+
+      void add_object(std::string name, engine::GameObject* object);
+      virtual void draw(){};
+      virtual void load(){};
+      virtual void free(){};
+      void activate_game_object(std::string name);
+      void deactivate_game_object(std::string name);
+  };
+
+}
 
 #endif

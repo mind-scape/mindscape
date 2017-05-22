@@ -1,8 +1,5 @@
 #include "keyboard_event.hpp"
 
-#include <SDL2/SDL.h>
-#include <map>
-
 using namespace engine;
 
 KeyboardEvent::KeyMap KeyboardEvent::keymap = {
@@ -101,7 +98,8 @@ KeyboardEvent::KeyMap KeyboardEvent::keymap = {
   {SDLK_F12, KeyboardEvent::F12},
 };
 
-static KeyboardEvent::Modifier key_modifier(Uint16 modifier){
+/*
+Modifier KeyboardEvent::key_modifier(Uint16 modifier){
   switch (modifier){
     case KMOD_CAPS:
       return KeyboardEvent::CAPS;
@@ -119,4 +117,4 @@ static KeyboardEvent::Modifier key_modifier(Uint16 modifier){
       return KeyboardEvent::NONE;
   }
 }
-
+*/

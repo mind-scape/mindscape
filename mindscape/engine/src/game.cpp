@@ -1,10 +1,12 @@
 #include "game.hpp"
 #include "time.hpp"
 #include <iostream>
+#include <cstdio>
 
 using namespace engine;
 
 Game* Game::instance = NULL;
+bool Game::quit_event;
 
 void throw_error(const char* function){
   printf("Something's wrong in %s\n", function);
@@ -75,19 +77,17 @@ void Game::run(){
   int right_cont = 0, left_cont = 0;
 
   std::pair<int,int> pos; pos.first =240;pos.second = 350;
-
+ 
+  quit_event = false;
+ 
   if(load_media()){
-    bool quit_event = false;
 
     SDL_Event e;
+    EventHandler event_handler = EventHandler();
     while(!quit_event){
-      while(SDL_PollEvent( &e ) != 0){
-        if(e.type == SDL_QUIT){
-          quit_event = true;
-        }
-      }
 
       unsigned now = Time::time_elapsed();
+      event_handler.dispatch_pending_events(now);
 
       SDL_SetRenderDrawColor(renderer,0xAA, 0xAA, 0xAA, 0xAA);
 

@@ -2,28 +2,33 @@
 
 using namespace engine;
 
+std::list<GameObject *> EventHandler::listeners;
+
 void EventHandler::dispatch_pending_events(unsigned now){
   auto get_events_until_now(now);
 
   auto keyboard_events = pending_keyboard_events(now);
+  std::cout << "Keyboard Events number " << keyboard_events.size() << std::endl;
+
   auto game_events = Translator::keyboard_events_to_game_events(keyboard_events);
+  
+  std::cout << "Game Events number " << game_events.size() << std::endl;
 
-  //game_events.sort();                                                 
-
-  for (auto event : game_events){                                                                   
-    for (auto listener : listeners)
-      if(listener->name == event.solver) 
-        listener->on_event(event);                              
+  for (auto event : game_events){
+    for (auto listener : listeners){
+      if(listener->name == event.solver){
+        //listener->on_event(event);                              
+      }
+    }
   }
 
-  Translator::game_events.clear();                                                                   
 } 
 
 std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now){
   get_events_until_now(now);                                                 
-  auto it = sdl_events.begin();                                                 
+  auto it = sdl_events.begin();   
 
-  std::list<KeyboardEvent> events;   
+  std::list<KeyboardEvent> events; 
 
   while (it != sdl_events.end())                                                
   {                                                                           
@@ -34,7 +39,6 @@ std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now){
       auto event = KeyboardEvent(timestamp,                               
           KeyboardEvent::State::PRESSED,                                  
           it->key.keysym.sym,                                
-          KeyboardEvent::key_modifier(it->key.keysym.mod),                               
           repeated);                                                      
 
       events.push_back(event);                                        
@@ -45,7 +49,6 @@ std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now){
       auto event = KeyboardEvent(timestamp,                               
           KeyboardEvent::State::RELEASED,                                 
           it->key.keysym.sym,                                
-          KeyboardEvent::key_modifier(it->key.keysym.mod),                               
           repeated);                                                      
 
       events.push_back(event);                                        
@@ -74,8 +77,14 @@ void EventHandler::get_events_until_now(unsigned now){
     if (timestamp > now)                                                       
       break;                                                                 
 
-    SDL_PollEvent(&event);                                                     
-    sdl_events.push_back(event);                                                 
+    SDL_PollEvent(&event); 
+
+    if(event.type == SDL_QUIT){
+      Game::get_instance().quit_event = true;
+      break;
+    }
+                                                    
+    sdl_events.push_back(event);
 
     SDL_PumpEvents();                                                          
   }                                                                              

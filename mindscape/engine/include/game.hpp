@@ -1,14 +1,19 @@
 #ifndef GAME_H
 #define GAME_H
+
 #include "SDL2basics.hpp"
 #include <string>
 #include <unordered_map>
 #include "image.hpp"
 #include "audio.hpp"
 #include "text.hpp"
+#include "event_handler.hpp"
 #include "scene.hpp"
 
 namespace engine{
+
+  class Scene;
+  class EventHandler;
 
   class Game{
     public:
@@ -22,6 +27,7 @@ namespace engine{
       std::unordered_map<std::string, Scene*> scenes;
       Scene* actual_scene;
       State game_state;
+      static bool quit_event;
 
       Game(){};
       ~Game(){};

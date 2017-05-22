@@ -1,5 +1,7 @@
 #include "../include/level.hpp"
 
+using namespace engine;
+
 void Level::load(){
   for(auto go : objects){
     std::cout << "Loading " << go.first << std::endl;

@@ -8,6 +8,7 @@
 #include "../engine/include/scene.hpp"
 #include "../engine/include/level.hpp"
 #include "../include/globals.hpp"
+#include "../include/little_girl.hpp"
 
 using namespace engine;
 
@@ -24,15 +25,16 @@ int main(int,char**){
   images1-> set_values(std::make_pair(140, 180), std::make_pair(100, 100), std::make_pair(0, 0));
   images2-> set_values(std::make_pair(1280, 720), std::make_pair(300, 300), std::make_pair(0, 0));
 
-  GameObject* boy = new GameObject("boy", place);
+  GameObject* little_girl = new LittleGirl("little_girl", place);
   GameObject* background = new GameObject("background", anotherplace);
-  boy->add_component("image", images1);
+  little_girl->add_component("image", images1);
   background->add_component("image", images2);
 
   Level* level1 = new Level();
 
-  level1->add_object("boy", boy);
+  level1->add_object("little_girl", little_girl);
   level1->add_object("background", background);
+  level1->activate_game_object("little_girl");level1->activate_game_object("background");
   game.add_scene("first level", level1);
 
   game.change_scene(level1);

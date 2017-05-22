@@ -15,6 +15,7 @@ namespace engine {
     public:
       GameObject(){};
       GameObject(std::string p_name, std::pair<int, int> p_position):name(p_name),position(p_position),active_game_object(false){};
+      GameObject(std::string p_name, std::pair<int, int> p_position,std::map<int,std::string> p_translations):name(p_name),position(p_position),active_game_object(false),translations(p_translations){};
       ~GameObject(){};
 
       std::string name;
