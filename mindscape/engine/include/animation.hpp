@@ -3,66 +3,49 @@
 
 # include <string>
 #include "image.hpp"
+#include "time.hpp"
 
 namespace engine{
 
     class Animation : public Image{
 
-    public:
-        Animation(std::string sprite_path = "",
-                        unsigned int a_sprite_columns=1,
-                        unsigned int a_sprite_rows=1,
-                        double duration=1.0,
-                        bool a_in_loop = true)
-
-            :Image(sprite_path), sprite_columns(a_sprite_columns), sprite_rows(a_sprite_rows),
-             animation_duration(static_cast<unsigned int>(duration * 1000)), in_loop(a_in_loop),
-             number_frames(a_sprite_rows * a_sprite_columns), animation_duration(0), initial_frame(0),
-             final_frame(number_frames - 1), atual_frame(initial_frame), is_finished(false){}
-
-              virtual ~Animation(){}
-
-              virtual bool load();
-              virtual void free();
-              virtual bool draw(int, int){}
-
-              inline void set_range(unsigned int a_initial_frame, unsigned int a_final_frame){
-                initial_frame = a_initial_frame;
-                final_frame = a_final_frame;
-              }
-
-              inline void set_init_frame(unsigned int a_initial_frame){
-                initial_frame = a_initial_frame;
-              }
-
-              inline void set_final_frame(unsigned int a_final_frame){
-                final_frame = a_final_frame;
-              }
-
-              inline bool finished() const {return finished;}
-
     protected:
 
-        unsigned int sprite_columns;
-        unsigned int sprite_rows;
-        unsigned int duration;
-        bool in_loop;
-        unsigned number_frames;
+      unsigned int sprite_columns;
+      unsigned int sprite_rows;
 
-        unsigned int animation_duration;
-        unsigned int frame_time;
-        unsigned int initial_frame;
-        unsigned int final_frame;
-        unsigned int atual_frame;
-        unsigned int sprite_widht;
-        unsigned int sprite_height;
+      unsigned int duration;
+      unsigned int animation_duration;
 
-        bool is_finished;
+      unsigned number_frames;
+      unsigned int frame_time;
+      unsigned int initial_frame;
+      unsigned int final_frame;
+      unsigned int actual_frame;
 
+      bool in_loop;
+      bool is_finished;
 
-    }
+    public:
 
+      Animation(SDL_Renderer* p_renderer,
+                std::string path,
+                bool isactive,
+                std::pair<int, int> displacement,
+                unsigned int a_sprite_columns=1,
+                unsigned int a_sprite_rows=1,
+                double _duration=1.0,
+                bool _in_loop = true)
+      : Image(p_renderer, path, isactive, displacement), sprite_columns(a_sprite_columns),
+        sprite_rows(a_sprite_rows), duration(_duration*1000), in_loop(_in_loop),
+        number_frames(a_sprite_rows * a_sprite_columns), animation_duration(0), initial_frame(0),
+        final_frame(number_frames-1), actual_frame(initial_frame), is_finished(false){}
+
+      virtual ~Animation(){}
+
+      bool set_frame_time();
+      void draw(int, int);
+    };
 }
-
 
 #endif

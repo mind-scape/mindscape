@@ -17,10 +17,6 @@ namespace engine{
       std::string image_path;
       std::pair<int, int> dimensionOnScreen, dimensionOnTexture, coordinatesOnTexture;
 
-
-      // int width;
-      // int height;
-
       Image(SDL_Renderer* p_renderer, std::string path, bool isactive, std::pair<int, int> displacement): renderer(p_renderer),
                                                           texture(NULL),
                                                           image_path(path),

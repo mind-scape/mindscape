@@ -36,7 +36,7 @@ void Image::free(){
 void Image::draw(int x, int y){
   SDL_Rect ret = {coordinatesOnTexture.first,coordinatesOnTexture.second, dimensionOnTexture.first, dimensionOnTexture.second};
   // This render_quad tells where the image will appear in the screen
-  SDL_Rect render_quad = {x, y, this->get_width(), this->get_height()};
+  SDL_Rect render_quad = {x+displacement.first, y+displacement.second, this->get_width(), this->get_height()};
   SDL_RenderCopy(renderer, texture, &ret, &render_quad);
 }
 

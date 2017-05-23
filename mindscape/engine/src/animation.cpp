@@ -5,61 +5,19 @@
 
 using namespace engine;
 
-bool Animation::load(){
-
-    if(Image::load() == false){
-        printf("\nNão está carregando a imagem no Animation\n");
-        return false;
-    }
-
-    if(animation_duration == 0){
-        printf("\nNão se pode criar uma animação com 0 de duração\n");
-        return false;
-    }
-
-    if(sprite_columns == 0){
-        printf("\nNão se pode iniciar uma animação com 0 colunas de sprites\n");
-        return false;
-    }
-
-    if(sprite_rows == 0){
-        printf("\nNão se pode iniciar uma animação com 0 linhas de sprites\n");
-        return false;
-    }
-
-    if (initial_frame > final_frame){
-        printf("\nTempo inicial da animação maior que o tempo final\n");
-        return false;
-    }
-
-    number_frames = final_frame - initial_frame + 1;
-    sprite_widht = dimensionOnTexture.first / sprite_columns;
-    sprite_height = dimensionOnTexture.second / sprite_height;
-
-    frame_time = (unsigned int) std::ceil(double(animation_duration)/double(number_frames))
-
-    return true;
-
-}
-
-bool Animation::free(){
-    if(Image::free() == false){
-        printf("\nNão pôde liberar a memória da animação\n");
-        return false;
-    }
-
+bool Animation::set_frame_time(){
+    frame_time = (double)(duration/number_frames);
     return true;
 }
 
-void Animation::draw(){
+// TODO: Implement free
 
+void Animation::draw(int x, int y){
     is_finished = false;
-
-    animation_duration += Game::instance.elapsed_time();
+    animation_duration += Time::time_elapsed();
 
     if(animation_duration >= duration){
         is_finished = true;
-
         if(in_loop){
             animation_duration -= duration;
         } else {
@@ -67,11 +25,12 @@ void Animation::draw(){
         }
     }
 
-    atual_frame = (animation_duration / frame_time) + initial_frame;
+    actual_frame = (animation_duration / frame_time) + initial_frame;
 
-    int atual_row = atual_frame / sprite_columns;
-    int atual_col = atual_frame % sprite_columns;
+    int actual_row = actual_frame / sprite_columns;
+    int actual_col = actual_frame % sprite_columns;
 
-
-
+    SDL_Rect ret = {actual_col * dimensionOnTexture.first, actual_row * dimensionOnTexture.second, dimensionOnTexture.first, dimensionOnTexture.second};
+    SDL_Rect render_quad = {x+displacement.first, y+displacement.second, this->get_width(), this->get_height()};
+    SDL_RenderCopy(renderer, texture, &ret, &render_quad);
 }
