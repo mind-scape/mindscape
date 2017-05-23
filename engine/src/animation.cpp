@@ -14,7 +14,7 @@ bool Animation::set_frame_time(){
 
 void Animation::draw(int x, int y){
     is_finished = false;
-    animation_duration += Time::time_elapsed();
+    animation_duration += time->get_total_time();
 
     if(animation_duration >= duration){
         is_finished = true;

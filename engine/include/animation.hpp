@@ -4,6 +4,7 @@
 # include <string>
 #include "image.hpp"
 #include "time.hpp"
+#include "timer.hpp"
 
 namespace engine{
 
@@ -25,6 +26,7 @@ namespace engine{
 
       bool in_loop;
       bool is_finished;
+      engine::Timer* time;
 
     public:
 
@@ -39,7 +41,7 @@ namespace engine{
       : Image(p_renderer, path, isactive, displacement), sprite_columns(a_sprite_columns),
         sprite_rows(a_sprite_rows), duration(_duration*1000), in_loop(_in_loop),
         number_frames(a_sprite_rows * a_sprite_columns), animation_duration(0), initial_frame(0),
-        final_frame(number_frames-1), actual_frame(initial_frame), is_finished(false){}
+        final_frame(number_frames-1), actual_frame(initial_frame), is_finished(false){ time = new Timer(); }
 
       virtual ~Animation(){}
 

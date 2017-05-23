@@ -29,3 +29,11 @@ int Timer::get_elapsed_time(){
         return SDL_GetTicks() - time_interval;
     }
 }
+
+void Timer::set_interval(){
+  if(!is_running){
+    printf("Cannot set interval while timer is stopped.");
+  } else {
+    time_interval = get_total_time();
+  }
+}
