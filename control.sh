@@ -115,9 +115,9 @@ do_all() {
 }
 
 do_archive(){
-  git archive --format=tar.gz --prefix=mindscape-${TAG}/ $TAG > mindscape-${TAG}.tar.gz
+  git archive --format=tar.gz --prefix=mindscape-${TAG:1}/ $TAG > mindscape-${TAG:1}.tar.gz
   mkdir -p archives
-  mv mindscape-${TAG}.tar.gz archives/
+  mv mindscape-${TAG:1}.tar.gz archives/
 }
 
 do_clear() {
@@ -139,7 +139,11 @@ generate_debian_package() {
 generate_redhat_package(){
   echo "Generating rpm package for TAG: $TAG"
   echo
-
+  
+  do_archive
+  cd rpm/
+  ./packager.sh
+  cd ..
 }
 
 if $MAKE_ENABLED && [ "$COMMAND" = 'build' ]; then
