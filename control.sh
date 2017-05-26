@@ -1,9 +1,30 @@
 MAKE_ENABLED=false
 INVALID_OPTIONS=false
 
+validates_distro() {
+  if [ "$COMMAND" == "package" ]; then
+    if [ "$DISTRO" == "debian" ] || [ "$DISTRO" == "redhat" ]; then
+      true
+    else
+      INVALID_OPTIONS=true
+    fi
+  else
+    INVALID_OPTIONS=true
+  fi
+}
+
+validates_tag() {
+  if [ "$COMMAND" == "archive" ] || [ "$COMMAND" == "package" ]; then
+    true
+  else
+    INVALID_OPTIONS=true
+  fi
+}
+
+previous=
 for i in "$@"; do
   case $i in
-    build|make|run|all|clear)
+    build|make|run|all|clear|package|archive)
       COMMAND=$i
       shift
       ;;
@@ -11,14 +32,27 @@ for i in "$@"; do
       MAKE_ENABLED=true
       shift
       ;;
+    --distro)
+      DISTRO=$2
+      shift 2
+      ;;
+    --tag)
+      TAG=$2
+      shift 2
+      ;;
     *)
       if [ -z "$COMMAND" ]; then
-        echo "COMMAND: $i"
-        echo "COMMAND: $COMMAND"
         INVALID_OPTIONS=true
+      elif [ "$previous" == "--distro" ]; then
+        validates_distro
+      elif [ "$previous" == "--tag" ]; then
+        validates_tag
+      else
+          INVALID_OPTIONS=true
       fi
       ;;
   esac
+  previous=$i
 done
 
 if $INVALID_OPTIONS; then
@@ -28,6 +62,8 @@ if $INVALID_OPTIONS; then
   echo "" >&2
   echo "* <command> = {build|make|run|all|clear}" >&2
   echo "* [options] = --make" >&2
+  echo "              --distro <debian|redhat>" >&2
+  echo "              --tag    <git-tag>" >&2
   exit 2
 fi
 
@@ -78,9 +114,32 @@ do_all() {
   do_run
 }
 
+do_archive(){
+  git archive --format=tar.gz --prefix=mindscape-${TAG}/ $TAG > mindscape-${TAG}.tar.gz
+  mkdir -p archives
+  mv mindscape-${TAG}.tar.gz archives/
+}
+
 do_clear() {
+  rm -rf archives
   rm -rf build
   rm -rf bin
+}
+
+do_package() {
+  generate_${DISTRO}_package
+}
+
+generate_debian_package() {
+  echo "NOT IMPLEMENTED YET"
+  echo "TAG: ${TAG}   DISTRO: ${DISTRO}"
+  echo
+}
+
+generate_redhat_package(){
+  echo "Generating rpm package for TAG: $TAG"
+  echo
+
 }
 
 if $MAKE_ENABLED && [ "$COMMAND" = 'build' ]; then

@@ -1,5 +1,7 @@
 build
 bin
+.vagrant
+archives
 
 # Ignoring YCM personal configuration file
 .ycm_extra_conf.py
