@@ -4,6 +4,7 @@
 #define LITTLE_GIRL_H
 
 #include "../engine/include/game_object.hpp"
+#include "../engine/include/image.hpp"
 #include <iostream>
 #include <vector>
 #include <string>

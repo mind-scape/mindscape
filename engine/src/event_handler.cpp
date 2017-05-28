@@ -17,7 +17,7 @@ void EventHandler::dispatch_pending_events(unsigned now){
   for (auto event : game_events){
     for (auto listener : listeners){
       if(listener->name == event.solver){
-        //listener->on_event(event);                              
+        listener->on_event(event);
       }
     }
   }

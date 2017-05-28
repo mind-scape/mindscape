@@ -36,30 +36,31 @@ void LittleGirl::add_component(Component & component){
 
 void LittleGirl::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
+  Image* ref1 = dynamic_cast<Image*>(images[1]);
+  Image* ref0 = dynamic_cast<Image*>(images[0]);
+
   if(event_name == "JUMP"){
-     
+//    state == "JUMPING";
   }else if(event_name == "CROUCH"){
       
   }else if(event_name == "MOVE_LEFT"){
-/*
-    if(ret.y == 0) ret.y = 140;                                              
-    ret.x -= 108;                                                            
-    if(ret.x < 0) ret.x = 756;                                               
-    right_cont = 0;                                                          
+  
+    ref0->active = false;
+    ref1->active = true;
 
-    pos.first -= 20;                                                         
-    if(pos.first < 0) pos.first = 700; 
-*/
+    ref1->coordinatesOnTexture.first -= 192; 
+    std::cout << "Deu " << ref1->coordinatesOnTexture.first << std::endl; 
+    if(ref1->coordinatesOnTexture.first <= 0) ref1->coordinatesOnTexture.first = 1536;
+
   }else if(event_name == "MOVE_RIGHT"){
-/*
-    if(ret.y == 140) ret.y = 0;                                           
-    ret.x+=108;                                                           
-    if(ret.x == 864) ret.x = 0;                                           
-    left_cont = 0;                                                        
 
-    pos.first += 20;                                                      
-    if(pos.first > 700) pos.first = 0;
-  */
+    ref1->active = false;
+    ref0->active = true;
+
+    ref0->coordinatesOnTexture.first += 192; 
+    std::cout << "Deu " << ref0->coordinatesOnTexture.first << std::endl; 
+    if(ref0->coordinatesOnTexture.first >= 1728) ref0->coordinatesOnTexture.first = 0;
+
   }        
 }
 
