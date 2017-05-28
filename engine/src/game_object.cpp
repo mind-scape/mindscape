@@ -3,8 +3,8 @@
 
 using namespace engine;
 
-bool compare(pair<int, Component*> a, pair<int, Component*> b){
-  return a.first > b.second;
+bool compare(std::pair<int, Component*> a, std::pair<int, Component*> b){
+  return a.first < b.first;
 }
 
 void GameObject::add_component(std::string type, Component* component, int priority=10){
@@ -35,7 +35,7 @@ bool GameObject::load(){
 void GameObject::draw(){
   for(auto image : images){
     if(image.second->active){
-      image.secod->draw(position.first, position.second);
+      image.second->draw(position.first, position.second);
     }
   }
   for(auto audio : audios){

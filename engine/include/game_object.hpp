@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <vector>
 #include <string>
+#include <utility>
 #include "component.hpp"
 #include "../../include/game_event.hpp"
 
@@ -22,8 +23,8 @@ namespace engine {
 
       std::string name;
       std::vector<Component*> audios;
-      std::vector< pair<int, Component*> > images;
-      std::vector< pair<int, Component*> > texts;
+      std::vector< std::pair<int, Component*> > images;
+      std::vector< std::pair<int, Component*> > texts;
       std::pair<int,int> position;
       std::map<int,std::string> translations;
       bool active_game_object;
@@ -31,7 +32,7 @@ namespace engine {
       bool load();
       virtual void free(){};
       void draw();
-      void add_component(std::string, Component*);
+      void add_component(std::string, Component*, int);
       virtual void on_event(GameEvent){};
   };
 

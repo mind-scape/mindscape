@@ -35,27 +35,26 @@ int main(int,char**){
   images4-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
   images5-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
 
-  GameObject* little_girl = new LittleGirl("LittleGirl", place);
-  GameObject* background = new Background("Background", anotherplace);
-  GameObject* fox = new Fox("Fox", anotherotherplace);
-  
-  little_girl->add_component("image", images1);
-  little_girl->add_component("image", images3);
-  background->add_component("image", images2);
-  fox->add_component("image",images4);
-  fox->add_component("image",images5);
+  GameObject* little_girl = new LittleGirl("little_girl", place);
+  GameObject* background = new Background("background", anotherplace);
+  GameObject* fox = new Fox("fox", anotherotherplace);
+
+  little_girl->add_component("image", images1, 2);
+  little_girl->add_component("image", images3, 2);
+  background->add_component("image", images2, 2);
+  fox->add_component("image",images4, 2);
+  fox->add_component("image",images5, 2);
 
   Level* level1 = new Level();
 
-  level1->add_object("little_girl", little_girl);
-  level1->add_object("fox", fox);
-  level1->add_object("background", background);
+  level1->add_object(2, little_girl);
+  level1->add_object(2, fox);
+  level1->add_object(1, background);
   level1->activate_game_object("little_girl");
   level1->activate_game_object("background");
   level1->activate_game_object("fox");
-  
-game.add_scene("first level", level1);
 
+  game.add_scene("first level", level1);
   game.change_scene(level1);
   game.run();
   return 0;

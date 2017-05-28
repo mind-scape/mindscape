@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <utility>
 #include <string>
 #include "game_object.hpp"
 #include "event_handler.hpp"
@@ -12,7 +13,7 @@ namespace engine{
 
   class Scene {
     public:
-      std::vector<pair<int, engine::GameObject*> > objects;
+      std::vector<std::pair<int, engine::GameObject*> > objects;
 
       Scene(){};
       ~Scene(){};
