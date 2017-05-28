@@ -12,12 +12,12 @@ namespace engine{
 
   class Scene {
     public:
-      std::unordered_map<std::string, engine::GameObject*> objects;
+      std::vector<pair<int, engine::GameObject*> > objects;
 
       Scene(){};
       ~Scene(){};
 
-      void add_object(std::string name, engine::GameObject* object);
+      void add_object(int priority, engine::GameObject* object);
       virtual void draw(){};
       virtual void load(){};
       virtual void free(){};

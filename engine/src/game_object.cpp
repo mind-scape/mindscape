@@ -1,41 +1,47 @@
 #include "game_object.hpp"
+#include <algorithm>
 
 using namespace engine;
 
-void GameObject::add_component(std::string type, Component* component){
+bool compare(pair<int, Component*> a, pair<int, Component*> b){
+  return a.first > b.second;
+}
+
+void GameObject::add_component(std::string type, Component* component, int priority=10){
   if(type == "audio"){
     audios.push_back(component);
   }else if(type == "text"){
-    texts.push_back(component);
+    texts.push_back(std::make_pair(priority, component));
+    sort(texts.begin(), texts.end(), compare);
   }else{
-    images.push_back(component);
+    images.push_back(std::make_pair(priority, component));
+    sort(images.begin(), images.end(), compare);
   }
 }
 
 bool GameObject::load(){
-  printf("ENTREI NO LOAD\n");
   for(auto image : images){
-      image->load();
+      image.second->load();
   }
   for(auto audio : audios){
     audio->load();
   }
   for(auto text : texts){
-    text->load();
+    text.second->load();
   }
   return true;
 }
 
 void GameObject::draw(){
   for(auto image : images){
-    if(image->active){
-      image->draw(position.first, position.second);
+    if(image.second->active){
+      image.secod->draw(position.first, position.second);
     }
   }
   for(auto audio : audios){
     audio->draw(position.first, position.second);
   }
   for(auto text : texts){
-    text->draw(position.first, position.second);
+    text.second->draw(position.first, position.second);
   }
 }

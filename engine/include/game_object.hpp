@@ -22,8 +22,8 @@ namespace engine {
 
       std::string name;
       std::vector<Component*> audios;
-      std::vector<Component*> images;
-      std::vector<Component*> texts;
+      std::vector< pair<int, Component*> > images;
+      std::vector< pair<int, Component*> > texts;
       std::pair<int,int> position;
       std::map<int,std::string> translations;
       bool active_game_object;
