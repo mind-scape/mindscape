@@ -49,7 +49,6 @@ void LittleGirl::on_event(GameEvent game_event){
     ref1->active = true;
 
     ref1->coordinatesOnTexture.first -= 192; 
-    std::cout << "Deu " << ref1->coordinatesOnTexture.first << std::endl; 
     if(ref1->coordinatesOnTexture.first <= 0) ref1->coordinatesOnTexture.first = 1536;
 
   }else if(event_name == "MOVE_RIGHT"){
@@ -58,7 +57,6 @@ void LittleGirl::on_event(GameEvent game_event){
     ref0->active = true;
 
     ref0->coordinatesOnTexture.first += 192; 
-    std::cout << "Deu " << ref0->coordinatesOnTexture.first << std::endl; 
     if(ref0->coordinatesOnTexture.first >= 1728) ref0->coordinatesOnTexture.first = 0;
 
   }        

@@ -1,7 +1,7 @@
 //TODO discover how overwrite static attribute
 
-#ifndef LITTLE_GIRL_H
-#define LITTLE_GIRL_H
+#ifndef FOX_H
+#define FOX_H
 
 #include "../engine/include/game_object.hpp"
 #include "../engine/include/image.hpp"
@@ -12,9 +12,9 @@
 
 namespace engine {
 
-  class LittleGirl : public GameObject {
+  class Fox : public GameObject {
     public:
-      LittleGirl(std::string p_name, std::pair<int, int> position):GameObject(p_name, position,
+      Fox(std::string p_name, std::pair<int, int> position):GameObject(p_name, position,
       {
           {71,"MOVE_LEFT"},
           {72,"MOVE_RIGHT"},
@@ -22,7 +22,7 @@ namespace engine {
           {74,"CROUCH"},
       }){};
 
-      ~LittleGirl(){};
+      ~Fox(){};
 
       bool load();
       void free();
