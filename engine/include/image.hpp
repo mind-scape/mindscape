@@ -17,10 +17,10 @@ namespace engine{
       std::string image_path;
       std::pair<int, int> dimensionOnScreen, dimensionOnTexture, coordinatesOnTexture;
 
-      Image(SDL_Renderer* p_renderer, std::string path, bool isactive, std::pair<int, int> displacement): renderer(p_renderer),
+      Image(SDL_Renderer* p_renderer, std::string path, bool isactive, std::pair<int, int> displacement, int p): renderer(p_renderer),
                                                           texture(NULL),
                                                           image_path(path),
-                                                          Component("image", displacement, isactive) {}
+                                                          Component("image", displacement, isactive, p) {}
 
       ~Image(){}
 

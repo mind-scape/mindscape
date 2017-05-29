@@ -4,26 +4,26 @@ using namespace engine;
 
 bool Fox::load(){
     for(auto image : images){
-      image.second->load();
+      image->load();
     }
     for(auto audio : audios){
       audio->load();
     }
     for(auto text : texts){
-      text.second->load();
+      text->load();
     }
   return true;
 }
 
 void Fox::free(){
   for(auto image : images){
-    image.second->free();
+    image->free();
   }
   for(auto audio : audios){
     audio->free();
   }
   for(auto text : texts){
-    text.second->free();
+    text->free();
   }
 }
 
@@ -38,10 +38,10 @@ void Fox::on_event(GameEvent game_event){
 
   std::cout << "Estamos dentro da raposa antes" << std::endl;
   std::string event_name = game_event.game_event_name;
-  Image* ref0 = dynamic_cast<Image*>(images[0].second);
-  Image* ref1 = dynamic_cast<Image*>(images[1].second);
+  Image* ref0 = dynamic_cast<Image*>(images[0]);
+  Image* ref1 = dynamic_cast<Image*>(images[1]);
 
-  std::cout << "Estamos dentro da raposa  depois" << std::endl;
+  std::cout << "Estamos na raposa  depois" << std::endl;
 
   if(1){
     if(event_name == "JUMP"){

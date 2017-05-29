@@ -14,7 +14,7 @@ namespace engine {
 
   class Background : public GameObject {
     public:
-      Background(std::string p_name, std::pair<int, int> position):GameObject(p_name, position,
+      Background(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
       {
           {71,"MOVE_LEFT"},
           {72,"MOVE_RIGHT"},

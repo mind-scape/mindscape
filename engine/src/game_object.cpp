@@ -3,45 +3,45 @@
 
 using namespace engine;
 
-bool compare(std::pair<int, Component*> a, std::pair<int, Component*> b){
-  return a.first < b.first;
+bool compare(Component* a, Component* b){
+  return a->priority < b->priority;
 }
 
-void GameObject::add_component(std::string type, Component* component, int priority=10){
+void GameObject::add_component(std::string type, Component* component){
   if(type == "audio"){
     audios.push_back(component);
   }else if(type == "text"){
-    texts.push_back(std::make_pair(priority, component));
+    texts.push_back(component);
     sort(texts.begin(), texts.end(), compare);
   }else{
-    images.push_back(std::make_pair(priority, component));
+    images.push_back(component);
     sort(images.begin(), images.end(), compare);
   }
 }
 
 bool GameObject::load(){
   for(auto image : images){
-      image.second->load();
+      image->load();
   }
   for(auto audio : audios){
     audio->load();
   }
   for(auto text : texts){
-    text.second->load();
+    text->load();
   }
   return true;
 }
 
 void GameObject::draw(){
   for(auto image : images){
-    if(image.second->active){
-      image.second->draw(position.first, position.second);
+    if(image->active){
+      image->draw(position.first, position.second);
     }
   }
   for(auto audio : audios){
     audio->draw(position.first, position.second);
   }
   for(auto text : texts){
-    text.second->draw(position.first, position.second);
+    text->draw(position.first, position.second);
   }
 }

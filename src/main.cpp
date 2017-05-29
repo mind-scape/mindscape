@@ -23,11 +23,14 @@ int main(int,char**){
   std::pair<int, int> anotherplace (0, 0);
   std::pair<int, int> anotherotherplace (250,400);
 
-  Image* images1 = new Image(game.renderer, "../assets/images/menina_correndo_direita.png", true, std::make_pair(0, 0));
-  Image* images2 = new Image(game.renderer, "../assets/images/scene_1_red.png", true, std::make_pair(0, 0));
-  Image* images3 = new Image(game.renderer, "../assets/images/menina_correndo_esquerda.png", false, std::make_pair(0, 0));
-  Image* images4 = new Image(game.renderer, "../assets/images/raposa_correndo_direita.png", true, std::make_pair(0, 0));
-  Image* images5 = new Image(game.renderer, "../assets/images/raposa_correndo_esquerda.png", false, std::make_pair(0, 0));
+  Image* images1 = new Image(game.renderer, "../assets/images/menina_correndo_direita.png", true, std::make_pair(0, 0), 2);
+  Image* images2 = new Image(game.renderer, "../assets/images/scene_1_red.png", true, std::make_pair(0, 0), 2);
+  Image* images3 = new Image(game.renderer, "../assets/images/menina_correndo_esquerda.png",
+
+  false, std::make_pair(0, 0), 2);
+
+  Image* images4 = new Image(game.renderer, "../assets/images/raposa_correndo_direita.png", true, std::make_pair(0, 0), 2);
+  Image* images5 = new Image(game.renderer, "../assets/images/raposa_correndo_esquerda.png", false, std::make_pair(0, 0), 2);
 
   images1-> set_values(std::make_pair(192, 192), std::make_pair(192, 192), std::make_pair(0, 0));
   images2-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
@@ -35,21 +38,21 @@ int main(int,char**){
   images4-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
   images5-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
 
-  GameObject* little_girl = new LittleGirl("little_girl", place);
-  GameObject* background = new Background("background", anotherplace);
-  GameObject* fox = new Fox("fox", anotherotherplace);
+  GameObject* little_girl = new LittleGirl("little_girl", place, 2);
+  GameObject* background = new Background("background", anotherplace, 1);
+  GameObject* fox = new Fox("fox", anotherotherplace, 2);
 
-  little_girl->add_component("image", images1, 2);
-  little_girl->add_component("image", images3, 2);
-  background->add_component("image", images2, 2);
-  fox->add_component("image",images4, 2);
-  fox->add_component("image",images5, 2);
+  little_girl->add_component("image", images1);
+  little_girl->add_component("image", images3);
+  background->add_component("image", images2);
+  fox->add_component("image",images4);
+  fox->add_component("image",images5);
 
   Level* level1 = new Level();
 
-  level1->add_object(2, little_girl);
-  level1->add_object(2, fox);
-  level1->add_object(1, background);
+  level1->add_object(little_girl);
+  level1->add_object(fox);
+  level1->add_object(background);
   level1->activate_game_object("little_girl");
   level1->activate_game_object("background");
   level1->activate_game_object("fox");

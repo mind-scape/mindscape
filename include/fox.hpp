@@ -14,7 +14,7 @@ namespace engine {
 
   class Fox : public GameObject {
     public:
-      Fox(std::string p_name, std::pair<int, int> position):GameObject(p_name, position,
+      Fox(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
       {
           {71,"MOVE_LEFT"},
           {72,"MOVE_RIGHT"},

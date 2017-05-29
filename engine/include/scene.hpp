@@ -13,12 +13,12 @@ namespace engine{
 
   class Scene {
     public:
-      std::vector<std::pair<int, engine::GameObject*> > objects;
+      std::vector<engine::GameObject*> objects;
 
       Scene(){};
       ~Scene(){};
 
-      void add_object(int priority, engine::GameObject* object);
+      void add_object(engine::GameObject* object);
       virtual void draw(){};
       virtual void load(){};
       virtual void free(){};

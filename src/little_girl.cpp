@@ -4,26 +4,26 @@ using namespace engine;
 
 bool LittleGirl::load(){
     for(auto image : images){
-      image.second->load();
+      image->load();
     }
     for(auto audio : audios){
       audio->load();
     }
     for(auto text : texts){
-      text.second->load();
+      text->load();
     }
   return true;
 }
 
 void LittleGirl::free(){
   for(auto image : images){
-    image.second->free();
+    image->free();
   }
   for(auto audio : audios){
     audio->free();
   }
   for(auto text : texts){
-    text.second->free();
+    text->free();
   }
 }
 
@@ -36,8 +36,8 @@ void LittleGirl::add_component(Component & component){
 
 void LittleGirl::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
-  Image* ref1 = dynamic_cast<Image*>(images[1].second);
-  Image* ref0 = dynamic_cast<Image*>(images[0].second);
+  Image* ref1 = dynamic_cast<Image*>(images[1]);
+  Image* ref0 = dynamic_cast<Image*>(images[0]);
 
   if(event_name == "JUMP"){
 //    state == "JUMPING";

@@ -14,7 +14,7 @@ namespace engine {
 
   class LittleGirl : public GameObject {
     public:
-      LittleGirl(std::string p_name, std::pair<int, int> position):GameObject(p_name, position,
+      LittleGirl(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
       {
           {71,"MOVE_LEFT"},
           {72,"MOVE_RIGHT"},

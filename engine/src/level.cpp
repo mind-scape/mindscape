@@ -4,21 +4,21 @@ using namespace engine;
 
 void Level::load(){
   for(auto go : objects){
-    std::cout << "Loading " << go.first << std::endl;
-    go.second->load();
+    std::cout << "Loading " << go->name << std::endl;
+    go->load();
   }
 }
 
 void Level::free(){
   for(auto go : objects){
-    std::cout << "Freeing" << go.first << std::endl;
-    go.second->free();
+    std::cout << "Freeing" << go->name << std::endl;
+    go->free();
   }
 }
 
 void Level::draw(){
   for(auto object : objects){
-    if(object.second->active_game_object)
-      object.second->draw();
+    if(object->active_game_object)
+      object->draw();
   }
 }

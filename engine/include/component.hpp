@@ -13,11 +13,19 @@ namespace engine{
       std::string type;
       bool active;
       std::pair<int, int> displacement;
+      int priority;
 
       Component(){};
-      Component(std::string p_type, std::pair<int, int> place, bool isactive):type(p_type),
-                                                                                displacement(place),
-                                                                                active(isactive){};
+      Component(
+        std::string p_type,
+        std::pair<int, int> place,
+        bool isactive,
+        int p)
+        :type(p_type),
+        displacement(place),
+        active(isactive),
+        priority(p){};
+
       ~Component(){};
 
       virtual bool load(){};
