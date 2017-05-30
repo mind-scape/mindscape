@@ -12,6 +12,7 @@
 #include "../include/little_girl.hpp"
 #include "../include/background.hpp"
 #include "../include/fox.hpp"
+#include "../include/select_arrow.hpp"
 
 using namespace engine;
 
@@ -76,6 +77,10 @@ int main(int,char**){
   GameObject* menu_background = new GameObject("menu_background", std::make_pair(0,0),1);
   menu_background->add_component("menu_background", m_background);
 
+  Text* sel = new Text(">", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+  GameObject* select = new SelectArrow("select", std::make_pair(425,275),2);
+  select->add_component("select", sel);
+
   Text* title = new Text("MindScape", "../assets/fonts/FFF_Tusj.ttf", 90, game.renderer);
   GameObject* game_title = new GameObject("game_title", std::make_pair(280, 30),2);
   game_title->add_component("game_title", title);
@@ -100,6 +105,8 @@ int main(int,char**){
   GameObject * menu_loop =  new GameObject("menu_loop", std::make_pair(0,0),1);
   menu_loop->add_component("menu_loop", music);
 
+  menu->add_object(select);
+  menu->activate_game_object("select");
   menu->add_object(start);
   menu->activate_game_object("start");
   menu->add_object(instructions);
