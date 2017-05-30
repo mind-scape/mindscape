@@ -42,9 +42,25 @@ int main(int,char**){
   images6-> set_values(std::make_pair(507, 256), std::make_pair(507, 256), std::make_pair(0, 0));
 
   GameObject* little_girl = new LittleGirl("little_girl", place, 2);
+  little_girl->hitbox = {
+    .x = little_girl->position.first,
+    .y = little_girl->position.second,
+    .w = 192,
+    .h = 192
+  };
+  little_girl->collidable = true;
+
   GameObject* background = new Background("background", anotherplace, 1);
   GameObject* fox = new Fox("fox", anotherotherplace, 2);
+
   GameObject* platform = new Platform("platform", std::make_pair(100, 100), 2);
+  platform->hitbox = {
+    .x = little_girl->position.first,
+    .y = little_girl->position.second,
+    .w = 192,
+    .h = 192
+  };
+
   little_girl->add_component("image", images1);
   little_girl->add_component("image", images3);
   background->add_component("image", images2);

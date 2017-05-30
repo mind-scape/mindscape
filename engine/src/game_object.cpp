@@ -47,3 +47,43 @@ void GameObject::draw(){
     text->draw(position.first, position.second);
   }
 }
+
+bool GameObject::equals(GameObject* other){
+  return (this == other);
+}
+
+void GameObject::collide(GameObject* other){
+  if(!this->equals(other) && this->check_collision(other))
+    this->on_collision(other);
+}
+
+void GameObject::on_collision(GameObject* other){
+  std::cout << "BATEU CARAI!" << std::endl;
+}
+
+bool GameObject::check_collision(GameObject* other){
+  int left_a, left_b;
+  int right_a, right_b;
+  int top_a, top_b;
+  int bottom_a, bottom_b;
+
+  left_a = hitbox.x;
+  right_a = hitbox.x + hitbox.w;
+  top_a = hitbox.y;
+  bottom_a = hitbox.y + hitbox.h;
+
+  left_b = other->hitbox.x;
+  right_b = other->hitbox.x + other->hitbox.w;
+  top_b = other->hitbox.y;
+  bottom_b = other->hitbox.y + other->hitbox.h;
+
+  if(bottom_a <= top_b)
+    return false;
+  if(top_a >= bottom_b)
+    return false;
+  if(right_a <= left_b)
+    return false;
+  if(left_a >= right_b)
+    return false;
+  return true;
+}

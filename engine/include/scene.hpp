@@ -10,7 +10,7 @@
 #include "game_object.hpp"
 #include "event_handler.hpp"
 
-namespace engine{
+namespace engine {
 
   class Scene {
     public:
@@ -23,16 +23,10 @@ namespace engine{
       virtual void draw(){};
       virtual void load(){};
       virtual void free(){};
-      bool check_collision(SDL_Rect, SDL_Rect);
       void activate_game_object(std::string name);
       void deactivate_game_object(std::string name);
-
-    private:
-      bool equals(engine::GameObject* object, engine::GameObject* another_object){
-        return object == another_object;
-      }
+      void run_collisions(void);
   };
-
 }
 
 #endif

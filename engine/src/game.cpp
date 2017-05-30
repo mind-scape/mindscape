@@ -88,6 +88,7 @@ void Game::run(){
 
       unsigned now = Time::time_elapsed();
       event_handler.dispatch_pending_events(now);
+      actual_scene->run_collisions();
 
       SDL_SetRenderDrawColor(renderer,0xAA, 0xAA, 0xAA, 0xAA);
 

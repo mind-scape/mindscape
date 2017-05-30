@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include "SDL2basics.hpp"
 #include "component.hpp"
 #include "../../include/game_event.hpp"
 
@@ -16,9 +17,10 @@ namespace engine {
 
   class GameObject{
     public:
+      static bool on_limit_of_level;
+
       std::string name;
       int priority;
-      static bool on_limit_of_level;
       bool collidable;
       SDL_Rect hitbox;
       std::vector<Component*> audios;
@@ -29,6 +31,7 @@ namespace engine {
       bool active_game_object;
 
       GameObject(){};
+
       GameObject(
         std::string p_name,
         std::pair<int, int> p_position,
@@ -42,14 +45,31 @@ namespace engine {
         hitbox(hb),
         active_game_object(false){};
 
-      GameObject(std::string p_name, std::pair<int, int> p_position, int p, std::map<int,std::string> p_translations):name(p_name),position(p_position),active_game_object(false),priority(p), translations(p_translations){};
+      GameObject(
+        std::string p_name,
+        std::pair<int, int> p_position,
+        int p,
+        std::map<int,std::string>
+        p_translations)
+        :name(p_name),
+        position(p_position),
+        active_game_object(false),
+        priority(p),
+        translations(p_translations){};
+
       ~GameObject(){};
 
       bool load();
       virtual void free(){};
       void draw();
       void add_component(std::string, Component*);
+      bool equals(GameObject *);
+      void collide(GameObject *);
       virtual void on_event(GameEvent){};
+
+    private:
+      bool check_collision(GameObject *);
+      void on_collision(GameObject *);
   };
 
 }
