@@ -122,9 +122,11 @@ int main(int,char**){
   menu->add_object(menu_loop);
   menu->activate_game_object("menu_loop");
 
+  /********************************************************************************/
+
   game.add_scene("menu", menu);
   game.add_scene("first level", level1);
-  game.change_scene(menu);
+  game.change_scene(level1);
   game.run();
   return 0;
 }

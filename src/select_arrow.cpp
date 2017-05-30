@@ -33,11 +33,37 @@ void SelectArrow::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
 
   if(event_name == "UP"){
+    if(arrow_seletor >= 0 && arrow_seletor < 6){
+      arrow_seletor += 1;
+    } else {
+      arrow_seletor = 0;
+    }
 
   }
 
   if(event_name == "DOWN"){
+    if(arrow_seletor <= 6 && arrow_seletor > 0){
+      arrow_seletor -= 1;
+    } else {
+      arrow_seletor = 6;
+    }
+  }
 
+  switch(arrow_seletor){
+    case(0):
+      position.second = 275;
+      break;
+    case(2):
+      position.second = 310;
+      break;
+    case(4):
+      position.second = 345;
+      break;
+    case(6):
+      position.second = 380;
+      break;
+    default:
+      break;
   }
 
 }
