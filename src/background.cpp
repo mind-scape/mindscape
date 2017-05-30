@@ -41,16 +41,26 @@ void Background::on_event(GameEvent game_event){
 
   if(event_name == "MOVE_LEFT"){
 
+    GameObject::on_limit_of_level = false;
     ref0->coordinatesOnTexture.first -= 10;
     std::cout << "Deu " << ref0->coordinatesOnTexture.first << std::endl;
-    if(ref0->coordinatesOnTexture.first <= 0) ref0->coordinatesOnTexture.first = 0;
+    on_limit_of_level = false;
+
+    if(ref0->coordinatesOnTexture.first <= 0){
+      ref0->coordinatesOnTexture.first = 0;
+      on_limit_of_level = true;
+    }
 
   }else if(event_name == "MOVE_RIGHT"){
 
+    GameObject::on_limit_of_level = false;
     ref0->coordinatesOnTexture.first += 10;
     std::cout << "Deu " << ref0->coordinatesOnTexture.first << std::endl;
-    if(ref0->coordinatesOnTexture.first >= 1728) ref0->coordinatesOnTexture.first = 1728;
 
+    if(ref0->coordinatesOnTexture.first >= 1728){
+      ref0->coordinatesOnTexture.first = 1728;
+      on_limit_of_level = true;
+    }
   }
 }
 

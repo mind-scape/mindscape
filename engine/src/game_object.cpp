@@ -3,6 +3,8 @@
 
 using namespace engine;
 
+bool GameObject::on_limit_of_level;
+
 bool compare(Component* a, Component* b){
   return a->priority < b->priority;
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <string>
+#include "../include/platform.hpp"
 #include "../engine/include/game.hpp"
 #include "../engine/include/audio.hpp"
 #include "../engine/include/image.hpp"
@@ -31,31 +32,36 @@ int main(int,char**){
 
   Image* images4 = new Image(game.renderer, "../assets/images/raposa_correndo_direita.png", true, std::make_pair(0, 0), 2);
   Image* images5 = new Image(game.renderer, "../assets/images/raposa_correndo_esquerda.png", false, std::make_pair(0, 0), 2);
+  Image* images6 = new Image(game.renderer, "../assets/images/plataforma.png", true, std::make_pair(0,0), 2);
 
   images1-> set_values(std::make_pair(192, 192), std::make_pair(192, 192), std::make_pair(0, 0));
   images2-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
   images3-> set_values(std::make_pair(192, 192), std::make_pair(192, 192), std::make_pair(0, 0));
   images4-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
   images5-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
+  images6-> set_values(std::make_pair(507, 256), std::make_pair(507, 256), std::make_pair(0, 0));
 
   GameObject* little_girl = new LittleGirl("little_girl", place, 2);
   GameObject* background = new Background("background", anotherplace, 1);
   GameObject* fox = new Fox("fox", anotherotherplace, 2);
-
+  GameObject* platform = new Platform("platform", std::make_pair(100, 100), 2);
   little_girl->add_component("image", images1);
   little_girl->add_component("image", images3);
   background->add_component("image", images2);
   fox->add_component("image",images4);
   fox->add_component("image",images5);
+  platform->add_component("image", images6);
 
   Level* level1 = new Level();
 
   level1->add_object(little_girl);
   level1->add_object(fox);
   level1->add_object(background);
+  level1->add_object(platform);
   level1->activate_game_object("little_girl");
   level1->activate_game_object("background");
   level1->activate_game_object("fox");
+  level1->activate_game_object("platform");
 
   game.add_scene("first level", level1);
   game.change_scene(level1);
