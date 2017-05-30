@@ -41,7 +41,6 @@ namespace engine{
       void change_scene(Scene* scene);
       void add_scene(std::string name, Scene* scene);
   };
-
 }
 
 #endif
