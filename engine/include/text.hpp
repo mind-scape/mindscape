@@ -36,8 +36,7 @@ namespace engine{
             : text_for_view(text), text_font_path(font_path),text_font_size(font_size),
               renderer(p_renderer), text_color(t_color), text_background_color(t_bg_color),
               text_texture(NULL), text_font(NULL),
-              text_weigth(0), text_heigth(0) {    printf("\nError in the text_texture :%s\n", SDL_GetError());
-}
+              text_weigth(0), text_heigth(0) {}
 
         ~Text(){}
 
