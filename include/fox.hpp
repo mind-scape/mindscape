@@ -15,6 +15,10 @@ namespace engine {
 
   class Fox : public GameObject {
     public:
+
+      int animation_count = 0;
+      int animation_count2 = 0;
+
       Fox(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
       {
           {KeyboardEvent::LEFT,"MOVE_LEFT"},

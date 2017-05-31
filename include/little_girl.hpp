@@ -18,6 +18,11 @@ namespace engine {
 
   class LittleGirl : public GameObject {
     public:
+
+      int animation_count = 0;
+      int animation_count2 = 0;
+
+
       LittleGirl(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
       {
           {KeyboardEvent::LEFT,"MOVE_LEFT"},
@@ -30,7 +35,7 @@ namespace engine {
       bool load();
       void free();
       void update();
-      void on_event(GameEvent); 
+      void on_event(GameEvent);
       void on_collision(GameObject*);
   };
 
