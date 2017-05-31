@@ -31,7 +31,7 @@ namespace engine {
       std::pair<int,int> position;
       std::map<KeyboardEvent::Key, std::string> translations;
       bool active_game_object;
-      std::string state;
+      std::string x_state, y_state;
 
       GameObject(){};
 

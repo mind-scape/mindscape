@@ -88,6 +88,6 @@ void GameObject::update_hitbox(int x_variation, int y_variation){
   hitbox.x = position.first + x_variation;
   hitbox.y = position.second + y_variation;
 
-  std::cout << name << " - X COMEÇA EM: " << hitbox.x << " VAI ATE: " << hitbox.x + hitbox.w << std::endl;
-  std::cout << name << " - Y COMEÇA EM: " << hitbox.y << " VAI ATE: " << hitbox.y + hitbox.h << std::endl;
+  // std::cout << name << " - X COMEÇA EM: " << hitbox.x << " VAI ATE: " << hitbox.x + hitbox.w << std::endl;
+  // std::cout << name << " - Y COMEÇA EM: " << hitbox.y << " VAI ATE: " << hitbox.y + hitbox.h << std::endl;
 }

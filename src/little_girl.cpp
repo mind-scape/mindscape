@@ -31,9 +31,12 @@ void LittleGirl::free(){
 
 void LittleGirl::on_collision(GameObject* other){
   Platform* p = dynamic_cast<Platform *>(other);
-  if(state == "FALLING" && p){
-    std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << std::endl;
-    state = "GROUND";
+  if(y_state == "FALLING" && p){
+    for(int i=0 ; i<5; i++)std::cout << "AEGO" << std::endl;
+    y_state = "GROUND";
+  }else{
+    for(int i=0 ; i<5; i++)std::cout << "PAROU DE COLIDIR" << std::endl;
+    // y_state = "FALLING";
   }
 }
 
@@ -45,12 +48,12 @@ void LittleGirl::on_event(GameEvent game_event){
   Image* moving_right_image = dynamic_cast<Image*>(images[0]);
 
   //Verifying if its on the ground
-  if(event_name == "JUMP" && position.second == 335){
-    state = "JUMPING";
+  if(event_name == "JUMP"){
+    y_state = "JUMPING";
   }else if(event_name == "CROUCH"){
 
   }else if(event_name == "MOVE_LEFT"){
-    state = "RUNNING_LEFT";
+    x_state = "RUNNING_LEFT";
 
     moving_right_image->active = false;
     moving_left_image->active = true;
@@ -63,7 +66,7 @@ void LittleGirl::on_event(GameEvent game_event){
     if(moving_left_image->coordinatesOnTexture.first <= 0) moving_left_image->coordinatesOnTexture.first = 1536;
 
   }else if(event_name == "MOVE_RIGHT"){
-    state = "RUNNING_RIGHT";
+    x_state = "RUNNING_RIGHT";
 
     moving_left_image->active = false;
     moving_right_image->active = true;
@@ -79,20 +82,20 @@ void LittleGirl::on_event(GameEvent game_event){
   }
 
   //Jumping
-  if(state == "JUMPING" && position.second >= 35){
+  if(y_state == "JUMPING" && position.second >= 35){
     position.second -= 10;
-  }else if(state != "GROUND"){
-    state = "FALLING";
+  }else if(y_state != "GROUND"){
+    y_state = "FALLING";
   }
 
   //Falling
-  if(state == "FALLING" && position.second < 335){
+  if(y_state == "FALLING" && position.second < 335){
     position.second += 10;
   }
 
   //Stopping
   if(game_event.state == engine::KeyboardEvent::State::RELEASED){
-    state = "STOPPED";
+    x_state = "STOPPED";
   }
 
   update_hitbox(60, 130);
