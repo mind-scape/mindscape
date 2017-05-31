@@ -46,24 +46,24 @@ int main(int,char**){
   images5-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
   images6-> set_values(std::make_pair(507, 256), std::make_pair(507, 256), std::make_pair(0, 0));
 
-  GameObject* little_girl = new LittleGirl("little_girl", place, 2);
+  GameObject* little_girl = new LittleGirl("little_girl", place, 52);
   little_girl->hitbox = {
     .x = little_girl->position.first,
     .y = little_girl->position.second,
-    .w = 192,
-    .h = 192
+    .w = 350,
+    .h = 1
   };
   little_girl->collidable = true;
 
   GameObject* background = new Background("background", anotherplace, 1);
-  GameObject* fox = new Fox("fox", anotherotherplace, 2);
+  GameObject* fox = new Fox("fox", anotherotherplace, 52);
 
-  GameObject* platform = new Platform("platform", std::make_pair(100, 100), 2);
+  GameObject* platform = new Platform("platform", std::make_pair(400, 250), 2);
   platform->hitbox = {
-    .x = little_girl->position.first,
-    .y = little_girl->position.second,
-    .w = 192,
-    .h = 192
+    .x = platform->position.first,
+    .y = platform->position.second,
+    .w = 350,
+    .h = 1
   };
 
   little_girl->add_component("image", images1);
@@ -144,7 +144,7 @@ int main(int,char**){
   game.add_scene("menu", menu);
   game.add_scene("first level", level1);
   game.change_scene("menu");
-  
+
   game.run();
   return 0;
 }

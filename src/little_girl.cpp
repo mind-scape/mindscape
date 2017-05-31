@@ -1,4 +1,6 @@
 #include "../include/little_girl.hpp"
+#include "../include/platform.hpp"
+#include <typeinfo>
 
 using namespace engine;
 
@@ -27,18 +29,20 @@ void LittleGirl::free(){
   }
 }
 
-/*
-void LittleGirl::add_component(Component & component){
-  std::cout << "Add " << component.type << " to Game Object" << name;
-  components[component->type].push_back(&component);
+void LittleGirl::on_collision(GameObject* other){
+  Platform* p = dynamic_cast<Platform *>(other);
+  if(state == "FALLING" && p){
+    std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << std::endl;
+    state = "GROUND";
+  }
 }
-*/
+
 
 void LittleGirl::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
   
-  Image* ref1 = dynamic_cast<Image*>(images[1]);
-  Image* ref0 = dynamic_cast<Image*>(images[0]);
+  Image* moving_left_image = dynamic_cast<Image*>(images[1]);
+  Image* moving_right_image = dynamic_cast<Image*>(images[0]);
 
   //Verifying if its on the ground
   if(event_name == "JUMP" && position.second == 335){
@@ -48,28 +52,26 @@ void LittleGirl::on_event(GameEvent game_event){
   }else if(event_name == "MOVE_LEFT"){
     state = "RUNNING_LEFT";
 
-    ref0->active = false;
-    ref1->active = true;
+    moving_right_image->active = false;
+    moving_left_image->active = true;
 
-    ref1->coordinatesOnTexture.first -= 192;
-    if(ref1->coordinatesOnTexture.first <= 0) ref1->coordinatesOnTexture.first = 1536;
+    moving_left_image->coordinatesOnTexture.first -= 192;
+    if(moving_left_image->coordinatesOnTexture.first <= 0) moving_left_image->coordinatesOnTexture.first = 1536;
 
   }else if(event_name == "MOVE_RIGHT"){
-    
     state = "RUNNING_RIGHT";
 
-    ref1->active = false;
-    ref0->active = true;
-
-    ref0->coordinatesOnTexture.first += 192;
-    if(ref0->coordinatesOnTexture.first >= 1728) ref0->coordinatesOnTexture.first = 0;
+    moving_left_image->active = false;
+    moving_right_image->active = true;
+    moving_right_image->coordinatesOnTexture.first += 192;
+    if(moving_right_image->coordinatesOnTexture.first >= 1728) moving_right_image->coordinatesOnTexture.first = 0;
 
   }
 
   //Jumping
-  if(state == "JUMPING" && position.second >= 105){
+  if(state == "JUMPING" && position.second >= 35){
     position.second -= 10;  
-  }else{
+  }else if(state != "GROUND"){
     state = "FALLING";
   }
 
@@ -83,6 +85,7 @@ void LittleGirl::on_event(GameEvent game_event){
     state = "STOPPED";
   }
 
+  update_hitbox(60, 130);
 }
 
 void LittleGirl::update(){

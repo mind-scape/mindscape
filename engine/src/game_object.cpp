@@ -57,10 +57,6 @@ void GameObject::collide(GameObject* other){
     this->on_collision(other);
 }
 
-void GameObject::on_collision(GameObject* other){
-  std::cout << "BATEU CARAI!" << std::endl;
-}
-
 bool GameObject::check_collision(GameObject* other){
   int left_a, left_b;
   int right_a, right_b;
@@ -86,4 +82,12 @@ bool GameObject::check_collision(GameObject* other){
   if(left_a >= right_b)
     return false;
   return true;
+}
+
+void GameObject::update_hitbox(int x_variation, int y_variation){
+  hitbox.x = position.first + x_variation;
+  hitbox.y = position.second + y_variation;
+
+  std::cout << name << " - X COMEÇA EM: " << hitbox.x << " VAI ATE: " << hitbox.x + hitbox.w << std::endl;
+  std::cout << name << " - Y COMEÇA EM: " << hitbox.y << " VAI ATE: " << hitbox.y + hitbox.h << std::endl;
 }

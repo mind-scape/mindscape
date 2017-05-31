@@ -30,7 +30,8 @@ namespace engine {
       bool load();
       void free();
       void update();
-      void on_event(GameEvent game_event); 
+      void on_event(GameEvent); 
+      void on_collision(GameObject*);
   };
 
 }

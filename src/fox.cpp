@@ -40,8 +40,6 @@ void Fox::on_event(GameEvent game_event){
   Image* ref0 = dynamic_cast<Image*>(images[0]);
   Image* ref1 = dynamic_cast<Image*>(images[1]);
 
-  std::cout << "Estamos na raposa  depois" << std::endl;
-
   if(event_name == "JUMP"){
       //state == "JUMPING";
   }else if(event_name == "CROUCH"){

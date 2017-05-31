@@ -68,10 +68,13 @@ namespace engine {
       bool equals(GameObject *);
       void collide(GameObject *);
       virtual void on_event(GameEvent){};
+      virtual void on_collision(GameObject *) {std::cout << "BATEU CARAI!" << std::endl; };
 
     private:
       bool check_collision(GameObject *);
-      void on_collision(GameObject *);
+
+    protected:
+      void update_hitbox(int = 0, int = 0);
   };
 
 }

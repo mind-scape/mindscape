@@ -40,26 +40,23 @@ void Background::on_event(GameEvent game_event){
   Image* ref0 = dynamic_cast<Image*>(images[0]);
 
   if(event_name == "MOVE_LEFT"){
-
-    GameObject::on_limit_of_level = false;
     ref0->coordinatesOnTexture.first -= 10;
-    std::cout << "Deu " << ref0->coordinatesOnTexture.first << std::endl;
-    on_limit_of_level = false;
 
-    if(ref0->coordinatesOnTexture.first <= 0){
+    if(ref0->coordinatesOnTexture.first < 0){
       ref0->coordinatesOnTexture.first = 0;
-      on_limit_of_level = true;
+      GameObject::on_limit_of_level = true;
+    } else {
+      GameObject::on_limit_of_level = false;
     }
 
   }else if(event_name == "MOVE_RIGHT"){
-
-    GameObject::on_limit_of_level = false;
     ref0->coordinatesOnTexture.first += 10;
-    std::cout << "Deu " << ref0->coordinatesOnTexture.first << std::endl;
 
-    if(ref0->coordinatesOnTexture.first >= 1728){
+    if(ref0->coordinatesOnTexture.first > 1728){
       ref0->coordinatesOnTexture.first = 1728;
-      on_limit_of_level = true;
+      GameObject::on_limit_of_level = true;
+    } else {
+      GameObject::on_limit_of_level = false;
     }
   }
 }

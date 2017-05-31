@@ -95,7 +95,6 @@ void Game::run(){
       SDL_RenderClear(renderer);
       actual_scene->draw();
       SDL_RenderPresent(renderer);
-      std::cout << "Aehoooo: " << game_name << std::endl;
     }
   }
   else{
