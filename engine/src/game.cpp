@@ -77,9 +77,9 @@ void Game::run(){
   int right_cont = 0, left_cont = 0;
 
   std::pair<int,int> pos; pos.first =240;pos.second = 350;
- 
+
   quit_event = false;
- 
+
   if(load_media()){
 
     SDL_Event e;
@@ -94,6 +94,7 @@ void Game::run(){
       SDL_RenderClear(renderer);
       actual_scene->draw();
       SDL_RenderPresent(renderer);
+      std::cout << "Aehoooo: " << game_name << std::endl;
     }
   }
   else{
@@ -112,7 +113,7 @@ void Game::add_scene(std::string name, Scene* scene){
   scenes.insert({name, scene});
 }
 
-void Game::change_scene(Scene* scene){
-  actual_scene = scene;
+void Game::change_scene(std::string name){
+  last_scene = actual_scene;
+  actual_scene = scenes[name];
 }
-

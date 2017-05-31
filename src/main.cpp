@@ -13,6 +13,7 @@
 #include "../include/background.hpp"
 #include "../include/fox.hpp"
 #include "../include/select_arrow.hpp"
+#include "../include/button.hpp"
 
 using namespace engine;
 
@@ -83,23 +84,23 @@ int main(int,char**){
 
   Text* title = new Text("MindScape", "../assets/fonts/FFF_Tusj.ttf", 90, game.renderer);
   GameObject* game_title = new GameObject("game_title", std::make_pair(280, 30),2);
-  game_title->add_component("game_title", title);
+  // game_title->add_component("game_title", title);
 
   Text* text_start = new Text("Iniciar", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
-  GameObject* start = new GameObject("start", std::make_pair(450, 275),2);
+  GameObject* start = new Button("start", std::make_pair(450, 275), 2);
   start->add_component("start", text_start);
 
-  Text* text_instructions= new Text("Ajuda", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
-  GameObject* instructions = new GameObject("instructions", std::make_pair(450, 310),2);
-  instructions->add_component("instructions", text_instructions);
-
-  Text* text_credits= new Text("Creditos", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
-  GameObject* credits = new GameObject("credits", std::make_pair(450, 345),2);
-  credits->add_component("credits", text_credits);
-
-  Text* text_exit = new Text("Sair", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
-  GameObject* exit = new GameObject("exit", std::make_pair(450, 380),2);
-  exit ->add_component("exit", text_exit);
+  // Text* text_instructions= new Text("Ajuda", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+  // GameObject* instructions = new GameObject("instructions", std::make_pair(450, 310),2);
+  // instructions->add_component("instructions", text_instructions);
+  //
+  // Text* text_credits= new Text("Creditos", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+  // GameObject* credits = new GameObject("credits", std::make_pair(450, 345),2);
+  // credits->add_component("credits", text_credits);
+  //
+  // Text* text_exit = new Text("Sair", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+  // GameObject* exit = new GameObject("exit", std::make_pair(450, 380),2);
+  // exit ->add_component("exit", text_exit);
 
   Audio* music = new Audio("../assets/audios/mindscape_open3.wav", Audio::audio_type::music);
   GameObject * menu_loop =  new GameObject("menu_loop", std::make_pair(0,0),1);
@@ -109,12 +110,12 @@ int main(int,char**){
   menu->activate_game_object("select");
   menu->add_object(start);
   menu->activate_game_object("start");
-  menu->add_object(instructions);
-  menu->activate_game_object("instructions");
-  menu->add_object(credits);
-  menu->activate_game_object("credits");
-  menu->add_object(exit);
-  menu->activate_game_object("exit");
+  // menu->add_object(instructions);
+  // menu->activate_game_object("instructions");
+  // menu->add_object(credits);
+  // menu->activate_game_object("credits");
+  // menu->add_object(exit);
+  // menu->activate_game_object("exit");
   menu->add_object(game_title);
   menu->activate_game_object("game_title");
   menu->add_object(menu_background);
@@ -126,28 +127,8 @@ int main(int,char**){
 
   game.add_scene("menu", menu);
   game.add_scene("first level", level1);
-  game.change_scene(menu);
-
-
-  switch(select->option_select){
-    case('i'):
-      if(select->enter_handler){
-        game.change_scene(menu);
-      }
-      break;
-    case('a'):
-
-      break;
-    case('c'):
-
-      break;
-    case('s'):
-
-      break;
-    default:
-      break;
-  }
-
+  game.change_scene("menu");
+  
   game.run();
   return 0;
 }
