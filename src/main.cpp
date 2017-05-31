@@ -89,7 +89,7 @@ int main(int,char**){
 
   Level * menu = new Level();
 
-  Image *m_background = new Image(game.renderer, "../assets/images/menu_screen.jpg", true, std::make_pair(0,0),1);
+  Image *m_background = new Image(game.renderer, "../assets/images/menu_screen2.jpg", true, std::make_pair(0,0),1);
   m_background->set_values(std::make_pair(1024,576), std::make_pair(1024,576), std::make_pair(0,0));
   GameObject* menu_background = new GameObject("menu_background", std::make_pair(0,0),1,{});
   menu_background->add_component("menu_background", m_background);
