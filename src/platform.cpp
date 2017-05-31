@@ -41,7 +41,7 @@ void Platform::on_event(GameEvent game_event){
     position.first -= 10;
     }
 
-  update_hitbox(0,0);
+  update_hitbox(70,42);
 }
 
 void Platform::update(){

@@ -50,7 +50,7 @@ int main(int,char**){
   little_girl->hitbox = {
     .x = little_girl->position.first,
     .y = little_girl->position.second,
-    .w = 350,
+    .w = 50,
     .h = 1
   };
   little_girl->collidable = true;
@@ -60,10 +60,10 @@ int main(int,char**){
 
   GameObject* platform = new Platform("platform", std::make_pair(400, 250), 2);
   platform->hitbox = {
-    .x = platform->position.first,
-    .y = platform->position.second,
-    .w = 350,
-    .h = 1
+    .x = platform->position.first + 70,
+    .y = platform->position.second + 35,
+    .w = 270,
+    .h = 10
   };
 
   little_girl->add_component("image", images1);
