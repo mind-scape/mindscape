@@ -49,7 +49,11 @@ void Fox::on_event(GameEvent game_event){
     ref0->active = false;
     ref1->active = true;
 
-    ref1->coordinatesOnTexture.first -= 120;
+    animation_count += 1;
+    if(animation_count == 7){
+      ref1->coordinatesOnTexture.first -= 120;
+      animation_count = 0;
+    }
     if(ref1->coordinatesOnTexture.first <= 0) ref1->coordinatesOnTexture.first = 960;
 
   }else if(event_name == "MOVE_RIGHT"){
@@ -57,7 +61,11 @@ void Fox::on_event(GameEvent game_event){
     ref1->active = false;
     ref0->active = true;
 
-    ref0->coordinatesOnTexture.first += 120;
+    animation_count2 +=1;
+    if(animation_count2 == 7){
+      ref0->coordinatesOnTexture.first += 120;
+      animation_count2 = 0;
+    }
     if(ref0->coordinatesOnTexture.first >= 1080) ref0->coordinatesOnTexture.first = 0;
   }
 }
