@@ -11,6 +11,7 @@
 #include <utility>
 #include "SDL2basics.hpp"
 #include "component.hpp"
+#include "keyboard_event.hpp"
 #include "../../include/game_event.hpp"
 
 namespace engine {
@@ -27,8 +28,9 @@ namespace engine {
       std::vector<Component*> images;
       std::vector<Component*> texts;
       std::pair<int,int> position;
-      std::map<int,std::string> translations;
+      std::map<KeyboardEvent::Key, std::string> translations;
       bool active_game_object;
+      std::string state;
 
       GameObject(){};
 
@@ -49,8 +51,7 @@ namespace engine {
         std::string p_name,
         std::pair<int, int> p_position,
         int p,
-        std::map<int,std::string>
-        p_translations)
+        std::map<KeyboardEvent::Key,std::string> p_translations)
         :name(p_name),
         position(p_position),
         active_game_object(false),

@@ -26,6 +26,7 @@ namespace engine{
     private:
       unsigned last_update;
       std::list< SDL_Event > sdl_events;
+      void try_to_get_delayed_keys(std::list<KeyboardEvent>&);
   };
 
 }

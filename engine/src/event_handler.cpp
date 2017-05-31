@@ -5,56 +5,73 @@ using namespace engine;
 std::list<GameObject *> EventHandler::listeners;
 
 void EventHandler::dispatch_pending_events(unsigned now){
-  auto get_events_until_now(now);
-
   auto keyboard_events = pending_keyboard_events(now);
 
   auto game_events = Translator::keyboard_events_to_game_events(keyboard_events);
 
+  
+std::cout << "ENTROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOU" << game_events.size() << std::endl;
+
   for (auto event : game_events){
     for (auto listener : listeners){
-      if(listener->name == event.solver){
+      if(listener->name == event.solver || event.solver == "All"){
         listener->on_event(event);
       }
     }
   }
-
 }
+
 
 std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now){
   get_events_until_now(now);
   auto it = sdl_events.begin();
-
   std::list<KeyboardEvent> events;
+  bool has_events = false;
 
-  while (it != sdl_events.end())
-  {
+  while (it != sdl_events.end()){
     unsigned timestamp = it->quit.timestamp;
-
-    if (it->type == SDL_KEYDOWN) {
+    if (it->type == SDL_KEYDOWN || it->type == SDL_KEYUP) {
+std::cout << "ENTROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOU" << std::endl;
       bool repeated = it->key.repeat != 0;
       auto event = KeyboardEvent(timestamp,
+        it->type == SDL_KEYUP ?
+          KeyboardEvent::State::RELEASED :
           KeyboardEvent::State::PRESSED,
-          it->key.keysym.sym,
-          repeated);
+        it->key.keysym.scancode,
+        repeated);
 
       events.push_back(event);
       it = sdl_events.erase(it);
-    } else if (it->type == SDL_KEYUP)
-    {
-      bool repeated = it->key.repeat != 0;
-      auto event = KeyboardEvent(timestamp,
-          KeyboardEvent::State::RELEASED,
-          it->key.keysym.sym,
-          repeated);
-
-      events.push_back(event);
-      it = sdl_events.erase(it);
+      has_events = true;
     } else
       ++it;
   }
 
+  if(!has_events)
+    try_to_get_delayed_keys(events);
+
+std::cout << "ENTROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOU" << events.size() << std::endl;
+
   return events;
+}
+
+void EventHandler::try_to_get_delayed_keys(std::list<KeyboardEvent>& events){
+  SDL_PumpEvents();
+  const Uint8 *state = SDL_GetKeyboardState(NULL);
+
+  for (auto const& mapped_key : KeyboardEvent::keymap){
+    if(state[mapped_key.first]){
+
+      auto event = KeyboardEvent(NULL,
+        KeyboardEvent::State::PRESSED,
+        mapped_key.first, true
+      );
+
+      events.push_back(event);
+      break;
+    }
+  }
+    std::cout << "asdfasdfhasdkljfhalsdkjfhklajsdhfkaljh"  << std::endl;
 }
 
 void EventHandler::get_events_until_now(unsigned now){
@@ -66,9 +83,7 @@ void EventHandler::get_events_until_now(unsigned now){
 
   SDL_Event event;
 
-  while (SDL_PeepEvents(&event, 1, SDL_PEEKEVENT, SDL_FIRSTEVENT,
-        SDL_LASTEVENT) > 0)
-  {
+  while (SDL_PeepEvents(&event, 1, SDL_PEEKEVENT, SDL_FIRSTEVENT, SDL_LASTEVENT) > 0){
     unsigned timestamp = event.quit.timestamp;
 
     if (timestamp > now)
