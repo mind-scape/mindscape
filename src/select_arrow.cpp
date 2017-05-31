@@ -49,18 +49,43 @@ void SelectArrow::on_event(GameEvent game_event){
     }
   }
 
+
   switch(arrow_seletor){
     case(0):
       position.second = 275;
+      if(event_name == "ENTER"){
+        enter_handler = true;
+        option_select = 'i';
+        std::cout << option_select << std::endl;
+        enter_handler = false;
+      }
       break;
     case(2):
       position.second = 310;
+      if(event_name == "ENTER"){
+        enter_handler = true;
+        option_select = 'a';
+        std::cout << option_select << std::endl;
+        enter_handler = false;
+      }
       break;
     case(4):
       position.second = 345;
+      if(event_name == "ENTER"){
+        enter_handler = true;
+        option_select = 'c';
+        std::cout << option_select << std::endl;
+        enter_handler = false;
+      }
       break;
     case(6):
       position.second = 380;
+      if(event_name == "ENTER"){
+        enter_handler = true;
+        option_select = 's';
+        std::cout << option_select << std::endl;
+        enter_handler = false;
+      }
       break;
     default:
       break;

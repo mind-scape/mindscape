@@ -36,6 +36,7 @@ namespace engine {
       void draw();
       void add_component(std::string, Component*);
       virtual void on_event(GameEvent){};
+
   };
 
 }

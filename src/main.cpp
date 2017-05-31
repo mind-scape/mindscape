@@ -126,7 +126,28 @@ int main(int,char**){
 
   game.add_scene("menu", menu);
   game.add_scene("first level", level1);
-  game.change_scene(level1);
+  game.change_scene(menu);
+
+
+  switch(select->option_select){
+    case('i'):
+      if(select->enter_handler){
+        game.change_scene(menu);
+      }
+      break;
+    case('a'):
+
+      break;
+    case('c'):
+
+      break;
+    case('s'):
+
+      break;
+    default:
+      break;
+  }
+
   game.run();
   return 0;
 }

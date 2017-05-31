@@ -14,11 +14,14 @@ namespace engine{
     public:
 
       int arrow_seletor = 0;
+      bool enter_handler = false;
+      char option_select = 'z';
 
       SelectArrow(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
       {
           {74,"UP"},
           {73,"DOWN"},
+          {3,"ENTER"}
       }){};
 
       ~SelectArrow(){};
