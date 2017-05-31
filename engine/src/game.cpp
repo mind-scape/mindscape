@@ -95,6 +95,7 @@ void Game::run(){
       SDL_RenderClear(renderer);
       actual_scene->draw();
       SDL_RenderPresent(renderer);
+      std::cout << "Aehoooo: " << game_name << std::endl;
     }
   }
   else{
@@ -113,6 +114,7 @@ void Game::add_scene(std::string name, Scene* scene){
   scenes.insert({name, scene});
 }
 
-void Game::change_scene(Scene* scene){
-  actual_scene = scene;
+void Game::change_scene(std::string name){
+  last_scene = actual_scene;
+  actual_scene = scenes[name];
 }

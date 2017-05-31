@@ -26,6 +26,7 @@ namespace engine{
       SDL_Renderer* renderer;
       std::unordered_map<std::string, Scene*> scenes;
       Scene* actual_scene;
+      Scene* last_scene;
       State game_state;
       static bool quit_event;
 
@@ -38,7 +39,7 @@ namespace engine{
       void close();
       bool load_media();
       void set_information(std::string name,std::pair<int,int> dimensions);
-      void change_scene(Scene* scene);
+      void change_scene(std::string);
       void add_scene(std::string name, Scene* scene);
   };
 }

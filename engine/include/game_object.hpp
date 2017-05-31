@@ -1,4 +1,5 @@
 //TODO trocar os vectors de componentes para unordered maps
+//TODO acabar com o primeiro construtor e definir hit box como um componente
 
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
