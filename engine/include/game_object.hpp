@@ -13,11 +13,17 @@
 #include "SDL2basics.hpp"
 #include "component.hpp"
 #include "keyboard_event.hpp"
+#include "state_map.hpp"
 #include "../../include/game_event.hpp"
 
 namespace engine {
 
   class GameObject{
+    private:
+      StateMap states;
+
+      bool check_collision(GameObject *);
+
     public:
       static bool on_limit_of_level;
 
@@ -38,26 +44,15 @@ namespace engine {
       GameObject(
         std::string p_name,
         std::pair<int, int> p_position,
-        int priority,
-        bool collidable,
-        SDL_Rect hb)
-        :name(p_name),
-        position(p_position),
-        priority(priority),
-        collidable(collidable),
-        hitbox(hb),
-        active_game_object(false){};
-
-      GameObject(
-        std::string p_name,
-        std::pair<int, int> p_position,
         int p,
-        std::map<KeyboardEvent::Key,std::string> p_translations)
+        std::map<KeyboardEvent::Key,std::string> p_translations,
+        StateMap p_states = StateMap())
         :name(p_name),
         position(p_position),
         active_game_object(false),
         priority(p),
-        translations(p_translations){};
+        translations(p_translations),
+        states(p_states){};
 
       ~GameObject(){};
 
@@ -67,11 +62,9 @@ namespace engine {
       void add_component(std::string, Component*);
       bool equals(GameObject *);
       void collide(GameObject *);
+      std::string get_state(std::string);
       virtual void on_event(GameEvent){};
-      virtual void on_collision(GameObject *) {std::cout << "BATEU CARAI!" << std::endl; };
-
-    private:
-      bool check_collision(GameObject *);
+      virtual void on_collision(GameObject *) {std::cout << "COLLISION NOT IMPLEMENTED" << std::endl; };
 
     protected:
       void update_hitbox(int = 0, int = 0);
