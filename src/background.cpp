@@ -40,7 +40,7 @@ void Background::on_event(GameEvent game_event){
   Image* ref0 = dynamic_cast<Image*>(images[0]);
 
   if(event_name == "MOVE_LEFT"){
-    ref0->coordinatesOnTexture.first -= 10;
+    ref0->coordinatesOnTexture.first -= paralax;
 
     if(ref0->coordinatesOnTexture.first < 0){
       ref0->coordinatesOnTexture.first = 0;
@@ -50,7 +50,7 @@ void Background::on_event(GameEvent game_event){
     }
 
   }else if(event_name == "MOVE_RIGHT"){
-    ref0->coordinatesOnTexture.first += 10;
+    ref0->coordinatesOnTexture.first += paralax;
 
     if(ref0->coordinatesOnTexture.first > 1728){
       ref0->coordinatesOnTexture.first = 1728;

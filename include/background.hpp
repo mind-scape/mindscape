@@ -15,6 +15,9 @@ namespace engine {
 
   class Background : public GameObject {
     public:
+
+      int paralax = 10;
+
       Background(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
       {
           {KeyboardEvent::LEFT,"MOVE_LEFT"},

@@ -90,7 +90,7 @@ void Game::run(){
       event_handler.dispatch_pending_events(now);
       actual_scene->run_collisions();
 
-      SDL_SetRenderDrawColor(renderer,0xAA, 0xAA, 0xAA, 0xAA);
+      SDL_SetRenderDrawColor(renderer,0xEB, 0xA7, 0xFC, 0xAA);
 
       SDL_RenderClear(renderer);
       actual_scene->draw();

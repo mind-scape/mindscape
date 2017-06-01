@@ -50,7 +50,7 @@ void Fox::on_event(GameEvent game_event){
     ref1->active = true;
 
     animation_count += 1;
-    if(animation_count == 7){
+    if(animation_count == 5){
       ref1->coordinatesOnTexture.first -= 120;
       animation_count = 0;
     }
@@ -62,7 +62,7 @@ void Fox::on_event(GameEvent game_event){
     ref0->active = true;
 
     animation_count2 +=1;
-    if(animation_count2 == 7){
+    if(animation_count2 == 5){
       ref0->coordinatesOnTexture.first += 120;
       animation_count2 = 0;
     }

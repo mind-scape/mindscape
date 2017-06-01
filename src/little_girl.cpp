@@ -59,7 +59,7 @@ void LittleGirl::on_event(GameEvent game_event){
     moving_left_image->active = true;
 
     animation_count2 +=1;
-    if(animation_count2 == 7){
+    if(animation_count2 == 5){
       moving_left_image->coordinatesOnTexture.first -= 192;
       animation_count2 = 0;
     }
@@ -72,7 +72,7 @@ void LittleGirl::on_event(GameEvent game_event){
     moving_right_image->active = true;
 
     animation_count +=1;
-    if(animation_count == 7){
+    if(animation_count == 5){
       moving_right_image->coordinatesOnTexture.first += 192;
       animation_count = 0;
     }

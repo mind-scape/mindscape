@@ -8,6 +8,7 @@
 #include "../engine/include/text.hpp"
 #include "../engine/include/scene.hpp"
 #include "../engine/include/level.hpp"
+#include "../engine/include/animation.hpp"
 #include "../include/globals.hpp"
 #include "../include/little_girl.hpp"
 #include "../include/background.hpp"
@@ -29,24 +30,39 @@ int main(int,char**){
   std::pair<int, int> anotherplace (0, 0);
   std::pair<int, int> anotherotherplace (250,400);
 
-  Image* images1 = new Image(game.renderer, "../assets/images/menina_correndo_direita.png", true, std::make_pair(0, 0), 2);
-  Image* images2 = new Image(game.renderer, "../assets/images/scene_1_red.png", true, std::make_pair(0, 0), 2);
+  //Animation* images1 = new Animation(game.renderer, "../assets/images/menina_correndo_direita.png", true, std::make_pair(0, 0),1,9,1.0,true);
+  Image* images1 = new Image(game.renderer, "../assets/images/menina_correndo_direita.png", true, std::make_pair(0, 0),1);
+
+  Image* images2 = new Image(game.renderer, "../assets/images/cenarios/1.png", true, std::make_pair(0, 0), 1);
+  Image* images9 = new Image(game.renderer, "../assets/images/cenarios/2.png", true, std::make_pair(0, 0), 1);
+  Image* images8 = new Image(game.renderer, "../assets/images/cenarios/3.png", true, std::make_pair(0, 0), 1);
+  Image* images7 = new Image(game.renderer, "../assets/images/cenarios/4.png", true, std::make_pair(0, 0), 1);
+
   Image* images3 = new Image(game.renderer, "../assets/images/menina_correndo_esquerda.png",
 
   false, std::make_pair(0, 0), 2);
 
+  //images1->set_frame_time();
+
   Image* images4 = new Image(game.renderer, "../assets/images/raposa_correndo_direita.png", true, std::make_pair(0, 0), 2);
   Image* images5 = new Image(game.renderer, "../assets/images/raposa_correndo_esquerda.png", false, std::make_pair(0, 0), 2);
-  Image* images6 = new Image(game.renderer, "../assets/images/plataforma.png", true, std::make_pair(0,0), 2);
+  Image* images6 = new Image(game.renderer, "../assets/images/plataformaTESTE.png", true, std::make_pair(0,0), 2);
+
 
   images1-> set_values(std::make_pair(192, 192), std::make_pair(192, 192), std::make_pair(0, 0));
+
   images2-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
+  images9-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
+  images8-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
+  images7-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
+
+
   images3-> set_values(std::make_pair(192, 192), std::make_pair(192, 192), std::make_pair(0, 0));
   images4-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
   images5-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
   images6-> set_values(std::make_pair(507, 256), std::make_pair(507, 256), std::make_pair(0, 0));
 
-  GameObject* little_girl = new LittleGirl("little_girl", place, 52);
+  GameObject* little_girl = new LittleGirl("little_girl", place, 4);
   little_girl->hitbox = {
     .x = little_girl->position.first,
     .y = little_girl->position.second,
@@ -55,10 +71,18 @@ int main(int,char**){
   };
   little_girl->collidable = true;
 
-  GameObject* background = new Background("background", anotherplace, 1);
-  GameObject* fox = new Fox("fox", anotherotherplace, 52);
+  Background* background = new Background("background", anotherplace, 1);
+  Background* background2 = new Background("background2", anotherplace, 2);
+  GameObject* background3 = new Background("background3", anotherplace, 3);
+  GameObject* background4 = new Background("background4", anotherplace, 5);
 
-  GameObject* platform = new Platform("platform", std::make_pair(400, 250), 2);
+  background->paralax = 2;
+  background2->paralax = 4;
+
+
+  GameObject* fox = new Fox("fox", anotherotherplace, 4);
+
+  GameObject* platform = new Platform("platform", std::make_pair(820, 130), 2);
   platform->hitbox = {
     .x = platform->position.first + 70,
     .y = platform->position.second + 35,
@@ -68,7 +92,12 @@ int main(int,char**){
 
   little_girl->add_component("image", images1);
   little_girl->add_component("image", images3);
+
   background->add_component("image", images2);
+  background2->add_component("image", images9);
+  background3->add_component("image", images8);
+  background4->add_component("image", images7);
+
   fox->add_component("image",images4);
   fox->add_component("image",images5);
   platform->add_component("image", images6);
@@ -78,9 +107,15 @@ int main(int,char**){
   level1->add_object(little_girl);
   level1->add_object(fox);
   level1->add_object(background);
+  level1->add_object(background2);
+  level1->add_object(background3);
+  level1->add_object(background4);
   level1->add_object(platform);
   level1->activate_game_object("little_girl");
   level1->activate_game_object("background");
+  level1->activate_game_object("background2");
+  level1->activate_game_object("background3");
+  level1->activate_game_object("background4");
   level1->activate_game_object("fox");
   level1->activate_game_object("platform");
   /********************************************************************************/
