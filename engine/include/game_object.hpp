@@ -38,7 +38,6 @@ namespace engine {
       std::string name;
       int priority;
       bool collidable;
-      SDL_Rect hitbox;
       std::vector<Component*> audios;
       std::vector<Component*> images;
       std::vector<Component*> texts;
@@ -73,11 +72,8 @@ namespace engine {
       std::string get_state(std::string);
       std::vector<Hitbox*> get_hitboxes();
       virtual void on_event(GameEvent){};
-
-    protected:
-      void update_hitbox(int = 0, int = 0);
+      void update_hitboxes();
   };
-
 }
 
 #endif

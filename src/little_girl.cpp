@@ -29,8 +29,10 @@ void LittleGirl::free(){
   }
 }
 
-void LittleGirl::on_collision(GameObject* other){
+void LittleGirl::on_collision(GameObject* other, Hitbox* p_my_hitbox, Hitbox* p_other_hitbox){
   Platform* p = dynamic_cast<Platform *>(other);
+  Hitbox* my_hitbox = dynamic_cast<Hitbox *>(p_my_hitbox);
+  Hitbox* other_hitbox = dynamic_cast<Hitbox *>(p_other_hitbox);
   if(y_state == "FALLING" && p){
     for(int i=0 ; i<5; i++)std::cout << "AEGO" << std::endl;
     y_state = "GROUND";
@@ -44,11 +46,9 @@ void LittleGirl::on_collision(GameObject* other){
 void LittleGirl::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
 
-std::cout << "1CACEEEETE" << std::endl;
   Image* moving_left_image = dynamic_cast<Image*>(images[1]);
   Image* moving_right_image = dynamic_cast<Image*>(images[0]);
 
-std::cout << "2CACEEEETE" << std::endl;
   //Verifying if its on the ground
   if(event_name == "JUMP"){
     y_state = "JUMPING";
@@ -56,7 +56,6 @@ std::cout << "2CACEEEETE" << std::endl;
 
   }else if(event_name == "MOVE_LEFT"){
     x_state = "RUNNING_LEFT";
-std::cout << "3CACEEEETE" << std::endl;
 
     moving_right_image->deactivate();
     moving_left_image->activate();
@@ -81,10 +80,10 @@ std::cout << "3CACEEEETE" << std::endl;
       animation_count = 0;
     }
 
-    if(moving_right_image->coordinatesOnTexture.first >= 1728) moving_right_image->coordinatesOnTexture.first = 0;
+    if(moving_right_image->coordinatesOnTexture.first >= 1728)
+      moving_right_image->coordinatesOnTexture.first = 0;
 
   }
-std::cout << "4CACEEEETE" << std::endl;
 
   //Jumping
   if(y_state == "JUMPING" && position.second >= 35){
@@ -102,10 +101,4 @@ std::cout << "4CACEEEETE" << std::endl;
   if(game_event.state == engine::KeyboardEvent::State::RELEASED){
     x_state = "STOPPED";
   }
-
-  update_hitbox(60, 130);
-}
-
-void LittleGirl::update(){
-
 }

@@ -84,18 +84,12 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   );
 
   engine::GameObject* little_girl = new engine::LittleGirl("little_girl", place, 52);
-  little_girl->hitbox = {
-    .x = little_girl->position.first,
-    .y = little_girl->position.second,
-    .w = 50,
-    .h = 1
-  };
-
+  
+  engine::Hitbox* hitbox= new engine::Hitbox("hitbox", little_girl->position, std::make_pair(60,130), std::make_pair(50,1));
   little_girl->collidable = true;
   little_girl->add_component(image_running_right);
   little_girl->add_component(image_running_left);
-
-  std::cout << "TAMANHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO: " << little_girl->images.size() << std::endl;
+  little_girl->add_component(hitbox);
 
   return little_girl;
 }

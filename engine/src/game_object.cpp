@@ -73,13 +73,9 @@ void GameObject::run_collisions(GameObject* other){
   }
 }
 
-void GameObject::update_hitbox(int x_variation, int y_variation){
-  hitbox.x = position.first + x_variation;
-  hitbox.y = position.second + y_variation;
-
-  // DO NOT DELETE THIS COMMENT
-  // std::cout << name << " - X COMEÇA EM: " << hitbox.x << " VAI ATE: " << hitbox.x + hitbox.w << std::endl;
-  // std::cout << name << " - Y COMEÇA EM: " << hitbox.y << " VAI ATE: " << hitbox.y + hitbox.h << std::endl;
+void GameObject::update_hitboxes(){
+  for (auto hitbox : hitboxes)  
+    hitbox->update(position);
 }
 
 std::string GameObject::get_state(std::string state_name){

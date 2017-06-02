@@ -44,12 +44,8 @@ int main(int,char**){
   GameObject* fox = new Fox("fox", anotherotherplace, 52);
 
   GameObject* platform = new Platform("platform", std::make_pair(400, 250), 2);
-  platform->hitbox = {
-    .x = platform->position.first + 70,
-    .y = platform->position.second + 35,
-    .w = 270,
-    .h = 10
-  };
+  Hitbox* hitbox= new Hitbox("hitbox", platform->position, std::make_pair(70,35), std::make_pair(270,10));
+  platform->add_component(hitbox);
 
   background->add_component(images2);
   fox->add_component(images4);

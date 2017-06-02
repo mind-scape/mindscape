@@ -36,7 +36,7 @@ namespace engine {
       void free();
       void update();
       void on_event(GameEvent);
-      void on_collision(GameObject*);
+      void on_collision(GameObject*, Hitbox*, Hitbox*);
   };
 
 }
