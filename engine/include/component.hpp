@@ -1,5 +1,3 @@
-//TODO Create enum to components types
-
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
@@ -9,30 +7,40 @@
 namespace engine{
 
   class Component{
-    public:
-      std::string type;
+    private:
+      std::string name;
+      std::pair<int, int> coordinates;
       bool active;
-      std::pair<int, int> displacement;
       int priority;
 
+    public:
       Component(){};
       Component(
-        std::string p_type,
-        std::pair<int, int> place,
+        std::string p_name,
+        std::pair<int, int> p_coordinates,
         bool isactive,
-        int p)
-        :type(p_type),
-        displacement(place),
+        int p_priority)
+        :name(p_name),
+        coordinates(p_coordinates),
         active(isactive),
-        priority(p){};
+        priority(p_priority){};
 
       ~Component(){};
 
       virtual bool load(){};
       virtual void free(){};
       virtual void draw(int, int){};
-    };
+      bool is_active();
+      void activate();
+      void deactivate();
+      std::pair<int, int> get_coordinates();
+      void set_coordinates(std::pair<int, int>);
+      int get_priority();
+      void set_priority(int);
+      std::string get_name();
+      void set_name(std::string);
 
+    };
 }
 
 #endif
