@@ -10,7 +10,7 @@ namespace engine {
       std::unordered_map<std::string, std::string> states;
 
     public:
-      StateMap(std::unordered_map<std::string, std::string> p_states = {}):states(p_states){};
+      StateMap(std::unordered_map<std::string, std::string> p_states = {{}}):states(p_states){};
 
       ~StateMap(){};
 

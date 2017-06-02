@@ -27,49 +27,50 @@ void Fox::free(){
   }
 }
 
-/*
-void Fox::add_component(Component & component){
-  std::cout << "Add " << component.type << " to Game Object" << name;
-  components[component->type].push_back(&component);
-}
-*/
-
 void Fox::on_event(GameEvent game_event){
 
   std::string event_name = game_event.game_event_name;
-  Image* ref0 = dynamic_cast<Image*>(images[0]);
-  Image* ref1 = dynamic_cast<Image*>(images[1]);
+  Image* moving_right_image = dynamic_cast<Image*>(images[0]);
+  Image* moving_left_image = dynamic_cast<Image*>(images[1]);
+ 
+  std::cout << position.first << std::endl;
+ 
+  if(abs(position.first - 512) <= 50){
+    velocity = 10;
+  }else if(abs(position.first - 512) > 50 && abs(position.first -512) < 200){
+    velocity = 5;
+  }else if(abs(position.first - 512) >= 200){
+    velocity = -20;
+  }
 
   if(event_name == "JUMP"){
       //state == "JUMPING";
   }else if(event_name == "CROUCH"){
 
-  }else if(event_name == "MOVE_LEFT"){
+  }else if(event_name == "MOVE_LEFT" && !GameObject::on_limit_of_level){
 
     ref0->deactivate();
     ref1->activate();
 
     animation_count += 1;
     if(animation_count == 7){
-      ref1->coordinatesOnTexture.first -= 120;
+      moving_left_image->coordinatesOnTexture.first -= 120;
+      position.first += velocity;
       animation_count = 0;
     }
-    if(ref1->coordinatesOnTexture.first <= 0) ref1->coordinatesOnTexture.first = 960;
+    if(moving_left_image->coordinatesOnTexture.first <= 0) moving_left_image->coordinatesOnTexture.first = 960;
 
-  }else if(event_name == "MOVE_RIGHT"){
+  }else if(event_name == "MOVE_RIGHT" && !GameObject::on_limit_of_level){
 
     ref1->deactivate();
     ref0->activate();
 
     animation_count2 +=1;
     if(animation_count2 == 7){
-      ref0->coordinatesOnTexture.first += 120;
+      position.first -= velocity;
+      moving_right_image->coordinatesOnTexture.first += 120;
       animation_count2 = 0;
     }
-    if(ref0->coordinatesOnTexture.first >= 1080) ref0->coordinatesOnTexture.first = 0;
+    if(moving_right_image->coordinatesOnTexture.first >= 1080) moving_right_image->coordinatesOnTexture.first = 0;
   }
-}
-
-void Fox::update(){
-
 }
