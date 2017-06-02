@@ -12,39 +12,46 @@
 
      protected:
 
-       unsigned int sprite_columns;
-       unsigned int sprite_rows;
+      //Construtor de image
+      int is_active = false;
+      std::pair<int, int> displacement;
+      int render_priority;
+      //Atributos da animação
+      int sprite_columns;
+      int sprite_lines;
+      int first_sprite;
+      int final_sprite;
+      int total_sprites;
+      int actual_sprite;
+      int time_of_sprite;
+      int playing_duration_of_animation = 0;
+      int duration_of_animation;
+      bool in_loop = false;
+      bool is_finished;
+      //Atributo para o timer;
+      Timer * time;
+      int aux_time;
 
-       unsigned int duration;
-       unsigned int animation_duration;
-
-       unsigned number_frames;
-       unsigned int frame_time;
-       unsigned int initial_frame;
-       unsigned int final_frame;
-       unsigned int actual_frame;
-
-       bool in_loop;
-       bool is_finished;
-       engine::Timer* time;
 
      public:
 
        Animation(SDL_Renderer* p_renderer,
-                 std::string path,
-                 bool isactive,
-                 std::pair<int, int> displacement,
-                 unsigned int a_sprite_columns=1,
-                 unsigned int a_sprite_rows=1,
-                 double _duration=1.0,
-                 bool _in_loop = true)
-       : Image(p_renderer, path, isactive, displacement,2), sprite_columns(a_sprite_columns),
-         sprite_rows(a_sprite_rows), duration(_duration*1000), in_loop(_in_loop),
-         number_frames(a_sprite_rows * a_sprite_columns), animation_duration(0), initial_frame(0),
-         final_frame(number_frames-1), actual_frame(initial_frame), is_finished(false){ time = new Timer(); }
+                        std::string path,
+                        bool isactive,
+                        std::pair<int, int> displacement,
+                        int a_render_priority,
+                        unsigned int a_sprite_lines=1,
+                        unsigned int a_sprite_columns=1,
+                        double _duration_of_animation=1.0,
+                        bool _in_loop = true)
+       : Image(p_renderer, path, true, displacement,a_render_priority), sprite_lines(a_sprite_lines),
+         sprite_columns(a_sprite_columns), duration_of_animation(_duration_of_animation*1000), in_loop(_in_loop),
+         total_sprites(a_sprite_lines * a_sprite_columns),first_sprite(0), final_sprite(total_sprites-1),
+         actual_sprite(first_sprite), is_finished(false){ time = new Timer(); }
 
        virtual ~Animation(){}
 
+       bool load();
        bool set_frame_time();
        void draw(int, int);
      };

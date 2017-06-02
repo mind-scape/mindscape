@@ -30,7 +30,7 @@ int main(int,char**){
   std::pair<int, int> anotherplace (0, 0);
   std::pair<int, int> anotherotherplace (250,400);
 
-  //Animation* images1 = new Animation(game.renderer, "../assets/images/menina_correndo_direita.png", true, std::make_pair(0, 0),1,9,1.0,true);
+  Animation* images11 = new Animation(game.renderer, "../assets/images/menina_correndo_esquerda.png", true, std::make_pair(0, 0),1,9,1.0,true);
   Image* images1 = new Image(game.renderer, "../assets/images/menina_correndo_direita.png", true, std::make_pair(0, 0),1);
 
   Image* images2 = new Image(game.renderer, "../assets/images/cenarios/1.png", true, std::make_pair(0, 0), 1);
@@ -50,6 +50,9 @@ int main(int,char**){
 
 
   images1-> set_values(std::make_pair(192, 192), std::make_pair(192, 192), std::make_pair(0, 0));
+  images11-> set_values(std::make_pair(300, 300), std::make_pair(300, 192), std::make_pair(0, 0));
+
+
 
   images2-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
   images9-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
@@ -70,6 +73,9 @@ int main(int,char**){
     .h = 1
   };
   little_girl->collidable = true;
+
+  GameObject* teste_girl;
+  teste_girl = new GameObject("TESTE", std::make_pair(100, 100), 4, {});
 
   Background* background = new Background("background", anotherplace, 1);
   Background* background2 = new Background("background2", anotherplace, 2);
@@ -93,6 +99,7 @@ int main(int,char**){
   little_girl->add_component("image", images1);
   little_girl->add_component("image", images3);
 
+  teste_girl->add_component("animation", images11);
   background->add_component("image", images2);
   background2->add_component("image", images9);
   background3->add_component("image", images8);
@@ -111,13 +118,15 @@ int main(int,char**){
   level1->add_object(background3);
   level1->add_object(background4);
   level1->add_object(platform);
-  level1->activate_game_object("little_girl");
-  level1->activate_game_object("background");
-  level1->activate_game_object("background2");
-  level1->activate_game_object("background3");
-  level1->activate_game_object("background4");
-  level1->activate_game_object("fox");
-  level1->activate_game_object("platform");
+  level1->add_object(teste_girl);
+  //level1->activate_game_object("little_girl");
+  level1->activate_game_object("TESTE");
+  //level1->activate_game_object("background");
+  //level1->activate_game_object("background2");
+  //level1->activate_game_object("background3");
+  //level1->activate_game_object("background4");
+  //level1->activate_game_object("fox");
+  //level1->activate_game_object("platform");
   /********************************************************************************/
 
   /**********************MAIN*MEUNU********************************************/
@@ -172,7 +181,7 @@ int main(int,char**){
   menu->add_object(menu_background);
   menu->activate_game_object("menu_background");
   menu->add_object(menu_loop);
-  menu->activate_game_object("menu_loop");
+  //menu->activate_game_object("menu_loop");
 
   /********************************************************************************/
 

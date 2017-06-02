@@ -15,9 +15,12 @@ void GameObject::add_component(std::string type, Component* component){
   }else if(type == "text"){
     texts.push_back(component);
     sort(texts.begin(), texts.end(), compare);
-  }else{
+  }else if(type == "image"){
     images.push_back(component);
     sort(images.begin(), images.end(), compare);
+  } else {
+    animations.push_back(component);
+    sort(animations.begin(), animations.end(), compare);
   }
 }
 
@@ -30,6 +33,9 @@ bool GameObject::load(){
   }
   for(auto text : texts){
     text->load();
+  }
+  for(auto animation : animations){
+    animation->load();
   }
   return true;
 }
@@ -45,6 +51,9 @@ void GameObject::draw(){
   }
   for(auto text : texts){
     text->draw(position.first, position.second);
+  }
+  for(auto animation : animations){
+    animation->draw(position.first, position.second);
   }
 }
 

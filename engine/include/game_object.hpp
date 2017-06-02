@@ -28,6 +28,7 @@ namespace engine {
       std::vector<Component*> audios;
       std::vector<Component*> images;
       std::vector<Component*> texts;
+      std::vector<Component*> animations;
       std::pair<int,int> position;
       std::map<KeyboardEvent::Key, std::string> translations;
       bool active_game_object;
