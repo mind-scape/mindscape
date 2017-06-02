@@ -40,8 +40,6 @@ void Platform::on_event(GameEvent game_event){
   }else if(event_name == "MOVE_RIGHT" && !GameObject::on_limit_of_level){
     position.first -= 10;
     }
-
-  update_hitbox(70,42);
 }
 
 void Platform::update(){

@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <string>
 #include "../include/platform.hpp"
+#include "../include/game_object_factory.hpp"
 #include "../engine/include/game.hpp"
 #include "../engine/include/audio.hpp"
 #include "../engine/include/image.hpp"
@@ -10,7 +11,6 @@
 #include "../engine/include/level.hpp"
 #include "../engine/include/animation.hpp"
 #include "../include/globals.hpp"
-#include "../include/little_girl.hpp"
 #include "../include/background.hpp"
 #include "../include/fox.hpp"
 #include "../include/select_arrow.hpp"
@@ -26,7 +26,6 @@ int main(int,char**){
   game.game_init();
 
   /************************LEVEL*1**********************************************/
-  std::pair<int, int> place (416, 335);
   std::pair<int, int> anotherplace (0, 0);
   std::pair<int, int> anotherotherplace (250,400);
 
@@ -63,14 +62,6 @@ int main(int,char**){
   images5-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
   images6-> set_values(std::make_pair(507, 256), std::make_pair(507, 256), std::make_pair(0, 0));
 
-  GameObject* little_girl = new LittleGirl("little_girl", place, 4);
-  little_girl->hitbox = {
-    .x = little_girl->position.first,
-    .y = little_girl->position.second,
-    .w = 50,
-    .h = 1
-  };
-  little_girl->collidable = true;
 
   GameObject* teste_girl;
   //teste_girl = new GameObject("TESTE", std::make_pair(100, 100), 4, {});
@@ -83,29 +74,23 @@ int main(int,char**){
   background->paralax = 2;
   background2->paralax = 4;
 
-
   GameObject* fox = new Fox("fox", anotherotherplace, 4);
 
-  GameObject* platform = new Platform("platform", std::make_pair(820, 130), 2);
-  platform->hitbox = {
-    .x = platform->position.first + 70,
-    .y = platform->position.second + 35,
-    .w = 270,
-    .h = 10
-  };
-
-  little_girl->add_component("image", images1);
-  little_girl->add_component("image", images3);
-
   //teste_girl->add_component("animation", images11);
-  background->add_component("image", images2);
-  background2->add_component("image", images9);
-  background3->add_component("image", images8);
-  background4->add_component("image", images7);
+  background->add_component(images2);
+  background2->add_component(images9);
+  background3->add_component(images8);
+  background4->add_component(images7);
 
-  fox->add_component("image",images4);
-  fox->add_component("image",images5);
-  platform->add_component("image", images6);
+  GameObject* platform = new Platform("platform", std::make_pair(400, 250), 2);
+  Hitbox* hitbox= new Hitbox("hitbox", platform->position, std::make_pair(70,35), std::make_pair(270,10));
+  platform->add_component(hitbox);
+  fox->add_component(images4);
+  fox->add_component(images5);
+  platform->add_component(images6);
+
+  mindscape::GameObjectFactory mindscape_factory = mindscape::GameObjectFactory();
+  GameObject* little_girl = mindscape_factory.fabricate(mindscape::GameObjectFactory::LITTLE_GIRL);
 
   Level* level1 = new Level();
 
@@ -134,19 +119,19 @@ int main(int,char**){
   Image *m_background = new Image(game.renderer, "../assets/images/menu_screen2.jpg", true, std::make_pair(0,0),1);
   m_background->set_values(std::make_pair(1024,576), std::make_pair(1024,576), std::make_pair(0,0));
   GameObject* menu_background = new GameObject("menu_background", std::make_pair(0,0),1,{});
-  menu_background->add_component("menu_background", m_background);
+  menu_background->add_component(m_background);
 
   Text* sel = new Text(">", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
   GameObject* select = new SelectArrow("select", std::make_pair(425,275),2);
-  select->add_component("select", sel);
+  select->add_component(sel);
 
   Text* title = new Text("MindScape", "../assets/fonts/FFF_Tusj.ttf", 90, game.renderer);
   GameObject* game_title = new GameObject("game_title", std::make_pair(280, 30),2,{});
-  game_title->add_component("game_title", title);
+  game_title->add_component(title);
 
   Text* text_start = new Text("Iniciar", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
   GameObject* start = new Button("start", std::make_pair(450, 275), 2);
-  start->add_component("start", text_start);
+  start->add_component(text_start);
 
   //Text* text_instructions= new Text("Ajuda", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
   //GameObject* instructions = new GameObject("instructions", std::make_pair(450, 310),2);
@@ -162,7 +147,7 @@ int main(int,char**){
 
   Audio* music = new Audio("../assets/audios/mindscape_open3.wav", Audio::audio_type::music);
   GameObject * menu_loop =  new GameObject("menu_loop", std::make_pair(0,0),1,{});
-  menu_loop->add_component("menu_loop", music);
+  menu_loop->add_component(music);
 
   menu->add_object(select);
   menu->activate_game_object("select");

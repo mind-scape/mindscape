@@ -6,16 +6,18 @@ using namespace engine;
 bool GameObject::on_limit_of_level;
 
 bool compare(Component* a, Component* b){
-  return a->priority < b->priority;
+  return a->get_priority() < b->get_priority();
 }
 
-void GameObject::add_component(std::string type, Component* component){
-  if(type == "audio"){
+void GameObject::add_component(Component* component){
+  if(dynamic_cast<Audio *>(component)){
     audios.push_back(component);
-  }else if(type == "text"){
+  }else if(dynamic_cast<Text *>(component)){
     texts.push_back(component);
     sort(texts.begin(), texts.end(), compare);
-  }else if(type == "image"){
+  }else if(dynamic_cast<Hitbox *>(component)){
+    hitboxes.push_back(dynamic_cast<Hitbox *>(component));
+  }else if(dynamic_cast<Image *>(component)){
     images.push_back(component);
     sort(images.begin(), images.end(), compare);
   } else {
@@ -42,7 +44,7 @@ bool GameObject::load(){
 
 void GameObject::draw(){
   for(auto image : images){
-    if(image->active){
+    if(image->is_active()){
       image->draw(position.first, position.second);
     }
   }
@@ -61,42 +63,30 @@ bool GameObject::equals(GameObject* other){
   return (this == other);
 }
 
+std::vector<Hitbox*> GameObject::get_hitboxes(){
+  return hitboxes;
+}
+
 void GameObject::collide(GameObject* other){
-  if(!this->equals(other) && this->check_collision(other))
-    this->on_collision(other);
+  if(!this->equals(other))
+    this->run_collisions(other);
 }
 
-bool GameObject::check_collision(GameObject* other){
-  int left_a, left_b;
-  int right_a, right_b;
-  int top_a, top_b;
-  int bottom_a, bottom_b;
-
-  left_a = hitbox.x;
-  right_a = hitbox.x + hitbox.w;
-  top_a = hitbox.y;
-  bottom_a = hitbox.y + hitbox.h;
-
-  left_b = other->hitbox.x;
-  right_b = other->hitbox.x + other->hitbox.w;
-  top_b = other->hitbox.y;
-  bottom_b = other->hitbox.y + other->hitbox.h;
-
-  if(bottom_a <= top_b)
-    return false;
-  if(top_a >= bottom_b)
-    return false;
-  if(right_a <= left_b)
-    return false;
-  if(left_a >= right_b)
-    return false;
-  return true;
+void GameObject::run_collisions(GameObject* other){
+  for (auto my_hitbox : hitboxes){
+    for (auto other_hitbox : other->get_hitboxes()){
+      if(my_hitbox->collides_with(other_hitbox)){
+        this->on_collision(other, my_hitbox, other_hitbox);
+      }
+    }
+  }
 }
 
-void GameObject::update_hitbox(int x_variation, int y_variation){
-  hitbox.x = position.first + x_variation;
-  hitbox.y = position.second + y_variation;
+void GameObject::update_hitboxes(){
+  for (auto hitbox : hitboxes)  
+    hitbox->update(position);
+}
 
-  // std::cout << name << " - X COMEÇA EM: " << hitbox.x << " VAI ATE: " << hitbox.x + hitbox.w << std::endl;
-  // std::cout << name << " - Y COMEÇA EM: " << hitbox.y << " VAI ATE: " << hitbox.y + hitbox.h << std::endl;
+std::string GameObject::get_state(std::string state_name){
+  return states.get_state(state_name);
 }
