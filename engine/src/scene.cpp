@@ -7,7 +7,6 @@ bool compare_scene(engine::GameObject* a, GameObject* b){
   return a->priority < b->priority;
 }
 
-
 void Scene::add_object(engine::GameObject* object){
   objects.push_back(object);
   sort(objects.begin(), objects.end(), compare_scene);

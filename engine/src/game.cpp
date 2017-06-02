@@ -75,7 +75,6 @@ void Game::close(){
 
 void Game::run(){
   int right_cont = 0, left_cont = 0;
-
   std::pair<int,int> pos; pos.first =240;pos.second = 350;
 
   quit_event = false;
@@ -89,8 +88,7 @@ void Game::run(){
       unsigned now = Time::time_elapsed();
       event_handler.dispatch_pending_events(now);
       actual_scene->run_collisions();
-
-      SDL_SetRenderDrawColor(renderer,0xEB, 0xA7, 0xFC, 0xAA);
+      SDL_SetRenderDrawColor(renderer,0xAA, 0xAA, 0xAA, 0xAA);
 
       SDL_RenderClear(renderer);
       actual_scene->draw();

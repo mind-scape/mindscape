@@ -22,7 +22,7 @@ bool Audio::load(){
             printf("\nError loading the audio in this path: %s\n", audio_path.c_str());
             return false;
     }
-    active = true;
+    activate();
     return true;
 }
 

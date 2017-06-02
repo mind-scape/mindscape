@@ -29,6 +29,8 @@ namespace engine {
 
       ~Fox(){};
 
+      int velocity;
+
       bool load();
       void free();
       void update();
