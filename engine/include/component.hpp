@@ -9,7 +9,7 @@ namespace engine{
   class Component{
     private:
       std::string name;
-      std::pair<int, int> coordinates;
+      std::pair<int, int> displacement;
       bool active;
       int priority;
 
@@ -17,12 +17,12 @@ namespace engine{
       Component(){};
       Component(
         std::string p_name,
-        std::pair<int, int> p_coordinates,
-        bool isactive,
+        std::pair<int, int> p_displacement,
+        bool p_active,
         int p_priority)
         :name(p_name),
-        coordinates(p_coordinates),
-        active(isactive),
+        displacement(p_displacement),
+        active(p_active),
         priority(p_priority){};
 
       ~Component(){};
@@ -33,8 +33,8 @@ namespace engine{
       bool is_active();
       void activate();
       void deactivate();
-      std::pair<int, int> get_coordinates();
-      void set_coordinates(std::pair<int, int>);
+      std::pair<int, int> get_displacement();
+      void set_displacement(std::pair<int, int>);
       int get_priority();
       void set_priority(int);
       std::string get_name();

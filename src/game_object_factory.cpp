@@ -9,11 +9,11 @@ engine::GameObject* GameObjectFactory::fabricate(
 
   switch(option){
     case(GameObjectFactory::LITTLE_GIRL):
-      return fabricate_little_girl(); 
+      return fabricate_little_girl();
     case(GameObjectFactory::FOX):
-      return fabricate_fox(); 
+      return fabricate_fox();
     case(GameObjectFactory::PLATFORM):
-      return fabricate_little_girl(); 
+      return fabricate_little_girl();
     case(GameObjectFactory::BUTTON):
       return fabricate_button();
     case(GameObjectFactory::BACKGROUND):
@@ -92,8 +92,10 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   };
 
   little_girl->collidable = true;
-  little_girl->add_component("image", image_running_right);
-  little_girl->add_component("image", image_running_left);
+  little_girl->add_component(image_running_right);
+  little_girl->add_component(image_running_left);
+
+  std::cout << "TAMANHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO: " << little_girl->images.size() << std::endl;
 
   return little_girl;
 }

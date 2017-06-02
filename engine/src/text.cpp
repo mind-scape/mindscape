@@ -45,7 +45,7 @@ bool Text::load(){
     text_weigth = surface->w;
     text_heigth = surface->h;
 
-    active = true;
+    activate();
     SDL_FreeSurface(surface);
     return true;
 }

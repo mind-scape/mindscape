@@ -51,10 +51,10 @@ int main(int,char**){
     .h = 10
   };
 
-  background->add_component("image", images2);
-  fox->add_component("image",images4);
-  fox->add_component("image",images5);
-  platform->add_component("image", images6);
+  background->add_component(images2);
+  fox->add_component(images4);
+  fox->add_component(images5);
+  platform->add_component(images6);
   mindscape::GameObjectFactory mindscape_factory = mindscape::GameObjectFactory();
   GameObject* little_girl = mindscape_factory.fabricate(mindscape::GameObjectFactory::LITTLE_GIRL);
 
@@ -77,11 +77,11 @@ int main(int,char**){
   Image *m_background = new Image(game.renderer, "../assets/images/menu_screen2.jpg", true, std::make_pair(0,0),1);
   m_background->set_values(std::make_pair(1024,576), std::make_pair(1024,576), std::make_pair(0,0));
   GameObject* menu_background = new GameObject("menu_background", std::make_pair(0,0),1,{});
-  menu_background->add_component("menu_background", m_background);
+  menu_background->add_component(m_background);
 
   Text* sel = new Text(">", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
   GameObject* select = new SelectArrow("select", std::make_pair(425,275),2);
-  select->add_component("select", sel);
+  select->add_component(sel);
 
   Text* title = new Text("MindScape", "../assets/fonts/FFF_Tusj.ttf", 90, game.renderer);
   GameObject* game_title = new GameObject("game_title", std::make_pair(280, 30),2,{});
@@ -89,7 +89,7 @@ int main(int,char**){
 
   Text* text_start = new Text("Iniciar", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
   GameObject* start = new Button("start", std::make_pair(450, 275), 2);
-  start->add_component("start", text_start);
+  start->add_component(text_start);
 
   // Text* text_instructions= new Text("Ajuda", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
   // GameObject* instructions = new GameObject("instructions", std::make_pair(450, 310),2);
@@ -105,7 +105,7 @@ int main(int,char**){
 
   Audio* music = new Audio("../assets/audios/mindscape_open3.wav", Audio::audio_type::music);
   GameObject * menu_loop =  new GameObject("menu_loop", std::make_pair(0,0),1,{});
-  menu_loop->add_component("menu_loop", music);
+  menu_loop->add_component(music);
 
   menu->add_object(select);
   menu->activate_game_object("select");

@@ -75,25 +75,30 @@ void Game::close(){
 
 void Game::run(){
   int right_cont = 0, left_cont = 0;
-
   std::pair<int,int> pos; pos.first =240;pos.second = 350;
 
   quit_event = false;
 
   if(load_media()){
 
+    printf("1\n");
     SDL_Event e;
     EventHandler event_handler = EventHandler();
+    printf("2\n");
     while(!quit_event){
 
       unsigned now = Time::time_elapsed();
+      printf("3\n");
       event_handler.dispatch_pending_events(now);
+      printf("4\n");
       actual_scene->run_collisions();
-
+      printf("5\n");
       SDL_SetRenderDrawColor(renderer,0xAA, 0xAA, 0xAA, 0xAA);
 
       SDL_RenderClear(renderer);
+      printf("6\n");
       actual_scene->draw();
+      printf("7\n");
       SDL_RenderPresent(renderer);
     }
   }

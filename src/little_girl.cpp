@@ -44,9 +44,11 @@ void LittleGirl::on_collision(GameObject* other){
 void LittleGirl::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
 
+std::cout << "1CACEEEETE" << std::endl;
   Image* moving_left_image = dynamic_cast<Image*>(images[1]);
   Image* moving_right_image = dynamic_cast<Image*>(images[0]);
 
+std::cout << "2CACEEEETE" << std::endl;
   //Verifying if its on the ground
   if(event_name == "JUMP"){
     y_state = "JUMPING";
@@ -54,22 +56,24 @@ void LittleGirl::on_event(GameEvent game_event){
 
   }else if(event_name == "MOVE_LEFT"){
     x_state = "RUNNING_LEFT";
+std::cout << "3CACEEEETE" << std::endl;
 
-    moving_right_image->active = false;
-    moving_left_image->active = true;
+    moving_right_image->deactivate();
+    moving_left_image->activate();
 
     animation_count2 +=1;
     if(animation_count2 == 7){
       moving_left_image->coordinatesOnTexture.first -= 192;
       animation_count2 = 0;
     }
-    if(moving_left_image->coordinatesOnTexture.first <= 0) moving_left_image->coordinatesOnTexture.first = 1536;
+    if(moving_left_image->coordinatesOnTexture.first <= 0)
+      moving_left_image->coordinatesOnTexture.first = 1536;
 
   }else if(event_name == "MOVE_RIGHT"){
     x_state = "RUNNING_RIGHT";
 
-    moving_left_image->active = false;
-    moving_right_image->active = true;
+    moving_left_image->deactivate();
+    moving_right_image->activate();
 
     animation_count +=1;
     if(animation_count == 7){
@@ -80,6 +84,7 @@ void LittleGirl::on_event(GameEvent game_event){
     if(moving_right_image->coordinatesOnTexture.first >= 1728) moving_right_image->coordinatesOnTexture.first = 0;
 
   }
+std::cout << "4CACEEEETE" << std::endl;
 
   //Jumping
   if(y_state == "JUMPING" && position.second >= 35){

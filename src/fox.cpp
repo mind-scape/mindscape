@@ -46,8 +46,8 @@ void Fox::on_event(GameEvent game_event){
 
   }else if(event_name == "MOVE_LEFT"){
 
-    ref0->active = false;
-    ref1->active = true;
+    ref0->deactivate();
+    ref1->activate();
 
     animation_count += 1;
     if(animation_count == 7){
@@ -58,8 +58,8 @@ void Fox::on_event(GameEvent game_event){
 
   }else if(event_name == "MOVE_RIGHT"){
 
-    ref1->active = false;
-    ref0->active = true;
+    ref1->deactivate();
+    ref0->activate();
 
     animation_count2 +=1;
     if(animation_count2 == 7){

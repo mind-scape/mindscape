@@ -15,13 +15,14 @@ void Hitbox::set_dimensions(std::pair<int, int> p_dimensions){
   hitbox.h = p_dimensions.second;
 }
 
-void set_coordinates(std::pair<int, int> p_coordinates){
-  hitbox.x = p_coordinates.first;
-  hitbox.y = p_coordinates.second;
-  Component::set_coordinates(p_coordinates);
+void Hitbox::set_coordinates(std::pair<int, int> p_displacement){
+  hitbox.x = p_displacement.first;
+  hitbox.y = p_displacement.second;
+  Component::set_displacement(p_displacement);
 }
 
 bool Hitbox::collides_with(Hitbox* other_hitbox){
+  std::pair<int, int> other_hitbox_dimensions;
   std::pair<int, int> other_hitbox_coordinates;
   int left_a, left_b;
   int right_a, right_b;
@@ -33,8 +34,8 @@ bool Hitbox::collides_with(Hitbox* other_hitbox){
   top_a = hitbox.y;
   bottom_a = hitbox.y + hitbox.h;
 
-  other_hitbox_coordinates = other->get_coordinates();
-  other_hitbox_dimensions = other->get_dimensions();
+  other_hitbox_coordinates = other_hitbox->get_displacement();
+  other_hitbox_dimensions = other_hitbox->get_displacement();
 
   left_b = other_hitbox_coordinates.first;     //x
   right_b = other_hitbox_coordinates.first +   //x

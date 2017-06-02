@@ -12,6 +12,10 @@
 #include <utility>
 #include "SDL2basics.hpp"
 #include "component.hpp"
+#include "image.hpp"
+#include "text.hpp"
+#include "audio.hpp"
+#include "hitbox.hpp"
 #include "keyboard_event.hpp"
 #include "state_map.hpp"
 #include "../../include/game_event.hpp"
@@ -21,8 +25,12 @@ namespace engine {
   class GameObject{
     private:
       StateMap states;
+      std::vector<Hitbox*> hitboxes;
 
-      bool check_collision(GameObject *);
+      void run_collisions(GameObject *);
+
+    protected:
+      virtual void on_collision(GameObject *, Hitbox *, Hitbox *){};
 
     public:
       static bool on_limit_of_level;
@@ -59,12 +67,12 @@ namespace engine {
       bool load();
       virtual void free(){};
       void draw();
-      void add_component(std::string, Component*);
+      void add_component(Component*);
       bool equals(GameObject *);
       void collide(GameObject *);
       std::string get_state(std::string);
+      std::vector<Hitbox*> get_hitboxes();
       virtual void on_event(GameEvent){};
-      virtual void on_collision(GameObject *) {std::cout << "COLLISION NOT IMPLEMENTED" << std::endl; };
 
     protected:
       void update_hitbox(int = 0, int = 0);

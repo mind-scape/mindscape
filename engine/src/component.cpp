@@ -7,27 +7,27 @@ bool Component::is_active(){
 }
 
 void Component::activate(){
-  activate = true;
+  active = true;
 }
 
 void Component::deactivate(){
-  activate = false;
+  active = false;
 }
 
-std::pair<int, int> Component::get_coordinates(){
-  return coordinates;
+std::pair<int, int> Component::get_displacement(){
+  return displacement;
 }
 
-void Component::set_coordinates(std::pair<int, int> p_coordinates){
-  coordinates = p_coordinates;
+void Component::set_displacement(std::pair<int, int> p_displacement){
+  displacement = p_displacement;
 }
 
 int Component::get_priority(){
-  return priority; 
+  return priority;
 }
 
 void Component::set_priority(int p_priority){
-  priority = p_priority; 
+  priority = p_priority;
 }
 
 std::string Component::get_name(){
