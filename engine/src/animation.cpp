@@ -41,7 +41,7 @@ bool Animation::load(){
     time_of_sprite = (int) std::ceil(double(duration_of_animation) /double(total_sprites));
     aux_time = 0;
     active = true;
-    std::cout << "\n CARREGOU AQUI, MAN \n";
+    Image::load();
     return true;
 }
 

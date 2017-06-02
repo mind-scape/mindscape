@@ -30,7 +30,7 @@ int main(int,char**){
   std::pair<int, int> anotherplace (0, 0);
   std::pair<int, int> anotherotherplace (250,400);
 
-  Animation* images11 = new Animation(game.renderer, "../assets/images/menina_correndo_esquerda.png", true, std::make_pair(0, 0),1,9,1.0,true);
+  //Animation* images11 = new Animation(game.renderer, "../assets/images/menina_correndo_esquerda.png", true, std::make_pair(0, 0),1,9,1.0,true);
   Image* images1 = new Image(game.renderer, "../assets/images/menina_correndo_direita.png", true, std::make_pair(0, 0),1);
 
   Image* images2 = new Image(game.renderer, "../assets/images/cenarios/1.png", true, std::make_pair(0, 0), 1);
@@ -42,15 +42,13 @@ int main(int,char**){
 
   false, std::make_pair(0, 0), 2);
 
-  //images1->set_frame_time();
-
   Image* images4 = new Image(game.renderer, "../assets/images/raposa_correndo_direita.png", true, std::make_pair(0, 0), 2);
   Image* images5 = new Image(game.renderer, "../assets/images/raposa_correndo_esquerda.png", false, std::make_pair(0, 0), 2);
   Image* images6 = new Image(game.renderer, "../assets/images/plataformaTESTE.png", true, std::make_pair(0,0), 2);
 
 
   images1-> set_values(std::make_pair(192, 192), std::make_pair(192, 192), std::make_pair(0, 0));
-  images11-> set_values(std::make_pair(300, 300), std::make_pair(300, 192), std::make_pair(0, 0));
+  //images11-> set_values(std::make_pair(300, 300), std::make_pair(300, 192), std::make_pair(0, 0));
 
 
 
@@ -75,7 +73,7 @@ int main(int,char**){
   little_girl->collidable = true;
 
   GameObject* teste_girl;
-  teste_girl = new GameObject("TESTE", std::make_pair(100, 100), 4, {});
+  //teste_girl = new GameObject("TESTE", std::make_pair(100, 100), 4, {});
 
   Background* background = new Background("background", anotherplace, 1);
   Background* background2 = new Background("background2", anotherplace, 2);
@@ -99,7 +97,7 @@ int main(int,char**){
   little_girl->add_component("image", images1);
   little_girl->add_component("image", images3);
 
-  teste_girl->add_component("animation", images11);
+  //teste_girl->add_component("animation", images11);
   background->add_component("image", images2);
   background2->add_component("image", images9);
   background3->add_component("image", images8);
@@ -118,15 +116,15 @@ int main(int,char**){
   level1->add_object(background3);
   level1->add_object(background4);
   level1->add_object(platform);
-  level1->add_object(teste_girl);
-  //level1->activate_game_object("little_girl");
-  level1->activate_game_object("TESTE");
-  //level1->activate_game_object("background");
-  //level1->activate_game_object("background2");
-  //level1->activate_game_object("background3");
-  //level1->activate_game_object("background4");
-  //level1->activate_game_object("fox");
-  //level1->activate_game_object("platform");
+  //level1->add_object(teste_girl);
+  level1->activate_game_object("little_girl");
+  //level1->activate_game_object("TESTE");
+  level1->activate_game_object("background");
+  level1->activate_game_object("background2");
+  level1->activate_game_object("background3");
+  level1->activate_game_object("background4");
+  level1->activate_game_object("fox");
+  level1->activate_game_object("platform");
   /********************************************************************************/
 
   /**********************MAIN*MEUNU********************************************/
@@ -144,23 +142,23 @@ int main(int,char**){
 
   Text* title = new Text("MindScape", "../assets/fonts/FFF_Tusj.ttf", 90, game.renderer);
   GameObject* game_title = new GameObject("game_title", std::make_pair(280, 30),2,{});
-  // game_title->add_component("game_title", title);
+  game_title->add_component("game_title", title);
 
   Text* text_start = new Text("Iniciar", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
   GameObject* start = new Button("start", std::make_pair(450, 275), 2);
   start->add_component("start", text_start);
 
-  // Text* text_instructions= new Text("Ajuda", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
-  // GameObject* instructions = new GameObject("instructions", std::make_pair(450, 310),2);
-  // instructions->add_component("instructions", text_instructions);
-  //
-  // Text* text_credits= new Text("Creditos", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
-  // GameObject* credits = new GameObject("credits", std::make_pair(450, 345),2);
-  // credits->add_component("credits", text_credits);
-  //
-  // Text* text_exit = new Text("Sair", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
-  // GameObject* exit = new GameObject("exit", std::make_pair(450, 380),2);
-  // exit ->add_component("exit", text_exit);
+  //Text* text_instructions= new Text("Ajuda", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+  //GameObject* instructions = new GameObject("instructions", std::make_pair(450, 310),2);
+  //instructions->add_component("instructions", text_instructions);
+
+  //Text* text_credits= new Text("Creditos", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+ // GameObject* credits = new GameObject("credits", std::make_pair(450, 345),2);
+  //credits->add_component("credits", text_credits);
+
+  //Text* text_exit = new Text("Sair", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+  //GameObject* exit = new GameObject("exit", std::make_pair(450, 380),2);
+ // exit ->add_component("exit", text_exit);
 
   Audio* music = new Audio("../assets/audios/mindscape_open3.wav", Audio::audio_type::music);
   GameObject * menu_loop =  new GameObject("menu_loop", std::make_pair(0,0),1,{});
@@ -170,18 +168,18 @@ int main(int,char**){
   menu->activate_game_object("select");
   menu->add_object(start);
   menu->activate_game_object("start");
-  // menu->add_object(instructions);
-  // menu->activate_game_object("instructions");
-  // menu->add_object(credits);
-  // menu->activate_game_object("credits");
-  // menu->add_object(exit);
-  // menu->activate_game_object("exit");
-  menu->add_object(game_title);
+  //menu->add_object(instructions);
+  //menu->activate_game_object("instructions");
+  //menu->add_object(credits);
+  //menu->activate_game_object("credits");
+  //menu->add_object(exit);
+  //menu->activate_game_object("exit");
+  //menu->add_object(game_title);
   menu->activate_game_object("game_title");
   menu->add_object(menu_background);
   menu->activate_game_object("menu_background");
   menu->add_object(menu_loop);
-  //menu->activate_game_object("menu_loop");
+  menu->activate_game_object("menu_loop");
 
   /********************************************************************************/
 
