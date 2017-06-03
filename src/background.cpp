@@ -2,38 +2,6 @@
 
 using namespace engine;
 
-bool Background::load(){
-    for(auto image : images){
-      image->load();
-    }
-    for(auto audio : audios){
-      audio->load();
-    }
-    for(auto text : texts){
-      text->load();
-    }
-  return true;
-}
-
-void Background::free(){
-  for(auto image : images){
-    image->free();
-  }
-  for(auto audio : audios){
-    audio->free();
-  }
-  for(auto text : texts){
-    text->free();
-  }
-}
-
-/*
-void Background::add_component(Component & component){
-  std::cout << "Add " << component.type << " to Game Object" << name;
-  components[component->type].push_back(&component);
-}
-*/
-
 void Background::on_event(GameEvent game_event){
 
   std::string event_name = game_event.game_event_name;
@@ -61,6 +29,4 @@ void Background::on_event(GameEvent game_event){
   }
 }
 
-void Background::update(){
-
-}
+void Background::update(){}

@@ -2,33 +2,6 @@
 
 using namespace engine;
 
-
-
-bool Platform::load(){
-    for(auto image : images){
-      image->load();
-    }
-    for(auto audio : audios){
-      audio->load();
-    }
-    for(auto text : texts){
-      text->load();
-    }
-  return true;
-}
-
-void Platform::free(){
-  for(auto image : images){
-    image->free();
-  }
-  for(auto audio : audios){
-    audio->free();
-  }
-  for(auto text : texts){
-    text->free();
-  }
-}
-
 void Platform::on_event(GameEvent game_event){
 
   std::string event_name = game_event.game_event_name;
@@ -42,6 +15,4 @@ void Platform::on_event(GameEvent game_event){
     }
 }
 
-void Platform::update(){
-
-}
+void Platform::update(){}

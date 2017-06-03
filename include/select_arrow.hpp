@@ -27,8 +27,6 @@ namespace engine{
 
       ~SelectArrow(){};
 
-      bool load();
-      void free();
       void update();
       void on_event(GameEvent game_event);
 

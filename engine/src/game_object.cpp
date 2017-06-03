@@ -42,6 +42,18 @@ bool GameObject::load(){
   return true;
 }
 
+void GameObject::free(){
+  for(auto image : images){
+    image->free();
+  }
+  for(auto audio : audios){
+    audio->free();
+  }
+  for(auto text : texts){
+    text->free();
+  }
+}
+
 void GameObject::draw(){
   for(auto image : images){
     if(image->is_active()){

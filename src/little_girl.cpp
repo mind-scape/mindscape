@@ -4,30 +4,6 @@
 
 using namespace engine;
 
-bool LittleGirl::load(){
-    for(auto image : images){
-      image->load();
-    }
-    for(auto audio : audios){
-      audio->load();
-    }
-    for(auto text : texts){
-      text->load();
-    }
-  return true;
-}
-
-void LittleGirl::free(){
-  for(auto image : images){
-    image->free();
-  }
-  for(auto audio : audios){
-    audio->free();
-  }
-  for(auto text : texts){
-    text->free();
-  }
-}
 
 void LittleGirl::on_collision(GameObject* other, Hitbox* p_my_hitbox, Hitbox* p_other_hitbox){
   Platform* p = dynamic_cast<Platform *>(other);
@@ -108,3 +84,5 @@ void LittleGirl::on_event(GameEvent game_event){
     stop_girl->activate();
   }
 }
+
+void LittleGirl::update(){}

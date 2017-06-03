@@ -31,8 +31,6 @@ namespace engine {
 
       int velocity;
 
-      bool load();
-      void free();
       void update();
       void on_event(GameEvent game_event);
 

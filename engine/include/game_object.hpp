@@ -65,7 +65,7 @@ namespace engine {
       ~GameObject(){};
 
       bool load();
-      virtual void free(){};
+      void free();
       void draw();
       void add_component(Component*);
       bool equals(GameObject *);
