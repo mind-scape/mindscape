@@ -32,8 +32,6 @@ namespace engine {
       }){};
       ~LittleGirl(){};
 
-      bool load();
-      void free();
       void update();
       void on_event(GameEvent);
       void on_collision(GameObject*, Hitbox*, Hitbox*);

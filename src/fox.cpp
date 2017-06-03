@@ -2,39 +2,14 @@
 
 using namespace engine;
 
-bool Fox::load(){
-    for(auto image : images){
-      image->load();
-    }
-    for(auto audio : audios){
-      audio->load();
-    }
-    for(auto text : texts){
-      text->load();
-    }
-  return true;
-}
-
-void Fox::free(){
-  for(auto image : images){
-    image->free();
-  }
-  for(auto audio : audios){
-    audio->free();
-  }
-  for(auto text : texts){
-    text->free();
-  }
-}
-
 void Fox::on_event(GameEvent game_event){
 
   std::string event_name = game_event.game_event_name;
   Image* moving_right_image = dynamic_cast<Image*>(images[0]);
   Image* moving_left_image = dynamic_cast<Image*>(images[1]);
- 
+
   std::cout << position.first << std::endl;
- 
+
   if(abs(position.first - 512) <= 50){
     velocity = 10;
   }else if(abs(position.first - 512) > 50 && abs(position.first -512) < 200){
@@ -74,3 +49,5 @@ void Fox::on_event(GameEvent game_event){
     if(moving_right_image->coordinatesOnTexture.first >= 1080) moving_right_image->coordinatesOnTexture.first = 0;
   }
 }
+
+void Fox::update(){}
