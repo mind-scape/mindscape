@@ -60,7 +60,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   engine::Animation* image_running_right = new engine::Animation(
     game.renderer,
     "../assets/images/sprites/menina_correndo_direita.png",
-    true,
+    false,
     std::make_pair(0, 0),
     1,1,9,0.9,true
   );
@@ -89,9 +89,9 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   engine::Animation* image_stop = new engine::Animation(
     game.renderer,
     "../assets/images/sprites/menina_parada.png",
-    false,
+    true,
     std::make_pair(0, 0),
-    1,1,10,1.0,true
+    1,1,10,1.5,true
   );
   image_stop->set_values(
     std::make_pair(192, 192),

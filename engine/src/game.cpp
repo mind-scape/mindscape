@@ -88,7 +88,8 @@ void Game::run(){
       unsigned now = Time::time_elapsed();
       event_handler.dispatch_pending_events(now);
       actual_scene->run_collisions();
-      SDL_SetRenderDrawColor(renderer,0xAA, 0xAA, 0xAA, 0xAA);
+      SDL_SetRenderDrawColor(renderer, game_background_color.r, game_background_color.g,
+                                                game_background_color.b, game_background_color.a );
 
       SDL_RenderClear(renderer);
       actual_scene->draw();
@@ -114,4 +115,8 @@ void Game::add_scene(std::string name, Scene* scene){
 void Game::change_scene(std::string name){
   last_scene = actual_scene;
   actual_scene = scenes[name];
+}
+
+void Game::set_game_background_color(int R, int G, int B, int A){
+  game_background_color = Color(R, G, B, A);
 }

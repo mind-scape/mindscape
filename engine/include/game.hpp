@@ -9,6 +9,7 @@
 #include "text.hpp"
 #include "event_handler.hpp"
 #include "scene.hpp"
+#include "color.hpp"
 
 namespace engine{
 
@@ -29,6 +30,7 @@ namespace engine{
       Scene* last_scene;
       State game_state;
       static bool quit_event;
+      Color game_background_color  = Color(0xAA, 0xAA, 0xAA, 0xAA);
 
       Game(){};
       ~Game(){};
@@ -41,6 +43,7 @@ namespace engine{
       void set_information(std::string name,std::pair<int,int> dimensions);
       void change_scene(std::string);
       void add_scene(std::string name, Scene* scene);
+      void set_game_background_color(int R, int G, int B, int A);
   };
 }
 
