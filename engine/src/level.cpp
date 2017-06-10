@@ -6,6 +6,9 @@ void Level::load(){
   for(auto go : objects){
     std::cout << "Loading " << go->name << std::endl;
     go->load();
+    for(auto hit : go->get_hitboxes()){
+      hit->initialize();
+    }
   }
 }
 

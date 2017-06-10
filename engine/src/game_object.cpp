@@ -69,6 +69,11 @@ void GameObject::draw(){
   for(auto animation : animations){
     animation->draw(position.first, position.second);
   }
+  for(auto hitbox : hitboxes){
+    if(hitbox -> wanna_draw_hitbox()){
+      hitbox->draw();
+    }
+  }
 }
 
 bool GameObject::equals(GameObject* other){
@@ -95,7 +100,7 @@ void GameObject::run_collisions(GameObject* other){
 }
 
 void GameObject::update_hitboxes(){
-  for (auto hitbox : hitboxes)  
+  for (auto hitbox : hitboxes)
     hitbox->update(position);
 }
 

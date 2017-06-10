@@ -27,6 +27,7 @@ namespace engine {
       void deactivate_game_object(std::string name);
       void run_collisions(void);
       void deactivate_scene();
+      void update(unsigned delta);
   };
 }
 

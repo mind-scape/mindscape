@@ -19,6 +19,7 @@ namespace engine {
   class LittleGirl : public GameObject {
     public:
 
+      bool on_floor = true;
       int animation_count = 0;
       int animation_count2 = 0;
 
@@ -32,7 +33,7 @@ namespace engine {
       }){};
       ~LittleGirl(){};
 
-      void update();
+      void update(unsigned);
       void on_event(GameEvent);
       void on_collision(GameObject*, Hitbox*, Hitbox*);
   };

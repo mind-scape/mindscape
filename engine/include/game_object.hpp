@@ -30,6 +30,8 @@ namespace engine {
       void run_collisions(GameObject *);
 
     protected:
+      std::pair<float, float> speed;
+
       virtual void on_collision(GameObject *, Hitbox *, Hitbox *){};
 
     public:
@@ -42,10 +44,10 @@ namespace engine {
       std::vector<Component*> images;
       std::vector<Component*> texts;
       std::vector<Component*> animations;
-      std::pair<int,int> position;
+      std::pair<float,float> position;
       std::map<KeyboardEvent::Key, std::string> translations;
       bool active_game_object;
-      std::string x_state, y_state;
+      std::string state;
 
       GameObject(){};
 
@@ -60,7 +62,8 @@ namespace engine {
         active_game_object(false),
         priority(p),
         translations(p_translations),
-        states(p_states){};
+        states(p_states),
+        speed(std::make_pair(0.0,0.0)){};
 
       ~GameObject(){};
 
@@ -74,6 +77,7 @@ namespace engine {
       std::vector<Hitbox*> get_hitboxes();
       virtual void on_event(GameEvent){};
       void update_hitboxes();
+      virtual void update(unsigned){};
   };
 }
 

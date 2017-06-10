@@ -62,3 +62,30 @@ bool Hitbox::collides_with(Hitbox* other_hitbox){
     return false;
   return true;
 }
+
+void Hitbox::initialize(){
+  SDL_Texture* new_texture = NULL;
+
+  SDL_Surface* loaded_surface = IMG_Load("/home/victor/UnB/IJE/mindscape/assets/images/Fundo-Vermelho.jpg");
+  if( loaded_surface != NULL ){
+    new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
+    if(new_texture == NULL){
+      printf( "Unable to create texture from! SDL Error: %s\n", SDL_GetError() );
+    }
+    SDL_FreeSurface(loaded_surface);
+  }else{
+    printf("Unable to load image");
+  }
+  texture = new_texture;
+}
+
+void Hitbox::draw(){
+  SDL_Rect ret = {0, 0, hitbox.w, hitbox.h};
+  // This render_quad tells where the image will appear in the screen
+  SDL_Rect render_quad = {hitbox.x, hitbox.y, hitbox.w, hitbox.h};
+  SDL_RenderCopy(renderer, texture, &ret, &render_quad);
+}
+
+bool Hitbox::wanna_draw_hitbox(){
+  return draw_hitbox;
+}

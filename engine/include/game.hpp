@@ -10,6 +10,7 @@
 #include "event_handler.hpp"
 #include "scene.hpp"
 #include "color.hpp"
+#include "hitbox.hpp"
 
 namespace engine{
 

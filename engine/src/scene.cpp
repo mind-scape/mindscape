@@ -39,3 +39,9 @@ void Scene::run_collisions(){
     }
   }
 }
+
+void Scene::update(unsigned delta){
+  for(auto go : objects){
+    go->update(delta);
+  }
+}
