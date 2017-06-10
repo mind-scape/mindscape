@@ -55,13 +55,14 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
 
   std::pair<int, int> place (416, 335);
 
+
   //Creating running right image
-  engine::Image* image_running_right = new engine::Image(
+  engine::Animation* image_running_right = new engine::Animation(
     game.renderer,
-    "../assets/images/menina_correndo_direita.png",
+    "../assets/images/sprites/menina_correndo_direita.png",
     true,
     std::make_pair(0, 0),
-    2
+    1,1,9,0.9,true
   );
   image_running_right->set_values(
     std::make_pair(192, 192),
@@ -70,12 +71,12 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   );
 
   //Creating running right image
-  engine::Image* image_running_left = new engine::Image(
+  engine::Animation* image_running_left = new engine::Animation(
     game.renderer,
-    "../assets/images/menina_correndo_esquerda.png",
+    "../assets/images/sprites/menina_correndo_esquerda.png",
     false,
     std::make_pair(0, 0),
-    2
+    1,1,9,0.9,true
   );
   image_running_left->set_values(
     std::make_pair(192, 192),
@@ -83,12 +84,29 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
     std::make_pair(0, 0)
   );
 
+
+  //Creating running stop image
+  engine::Animation* image_stop = new engine::Animation(
+    game.renderer,
+    "../assets/images/sprites/menina_parada.png",
+    false,
+    std::make_pair(0, 0),
+    1,1,10,1.0,true
+  );
+  image_stop->set_values(
+    std::make_pair(192, 192),
+    std::make_pair(192, 192),
+    std::make_pair(0, 0)
+  );
+
+
   engine::GameObject* little_girl = new engine::LittleGirl("little_girl", place, 52);
-  
+
   engine::Hitbox* hitbox= new engine::Hitbox("hitbox", little_girl->position, std::make_pair(60,130), std::make_pair(50,1));
   little_girl->collidable = true;
   little_girl->add_component(image_running_right);
   little_girl->add_component(image_running_left);
+  little_girl->add_component(image_stop);
   little_girl->add_component(hitbox);
 
   return little_girl;

@@ -29,25 +29,21 @@ int main(int,char**){
   std::pair<int, int> anotherplace (0, 0);
   std::pair<int, int> anotherotherplace (250,400);
 
-  Animation* images11 = new Animation(game.renderer, "../assets/images/menina_correndo_direita.png", true, std::make_pair(0, 0),1,1,9,0.9,true);
-  Image* images1 = new Image(game.renderer, "../assets/images/menina_correndo_direita.png", true, std::make_pair(0, 0),1);
+/***Animações_da_menina***/
 
   Image* images2 = new Image(game.renderer, "../assets/images/cenarios/1.png", true, std::make_pair(0, 0), 1);
   Image* images9 = new Image(game.renderer, "../assets/images/cenarios/2.png", true, std::make_pair(0, 0), 1);
   Image* images8 = new Image(game.renderer, "../assets/images/cenarios/3.png", true, std::make_pair(0, 0), 1);
   Image* images7 = new Image(game.renderer, "../assets/images/cenarios/4.png", true, std::make_pair(0, 0), 1);
 
-  Image* images3 = new Image(game.renderer, "../assets/images/menina_correndo_esquerda.png",
 
-  false, std::make_pair(0, 0), 2);
 
   Image* images4 = new Image(game.renderer, "../assets/images/raposa_correndo_direita.png", true, std::make_pair(0, 0), 2);
   Image* images5 = new Image(game.renderer, "../assets/images/raposa_correndo_esquerda.png", false, std::make_pair(0, 0), 2);
   Image* images6 = new Image(game.renderer, "../assets/images/plataformaTESTE.png", true, std::make_pair(0,0), 2);
 
 
-  images1-> set_values(std::make_pair(192, 192), std::make_pair(192, 192), std::make_pair(0, 0));
-  images11-> set_values(std::make_pair(192, 192), std::make_pair(192, 192), std::make_pair(0, 0));
+
 
 
 
@@ -56,15 +52,12 @@ int main(int,char**){
   images8-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
   images7-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
 
-
-  images3-> set_values(std::make_pair(192, 192), std::make_pair(192, 192), std::make_pair(0, 0));
   images4-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
   images5-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
   images6-> set_values(std::make_pair(507, 256), std::make_pair(507, 256), std::make_pair(0, 0));
 
 
-  GameObject* teste_girl;
-  teste_girl = new GameObject("TESTE", std::make_pair(100, 100), 4, {});
+
 
   Background* background = new Background("background", anotherplace, 1);
   Background* background2 = new Background("background2", anotherplace, 2);
@@ -76,7 +69,6 @@ int main(int,char**){
 
   GameObject* fox = new Fox("fox", anotherotherplace, 4);
 
-  teste_girl->add_component(images11);
   background->add_component(images2);
   background2->add_component(images9);
   background3->add_component(images8);
@@ -101,10 +93,8 @@ int main(int,char**){
   level1->add_object(background3);
   level1->add_object(background4);
   level1->add_object(platform);
-  level1->add_object(teste_girl);
   level1->activate_game_object("little_girl");
-  //teste de animação
-  //level1->activate_game_object("TESTE");
+
   level1->activate_game_object("background");
   level1->activate_game_object("background2");
   level1->activate_game_object("background3");

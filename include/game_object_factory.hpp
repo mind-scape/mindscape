@@ -5,6 +5,7 @@
 #include "../engine/include/audio.hpp"
 #include "../engine/include/image.hpp"
 #include "../engine/include/text.hpp"
+#include "../engine/include/animation.hpp"
 #include "platform.hpp"
 #include "little_girl.hpp"
 #include "fox.hpp"
@@ -31,7 +32,7 @@ namespace mindscape {
         std::pair<int, int> coordinates = std::make_pair(0,0),
         int priority = 0
       );
-      
+
     private:
       engine::GameObject* fabricate_platform();
       engine::GameObject* fabricate_background();

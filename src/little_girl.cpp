@@ -48,6 +48,7 @@ void LittleGirl::on_event(GameEvent game_event){
 
   Image* moving_left_image = dynamic_cast<Image*>(images[1]);
   Image* moving_right_image = dynamic_cast<Image*>(images[0]);
+  Image* stop_girl = dynamic_cast<Image*>(images[2]);
 
   //Verifying if its on the ground
   if(event_name == "JUMP"){
@@ -58,6 +59,7 @@ void LittleGirl::on_event(GameEvent game_event){
     x_state = "RUNNING_LEFT";
 
     moving_right_image->deactivate();
+    stop_girl->deactivate();
     moving_left_image->activate();
 
     animation_count2 +=1;
@@ -73,6 +75,7 @@ void LittleGirl::on_event(GameEvent game_event){
 
     moving_left_image->deactivate();
     moving_right_image->activate();
+    stop_girl->deactivate();
 
     animation_count +=1;
     if(animation_count == 5){
@@ -100,5 +103,8 @@ void LittleGirl::on_event(GameEvent game_event){
   //Stopping
   if(game_event.state == engine::KeyboardEvent::State::RELEASED){
     x_state = "STOPPED";
+    moving_left_image->deactivate();
+    moving_right_image->deactivate();
+    stop_girl->activate();
   }
 }
