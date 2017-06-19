@@ -36,7 +36,7 @@ void LittleGirl::update(unsigned delta){
   on_floor = false;
 
   for(int i  = 0;i < 10;++i){
-   std::cout << "First " << speed.first << " Second " << speed.second  << std::endl; 
+   std::cout << "First " << speed.first << " Second " << speed.second  << std::endl;
   }
 
   if(speed.first == 0 && speed.second == 0){
@@ -57,7 +57,7 @@ void LittleGirl::update(unsigned delta){
     for(int i = 0;i < 10;++i){
       std::cout << "NAOO TA MAIS IDLE" << std::endl;
     }
-  
+
   }
   speed.first = 0;
 }
@@ -98,7 +98,7 @@ void LittleGirl::on_event(GameEvent game_event){
 
     std::cout << "Entrou no right " << std::endl;
     std::cout << "Velocidade deu " << speed.first << std::endl;
-    
+
     idle_right_image->deactivate();
     idle_left_image->deactivate();
     moving_left_image->deactivate();
@@ -113,5 +113,5 @@ void LittleGirl::on_event(GameEvent game_event){
     if(moving_right_image->coordinatesOnTexture.first >= 1728)
       moving_right_image->coordinatesOnTexture.first = 0;
   }
-  
+
 }

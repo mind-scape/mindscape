@@ -32,14 +32,15 @@ namespace engine {
 
     protected:
       std::pair<float, float> speed;
-
       virtual void on_collision(GameObject *, Hitbox *, Hitbox *){};
+
 
     public:
       static bool on_limit_of_level;
-
+      bool on_floor = true;
       std::string name;
       int priority;
+      int hp;
       bool collidable;
       std::vector<Component*> audios;
       std::vector<Component*> images;
@@ -50,8 +51,6 @@ namespace engine {
       bool active_game_object;
       std::string state;
       std::string game_object_direction = "RIGHT";
-
-      GameObject(){};
 
       GameObject(
         std::string p_name,
@@ -77,9 +76,11 @@ namespace engine {
       void collide(GameObject *);
       std::string get_state(std::string);
       std::vector<Hitbox*> get_hitboxes();
-      virtual void on_event(GameEvent){};
       void update_hitboxes();
       virtual void update(unsigned){};
+      virtual void attack(){};
+      virtual void die(std::string){};
+      virtual void on_event(GameEvent){};
   };
 }
 
