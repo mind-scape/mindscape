@@ -26,13 +26,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # using a specific IP.
   config.vm.network "private_network", ip: "10.10.10.10"
   config.vm.network "forwarded_port", guest: 3000, host: 3000
+  config.vm.synced_folder ".", "/mnt", type: "nfs", nfs_udp: false
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 1024
     v.cpus = 2
+    v.gui = true
   end
-
-  config.vm.synced_folder ".", "/mnt", type: "nfs", nfs_udp: false
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
