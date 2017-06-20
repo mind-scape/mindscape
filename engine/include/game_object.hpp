@@ -1,5 +1,6 @@
 //TODO trocar os vectors de componentes para unordered maps
 //TODO acabar com o primeiro construtor e definir hit box como um componente
+//TODO remover vector de animations
 
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
@@ -48,6 +49,7 @@ namespace engine {
       std::map<KeyboardEvent::Key, std::string> translations;
       bool active_game_object;
       std::string state;
+      std::string game_object_direction = "RIGHT";
 
       GameObject(){};
 

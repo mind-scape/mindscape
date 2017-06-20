@@ -18,6 +18,7 @@ void LittleGirl::on_collision(GameObject* other, Hitbox* p_my_hitbox, Hitbox* p_
 }
 
 void LittleGirl::update(unsigned delta){
+
   if(!on_floor) speed.second += 0.02 * delta;
   //printf("speed: %f\n", speed.second);
   if(speed.second > 1){
@@ -33,6 +34,32 @@ void LittleGirl::update(unsigned delta){
     state = "GROUND";
   }
   on_floor = false;
+
+  for(int i  = 0;i < 10;++i){
+   std::cout << "First " << speed.first << " Second " << speed.second  << std::endl; 
+  }
+
+  if(speed.first == 0 && speed.second == 0){
+
+    if(game_object_direction == "RIGHT"){
+      images[0]->deactivate();
+      //activate idle right
+      images[2]->activate();
+    }
+    if(game_object_direction == "LEFT"){
+      images[1]->deactivate();
+      //activate idle left
+      images[3]->activate();
+    }
+
+  }else{
+
+    for(int i = 0;i < 10;++i){
+      std::cout << "NAOO TA MAIS IDLE" << std::endl;
+    }
+  
+  }
+  speed.first = 0;
 }
 
 void LittleGirl::on_event(GameEvent game_event){
@@ -40,15 +67,22 @@ void LittleGirl::on_event(GameEvent game_event){
 
   Image* moving_left_image = dynamic_cast<Image*>(images[1]);
   Image* moving_right_image = dynamic_cast<Image*>(images[0]);
-  Image* stop_girl = dynamic_cast<Image*>(images[2]);
+  Image* idle_right_image = dynamic_cast<Image*>(images[2]);
+  Image* idle_left_image = dynamic_cast<Image*>(images[3]);
+
+  //speed.first = 0;
 
   //Verifying if its on the ground
   if(event_name == "JUMP" && speed.second == 0){
     state = "JUMPING";
     speed.second = -3.5;
   }else if(event_name == "MOVE_LEFT"){
+    game_object_direction = "LEFT";
+    speed.first = -1.0;
+
     moving_right_image->deactivate();
-    stop_girl->deactivate();
+    idle_right_image->deactivate();
+    idle_left_image->deactivate();
     moving_left_image->activate();
 
     animation_count2 +=1;
@@ -59,9 +93,16 @@ void LittleGirl::on_event(GameEvent game_event){
     if(moving_left_image->coordinatesOnTexture.first <= 0)
       moving_left_image->coordinatesOnTexture.first = 1536;
   }else if(event_name == "MOVE_RIGHT"){
+    game_object_direction = "RIGHT";
+    speed.first = 1.0;
+
+    std::cout << "Entrou no right " << std::endl;
+    std::cout << "Velocidade deu " << speed.first << std::endl;
+    
+    idle_right_image->deactivate();
+    idle_left_image->deactivate();
     moving_left_image->deactivate();
     moving_right_image->activate();
-    stop_girl->deactivate();
 
     animation_count +=1;
     if(animation_count == 5){
@@ -71,6 +112,6 @@ void LittleGirl::on_event(GameEvent game_event){
 
     if(moving_right_image->coordinatesOnTexture.first >= 1728)
       moving_right_image->coordinatesOnTexture.first = 0;
-
   }
+  
 }
