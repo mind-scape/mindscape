@@ -59,10 +59,10 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   //Creating running right animation
   engine::Animation* running_right_animation = new engine::Animation(
     game.renderer,
-    "../assets/images/sprites/menina_correndo_direita.png",
+    "../assets/images/sprites/little_girl_running_right.png",
     false,
     std::make_pair(0, 0),
-    1,1,9,0.9,true
+    1,1,9,0.9,true,"RIGHT"
   );
   running_right_animation->set_values(
     std::make_pair(192, 192),
@@ -73,10 +73,10 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   //Creating running right animation
   engine::Animation* running_left_animation = new engine::Animation(
     game.renderer,
-    "../assets/images/sprites/menina_correndo_esquerda.png",
+    "../assets/images/sprites/little_girl_running_left.png",
     false,
     std::make_pair(0, 0),
-    1,1,9,0.9,true
+    1,1,9,0.9,true,"LEFT"
   );
   running_left_animation->set_values(
     std::make_pair(192, 192),
@@ -88,10 +88,10 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   //Creating idle right animation
   engine::Animation* idle_right_animation = new engine::Animation(
     game.renderer,
-    "../assets/images/sprites/menina_parada_direita.png",
-    false,
+    "../assets/images/sprites/little_girl_idle_right.png",
+    true,
     std::make_pair(0, 0),
-    1,1,10,1.5,true
+    1,1,10,1.5,"RIGHT"
   );
   idle_right_animation->set_values(
     std::make_pair(192, 192),
@@ -102,10 +102,10 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   //Creating idle left animation
   engine::Animation* idle_left_animation = new engine::Animation(
     game.renderer,
-    "../assets/images/sprites/menina_parada_esquerda.png",
+    "../assets/images/sprites/little_girl_idle_left.png",
     false,
     std::make_pair(0, 0),
-    1,1,10,1.5,true
+    1,1,10,1.5,true,"LEFT"
   );
   idle_left_animation->set_values(
     std::make_pair(192, 192),

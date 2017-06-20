@@ -27,7 +27,7 @@ int main(int,char**){
 
   /************************LEVEL*1**********************************************/
   std::pair<int, int> anotherplace (0, 0);
-  std::pair<int, int> anotherotherplace (250,440);
+  std::pair<int, int> anotherotherplace (250,400);
   game.set_game_background_color(0xEB, 0xA7, 0xFC, 0xFF);
 
   Image* images2 = new Image(game.renderer, "../assets/images/cenarios/1.png", true, std::make_pair(0, 0), 1);
@@ -35,8 +35,8 @@ int main(int,char**){
   Image* images8 = new Image(game.renderer, "../assets/images/cenarios/3.png", true, std::make_pair(0, 0), 1);
   Image* images7 = new Image(game.renderer, "../assets/images/cenarios/4.png", true, std::make_pair(0, 0), 1);
 
-  Animation* images4 = new Animation(game.renderer, "../assets/images/sprites/raposa_correndo_direita.png", true, std::make_pair(0, 0),1,1,9,0.9,true);
-  Animation* images5 = new Animation(game.renderer, "../assets/images/sprites/raposa_correndo_esquerda.png", false, std::make_pair(0, 0),1,1,9,0.9,true);
+  Animation* images4 = new Animation(game.renderer, "../assets/images/sprites/fox_running_right.png", true, std::make_pair(0, 0),1,1,9,0.9,true,"RIGHT");
+  Animation* images5 = new Animation(game.renderer, "../assets/images/sprites/fox_running_left.png", false, std::make_pair(0, 0),1,1,9,0.9,true,"LEFT");
 
   Image* images6 = new Image(game.renderer, "../assets/images/plataforma.png", true, std::make_pair(0,0), 2);
 
@@ -45,8 +45,8 @@ int main(int,char**){
   images8-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
   images7-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
 
-  images4-> set_values(std::make_pair(120, 90), std::make_pair(120, 90), std::make_pair(0, 0));
-  images5-> set_values(std::make_pair(120, 90), std::make_pair(120, 90), std::make_pair(0, 0));
+  images4-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
+  images5-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
 
   Background* background = new Background("background", anotherplace, 1);
   Background* background2 = new Background("background2", anotherplace, 2);
