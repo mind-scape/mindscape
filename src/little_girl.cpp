@@ -12,14 +12,14 @@ void LittleGirl::on_collision(GameObject* other, Hitbox* p_my_hitbox, Hitbox* p_
   if(state == "FALLING" && p){
     on_floor = true;
     speed.second = 0;
-    position.second = other_hitbox->get_coordinates().second-180;
+    position.second = other_hitbox->get_coordinates().second - 180;
     state = "GROUND";
   }
 }
 
 void LittleGirl::update(unsigned delta){
   if(!on_floor) speed.second += 0.02 * delta;
-  printf("speed: %f\n", speed.second);
+  //printf("speed: %f\n", speed.second);
   if(speed.second > 1){
     speed.second = 1;
   }

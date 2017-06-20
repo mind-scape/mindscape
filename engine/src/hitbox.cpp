@@ -87,5 +87,5 @@ void Hitbox::draw(){
 }
 
 bool Hitbox::wanna_draw_hitbox(){
-  return draw_hitbox;
+  return true;
 }

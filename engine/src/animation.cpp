@@ -1,8 +1,8 @@
- #include <cmath>
- #include "../include/animation.hpp"
- #include "../include/game.hpp"
+#include <cmath>
+#include "../include/animation.hpp"
+#include "../include/game.hpp"
 
- using namespace engine;
+using namespace engine;
 
 bool Animation::load(){
 
@@ -36,20 +36,27 @@ void Animation::draw(int x, int y){
         }
       }
 
-      //std::cout << "Tempo decorrido:  " << playing_duration_of_animation << std::endl;
-
       actual_sprite = (playing_duration_of_animation / time_of_sprite) + first_sprite;
-      //std::cout << "Sprite atual:  " << actual_sprite << std::endl;
 
       int actual_line = actual_sprite / sprite_columns;
       int actual_column  = actual_sprite % sprite_columns;
-      //std::cout << "Linha atual:  " << actual_line << std::endl;
-      //std::cout << "Coluna atual:  " << actual_column << std::endl;
 
-      coordinatesOnTexture.first = actual_column * dimensionOnTexture.first;
-       //std::cout << "EM X:  " << coordinatesOnTexture.first << std::endl;
+      //Game::get_instance().quit_event = true;
+
+      coordinatesOnTexture.first = sprites_order["left"][actual_column] * dimensionOnTexture.first;
       coordinatesOnTexture.second = actual_line * dimensionOnTexture.second;
-       //std::cout << "EM Y:  " << coordinatesOnTexture.second << std::endl;
 
     Image::draw(x,y);
+}
+
+void Animation::set_sprites_order(int total_sprites){
+  int reverse_index = total_sprites - 1;
+  for(int i = 0;i < total_sprites;++i){
+    sprites_order["left"][i] = reverse_index;
+    reverse_index--;    
+  }
+  
+  for(int j = 0;j < total_sprites;++j){
+    sprites_order["right"][j] = j;
+  } 
 }
