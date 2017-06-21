@@ -6,37 +6,45 @@
 #include <string>
 
 namespace engine{
+  class Audio: public Component{
+    public:
+      typedef enum {
+        MUSIC, CHUNK
+      } AudioType;
 
-    class Audio: public Component{
+    private:
+      std::string audio_path;
+      AudioType m_audio_type;
+      int audio_repeat;
+      int audio_chanel;
+      bool playing;
+
+      Mix_Music *audio_music;
+      Mix_Chunk *audio_chunk;
+
 
     public:
-    //private:
-        enum class audio_type {music, chunk};
-        std::string audio_path;
-        audio_type m_audio_type;
-        int audio_repeat;
-        int audio_chanel;
-        bool playing;
+      Audio(
+        std::string path,
+        AudioType m_type = MUSIC,
+        int repeat = 0,
+        int chanel = -1)
+        :audio_path(path),
+        m_audio_type(m_type),
+        audio_repeat(repeat),
+        audio_chanel(chanel),
+        audio_music(NULL),
+        audio_chunk(NULL) {}
 
-        Mix_Music *audio_music;
-        Mix_Chunk *audio_chunk;
+    ~Audio(){}
 
-
-        Audio(std::string path, audio_type m_type = audio_type::music, int repeat = 0, int chanel = -1)
-                 : audio_path(path), m_audio_type(m_type), audio_repeat(repeat), audio_chanel(chanel), audio_music(NULL), audio_chunk(NULL) {}
-
-        ~Audio(){}
-
-        bool load();
-        void free();
-        void draw(int x, int y);
-        void play_chunk();
-        void play_music();
-        void pause_music();
-
-
-    };
-
+    bool load();
+    void free();
+    void draw(int x, int y);
+    void play_chunk();
+    void play_music();
+    void pause_music();
+  };
 }
 
 #endif

@@ -17,9 +17,10 @@ namespace engine {
       void run_collisions(void);
       void update_game_objects_states();
 
-    public:
+    protected:
       std::vector<engine::GameObject*> objects;
 
+    public:
       Scene(){};
       ~Scene(){};
 

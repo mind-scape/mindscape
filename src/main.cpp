@@ -131,7 +131,7 @@ int main(int,char**){
   //GameObject* exit = new GameObject("exit", std::make_pair(450, 380),2);
  // exit ->add_component("exit", text_exit);
 
-  Audio* music = new Audio("../assets/audios/mindscape_open3.wav", Audio::audio_type::music);
+  Audio* music = new Audio("../assets/audios/mindscape_open3.wav", Audio::MUSIC);
   GameObject * menu_loop =  new GameObject("menu_loop", std::make_pair(0,0),1,{});
   menu_loop->add_component(music);
 
