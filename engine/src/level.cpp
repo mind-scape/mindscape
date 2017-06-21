@@ -21,7 +21,7 @@ void Level::free(){
 
 void Level::draw(){
   for(auto object : objects){
-    if(object->active_game_object)
+    if(object->is_active())
       object->draw();
   }
 }

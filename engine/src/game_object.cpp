@@ -172,6 +172,18 @@ Animation* GameObject::get_actual_animation(){
   return actual_animation;
 }
 
+void GameObject::activate(){
+  active = true;
+}
+
+void GameObject::deactivate(){
+  active = false;
+}
+
+bool GameObject::is_active(){
+  return active;
+}
+
 void GameObject::update_state(){
 //std::cout << "GAME OBJECT UPDATE" << std::endl;
 }

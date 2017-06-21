@@ -31,6 +31,7 @@ namespace engine {
       StateMap states;
       std::vector<Hitbox*> hitboxes;
       Animation* actual_animation = NULL;
+      bool active;
 
       void run_collisions(GameObject *);
 
@@ -48,7 +49,6 @@ namespace engine {
       std::vector<Component*> texts;
       std::map<std::string, Animation*> animations;
       std::map<KeyboardEvent::Key, std::string> translations;
-      bool active_game_object;
       std::string state;
       std::string game_object_direction;
 
@@ -62,7 +62,7 @@ namespace engine {
         StateMap p_states = StateMap())
         :name(p_name),
         position(p_position),
-        active_game_object(false),
+        active(false),
         priority(p),
         translations(p_translations),
         states(p_states),
@@ -89,6 +89,9 @@ namespace engine {
       void set_speed(std::pair<float, float>);
       void set_speed_x(float);
       void set_speed_y(float);
+      void activate();
+      void deactivate();
+      bool is_active();
       std::string get_state(std::string);
       std::vector<Hitbox*> get_hitboxes();
       virtual void on_event(GameEvent){};

@@ -51,7 +51,9 @@ void Physics::add_physicable(GameObject *game_object){
 
 void Physics::act(){
   for (auto game_object : physicables){
-    act_on(game_object);
+    if(game_object->is_active()){
+      act_on(game_object);
+    }
   }
 }
 

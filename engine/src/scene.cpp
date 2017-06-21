@@ -16,7 +16,7 @@ void Scene::add_object(engine::GameObject* object){
 void Scene::activate_game_object(std::string game_object_name){
   for(auto go : objects){
     if(go->name == game_object_name){
-      go->active_game_object = true;
+      go->activate();
       EventHandler::add_listener(go);
     }
   }
@@ -25,7 +25,7 @@ void Scene::activate_game_object(std::string game_object_name){
 void Scene::deactivate_game_object(std::string game_object_name){
   for(auto go : objects){
     if(go->name == game_object_name){
-      go->active_game_object = false;
+      go->deactivate();
       EventHandler::remove_listener(go);
     }
   }
