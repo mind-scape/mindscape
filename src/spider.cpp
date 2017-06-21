@@ -3,10 +3,14 @@
 
 using namespace game;
 
-void Spider::on_collision(GameObject* other, Hitbox* p_my_hitbox, Hitbox* p_other_hitbox){
+void Spider::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox){
   //implement
 }
 
 void Spider::on_event(GameEvent){
+  //implement
+}
+
+void Spider::update(unsigned delta_time){
   //implement
 }

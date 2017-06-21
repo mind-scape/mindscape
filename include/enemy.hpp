@@ -10,13 +10,14 @@
 
 namespace game {
 
-  class Enemy : public GameObject {
+  class Enemy : public engine::GameObject {
 
-    Enemy(std::string pname, std::pair<int, int> position, int priority):GameObject(pname, position, priority, {{}}){};
-    ~Enemy(){};
+    public:
+      Enemy(std::string pname, std::pair<int, int> position, int priority): engine::GameObject(pname, position, priority, {{}}){};
+      ~Enemy(){};
 
-    virtual void move(GameEvent){};
-    void update(unsigned);
+      virtual void move(GameEvent){};
+      void update(unsigned);
   };
 
 }

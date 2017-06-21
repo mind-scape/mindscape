@@ -113,5 +113,4 @@ void LittleGirl::on_event(GameEvent game_event){
     if(moving_right_image->coordinatesOnTexture.first >= 1728)
       moving_right_image->coordinatesOnTexture.first = 0;
   }
-
 }
