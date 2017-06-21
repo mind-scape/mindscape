@@ -1,5 +1,6 @@
 //TODO trocar os vectors de componentes para unordered maps
 //TODO acabar com o primeiro construtor e definir hit box como um componente
+//TODO colocar todos os estados para usar o SATE MAP
 
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
@@ -18,6 +19,7 @@
 #include "hitbox.hpp"
 #include "keyboard_event.hpp"
 #include "state_map.hpp"
+#include "animation.hpp"
 #include "../../include/game_event.hpp"
 
 namespace engine {
@@ -28,6 +30,7 @@ namespace engine {
       std::pair<float,float> position;
       StateMap states;
       std::vector<Hitbox*> hitboxes;
+      Animation* actual_animation = NULL;
 
       void run_collisions(GameObject *);
 
@@ -43,10 +46,11 @@ namespace engine {
       std::vector<Component*> audios;
       std::vector<Component*> images;
       std::vector<Component*> texts;
-      std::vector<Component*> animations;
+      std::map<std::string, Animation*> animations;
       std::map<KeyboardEvent::Key, std::string> translations;
       bool active_game_object;
       std::string state;
+      std::string game_object_direction;
 
       GameObject(){};
 
@@ -70,6 +74,7 @@ namespace engine {
       void free();
       void draw();
       void add_component(Component*);
+      void add_animation(std::string, Animation*);
       bool equals(GameObject *);
       void collide(GameObject *);
       std::pair<float, float> get_position();
@@ -88,7 +93,9 @@ namespace engine {
       std::vector<Hitbox*> get_hitboxes();
       virtual void on_event(GameEvent){};
       void update_hitboxes();
-      virtual void update_state();
+      virtual void update_state(); 
+      void set_actual_animation(Animation*);
+      Animation* get_actual_animation();
   };
 }
 

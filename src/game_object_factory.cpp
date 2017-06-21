@@ -122,11 +122,13 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
 
   engine::GameObject* little_girl = new engine::LittleGirl("little_girl", place, 52);
   engine::Hitbox* hitbox= new engine::Hitbox("hitbox", little_girl->get_position(), std::make_pair(60, 180), std::make_pair(50,5), game.get_renderer());
+
   little_girl->collidable = true;
-  little_girl->add_component(running_right_animation);
-  little_girl->add_component(running_left_animation);
-  little_girl->add_component(idle_right_animation);
-  little_girl->add_component(idle_left_animation);
+  little_girl->add_animation("running_right_animation",running_right_animation);
+  little_girl->add_animation("running_left_animation",running_left_animation);
+  little_girl->add_animation("idle_right_animation",idle_right_animation);
+  little_girl->add_animation("idle_left_animation",idle_left_animation);
+  little_girl->set_actual_animation(idle_right_animation);
   little_girl->add_component(hitbox);
 
   return little_girl;

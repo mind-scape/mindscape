@@ -20,15 +20,16 @@ void GameObject::add_component(Component* component){
   }else if(dynamic_cast<Image *>(component)){
     images.push_back(component);
     sort(images.begin(), images.end(), compare);
-  } else {
-    animations.push_back(component);
-    sort(animations.begin(), animations.end(), compare);
   }
+}
+
+void GameObject::add_animation(std::string animation_name, Animation * animation){
+  animations[animation_name] = animation;
 }
 
 bool GameObject::load(){
   for(auto image : images){
-      image->load();
+    image->load();
   }
   for(auto audio : audios){
     audio->load();
@@ -37,7 +38,7 @@ bool GameObject::load(){
     text->load();
   }
   for(auto animation : animations){
-    animation->load();
+    animation.second->load();
   }
   return true;
 }
@@ -51,6 +52,9 @@ void GameObject::free(){
   }
   for(auto text : texts){
     text->free();
+  }
+  for(auto animation : animations){
+    animation.second->free();
   }
 }
 
@@ -67,7 +71,9 @@ void GameObject::draw(){
     text->draw(position.first, position.second);
   }
   for(auto animation : animations){
-    animation->draw(position.first, position.second);
+    if(animation.second->is_active()){
+      animation.second->draw(position.first, position.second);
+    }
   }
   for(auto hitbox : hitboxes){
     if(hitbox -> wanna_draw_hitbox()){
@@ -156,6 +162,16 @@ void GameObject::set_speed_y(float v_y){
   speed.second = v_y;
 }
 
+void GameObject::set_actual_animation(Animation* animation){
+  if(actual_animation != NULL) actual_animation->deactivate();
+  actual_animation = animation;
+  actual_animation->activate();
+}
+
+Animation* GameObject::get_actual_animation(){
+  return actual_animation;
+}
+
 void GameObject::update_state(){
-std::cout << "GAME OBJECT UPDATE" << std::endl;
+//std::cout << "GAME OBJECT UPDATE" << std::endl;
 }

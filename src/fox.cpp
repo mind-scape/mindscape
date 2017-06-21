@@ -50,5 +50,5 @@ void Fox::on_event(GameEvent game_event){
 
 void Fox::update_state(){
   //TODO: Should be implemented
-std::cout << "FOX UPDATE" << std::endl;
+//std::cout << "FOX UPDATE" << std::endl;
 }

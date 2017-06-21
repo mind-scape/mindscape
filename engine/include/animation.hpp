@@ -15,7 +15,6 @@ namespace engine{
     protected:
 
       //Construtor de image
-      int is_active = false;
       std::pair<int, int> displacement;
       int render_priority;
       //Atributos da animação
