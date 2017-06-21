@@ -26,6 +26,7 @@ namespace engine {
 
   class GameObject{
     private:
+      int hp;
       std::pair<float, float> speed;
       std::pair<float,float> position;
       StateMap states;
@@ -86,6 +87,8 @@ namespace engine {
       std::pair<float, float> get_speed();
       float get_speed_x();
       float get_speed_y();
+      int get_hp();
+      void set_hp(int);
       void set_speed(std::pair<float, float>);
       void set_speed_x(float);
       void set_speed_y(float);
@@ -96,9 +99,11 @@ namespace engine {
       std::vector<Hitbox*> get_hitboxes();
       virtual void on_event(GameEvent){};
       void update_hitboxes();
-      virtual void update_state(); 
+      virtual void update_state();
       void set_actual_animation(Animation*);
       Animation* get_actual_animation();
+      virtual void attack(){};
+      virtual void die(std::string){};
   };
 }
 
