@@ -60,7 +60,7 @@ engine::GameObject* GameObjectFactory::fabricate_fox(){
 engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   engine::Game& game = engine::Game::get_instance();
 
-  std::pair<int, int> place (416, 0);
+  std::pair<int, int> place (416, -500);
 
 
   //Creating running right animation

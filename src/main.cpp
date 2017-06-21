@@ -82,15 +82,14 @@ int main(int,char**){
 
   Level* level1 = new Level();
 
-  level1->add_object(little_girl);
+  level1->add_object(background4);
   level1->add_object(fox);
   level1->add_object(background);
   level1->add_object(background2);
   level1->add_object(background3);
-  level1->add_object(background4);
   level1->add_object(platform);
+  level1->add_object(little_girl);
   level1->activate_game_object("little_girl");
-
   level1->activate_game_object("background");
   level1->activate_game_object("background2");
   level1->activate_game_object("background3");

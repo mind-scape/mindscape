@@ -32,7 +32,7 @@ void LittleGirl::on_event(GameEvent game_event){
 std::cout << "Position X: " << get_position().first << " Position Y: " << get_position().second << " Speed X: " << get_speed().first << " Speed Y: " << get_speed().second << std::endl;
 
   //Verifying if its on the ground
-  if(event_name == "JUMP"){ //&& get_speed().second == 0){
+  if(event_name == "JUMP" && get_speed().second >= 0){
     set_speed(std::make_pair(get_speed().first, -16));
   }else if(event_name == "MOVE_LEFT"){
     set_speed(std::make_pair(-1.0, get_speed().second));

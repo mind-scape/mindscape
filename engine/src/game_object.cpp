@@ -112,16 +112,48 @@ std::pair<float, float> GameObject::get_position(){
   return position;
 }
 
+float GameObject::get_position_x(){
+  return position.first;
+}
+
+float GameObject::get_position_y(){
+  return position.second;
+}
+
 void GameObject::set_position(std::pair<float, float> p_position){
   position = p_position;
+}
+
+void GameObject::set_position_x(float p_x){
+  position.first = p_x;
+}
+
+void GameObject::set_position_y(float p_y){
+  position.second = p_y;
 }
 
 std::pair<float, float> GameObject::get_speed(){
   return speed;
 }
 
+float GameObject::get_speed_x(){
+  return speed.first;
+}
+
+float GameObject::get_speed_y(){
+  return speed.second;
+}
+
 void GameObject::set_speed(std::pair<float, float> p_speed){
   speed = p_speed;
+}
+
+void GameObject::set_speed_x(float v_x){
+  speed.first = v_x;
+}
+
+void GameObject::set_speed_y(float v_y){
+  speed.second = v_y;
 }
 
 void GameObject::update_state(){

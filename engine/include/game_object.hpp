@@ -73,9 +73,17 @@ namespace engine {
       bool equals(GameObject *);
       void collide(GameObject *);
       std::pair<float, float> get_position();
+      float get_position_x();
+      float get_position_y();
       void set_position(std::pair<float, float>);
+      void set_position_x(float);
+      void set_position_y(float);
       std::pair<float, float> get_speed();
+      float get_speed_x();
+      float get_speed_y();
       void set_speed(std::pair<float, float>);
+      void set_speed_x(float);
+      void set_speed_y(float);
       std::string get_state(std::string);
       std::vector<Hitbox*> get_hitboxes();
       virtual void on_event(GameEvent){};
