@@ -187,3 +187,11 @@ bool GameObject::is_active(){
 void GameObject::update_state(){
 //std::cout << "GAME OBJECT UPDATE" << std::endl;
 }
+
+int GameObject::get_hp(){
+  return hp;
+}
+
+void GameObject::set_hp(int health){
+  hp = health;
+}
