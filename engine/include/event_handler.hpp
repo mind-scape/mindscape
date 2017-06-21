@@ -12,7 +12,14 @@
 namespace engine{
 
   class EventHandler {
+    private:
+      unsigned last_update;
+      std::list< SDL_Event > sdl_events;
+      void try_to_get_delayed_keys(std::list<KeyboardEvent>&);
+
     public:
+      static std::list <GameObject *> listeners;
+
       EventHandler(){};
       ~EventHandler(){};
 
@@ -21,12 +28,6 @@ namespace engine{
       void get_events_until_now(unsigned now);
       static void add_listener(GameObject * listener);
       static void remove_listener(GameObject * listener);
-      static std::list <GameObject *> listeners;
-
-    private:
-      unsigned last_update;
-      std::list< SDL_Event > sdl_events;
-      void try_to_get_delayed_keys(std::list<KeyboardEvent>&);
   };
 
 }

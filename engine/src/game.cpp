@@ -6,7 +6,6 @@
 using namespace engine;
 
 Game* Game::instance = NULL;
-bool Game::quit_event;
 
 void throw_error(const char* function){
   printf("Something's wrong in %s\n", function);
@@ -15,12 +14,24 @@ void throw_error(const char* function){
 
 Game& Game::get_instance(){
   if(!instance){
-    instance = new Game();
+    fprintf(stderr, "You should initialize instance first");
+    exit(1);
   }
+
   return *instance;
 }
 
-void Game::game_init(){
+Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions){
+  if(!instance){
+    instance = new Game();
+    instance->set_information(p_name, p_dimensions);
+    instance->init();
+  }
+
+  return *instance;
+}
+
+void Game::init(){
   int img_flags = IMG_INIT_PNG;
 
   if(SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0){
@@ -30,17 +41,15 @@ void Game::game_init(){
     throw_error("IMG_Init");
   }
 
-  if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 512 ) < 0 )
-  {
+  if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 512 ) < 0 ){
     printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
   }
 
-    if(TTF_Init() == -1)
-  {
+  if(TTF_Init() == -1){
     throw_error("TTF_Init");
   }
 
-  window = SDL_CreateWindow(game_name.c_str(),SDL_WINDOWPOS_UNDEFINED,
+  window = SDL_CreateWindow(name.c_str(),SDL_WINDOWPOS_UNDEFINED,
       SDL_WINDOWPOS_UNDEFINED,window_dimensions.first,
       window_dimensions.second,SDL_WINDOW_SHOWN);
   if(!window){
@@ -76,7 +85,7 @@ void Game::close(){
 void Game::run(){
   int right_cont = 0, left_cont = 0;
   std::pair<int,int> pos; pos.first =240;pos.second = 350;
-  quit_event = false;
+  state = RUNNING;
 
   if(load_media()){
 
@@ -84,7 +93,7 @@ void Game::run(){
     EventHandler event_handler = EventHandler();
     Time::init();
 
-    while(!quit_event){
+    while(state != QUIT){
 
       unsigned now = Time::time_elapsed();
       event_handler.dispatch_pending_events(now);
@@ -103,9 +112,9 @@ void Game::run(){
   close();
 }
 
-void Game::set_information(std::string name,std::pair<int,int> dimensions){
-  game_name = name;
-  window_dimensions = dimensions;
+void Game::set_information(std::string p_name,std::pair<int,int> p_dimensions){
+  set_name(p_name);
+  set_window_dimensions(p_dimensions);
 }
 
 void Game::add_scene(std::string name, Scene* scene){
@@ -119,4 +128,32 @@ void Game::change_scene(std::string name){
 
 void Game::set_game_background_color(int R, int G, int B, int A){
   game_background_color = Color(R, G, B, A);
+}
+
+void Game::set_name(std::string p_name){
+  name = p_name;
+}
+
+std::string Game::get_name(){
+  return name;
+}
+
+void Game::set_window_dimensions(std::pair<int, int> p_window_dimensions){
+  window_dimensions = p_window_dimensions;
+}
+
+std::pair<int, int> Game::get_window_dimensions(){
+  return window_dimensions;
+}
+
+void Game::set_state(State p_state){
+  state = p_state;
+}
+
+Game::State Game::get_state(){
+  return state;
+}
+
+SDL_Renderer * Game::get_renderer(){
+  return renderer;
 }

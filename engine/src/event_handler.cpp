@@ -86,7 +86,7 @@ void EventHandler::get_events_until_now(unsigned now){
     SDL_PollEvent(&event);
 
     if(event.type == SDL_QUIT){
-      Game::get_instance().quit_event = true;
+      Game::get_instance().set_state(Game::QUIT);
       break;
     }
 

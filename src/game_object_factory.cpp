@@ -65,7 +65,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
 
   //Creating running right animation
   engine::Animation* running_right_animation = new engine::Animation(
-    game.renderer,
+    game.get_renderer(),
     "../assets/images/sprites/little_girl_running_right.png",
     false,
     std::make_pair(0, 0),
@@ -79,7 +79,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
 
   //Creating running right animation
   engine::Animation* running_left_animation = new engine::Animation(
-    game.renderer,
+    game.get_renderer(),
     "../assets/images/sprites/little_girl_running_left.png",
     false,
     std::make_pair(0, 0),
@@ -94,7 +94,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
 
   //Creating idle right animation
   engine::Animation* idle_right_animation = new engine::Animation(
-    game.renderer,
+    game.get_renderer(),
     "../assets/images/sprites/little_girl_idle_right.png",
     true,
     std::make_pair(0, 0),
@@ -108,7 +108,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
 
   //Creating idle left animation
   engine::Animation* idle_left_animation = new engine::Animation(
-    game.renderer,
+    game.get_renderer(),
     "../assets/images/sprites/little_girl_idle_left.png",
     false,
     std::make_pair(0, 0),
@@ -121,7 +121,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   );
 
   engine::GameObject* little_girl = new engine::LittleGirl("little_girl", place, 52);
-  engine::Hitbox* hitbox= new engine::Hitbox("hitbox", little_girl->get_position(), std::make_pair(60, 180), std::make_pair(50,5), game.renderer);
+  engine::Hitbox* hitbox= new engine::Hitbox("hitbox", little_girl->get_position(), std::make_pair(60, 180), std::make_pair(50,5), game.get_renderer());
   little_girl->collidable = true;
   little_girl->add_component(running_right_animation);
   little_girl->add_component(running_left_animation);

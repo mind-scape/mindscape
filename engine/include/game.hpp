@@ -19,32 +19,44 @@ namespace engine{
 
   class Game{
     public:
-      enum class State {RUNNING, PAUSED, QUIT};
+      typedef enum {
+        RUNNING, PAUSED, QUIT
+      } State;
 
+    private:
       static Game* instance;
-      std::string game_name;
+      std::string name;
       std::pair<int,int> window_dimensions;
+      Color game_background_color = Color(0xAA, 0xAA, 0xAA, 0xAA);
+      State state;
       SDL_Window* window;
       SDL_Renderer* renderer;
       std::unordered_map<std::string, Scene*> scenes;
       Scene* actual_scene;
       Scene* last_scene;
-      State game_state;
-      static bool quit_event;
-      Color game_background_color  = Color(0xAA, 0xAA, 0xAA, 0xAA);
 
       Game(){};
-      ~Game(){};
+      void init();
+      void set_information(std::string,std::pair<int,int>);
 
+    public:
+      ~Game(){};
       static Game& get_instance();
-      void game_init();
+      static Game& initialize(std::string, std::pair<int, int>);
       void run();
       void close();
       bool load_media();
-      void set_information(std::string name,std::pair<int,int> dimensions);
       void change_scene(std::string);
       void add_scene(std::string name, Scene* scene);
       void set_game_background_color(int R, int G, int B, int A);
+      void set_name(std::string);
+      std::string get_name();
+      void set_window_dimensions(std::pair<int, int>);
+      std::pair<int, int> get_window_dimensions();
+      void set_state(State);
+      State get_state();
+      SDL_Renderer *get_renderer();
+
   };
 }
 
