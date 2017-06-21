@@ -13,6 +13,10 @@
 namespace engine {
 
   class Scene {
+    private:
+      void run_collisions(void);
+      void update_game_objects_states();
+
     public:
       std::vector<engine::GameObject*> objects;
 
@@ -25,9 +29,8 @@ namespace engine {
       virtual void free(){};
       void activate_game_object(std::string name);
       void deactivate_game_object(std::string name);
-      void run_collisions(void);
       void deactivate_scene();
-      void update(unsigned delta);
+      void update();
   };
 }
 

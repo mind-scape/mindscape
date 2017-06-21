@@ -10,10 +10,12 @@ engine::GameObject* GameObjectFactory::fabricate(
   switch(option){
     case(GameObjectFactory::LITTLE_GIRL):
       return fabricate_little_girl();
+    case(GameObjectFactory::FOOTER):
+      return fabricate_footer();
     case(GameObjectFactory::FOX):
       return fabricate_fox();
     case(GameObjectFactory::PLATFORM):
-      return fabricate_little_girl();
+      return fabricate_platform();
     case(GameObjectFactory::BUTTON):
       return fabricate_button();
     case(GameObjectFactory::BACKGROUND):
@@ -23,6 +25,11 @@ engine::GameObject* GameObjectFactory::fabricate(
     default:
       return NULL;
   }
+}
+
+engine::GameObject* GameObjectFactory::fabricate_footer(){
+  std::cout << "NOT IMPLEMENTED YET" << std::endl;
+  return NULL;
 }
 
 engine::GameObject* GameObjectFactory::fabricate_platform(){
@@ -114,7 +121,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   );
 
   engine::GameObject* little_girl = new engine::LittleGirl("little_girl", place, 52);
-  engine::Hitbox* hitbox= new engine::Hitbox("hitbox", little_girl->position, std::make_pair(60, 180), std::make_pair(50,5), game.renderer);
+  engine::Hitbox* hitbox= new engine::Hitbox("hitbox", little_girl->get_position(), std::make_pair(60, 180), std::make_pair(50,5), game.renderer);
   little_girl->collidable = true;
   little_girl->add_component(running_right_animation);
   little_girl->add_component(running_left_animation);

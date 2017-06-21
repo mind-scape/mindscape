@@ -46,12 +46,3 @@ void Time::update_time(unsigned now) {
   m_time_elapsed += now - m_last_update;
   m_last_update = now;
 }
-
-void Time::update_delta(){
-  last_time = now;
-  now = SDL_GetTicks();
-}
-
-unsigned Time::get_delta(){
-  return now - last_time;
-}

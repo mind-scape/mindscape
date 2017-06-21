@@ -107,3 +107,23 @@ void GameObject::update_hitboxes(){
 std::string GameObject::get_state(std::string state_name){
   return states.get_state(state_name);
 }
+
+std::pair<float, float> GameObject::get_position(){
+  return position;
+}
+
+void GameObject::set_position(std::pair<float, float> p_position){
+  position = p_position;
+}
+
+std::pair<float, float> GameObject::get_speed(){
+  return speed;
+}
+
+void GameObject::set_speed(std::pair<float, float> p_speed){
+  speed = p_speed;
+}
+
+void GameObject::update_state(){
+std::cout << "GAME OBJECT UPDATE" << std::endl;
+}

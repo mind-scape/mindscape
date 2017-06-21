@@ -17,13 +17,10 @@ using std::string;
 namespace engine {
 
   class LittleGirl : public GameObject {
-    public:
-
-      bool on_floor = true;
+    private:
       int animation_count = 0;
       int animation_count2 = 0;
-
-
+    public:
       LittleGirl(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
       {
           {KeyboardEvent::LEFT,"MOVE_LEFT"},
@@ -33,11 +30,9 @@ namespace engine {
       }){};
       ~LittleGirl(){};
 
-      void update(unsigned);
       void on_event(GameEvent);
       void on_collision(GameObject*, Hitbox*, Hitbox*);
+      void update_state();
   };
-
 }
-
 #endif

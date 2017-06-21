@@ -23,11 +23,8 @@ namespace engine {
 
     ~Platform(){};
 
-      void update();
       void on_event(GameEvent game_event);
-
   };
-
 }
 
 #endif

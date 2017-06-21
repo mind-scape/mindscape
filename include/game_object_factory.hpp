@@ -19,7 +19,7 @@ namespace mindscape {
   class GameObjectFactory {
     public:
       typedef enum {
-        LITTLE_GIRL, FOX, PLATFORM, BUTTON, SELECT_ARROW, BACKGROUND
+        LITTLE_GIRL, FOX, PLATFORM, BUTTON, SELECT_ARROW, BACKGROUND, FOOTER
       } Options;
 
       GameObjectFactory(){};
@@ -35,6 +35,7 @@ namespace mindscape {
 
     private:
       engine::GameObject* fabricate_platform();
+      engine::GameObject* fabricate_footer();
       engine::GameObject* fabricate_background();
       engine::GameObject* fabricate_button();
       engine::GameObject* fabricate_select_arrow();

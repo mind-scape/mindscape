@@ -26,7 +26,7 @@ void SelectArrow::on_event(GameEvent game_event){
 
   switch(arrow_seletor){
     case(0):
-      position.second = 275;
+      set_position(std::make_pair(get_position().first, 275));
       if(event_name == "ENTER"){
         enter_handler = true;
         option_select = 'i';
@@ -35,7 +35,7 @@ void SelectArrow::on_event(GameEvent game_event){
       }
       break;
     case(2):
-      position.second = 310;
+      set_position(std::make_pair(get_position().first, 310));
       if(event_name == "ENTER"){
         enter_handler = true;
         option_select = 'a';
@@ -44,7 +44,7 @@ void SelectArrow::on_event(GameEvent game_event){
       }
       break;
     case(4):
-      position.second = 345;
+      set_position(std::make_pair(get_position().first, 345));
       if(event_name == "ENTER"){
         enter_handler = true;
         option_select = 'c';
@@ -53,7 +53,7 @@ void SelectArrow::on_event(GameEvent game_event){
       }
       break;
     case(6):
-      position.second = 380;
+      set_position(std::make_pair(get_position().first, 380));
       if(event_name == "ENTER"){
         enter_handler = true;
         option_select = 's';
@@ -66,5 +66,3 @@ void SelectArrow::on_event(GameEvent game_event){
   }
 
 }
-
-void SelectArrow::update(){}

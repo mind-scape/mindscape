@@ -27,9 +27,7 @@ namespace engine{
 
       ~SelectArrow(){};
 
-      void update();
       void on_event(GameEvent game_event);
-
   };
 }
 

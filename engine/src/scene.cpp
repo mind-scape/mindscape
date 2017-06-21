@@ -1,4 +1,5 @@
 #include "scene.hpp"
+#include "physics.hpp"
 #include <algorithm>
 
 using namespace engine;
@@ -40,8 +41,15 @@ void Scene::run_collisions(){
   }
 }
 
-void Scene::update(unsigned delta){
+void Scene::update_game_objects_states(){
   for(auto go : objects){
-    go->update(delta);
+    go->update_state();
   }
+}
+
+void Scene::update(){
+  Physics *physics = Physics::get_instance();
+  physics->act();
+  run_collisions();
+  update_game_objects_states();
 }

@@ -17,8 +17,7 @@ namespace engine {
       static unsigned real_time_elapsed();
       static void update_time(unsigned now);
       static void init();
-      static void update_delta();
-      static unsigned get_delta();
+
     protected:
       static unsigned last_time;
       static unsigned now;

@@ -28,5 +28,3 @@ void Background::on_event(GameEvent game_event){
     }
   }
 }
-
-void Background::update(){}

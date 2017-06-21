@@ -8,5 +8,3 @@ void Button::on_event(GameEvent game_event){
     game->change_scene("first level");
   }
 }
-
-void Button::update(){}

@@ -9,6 +9,7 @@
 #include "../engine/include/text.hpp"
 #include "../engine/include/scene.hpp"
 #include "../engine/include/level.hpp"
+#include "../engine/include/physics.hpp"
 #include "../engine/include/animation.hpp"
 #include "../include/globals.hpp"
 #include "../include/background.hpp"
@@ -51,7 +52,9 @@ int main(int,char**){
   Background* background = new Background("background", anotherplace, 1);
   Background* background2 = new Background("background2", anotherplace, 2);
   GameObject* background3 = new Background("background3", anotherplace, 3);
-  GameObject* background4 = new Background("background4", anotherplace, 5);
+  GameObject* background4 = new Platform("footer_background", anotherplace, 5);
+  Hitbox* footer= new Hitbox("hitbox", background4->get_position(), std::make_pair(0,530), std::make_pair(10000, 200), game.renderer);
+  background4->add_component(footer);
 
   background->paralax = 2;
   background2->paralax = 4;
@@ -65,7 +68,7 @@ int main(int,char**){
 
   images6-> set_values(std::make_pair(507, 256), std::make_pair(507, 256), std::make_pair(0, 0));
   GameObject* platform = new Platform("platform", std::make_pair(800, 300), 2);
-  Hitbox* hitbox= new Hitbox("hitbox", platform->position, std::make_pair(40,70), std::make_pair(400,30), game.renderer);
+  Hitbox* hitbox= new Hitbox("hitbox", platform->get_position(), std::make_pair(40,70), std::make_pair(400,30), game.renderer);
   platform->add_component(hitbox);
   fox->add_component(images4);
   fox->add_component(images5);
@@ -73,6 +76,9 @@ int main(int,char**){
 
   mindscape::GameObjectFactory mindscape_factory = mindscape::GameObjectFactory();
   GameObject* little_girl = mindscape_factory.fabricate(mindscape::GameObjectFactory::LITTLE_GIRL);
+
+  Physics *physics = Physics::get_instance();
+  physics->add_physicable(little_girl);
 
   Level* level1 = new Level();
 
@@ -88,7 +94,7 @@ int main(int,char**){
   level1->activate_game_object("background");
   level1->activate_game_object("background2");
   level1->activate_game_object("background3");
-  level1->activate_game_object("background4");
+  level1->activate_game_object("footer_background");
   level1->activate_game_object("fox");
   level1->activate_game_object("platform");
   /********************************************************************************/

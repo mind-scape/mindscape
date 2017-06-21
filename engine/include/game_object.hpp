@@ -24,14 +24,14 @@ namespace engine {
 
   class GameObject{
     private:
+      std::pair<float, float> speed;
+      std::pair<float,float> position;
       StateMap states;
       std::vector<Hitbox*> hitboxes;
 
       void run_collisions(GameObject *);
 
     protected:
-      std::pair<float, float> speed;
-
       virtual void on_collision(GameObject *, Hitbox *, Hitbox *){};
 
     public:
@@ -44,7 +44,6 @@ namespace engine {
       std::vector<Component*> images;
       std::vector<Component*> texts;
       std::vector<Component*> animations;
-      std::pair<float,float> position;
       std::map<KeyboardEvent::Key, std::string> translations;
       bool active_game_object;
       std::string state;
@@ -53,7 +52,7 @@ namespace engine {
 
       GameObject(
         std::string p_name,
-        std::pair<int, int> p_position,
+        std::pair<float, float> p_position,
         int p,
         std::map<KeyboardEvent::Key,std::string> p_translations,
         StateMap p_states = StateMap())
@@ -73,11 +72,15 @@ namespace engine {
       void add_component(Component*);
       bool equals(GameObject *);
       void collide(GameObject *);
+      std::pair<float, float> get_position();
+      void set_position(std::pair<float, float>);
+      std::pair<float, float> get_speed();
+      void set_speed(std::pair<float, float>);
       std::string get_state(std::string);
       std::vector<Hitbox*> get_hitboxes();
       virtual void on_event(GameEvent){};
       void update_hitboxes();
-      virtual void update(unsigned){};
+      virtual void update_state();
   };
 }
 

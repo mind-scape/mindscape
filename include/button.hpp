@@ -21,7 +21,6 @@
 
       ~Button(){};
 
-      void update();
       void on_event(GameEvent game_event);
 
   };
