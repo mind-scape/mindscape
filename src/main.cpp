@@ -13,6 +13,7 @@
 #include "../include/globals.hpp"
 #include "../include/background.hpp"
 #include "../include/fox.hpp"
+#include "../include/spider.hpp"
 #include "../include/select_arrow.hpp"
 #include "../include/button.hpp"
 
@@ -130,6 +131,28 @@ int main(int,char**){
   GameObject * menu_loop =  new GameObject("menu_loop", std::make_pair(0,0),1,{});
   menu_loop->add_component(music);
 
+  Image* spider_image = new Image(game.renderer, "../assets/images/sprites/spider.png", true, std::make_pair(0, 0), 3);
+  spider_image->set_values(std::make_pair(288, 288), std::make_pair(288, 288), std::make_pair(0, 0));
+  GameObject* spider = new game::Spider("spider", std::make_pair(550, 200), 3);
+  engine::Hitbox* spider_hitbox= new engine::Hitbox("spider_hitbox", spider->position, std::make_pair(0, 280), std::make_pair(288,8), game.renderer);
+  spider->collidable = true;
+  spider->add_component(spider_image);
+  spider->add_component(spider_hitbox);
+
+
+  // Floor
+
+  Image* ground_image = new Image(game.renderer, "../assets/images/sprites/platform.png", false, std::make_pair(0, 0), 3);
+  GameObject* ground = new engine::Platform("ground", std::make_pair(0, 520), 3);
+  engine::Hitbox* ground_hitbox= new engine::Hitbox("ground_hitbox", ground->position, std::make_pair(0, 0), std::make_pair(5000,20), game.renderer);
+  ground->add_component(ground_image);
+  ground->add_component(ground_hitbox);
+
+
+  level1->add_object(ground);
+  level1->add_object(spider);
+  level1->activate_game_object("ground");
+  level1->activate_game_object("spider");
   menu->add_object(select);
   menu->activate_game_object("select");
   menu->add_object(start);

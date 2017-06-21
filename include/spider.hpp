@@ -13,12 +13,13 @@
 namespace game{
 
   class Spider : public Enemy {
-    Spider(std::string p_name, std::pair<int, int> position, int p): Enemy(p_name, position, p){};
-    ~Spider(){};
+    public:
+      Spider(std::string p_name, std::pair<int, int> position, int p): Enemy(p_name, position, p){};
+      ~Spider(){};
 
-    void on_event(GameEvent);
-    void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
-    void update(unsigned);
+      void on_event(GameEvent);
+      void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+      void update(unsigned);
   };
 
 }

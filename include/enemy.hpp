@@ -17,7 +17,8 @@ namespace game {
       ~Enemy(){};
 
       virtual void move(GameEvent){};
-      void update(unsigned);
+      virtual void update(unsigned){};
+      virtual void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*){};
   };
 
 }

@@ -28,11 +28,6 @@ void LittleGirl::update(unsigned delta){
     state = "FALLING";
   }
   position.second += speed.second * delta;
-  if(position.second >= 335){
-    position.second = 335;
-    speed.second = 0;
-    state = "GROUND";
-  }
   on_floor = false;
 
   for(int i  = 0;i < 10;++i){
