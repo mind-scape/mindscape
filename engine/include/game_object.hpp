@@ -102,8 +102,6 @@ namespace engine {
       virtual void update_state();
       void set_actual_animation(Animation*);
       Animation* get_actual_animation();
-      virtual void attack(){};
-      virtual void die(std::string){};
   };
 }
 

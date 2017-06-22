@@ -7,6 +7,7 @@
 #include "../engine/include/game_object.hpp"
 #include "../engine/include/keyboard_event.hpp"
 #include "../engine/include/image.hpp"
+#include "fighter.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -16,7 +17,7 @@ using std::string;
 
 namespace engine {
 
-  class LittleGirl : public GameObject {
+  class LittleGirl : public GameObject, public mindscape::Fighter {
     private:
       int running_right_animation_count = 0;
       int running_left_animation_count = 0;
