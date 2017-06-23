@@ -5,6 +5,17 @@
 
 using namespace engine;
 
+LittleGirl* LittleGirl::instance = 0;
+
+LittleGirl* LittleGirl::get_instance(std::string name, std::pair<int, int> place, int priority){
+  if(!instance){
+    instance = new LittleGirl(name, place, priority);
+  }
+
+  return instance;
+}
+
+
 void LittleGirl::on_collision(GameObject* other, Hitbox* p_my_hitbox, Hitbox* p_other_hitbox){
   Platform* p = dynamic_cast<Platform *>(other);
   Hitbox* my_hitbox = dynamic_cast<Hitbox *>(p_my_hitbox);
@@ -31,7 +42,7 @@ void LittleGirl::on_event(GameEvent game_event){
     set_speed_y(-21);
     states.set_state("Y_STATE","JUMPING");
     std::string actual_x_state = states.get_state("X_STATE");
-    
+
     if(actual_x_state == "LOOKING_RIGHT")
       set_actual_animation(animations["jumping_right_animation"]);
     else if(actual_x_state == "LOOKING_LEFT")
@@ -48,9 +59,9 @@ void LittleGirl::on_event(GameEvent game_event){
     }else{
       jumping_animation_count = 26;
     }
-  
+
   }else if(event_name == "MOVE_LEFT"){
-    if(actual_y_state == "ON_GROUND"){ 
+    if(actual_y_state == "ON_GROUND"){
       states.set_state("X_STATE","LOOKING_LEFT");
       set_actual_animation(animations["running_left_animation"]);
 
@@ -69,7 +80,7 @@ void LittleGirl::on_event(GameEvent game_event){
     }
 
   }else if(event_name == "MOVE_RIGHT"){
-    if(actual_y_state == "ON_GROUND"){ 
+    if(actual_y_state == "ON_GROUND"){
       states.set_state("X_STATE","LOOKING_RIGHT");
       set_actual_animation(animations["running_right_animation"]);
 

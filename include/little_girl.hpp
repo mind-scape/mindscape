@@ -19,9 +19,11 @@ namespace engine {
 
   class LittleGirl : public GameObject, public mindscape::Fighter {
     private:
+      static LittleGirl* instance;
       int running_right_animation_count = 0;
       int running_left_animation_count = 0;
       int jumping_animation_count = 0;
+
     public:
       LittleGirl(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
       {
@@ -35,6 +37,7 @@ namespace engine {
       };
       ~LittleGirl(){};
 
+      static LittleGirl* get_instance(std::string name, std::pair<int, int> place, int priority);
       void on_event(GameEvent);
       void on_collision(GameObject*, Hitbox*, Hitbox*);
       void update_state();
