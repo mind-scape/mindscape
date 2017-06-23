@@ -29,7 +29,6 @@ namespace engine {
       int hp;
       std::pair<float, float> speed;
       std::pair<float,float> position;
-      StateMap states;
       std::vector<Hitbox*> hitboxes;
       Animation* actual_animation = NULL;
       bool active;
@@ -52,6 +51,7 @@ namespace engine {
       std::map<KeyboardEvent::Key, std::string> translations;
       std::string state;
       std::string game_object_direction;
+      StateMap states;
 
       GameObject(){};
 
