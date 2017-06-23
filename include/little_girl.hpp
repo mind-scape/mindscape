@@ -18,16 +18,20 @@ namespace engine {
 
   class LittleGirl : public GameObject {
     private:
-      int animation_count = 0;
-      int animation_count2 = 0;
+      int running_right_animation_count = 0;
+      int running_left_animation_count = 0;
+      int jumping_animation_count = 0;
     public:
       LittleGirl(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
       {
-          {KeyboardEvent::LEFT,"MOVE_LEFT"},
-          {KeyboardEvent::RIGHT,"MOVE_RIGHT"},
-          {KeyboardEvent::UP,"JUMP"},
-          {KeyboardEvent::DOWN,"CROUCH"},
-      }){};
+        {KeyboardEvent::LEFT,"MOVE_LEFT"},
+        {KeyboardEvent::RIGHT,"MOVE_RIGHT"},
+        {KeyboardEvent::UP,"JUMP"},
+        {KeyboardEvent::DOWN,"CROUCH"},
+      }){
+        states.set_state("X_STATE","LOOKING_RIGHT");
+        states.set_state("Y_STATE","ON_GROUND");
+      };
       ~LittleGirl(){};
 
       void on_event(GameEvent);

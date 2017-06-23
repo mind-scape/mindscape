@@ -22,43 +22,81 @@ void LittleGirl::on_event(GameEvent game_event){
  // std::cout << "Position X: " << get_position().first << " Position Y: " << get_position().second << " Speed X: " << get_speed_x() << " Speed Y: " << get_speed_y() << std::endl;
 
   Animation* actual_animation = get_actual_animation();
+  std::string actual_x_state = states.get_state("X_STATE");
+  std::string actual_y_state = states.get_state("Y_STATE");
 
   //Verifying if its on the ground
   //if(event_name == "JUMP" && get_speed_y() >= 0){
-  if(event_name == "JUMP"){
-    set_speed_y(-16);
-  }else if(event_name == "MOVE_LEFT"){
-    states.set_state("X_STATE","LOOKING_LEFT");
-    set_actual_animation(animations["running_left_animation"]);
+  if(event_name == "JUMP" && actual_y_state != "JUMPING"){
+    set_speed_y(-21);
+    states.set_state("Y_STATE","JUMPING");
+    std::string actual_x_state = states.get_state("X_STATE");
     
-    set_speed_x(-1.0);
+    if(actual_x_state == "LOOKING_RIGHT")
+      set_actual_animation(animations["jumping_right_animation"]);
+    else if(actual_x_state == "LOOKING_LEFT")
+      set_actual_animation(animations["jumping_left_animation"]);
 
-    animation_count2 +=1;
-    if(animation_count2 == 5){
-      actual_animation->coordinatesOnTexture.first -= 192;
-      animation_count2 = 0;
+    jumping_animation_count += 1;
+    if(jumping_animation_count < 26){
+      if(jumping_animation_count % 5 == 0){
+        actual_animation->coordinatesOnTexture.first += 192;
+        if(actual_animation->coordinatesOnTexture.first == 960){
+          actual_animation->coordinatesOnTexture.first = 0;
+        }
+      }
+    }else{
+      jumping_animation_count = 26;
     }
-    if(actual_animation->coordinatesOnTexture.first <= 0)
-      actual_animation->coordinatesOnTexture.first = 1536;
+  
+  }else if(event_name == "MOVE_LEFT"){
+    if(actual_y_state == "ON_GROUND"){ 
+      states.set_state("X_STATE","LOOKING_LEFT");
+      set_actual_animation(animations["running_left_animation"]);
+
+      set_speed_x(-1.0);
+
+      running_left_animation_count +=1;
+      if(running_left_animation_count == 5){
+        actual_animation->coordinatesOnTexture.first -= 192;
+        running_left_animation_count = 0;
+      }
+      if(actual_animation->coordinatesOnTexture.first <= 0)
+        actual_animation->coordinatesOnTexture.first = 1536;
+    }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_RIGHT"){
+      states.set_state("X_STATE","LOOKING_LEFT");
+      set_actual_animation(animations["jumping_left_animation"]);
+    }
+
   }else if(event_name == "MOVE_RIGHT"){
-    states.set_state("X_STATE","LOOKING_RIGHT");
-    set_actual_animation(animations["running_right_animation"]);
+    if(actual_y_state == "ON_GROUND"){ 
+      states.set_state("X_STATE","LOOKING_RIGHT");
+      set_actual_animation(animations["running_right_animation"]);
 
-    set_speed_x(1.0);
+      set_speed_x(1.0);
 
-    animation_count +=1;
-    if(animation_count == 5){
-      actual_animation->coordinatesOnTexture.first += 192;
-      animation_count = 0;
+      running_right_animation_count +=1;
+      if(running_right_animation_count == 5){
+        actual_animation->coordinatesOnTexture.first += 192;
+        running_right_animation_count = 0;
+      }
+      if(actual_animation->coordinatesOnTexture.first >= 1728)
+        actual_animation->coordinatesOnTexture.first = 0;
+    }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_LEFT"){
+      states.set_state("X_STATE","LOOKING_RIGHT");
+      set_actual_animation(animations["jumping_right_animation"]);
     }
-    if(actual_animation->coordinatesOnTexture.first >= 1728)
-      actual_animation->coordinatesOnTexture.first = 0;
   }
 }
 
 void LittleGirl::update_state(){
   //Should be implemented
   std::string actual_x_state = states.get_state("X_STATE");
+  std::string actual_y_state = states.get_state("Y_STATE");
+
+  if(get_speed_y() == 0.0){
+    states.set_state("Y_STATE","ON_GROUND");
+  }
 
   if(get_speed_x() == 0.0 && get_speed_y() == 0.0){
     if(actual_x_state == "LOOKING_RIGHT"){
@@ -68,6 +106,7 @@ void LittleGirl::update_state(){
       Animation* idle_left_animation = animations["idle_left_animation"];
       set_actual_animation(idle_left_animation);
     }
+    jumping_animation_count = 0;
   }
 
   set_speed_x(0.0);
