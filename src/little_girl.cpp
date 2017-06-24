@@ -1,5 +1,6 @@
 #include "../include/little_girl.hpp"
 #include "../include/platform.hpp"
+#include "../include/game_object_factory.hpp"
 #include <typeinfo>
 #include <algorithm>
 
@@ -7,9 +8,10 @@ using namespace engine;
 
 LittleGirl* LittleGirl::instance = 0;
 
-LittleGirl* LittleGirl::get_instance(std::string name, std::pair<int, int> place, int priority){
+LittleGirl* LittleGirl::get_instance(){
   if(!instance){
-    instance = new LittleGirl(name, place, priority);
+    mindscape::GameObjectFactory* mindscape_factory = new mindscape::GameObjectFactory();
+    instance = (LittleGirl*) mindscape_factory->fabricate(mindscape::GameObjectFactory::LITTLE_GIRL);
   }
 
   return instance;

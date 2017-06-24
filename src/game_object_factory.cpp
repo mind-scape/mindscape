@@ -148,7 +148,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
     std::make_pair(0, 0)
   );
 
-  engine::GameObject* little_girl = engine::LittleGirl::get_instance("little_girl", place, 52);
+  engine::GameObject* little_girl = new engine::LittleGirl("little_girl", place, 52);
   engine::Hitbox* hitbox= new engine::Hitbox("hitbox", little_girl->get_position(), std::make_pair(60, 180), std::make_pair(50,5), game.get_renderer());
 
   little_girl->collidable = true;

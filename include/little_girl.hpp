@@ -27,17 +27,17 @@ namespace engine {
     public:
       LittleGirl(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
       {
-        {KeyboardEvent::LEFT,"MOVE_LEFT"},
-        {KeyboardEvent::RIGHT,"MOVE_RIGHT"},
+        {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
+        {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
         {KeyboardEvent::UP,"JUMP"},
-        {KeyboardEvent::DOWN,"CROUCH"},
+        {KeyboardEvent::DOWN,"CROUCH"}
       }){
         states.set_state("X_STATE","LOOKING_RIGHT");
         states.set_state("Y_STATE","ON_GROUND");
       };
       ~LittleGirl(){};
 
-      static LittleGirl* get_instance(std::string name, std::pair<int, int> place, int priority);
+      static LittleGirl* get_instance();
       void on_event(GameEvent);
       void on_collision(GameObject*, Hitbox*, Hitbox*);
       void update_state();

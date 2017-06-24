@@ -14,7 +14,10 @@ namespace mindscape {
   class Enemy : public engine::GameObject, public mindscape::Fighter {
 
     public:
-      Enemy(std::string pname, std::pair<int, int> position, int priority): engine::GameObject(pname, position, priority, {{}}){};
+      Enemy(std::string pname, std::pair<int, int> position, int priority): engine::GameObject(pname, position, priority, {
+        {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
+        {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
+      }){};
       ~Enemy(){};
 
       virtual void move(GameEvent){};

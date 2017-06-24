@@ -16,6 +16,7 @@
 #include "../include/fox.hpp"
 #include "../include/select_arrow.hpp"
 #include "../include/button.hpp"
+#include "../include/spider.hpp"
 
 using namespace engine;
 
@@ -71,10 +72,21 @@ int main(int,char**){
   platform->add_component(images6);
 
   mindscape::GameObjectFactory mindscape_factory = mindscape::GameObjectFactory();
-  GameObject* little_girl = mindscape_factory.fabricate(mindscape::GameObjectFactory::LITTLE_GIRL);
+  LittleGirl* little_girl = LittleGirl::get_instance();
 
   Physics *physics = Physics::get_instance();
   physics->add_physicable(little_girl);
+
+  Image* spider_image = new Image(game.get_renderer(), "../assets/images/sprites/scorpion_final_moving_left.png", true, std::make_pair(0, 0), 3);
+  spider_image->set_values(std::make_pair(288, 288), std::make_pair(288, 288), std::make_pair(0, 0));
+
+
+  GameObject* spider = new mindscape::Spider("spider", std::make_pair(700, 200), 40);
+  Hitbox* spider_hitbox= new Hitbox("spider_hitbox", spider->get_position(), std::make_pair(0, 280), std::make_pair(288,8), game.get_renderer());
+  spider->collidable = true;
+  spider->add_component(spider_image);
+  spider->add_component(spider_hitbox);
+  physics->add_physicable(spider);
 
   Level* level1 = new Level();
 
@@ -85,7 +97,9 @@ int main(int,char**){
   level1->add_object(background3);
   level1->add_object(platform);
   level1->add_object(little_girl);
+  level1->add_object(spider);
   level1->activate_game_object("little_girl");
+  level1->activate_game_object("spider");
   level1->activate_game_object("background");
   level1->activate_game_object("background2");
   level1->activate_game_object("background3");
@@ -130,6 +144,8 @@ int main(int,char**){
   Audio* music = new Audio("../assets/audios/mindscape_open3.wav", Audio::MUSIC);
   GameObject * menu_loop =  new GameObject("menu_loop", std::make_pair(0,0),1,{});
   menu_loop->add_component(music);
+
+
 
   menu->add_object(select);
   menu->activate_game_object("select");
