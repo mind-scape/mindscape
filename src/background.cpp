@@ -6,7 +6,6 @@ void Background::on_event(GameEvent game_event){
 
   std::string event_name = game_event.game_event_name;
   Image* ref0 = dynamic_cast<Image*>(images[0]);
-  std::cout << "Mapa: " << ref0->coordinatesOnTexture.first << std::endl;
   if(event_name == "MOVE_LEFT"){
     ref0->coordinatesOnTexture.first -= paralax;
 

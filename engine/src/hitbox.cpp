@@ -66,7 +66,7 @@ bool Hitbox::collides_with(Hitbox* other_hitbox){
 void Hitbox::initialize(){
   SDL_Texture* new_texture = NULL;
 
-  SDL_Surface* loaded_surface = IMG_Load("/home/matheus/Documentos/Pasta/setimo_semestre/IAMJogos/mindscape/assets/images/Fundo-Vermelho.jpg");
+  SDL_Surface* loaded_surface = IMG_Load("/home/victor/UnB/IJE/mindscape/assets/images/Fundo-Vermelho.jpg");
   if( loaded_surface != NULL ){
     new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
     if(new_texture == NULL){

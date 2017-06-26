@@ -31,7 +31,7 @@ void LittleGirl::on_collision(GameObject* other, Hitbox* p_my_hitbox, Hitbox* p_
 
 void LittleGirl::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
-
+  std::cout << "HP: " << get_hp() << std::endl;
  // std::cout << "Position X: " << get_position().first << " Position Y: " << get_position().second << " Speed X: " << get_speed_x() << " Speed Y: " << get_speed_y() << std::endl;
 
   Animation* actual_animation = get_actual_animation();

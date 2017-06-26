@@ -26,7 +26,7 @@ namespace engine {
 
   class GameObject{
     private:
-      int hp;
+      int hp = 90;
       std::pair<float, float> speed;
       std::pair<float,float> position;
       std::vector<Hitbox*> hitboxes;

@@ -14,12 +14,15 @@ namespace mindscape{
 
   class Spider : public Enemy {
     public:
-      Spider(std::string p_name, std::pair<int, int> position, int p): Enemy(p_name, position, p){};
+      Spider(std::string p_name, std::pair<int, int> position, int p): Enemy(p_name, position, p){
+        states.set_state("FIGHT_STATE","NORMAL");
+      };
       ~Spider(){};
 
+      void attack();
+      void move(GameEvent);
       void on_event(GameEvent);
       void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
-      void update(unsigned);
   };
 
 }

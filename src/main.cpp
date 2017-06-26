@@ -82,9 +82,11 @@ int main(int,char**){
 
 
   GameObject* spider = new mindscape::Spider("spider", std::make_pair(700, 200), 40);
-  Hitbox* spider_hitbox= new Hitbox("spider_hitbox", spider->get_position(), std::make_pair(0, 280), std::make_pair(288,8), game.get_renderer());
+  Hitbox* spider_hitbox = new Hitbox("spider_hitbox", spider->get_position(), std::make_pair(0, 280), std::make_pair(288,8), game.get_renderer());
+  Hitbox* spider_attack = new Hitbox("spider_attack", spider->get_position(), std::make_pair(5, 200), std::make_pair(283,10), game.get_renderer());
   spider->collidable = true;
   spider->add_component(spider_image);
+  spider->add_component(spider_attack);
   spider->add_component(spider_hitbox);
   physics->add_physicable(spider);
 
