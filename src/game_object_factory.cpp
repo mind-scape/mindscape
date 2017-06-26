@@ -66,7 +66,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   //Creating running right animation
   engine::Animation* running_right_animation = new engine::Animation(
     game.get_renderer(),
-    "../assets/images/sprites/little_girl_running_right.png",
+    "../assets/images/sprites/little_girl/little_girl_running_right.png",
     false,
     std::make_pair(0, 0),
     1,1,9,0.9,true,"RIGHT"
@@ -80,7 +80,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   //Creating running right animation
   engine::Animation* running_left_animation = new engine::Animation(
     game.get_renderer(),
-    "../assets/images/sprites/little_girl_running_left.png",
+    "../assets/images/sprites/little_girl/little_girl_running_left.png",
     false,
     std::make_pair(0, 0),
     1,1,9,0.9,true,"LEFT"
@@ -95,7 +95,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   //Creating idle right animation
   engine::Animation* idle_right_animation = new engine::Animation(
     game.get_renderer(),
-    "../assets/images/sprites/little_girl_idle_right.png",
+    "../assets/images/sprites/little_girl/little_girl_idle_right.png",
     true,
     std::make_pair(0, 0),
     1,1,10,1.5,"RIGHT"
@@ -109,7 +109,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   //Creating idle left animation
   engine::Animation* idle_left_animation = new engine::Animation(
     game.get_renderer(),
-    "../assets/images/sprites/little_girl_idle_left.png",
+    "../assets/images/sprites/little_girl/little_girl_idle_left.png",
     false,
     std::make_pair(0, 0),
     1,1,10,1.5,true,"LEFT"
@@ -123,7 +123,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   //Creating jumping right animation
   engine::Animation* jumping_right_animation = new engine::Animation(
     game.get_renderer(),
-    "../assets/images/sprites/little_girl_jumping_right.png",
+    "../assets/images/sprites/little_girl/little_girl_jumping_right.png",
     false,
     std::make_pair(0, 0),
     1,1,5,1.5,true,"RIGHT"
@@ -137,7 +137,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   //Creating jumping left animation
   engine::Animation* jumping_left_animation = new engine::Animation(
     game.get_renderer(),
-    "../assets/images/sprites/little_girl_jumping_left.png",
+    "../assets/images/sprites/little_girl/little_girl_jumping_left.png",
     false,
     std::make_pair(0, 0),
     1,1,5,1.5,true,"LEFT"
@@ -148,7 +148,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
     std::make_pair(0, 0)
   );
 
-  engine::GameObject* little_girl = new engine::LittleGirl("little_girl", place, 52);
+  engine::GameObject* little_girl = new engine::LittleGirl("little_girl", place, 3);
   engine::Hitbox* hitbox= new engine::Hitbox("hitbox", little_girl->get_position(), std::make_pair(60, 180), std::make_pair(50,5), game.get_renderer());
 
   little_girl->collidable = true;

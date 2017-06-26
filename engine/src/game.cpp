@@ -99,7 +99,7 @@ void Game::run(){
       event_handler.dispatch_pending_events(now);
       actual_scene->update();
 
-      SDL_SetRenderDrawColor(renderer,0xAA, 0xAA, 0xAA, 0xAA);
+      SDL_SetRenderDrawColor(renderer,game_background_color.r, game_background_color.g, game_background_color.b, game_background_color.a);
       SDL_RenderClear(renderer);
       actual_scene->draw();
       SDL_RenderPresent(renderer);

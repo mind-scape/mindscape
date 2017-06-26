@@ -28,15 +28,15 @@ int main(int,char**){
   std::pair<int, int> anotherotherplace (250,400);
   game.set_game_background_color(0xEB, 0xA7, 0xFC, 0xFF);
 
-  Image* images2 = new Image(game.get_renderer(), "../assets/images/cenarios/1.png", true, std::make_pair(0, 0), 1);
-  Image* images9 = new Image(game.get_renderer(), "../assets/images/cenarios/2.png", true, std::make_pair(0, 0), 1);
-  Image* images8 = new Image(game.get_renderer(), "../assets/images/cenarios/3.png", true, std::make_pair(0, 0), 1);
-  Image* images7 = new Image(game.get_renderer(), "../assets/images/cenarios/4.png", true, std::make_pair(0, 0), 1);
+  Image* images2 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/1.png", true, std::make_pair(0, 0), 1);
+  Image* images9 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/2.png", true, std::make_pair(0, 0), 1);
+  Image* images8 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/3.png", true, std::make_pair(0, 0), 1);
+  Image* images7 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/4.png", true, std::make_pair(0, 0), 1);
 
-  Animation* images4 = new Animation(game.get_renderer(), "../assets/images/sprites/fox_running_right.png", true, std::make_pair(0, 0),1,1,9,0.9,true,"RIGHT");
-  Animation* images5 = new Animation(game.get_renderer(), "../assets/images/sprites/fox_running_left.png", false, std::make_pair(0, 0),1,1,9,0.9,true,"LEFT");
+  Animation* images4 = new Animation(game.get_renderer(), "../assets/images/sprites/fox/fox_running_right.png", true, std::make_pair(0, 0),1,1,9,0.9,true,"RIGHT");
+  Animation* images5 = new Animation(game.get_renderer(), "../assets/images/sprites/fox/fox_running_left.png", false, std::make_pair(0, 0),1,1,9,0.9,true,"LEFT");
 
-  Image* images6 = new Image(game.get_renderer(), "../assets/images/plataforma.png", true, std::make_pair(0,0), 2);
+  Image* images6 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/plataforma.png", true, std::make_pair(0,0), 1);
 
   images2-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
   images9-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
@@ -77,7 +77,7 @@ int main(int,char**){
   Physics *physics = Physics::get_instance();
   physics->add_physicable(little_girl);
 
-  Image* spider_image = new Image(game.get_renderer(), "../assets/images/sprites/scorpion_final_moving_left.png", true, std::make_pair(0, 0), 3);
+  Image* spider_image = new Image(game.get_renderer(), "../assets/images/sprites/enemies/scorpion_final_moving_left.png", true, std::make_pair(0, 0), 3);
   spider_image->set_values(std::make_pair(288, 288), std::make_pair(288, 288), std::make_pair(0, 0));
 
 
@@ -112,7 +112,7 @@ int main(int,char**){
 
   Level * menu = new Level();
 
-  Image *m_background = new Image(game.get_renderer(), "../assets/images/menu_screen2.jpg", true, std::make_pair(0,0),1);
+  Image *m_background = new Image(game.get_renderer(), "../assets/images/scenes/main_menu/menu_screen2.jpg", true, std::make_pair(0,0),1);
   m_background->set_values(std::make_pair(1024,576), std::make_pair(1024,576), std::make_pair(0,0));
   GameObject* menu_background = new GameObject("menu_background", std::make_pair(0,0),1,{});
   menu_background->add_component(m_background);
@@ -141,7 +141,7 @@ int main(int,char**){
   //GameObject* exit = new GameObject("exit", std::make_pair(450, 380),2);
  // exit ->add_component("exit", text_exit);
 
-  Audio* music = new Audio("../assets/audios/mindscape_open3.wav", Audio::MUSIC);
+  Audio* music = new Audio("../assets/audios/background_songs/mindscape_open3.wav", Audio::MUSIC);
   GameObject * menu_loop =  new GameObject("menu_loop", std::make_pair(0,0),1,{});
   menu_loop->add_component(music);
 
