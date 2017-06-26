@@ -20,12 +20,15 @@ namespace engine {
       int animation_count2 = 0;
 
     public:
-      Fox(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
-      {
-          {KeyboardEvent::LEFT,"MOVE_LEFT"},
-          {KeyboardEvent::RIGHT,"MOVE_RIGHT"},
-          {KeyboardEvent::UP,"JUMP"},
-          {KeyboardEvent::DOWN,"CROUCH"},
+      Fox(
+        std::string p_name,
+        std::pair<int, int> position,
+        int p)
+        :GameObject(p_name, position, p, {
+        {KeyboardEvent::LEFT,"MOVE_LEFT"},
+        {KeyboardEvent::RIGHT,"MOVE_RIGHT"},
+        {KeyboardEvent::UP,"JUMP"},
+        {KeyboardEvent::DOWN,"CROUCH"},
       }){};
 
       ~Fox(){};
