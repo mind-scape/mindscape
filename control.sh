@@ -115,9 +115,11 @@ do_all() {
 }
 
 do_archive(){
+  echo "Creating archive."
   git archive --format=tar.gz --prefix=mindscape-${TAG:1}/ $TAG > mindscape-${TAG:1}.tar.gz
   mkdir -p archives
   mv mindscape-${TAG:1}.tar.gz archives/
+  echo "Done."
 }
 
 do_clear() {
@@ -131,9 +133,36 @@ do_package() {
 }
 
 generate_debian_package() {
-  echo "NOT IMPLEMENTED YET"
-  echo "TAG: ${TAG}   DISTRO: ${DISTRO}"
+  echo "Generating debian package for TAG: $TAG"
   echo
+
+  rm -rf .vagrant
+  do_clear
+  do_archive
+  echo "Moving archives to parent directory."
+  mv archives/mindscape-${TAG:1}.tar.gz ../
+
+  echo "Cleaning directory"
+  do_clear
+
+  old_dir=`pwd`
+  new_dir=mindscape-${TAG:1}
+  echo "Renaming $old_dir to $new_dir"
+  cd ..
+  mv $old_dir $new_dir
+  cd $new_dir
+
+  echo "Running dh_make."
+  do_clear
+  dh_make -f ../mindscape-${TAG:1}.tar.gz
+
+  echo "Running debuild."
+  debuild -us -uc --source-option=--include-binaries
+
+  echo "Renaming mindscape name to the older."
+  cd ..
+  mv $new_dir $old_dir
+  cd $old_dir
 }
 
 generate_redhat_package(){

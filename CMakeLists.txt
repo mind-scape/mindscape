@@ -1,6 +1,7 @@
-cmake_minimum_required(VERSION 3.0.2)
-project(mindscape)
-
+cmake_minimum_required(VERSION 3.1)
+project(mindscape LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 11)                                                                                                                                 
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Creating variables
 
 set(INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include")
