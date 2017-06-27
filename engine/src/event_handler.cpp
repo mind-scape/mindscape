@@ -20,7 +20,6 @@ void EventHandler::dispatch_pending_events(unsigned now){
   }
 }
 
-
 std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now){
   get_events_until_now(now);
   auto it = sdl_events.begin();

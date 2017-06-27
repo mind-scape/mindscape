@@ -33,7 +33,6 @@ void Animation::draw(int x, int y){
 
   int actual_line = actual_sprite / sprite_columns;
   int actual_column  = actual_sprite % sprite_columns;
-
   //Game::get_instance().quit_event = true;
 
   coordinatesOnTexture.first = sprites_order[actual_column] * dimensionOnTexture.first;

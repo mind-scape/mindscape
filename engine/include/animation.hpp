@@ -28,7 +28,6 @@ namespace engine{
       int playing_duration_of_animation = 0;
       int duration_of_animation;
       bool in_loop = false;
-      bool is_finished;
       //Atributo para o timer;
       Timer * time;
       int aux_time;
@@ -75,6 +74,7 @@ namespace engine{
 
       virtual ~Animation(){}
 
+      bool is_finished;
       bool load();
       bool set_frame_time();
       void draw(int, int);

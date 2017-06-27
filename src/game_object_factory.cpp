@@ -88,6 +88,7 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(
   engine::GameObject *little_girl = new LittleGirl(
     name , position, priority
   );
+
   return little_girl;
 }
 

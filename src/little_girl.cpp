@@ -128,7 +128,6 @@ void LittleGirl::initialize_as_physicable(){
   collidable = true;
 }
 
-
 void LittleGirl::on_collision(
   engine::GameObject* other,
   engine::Hitbox* p_my_hitbox,
@@ -152,13 +151,14 @@ void LittleGirl::on_event(GameEvent game_event){
   engine::Animation* actual_animation = get_actual_animation();
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");
+  std::string actual_action_state = states.get_state("ACTION_STATE");
+
 
   //Verifying if its on the ground
   //if(event_name == "JUMP" && get_speed_y() >= 0){
   if(event_name == "JUMP" && actual_y_state != "JUMPING"){
     set_speed_y(-21);
     states.set_state("Y_STATE","JUMPING");
-    std::string actual_x_state = states.get_state("X_STATE");
 
     if(actual_x_state == "LOOKING_RIGHT")
       set_actual_animation(animations["jumping_right_animation"]);
@@ -214,6 +214,13 @@ void LittleGirl::on_event(GameEvent game_event){
       states.set_state("X_STATE","LOOKING_RIGHT");
       set_actual_animation(animations["jumping_right_animation"]);
     }
+  }else if(event_name == "ATTACK" && actual_action_state != "ATTACKING"){
+    states.set_state("ACTION_STATE","ATTACKING");
+    if(actual_x_state == "LOOKING_RIGHT"){
+      set_actual_animation(animations["attacking_right_animation"]);
+    }else if(actual_x_state == "LOOKING_LEFT"){
+      set_actual_animation(animations["attacking_left_animation"]);
+    }
   }
 }
 
@@ -221,12 +228,15 @@ void LittleGirl::update_state(){
   //Should be implemented
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");
-
-  if(get_speed_y() == 0.0){
-    states.set_state("Y_STATE","ON_GROUND");
+  std::string actual_action_state = states.get_state("ACTION_STATE");
+  LittleGirl* little_girl = LittleGirl::get_instance();
+ 
+  if(actual_action_state == "ATTACKING"){
+      if(little_girl->get_actual_animation()->is_finished){
+        states.set_state("ACTION_STATE","NORMAL");
+      }
   }
-
-  if(get_speed_x() == 0.0 && get_speed_y() == 0.0){
+  if(get_speed_x() == 0.0 && get_speed_y() == 0.0 && actual_action_state == "NORMAL"){
     if(actual_x_state == "LOOKING_RIGHT"){
       engine::Animation* idle_right_animation = animations["idle_right_animation"];
       set_actual_animation(idle_right_animation);
@@ -236,6 +246,12 @@ void LittleGirl::update_state(){
     }
     jumping_animation_count = 0;
   }
+  if(get_speed_y() == 0.0){
+    states.set_state("Y_STATE","ON_GROUND");
+  }
+  std::cout << actual_x_state << std::endl;
+  std::cout << actual_y_state << std::endl;
+  std::cout << actual_action_state << std::endl;
 
   set_speed_x(0.0);
 }
