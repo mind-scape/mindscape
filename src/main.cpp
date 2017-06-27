@@ -17,6 +17,7 @@
 #include "../include/select_arrow.hpp"
 #include "../include/button.hpp"
 #include "../include/spider.hpp"
+#include "../include/scorpion.hpp"
 
 using namespace engine;
 
@@ -77,18 +78,13 @@ int main(int,char**){
   Physics *physics = Physics::get_instance();
   physics->add_physicable(little_girl);
 
-  Image* spider_image = new Image(game.get_renderer(), "../assets/images/sprites/enemies/scorpion_final_moving_left.png", true, std::make_pair(0, 0), 3);
-  spider_image->set_values(std::make_pair(288, 288), std::make_pair(288, 288), std::make_pair(0, 0));
 
 
-  GameObject* spider = new mindscape::Spider("spider", std::make_pair(700, 200), 40);
-  Hitbox* spider_hitbox = new Hitbox("spider_hitbox", spider->get_position(), std::make_pair(0, 280), std::make_pair(288,8), game.get_renderer());
-  Hitbox* spider_attack = new Hitbox("spider_attack", spider->get_position(), std::make_pair(5, 200), std::make_pair(283,10), game.get_renderer());
-  spider->collidable = true;
-  spider->add_component(spider_image);
-  spider->add_component(spider_attack);
-  spider->add_component(spider_hitbox);
+  GameObject* spider = new mindscape::Spider("spider", std::make_pair(700, 0), 40);
+  GameObject* scorpion = new mindscape::Scorpion("scorpion", std::make_pair(300, 0), 40);
+
   physics->add_physicable(spider);
+  physics->add_physicable(scorpion);
 
   Level* level1 = new Level();
 
@@ -100,8 +96,10 @@ int main(int,char**){
   level1->add_object(platform);
   level1->add_object(little_girl);
   level1->add_object(spider);
+  level1->add_object(scorpion);
   level1->activate_game_object("little_girl");
   level1->activate_game_object("spider");
+  level1->activate_game_object("scorpion");
   level1->activate_game_object("background");
   level1->activate_game_object("background2");
   level1->activate_game_object("background3");

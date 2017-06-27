@@ -70,7 +70,7 @@ void LittleGirl::on_event(GameEvent game_event){
       set_speed_x(-1.0);
 
       running_left_animation_count +=1;
-      if(running_left_animation_count == 5){
+      if(true){
         actual_animation->coordinatesOnTexture.first -= 192;
         running_left_animation_count = 0;
       }
@@ -89,7 +89,7 @@ void LittleGirl::on_event(GameEvent game_event){
       set_speed_x(1.0);
 
       running_right_animation_count +=1;
-      if(running_right_animation_count == 5){
+      if(true){
         actual_animation->coordinatesOnTexture.first += 192;
         running_right_animation_count = 0;
       }

@@ -47,12 +47,12 @@ void Animation::set_sprites_order(int total_sprites, std::string direction){
     int reverse_index = total_sprites - 1;
     for(int i = 0;i < total_sprites;++i){
       sprites_order[i] = reverse_index;
-      reverse_index--;    
+      reverse_index--;
     }
   }
-  else if(direction == "RIGHT"){ 
+  else if(direction == "RIGHT"){
     for(int j = 0;j < total_sprites;++j){
       sprites_order[j] = j;
-    } 
+    }
   }
 }
