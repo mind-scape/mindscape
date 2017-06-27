@@ -2,6 +2,7 @@
 #define PERSISTENCE_DAT_H
 
 #include "persistence.hpp"
+#include "persistence_map.hpp"
 #include "unordered_map"
 
 namespace engine{
@@ -13,8 +14,8 @@ namespace engine{
     public:
       static PersistenceDat *get_instance();
       ~PersistenceDat();
-      std::unordered_map<std::string, std::string> load (std::string);
-      bool dump (std::string, std::unordered_map<std::string, std::string>);
+      PersistenceMap * load (std::string);
+      bool dump (std::string, PersistenceMap *);
   };
 }
 #endif

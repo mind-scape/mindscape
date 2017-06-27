@@ -2,12 +2,13 @@
 #define PERSISTENCE_H
 
 #include "unordered_map"
+#include "persistence_map.hpp"
 
 namespace engine{
   class Persistence {
     public:
-      virtual std::unordered_map<std::string, std::string> load (std::string)=0;
-      virtual bool dump (std::string, std::unordered_map<std::string, std::string>)=0;
+      virtual PersistenceMap * load (std::string)=0;
+      virtual bool dump (std::string, PersistenceMap *)=0;
   };
 }
 #endif
