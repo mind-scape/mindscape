@@ -28,20 +28,20 @@ namespace engine {
       typedef std::map<unsigned, Key> KeyMap;
       static KeyMap keymap;
 
-      KeyboardEvent(unsigned t, State s, unsigned k, bool r = false) :
-        Event(t), m_state(s), SDL_key(k), m_repeated(r) {}
+      KeyboardEvent(unsigned timestamp, State key_state, unsigned pressed_key, bool p_was_repeated = false) :
+        Event(timestamp), key_state(key_state), SDL_key(pressed_key), was_repeated(p_was_repeated) {}
 
-      State state() const { return m_state; }
+      State state() const { return key_state; }
       Key key() const { return keymap[SDL_key]; }
       Modifier modifier() const { return m_modifier; }
-      bool repeated() const { return m_repeated; }
+      bool repeated() const { return was_repeated; }
 
     private:
-      State m_state;
+      State key_state;
       unsigned SDL_key;
       Key m_key;
       Modifier m_modifier;
-      bool m_repeated;
+      bool was_repeated;
   };
 }
 

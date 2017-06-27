@@ -15,8 +15,8 @@ namespace mindscape {
   class Fox : public engine::GameObject {
     private:
       int velocity;
-      int animation_count = 0;
-      int animation_count2 = 0;
+      int running_right_animation_count = 0;
+      int running_left_animation_count = 0;
 
     public:
       Fox(
