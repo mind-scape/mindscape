@@ -3,6 +3,7 @@
 
 #include "game_object_factory.hpp"
 #include "../engine/include/level.hpp"
+#include <string>
 
 namespace mindscape {
   class LevelFactory {
@@ -10,10 +11,9 @@ namespace mindscape {
       LevelFactory();
       ~LevelFactory();
 
-      engine::Level* fabricate_first_level();
-      engine::Level* fabricate_second_level();
-      engine::Level* fabricate_menu();
-      engine::Level* fabricate_game_over();
+      engine::Level * fabricate_level(std::string);
+      engine::Level * fabricate_menu();
+      engine::Level * fabricate_game_over();
   };
 }
 

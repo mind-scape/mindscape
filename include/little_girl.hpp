@@ -15,11 +15,12 @@
 
 using std::string;
 
-namespace engine {
+namespace mindscape {
 
   class LittleGirl : public GameObject, public mindscape::Fighter {
     private:
       static LittleGirl* instance;
+      //[FIXME] should be a map or deleted
       int running_right_animation_count = 0;
       int running_left_animation_count = 0;
       int jumping_animation_count = 0;
@@ -32,12 +33,12 @@ namespace engine {
         {KeyboardEvent::UP,"JUMP"},
         {KeyboardEvent::DOWN,"CROUCH"}
       }){
+        //[FIXME] should be in the .cpp file
         states.set_state("X_STATE","LOOKING_RIGHT");
         states.set_state("Y_STATE","ON_GROUND");
       };
       ~LittleGirl(){};
 
-      static LittleGirl* get_instance();
       void on_event(GameEvent);
       void on_collision(GameObject*, Hitbox*, Hitbox*);
       void update_state();

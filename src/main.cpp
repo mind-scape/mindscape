@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include <string>
 #include "../include/platform.hpp"
-#include "../include/game_object_factory.hpp"
+#include "level_factory.hpp"
 #include "../engine/include/game.hpp"
 #include "../engine/include/audio.hpp"
 #include "../engine/include/image.hpp"
@@ -72,6 +72,7 @@ int main(int,char**){
   fox->add_component(images5);
   platform->add_component(images6);
 
+<<<<<<< HEAD
   mindscape::GameObjectFactory mindscape_factory = mindscape::GameObjectFactory();
   LittleGirl* little_girl = LittleGirl::get_instance();
 
@@ -87,6 +88,10 @@ int main(int,char**){
   physics->add_physicable(scorpion);
 
   Level* level1 = new Level();
+=======
+  mindscape::LevelFactory *level_factory = new mindscape::LevelFactory();
+  Level* level1 = level_factory->fabricate_level("data/1.level.dat");
+>>>>>>> Refactoring Little Girl construction to use PersistenceDat
 
   level1->add_object(background4);
   level1->add_object(fox);
@@ -94,6 +99,7 @@ int main(int,char**){
   level1->add_object(background2);
   level1->add_object(background3);
   level1->add_object(platform);
+<<<<<<< HEAD
   level1->add_object(little_girl);
   level1->add_object(spider);
   level1->add_object(scorpion);
@@ -106,6 +112,14 @@ int main(int,char**){
   level1->activate_game_object("footer_background");
   level1->activate_game_object("fox");
   level1->activate_game_object("platform");
+=======
+  level1->activate_game_object(background);
+  level1->activate_game_object(background2);
+  level1->activate_game_object(background3);
+  level1->activate_game_object(background4);
+  level1->activate_game_object(fox);
+  level1->activate_game_object(platform);
+>>>>>>> Refactoring Little Girl construction to use PersistenceDat
   /********************************************************************************/
 
   /**********************MAIN*MEUNU********************************************/
@@ -148,9 +162,9 @@ int main(int,char**){
 
 
   menu->add_object(select);
-  menu->activate_game_object("select");
+  menu->activate_game_object(select);
   menu->add_object(start);
-  menu->activate_game_object("start");
+  menu->activate_game_object(start);
   //menu->add_object(instructions);
   //menu->activate_game_object("instructions");
   //menu->add_object(credits);
@@ -158,11 +172,11 @@ int main(int,char**){
   //menu->add_object(exit);
   //menu->activate_game_object("exit");
   //menu->add_object(game_title);
-  menu->activate_game_object("game_title");
+  menu->activate_game_object(game_title);
   menu->add_object(menu_background);
-  menu->activate_game_object("menu_background");
+  menu->activate_game_object(menu_background);
   menu->add_object(menu_loop);
-  menu->activate_game_object("menu_loop");
+  menu->activate_game_object(menu_loop);
 
   /********************************************************************************/
 

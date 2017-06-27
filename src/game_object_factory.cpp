@@ -1,5 +1,6 @@
 #include "game_object_factory.hpp"
 
+
 using namespace mindscape;
 
 engine::GameObject* GameObjectFactory::fabricate(
@@ -160,6 +161,9 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   little_girl->add_animation("jumping_left_animation",jumping_left_animation);
   little_girl->set_actual_animation(idle_right_animation);
   little_girl->add_component(hitbox);
+
+  engine::Physics *physics = engine::Physics::get_instance();
+  physics->add_physicable(little_girl);
 
   return little_girl;
 }
