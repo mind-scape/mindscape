@@ -1,5 +1,7 @@
 #include "../include/button.hpp"
 
+using namespace mindscape;
+
 void Button::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
 

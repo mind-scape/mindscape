@@ -11,25 +11,26 @@
 #include <string>
 #include <unordered_map>
 
-namespace engine {
-
-  class Background : public GameObject {
+namespace mindscape {
+  class Background : public engine::GameObject {
     public:
 
       int paralax = 10;
 
-      Background(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
-      {
-          {KeyboardEvent::LEFT,"MOVE_LEFT"},
-          {KeyboardEvent::RIGHT,"MOVE_RIGHT"},
-      }){};
-
+      Background(
+        std::string p_name,
+        std::pair<int, int> position, int p)
+        :engine::GameObject(
+          p_name,
+          position, p,
+          {
+            {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
+            {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
+          }
+        ){};
       ~Background(){};
-
       void on_event(GameEvent game_event);
-
   };
-
 }
 
 #endif

@@ -4,8 +4,6 @@
 class Game {
   Game(){};
   ~Game(){};
-
-
 };
 
 #endif

@@ -16,6 +16,8 @@
 #include "button.hpp"
 #include "platform.hpp"
 #include "level_factory.hpp"
+#include "spider.hpp"
+#include "scorpion.hpp"
 
 using namespace engine;
 
@@ -45,17 +47,17 @@ int main(int,char**){
   images4-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
   images5-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
 
-  Background* background = new Background("background", anotherplace, 1);
-  Background* background2 = new Background("background2", anotherplace, 2);
-  GameObject* background3 = new Background("background3", anotherplace, 3);
-  GameObject* background4 = new Platform("footer_background", anotherplace, 5);
+  mindscape::Background* background = new mindscape::Background("background", anotherplace, 1);
+  mindscape::Background* background2 = new mindscape::Background("background2", anotherplace, 2);
+  GameObject* background3 = new mindscape::Background("background3", anotherplace, 3);
+  GameObject* background4 = new mindscape::Platform("footer_background", anotherplace, 5);
   Hitbox* footer= new Hitbox("hitbox", background4->get_position(), std::make_pair(0,530), std::make_pair(10000, 200), game.get_renderer());
   background4->add_component(footer);
 
   background->paralax = 2;
   background2->paralax = 4;
 
-  GameObject* fox = new Fox("fox", anotherotherplace, 4);
+  GameObject* fox = new mindscape::Fox("fox", anotherotherplace, 4);
 
   background->add_component(images2);
   background2->add_component(images9);
@@ -63,7 +65,7 @@ int main(int,char**){
   background4->add_component(images7);
 
   images6-> set_values(std::make_pair(507, 256), std::make_pair(507, 256), std::make_pair(0, 0));
-  GameObject* platform = new Platform("platform", std::make_pair(800, 300), 2);
+  GameObject* platform = new mindscape::Platform("platform", std::make_pair(800, 300), 2);
   Hitbox* hitbox= new Hitbox("hitbox", platform->get_position(), std::make_pair(40,70), std::make_pair(400,30), game.get_renderer());
   platform->add_component(hitbox);
   fox->add_component(images4);
@@ -108,7 +110,7 @@ int main(int,char**){
   menu_background->add_component(m_background);
 
   Text* sel = new Text(">", "../assets/fonts/FFF_Tusj.ttf", 35, game.get_renderer());
-  GameObject* select = new SelectArrow("select", std::make_pair(425,275),2);
+  GameObject* select = new mindscape::SelectArrow("select", std::make_pair(425,275),2);
   select->add_component(sel);
 
   Text* title = new Text("MindScape", "../assets/fonts/FFF_Tusj.ttf", 90, game.get_renderer());
@@ -116,7 +118,7 @@ int main(int,char**){
   game_title->add_component(title);
 
   Text* text_start = new Text("Iniciar", "../assets/fonts/FFF_Tusj.ttf", 35, game.get_renderer());
-  GameObject* start = new Button("start", std::make_pair(450, 275), 2);
+  GameObject* start = new mindscape::Button("start", std::make_pair(450, 275), 2);
   start->add_component(text_start);
 
   //Text* text_instructions= new Text("Ajuda", "../assets/fonts/FFF_Tusj.ttf", 35, game.get_renderer());

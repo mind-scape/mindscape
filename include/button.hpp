@@ -12,17 +12,26 @@
 #include <string>
 #include <unordered_map>
 
+namespace mindscape {
   class Button : public engine::GameObject {
     public:
-      Button(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
-      {
-          {engine::KeyboardEvent::RETURN,"ENTER"},
-      }){};
+      Button(
+        std::string p_name,
+        std::pair<int, int> position,
+        int priority)
+        :engine::GameObject(
+          p_name,
+          position,
+          priority,
+          {
+            {engine::KeyboardEvent::RETURN,"ENTER"},
+          }
+      ){};
 
       ~Button(){};
 
       void on_event(GameEvent game_event);
-
   };
+}
 
 #endif
