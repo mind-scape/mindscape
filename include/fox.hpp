@@ -11,9 +11,8 @@
 #include <string>
 #include <unordered_map>
 
-namespace engine {
-
-  class Fox : public GameObject {
+namespace mindscape {
+  class Fox : public engine::GameObject {
     private:
       int velocity;
       int animation_count = 0;
@@ -23,21 +22,24 @@ namespace engine {
       Fox(
         std::string p_name,
         std::pair<int, int> position,
-        int p)
-        :GameObject(p_name, position, p, {
-        {KeyboardEvent::LEFT,"MOVE_LEFT"},
-        {KeyboardEvent::RIGHT,"MOVE_RIGHT"},
-        {KeyboardEvent::UP,"JUMP"},
-        {KeyboardEvent::DOWN,"CROUCH"},
-      }){};
+        int priority)
+        :engine::GameObject(
+          p_name,
+          position,
+          priority,
+          {
+            {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
+            {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
+            {engine::KeyboardEvent::UP,"JUMP"},
+            {engine::KeyboardEvent::DOWN,"CROUCH"},
+          }
+        ){};
 
       ~Fox(){};
 
       void on_event(GameEvent game_event);
       void update_state();
-
   };
-
 }
 
 #endif

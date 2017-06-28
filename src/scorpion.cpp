@@ -5,10 +5,15 @@
 
 using namespace mindscape;
 
-
 void Scorpion::on_event(GameEvent game_event){
-  move(game_event);
   attack();
+}
+
+void Scorpion::notify(engine::Observable *game_object){
+  LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
+  if(little_girl){
+    move(little_girl);
+  }
 }
 
 void Scorpion::attack(){
@@ -16,31 +21,37 @@ void Scorpion::attack(){
   // implement animation logic here
 }
 
-void Scorpion::move(GameEvent game_event){
-  engine::LittleGirl* girl = engine::LittleGirl::get_instance();
-  std::string event = game_event.game_event_name;
-  float scorpion_position = get_position().first;
-  float girl_position = girl->get_position().first;
+void Scorpion::move(engine::GameObject* girl){
+  float scorpion_position = get_position_x();
+  float girl_position = girl->get_position_x();
 
-  if(event == "Update"){
-    states.set_state("ACTION_STATE","NORMAL");
-    if(scorpion_position > girl_position && scorpion_position - girl_position <= 300){
+  //little_girl on right
+  if(scorpion_position > girl_position){
+    //little_girl far from scorpion
+    if(scorpion_position - girl_position <= 300){
+      states.set_state("ACTION_STATE","NORMAL");
       set_actual_animation(animations["walking_right"]);
-      set_position(std::make_pair(get_position().first - 1, get_position().second));
-    }else if(girl_position > scorpion_position && girl_position - scorpion_position <= 588){
-      set_actual_animation(animations["walking_left"]);
-      set_position(std::make_pair(get_position().first + 1, get_position().second));
+      set_position_x(get_position_x() - 1);
+    //little_girl close of scorpion
+    }else if(!GameObject::on_limit_of_level){
+      set_position_x(get_position_x() - 10);
     }
-  }else if(event == "MOVE_LEFT" && !GameObject::on_limit_of_level){
-      set_position(std::make_pair(get_position().first + 10, get_position().second));
-  }else if(event == "MOVE_RIGHT" && !GameObject::on_limit_of_level){
-    set_position(std::make_pair(get_position().first - 10, get_position().second));
+  //little_girl on left
+  }else{
+    //little_girl far from scorpion
+    if(girl_position - scorpion_position <= 588){
+      set_actual_animation(animations["walking_left"]);
+      set_position_x(get_position_x() + 1);
+    //little_girl close of scorpion
+    }else if(!GameObject::on_limit_of_level){
+      set_position_x(get_position_x() + 10);
+    }
   }
 }
 
 void Scorpion::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox){
-  engine::Platform* p = dynamic_cast<engine::Platform *>(other);
-  engine::LittleGirl* l = dynamic_cast<engine::LittleGirl *>(other);
+  Platform* p = dynamic_cast<Platform *>(other);
+  LittleGirl* l = dynamic_cast<LittleGirl *>(other);
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
