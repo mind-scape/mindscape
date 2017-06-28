@@ -13,6 +13,13 @@ void Scene::add_object(engine::GameObject* object){
   sort(objects.begin(), objects.end(), compare_scene);
 }
 
+GameObject *Scene::get_object_by_id(int id){
+  if(id < objects.size() && id >= 0)
+    return objects[id];
+  else
+    return NULL;
+}
+
 void Scene::activate_game_object(GameObject *go){
   go->activate();
   EventHandler::add_listener(go);

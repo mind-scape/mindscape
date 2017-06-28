@@ -1,6 +1,8 @@
 #include "../include/level_factory.hpp"
 #include "../engine/include/persistence_dat.hpp"
+#include "../engine/include/observable.hpp"
 #include <unordered_map>
+#include <vector>
 
 using namespace mindscape;
 
@@ -21,7 +23,23 @@ engine::Level *LevelFactory::fabricate_level(std::string path){
         std::stoi(object["priority"])
       ); 
 
+
+std::cout << "1 QUEBROOOOOOOOOOOU" << std::endl;
+      if(object.count("follows") > 0){ //if follow key is declared
+
+std::cout << "2 QUEBROOOOOOOOOOOU" << std::endl;
+        engine::Observable * observable = level->get_object_by_id(
+          std::stoi(object["follows"])
+        );
+std::cout << "OPAAAAAA " << object["follows"] << std::endl;
+
+std::cout << "3 QUEBROOOOOOOOOOOU" << std::endl;
+        observable->attach_observer(constructed_obj);
+      }
+
+std::cout << "4 QUEBROOOOOOOOOOOU" << std::endl;
       level->add_object(constructed_obj);
+std::cout << "5 QUEBROOOOOOOOOOOU" << std::endl;
       level->activate_game_object(constructed_obj);
     }
 
