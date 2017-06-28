@@ -73,11 +73,9 @@ int main(int,char**){
   platform->add_component(images6);
 
   GameObject* spider = new mindscape::Spider("spider", std::make_pair(700, 0), 40);
-  GameObject* scorpion = new mindscape::Scorpion("scorpion", std::make_pair(300, 0), 40);
 
   Physics *physics = Physics::get_instance();
   physics->add_physicable(spider);
-  physics->add_physicable(scorpion);
 
   mindscape::LevelFactory *level_factory = new mindscape::LevelFactory();
   Level* level1 = level_factory->fabricate_level("data/1.level.dat");
@@ -89,7 +87,6 @@ int main(int,char**){
   level1->add_object(background4);
   level1->add_object(platform);
   level1->add_object(spider);
-  level1->add_object(scorpion);
   level1->activate_game_object(fox);
   level1->activate_game_object(background);
   level1->activate_game_object(background2);
@@ -97,7 +94,6 @@ int main(int,char**){
   level1->activate_game_object(background4);
   level1->activate_game_object(platform);
   level1->activate_game_object(spider);
-  level1->activate_game_object(scorpion);
   /********************************************************************************/
 
   /**********************MAIN*MEUNU********************************************/

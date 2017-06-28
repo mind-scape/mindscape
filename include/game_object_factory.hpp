@@ -10,6 +10,8 @@
 #include "platform.hpp"
 #include "little_girl.hpp"
 #include "fox.hpp"
+#include "scorpion.hpp"
+#include "spider.hpp"
 #include "background.hpp"
 #include "button.hpp"
 #include "select_arrow.hpp"
@@ -20,7 +22,8 @@ namespace mindscape {
   class GameObjectFactory {
     public:
       typedef enum {
-        LITTLE_GIRL, FOX, PLATFORM, BUTTON, SELECT_ARROW, BACKGROUND, FOOTER
+        LITTLE_GIRL, SCORPION, SPIDER, FOX, PLATFORM, BUTTON,
+        SELECT_ARROW, BACKGROUND, FOOTER
       } Options;
 
       GameObjectFactory(){};
@@ -39,6 +42,8 @@ namespace mindscape {
       engine::GameObject* fabricate_button();
       engine::GameObject* fabricate_select_arrow();
       engine::GameObject* fabricate_fox();
+      engine::GameObject* fabricate_scorpion(std::pair<int, int>, int);
+      engine::GameObject* fabricate_spider();
       engine::GameObject* fabricate_little_girl(std::pair<int, int>, int);
   };
 }

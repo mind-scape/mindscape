@@ -11,6 +11,10 @@ engine::GameObject* GameObjectFactory::fabricate(
   switch(option){
     case(GameObjectFactory::LITTLE_GIRL):
       return fabricate_little_girl(coordinates, priority);
+    case(GameObjectFactory::SCORPION):
+      return fabricate_scorpion(coordinates, priority);
+    case(GameObjectFactory::SPIDER):
+      return fabricate_spider();
     case(GameObjectFactory::FOOTER):
       return fabricate_footer();
     case(GameObjectFactory::FOX):
@@ -56,6 +60,19 @@ engine::GameObject* GameObjectFactory::fabricate_select_arrow(){
 engine::GameObject* GameObjectFactory::fabricate_fox(){
   std::cout << "NOT IMPLEMENTED YET" << std::endl;
   return NULL;
+}
+
+engine::GameObject* GameObjectFactory::fabricate_spider(){
+  std::cout << "NOT IMPLEMENTED YET" << std::endl;
+  return NULL;
+}
+
+engine::GameObject* GameObjectFactory::fabricate_scorpion(
+  std::pair<int, int> postion, int priority){
+  engine::GameObject* scorpion = new Scorpion(
+    "scorpion", postion, priority
+  );
+  return scorpion;
 }
 
 engine::GameObject* GameObjectFactory::fabricate_little_girl(
