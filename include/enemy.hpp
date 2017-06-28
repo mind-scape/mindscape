@@ -23,6 +23,7 @@ namespace mindscape {
       virtual void move(GameEvent){};
       virtual void update(unsigned){};
       virtual void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*){};
+      virtual void notify(engine::Observable *){};
   };
 
 }

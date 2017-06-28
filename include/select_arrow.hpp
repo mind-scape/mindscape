@@ -9,26 +9,31 @@
 #include <string>
 #include <unordered_map>
 
-namespace engine{
-
-  class SelectArrow : public GameObject{
+namespace mindscape {
+  class SelectArrow : public engine::GameObject{
     public:
-
       int arrow_seletor = 0;
       bool enter_handler = false;
       char option_select = 'z';
 
-      SelectArrow(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
-      {
-          {engine::KeyboardEvent::UP,"UP"},
-          {engine::KeyboardEvent::DOWN,"DOWN"},
-          {engine::KeyboardEvent::RETURN,"ENTER"}
-      }){};
+      SelectArrow(
+        std::string name,
+        std::pair<int, int> position,
+        int priority)
+        :engine::GameObject(
+          name,
+          position,
+          priority,
+          {
+            {engine::KeyboardEvent::UP,"UP"},
+            {engine::KeyboardEvent::DOWN,"DOWN"},
+            {engine::KeyboardEvent::RETURN,"ENTER"}
+          }
+        ){};
 
       ~SelectArrow(){};
 
       void on_event(GameEvent game_event);
   };
 }
-
 #endif

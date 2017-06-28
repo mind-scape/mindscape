@@ -11,15 +11,22 @@
 #include <string>
 #include <unordered_map>
 
-namespace engine {
-
-  class Platform : public GameObject {
+namespace mindscape {
+  class Platform : public engine::GameObject {
     public:
-      Platform(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, p,
-      {
-          {KeyboardEvent::LEFT,"MOVE_LEFT"},
-          {KeyboardEvent::RIGHT,"MOVE_RIGHT"},
-      }){};
+      Platform(
+        std::string p_name,
+        std::pair<int, int> position,
+        int priority)
+        :engine::GameObject(
+          p_name,
+          position,
+          priority,
+          {
+            {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
+            {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
+          }
+        ){};
 
     ~Platform(){};
 

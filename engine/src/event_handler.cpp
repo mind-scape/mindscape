@@ -14,6 +14,7 @@ void EventHandler::dispatch_pending_events(unsigned now){
       if(listener->name == event.solver || event.solver == "All"){
         listener->on_event(event);
         listener->update_hitboxes();
+        listener->notify_observers();
       }
     }
   }

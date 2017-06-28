@@ -1,5 +1,6 @@
 #include "game_object_factory.hpp"
 
+
 using namespace mindscape;
 
 engine::GameObject* GameObjectFactory::fabricate(
@@ -148,8 +149,19 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
     std::make_pair(0, 0)
   );
 
-  engine::GameObject* little_girl = new engine::LittleGirl("little_girl", place, 52);
-  engine::Hitbox* hitbox= new engine::Hitbox("hitbox", little_girl->get_position(), std::make_pair(60, 45), std::make_pair(50,140), game.get_renderer());
+  engine::GameObject* little_girl = new mindscape::LittleGirl(
+    "little_girl",
+    place,
+    52
+  );
+  
+  engine::Hitbox* hitbox= new engine::Hitbox(
+    "hitbox",
+    little_girl->get_position(),
+    std::make_pair(60, 45),
+    std::make_pair(50,140),
+    game.get_renderer()
+  );
 
   little_girl->collidable = true;
   little_girl->add_animation("running_right_animation",running_right_animation);
@@ -160,6 +172,9 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(){
   little_girl->add_animation("jumping_left_animation",jumping_left_animation);
   little_girl->set_actual_animation(idle_right_animation);
   little_girl->add_component(hitbox);
+
+  engine::Physics *physics = engine::Physics::get_instance();
+  physics->add_physicable(little_girl);
 
   return little_girl;
 }

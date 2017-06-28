@@ -195,3 +195,17 @@ int GameObject::get_hp(){
 void GameObject::set_hp(int health){
   hp = health;
 }
+
+void GameObject::attach_observer(Observer *observer){
+  observers.push_back(observer);
+}
+
+void GameObject::detach_observer(Observer *observer){
+  observers.remove(observer);
+}
+
+void GameObject::notify_observers(){
+  for(auto observer : observers){
+    observer->notify(this);
+  }
+}

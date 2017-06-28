@@ -4,28 +4,20 @@
 #include <typeinfo>
 #include <algorithm>
 
-using namespace engine;
+using namespace mindscape;
 
-LittleGirl* LittleGirl::instance = 0;
+void LittleGirl::on_collision(
+  engine::GameObject* other,
+  engine::Hitbox* p_my_hitbox,
+  engine::Hitbox* p_other_hitbox){
 
-LittleGirl* LittleGirl::get_instance(){
-  if(!instance){
-    mindscape::GameObjectFactory* mindscape_factory = new mindscape::GameObjectFactory();
-    instance = (LittleGirl*) mindscape_factory->fabricate(mindscape::GameObjectFactory::LITTLE_GIRL);
-  }
-
-  return instance;
-}
-
-
-void LittleGirl::on_collision(GameObject* other, Hitbox* p_my_hitbox, Hitbox* p_other_hitbox){
   Platform* p = dynamic_cast<Platform *>(other);
-  Hitbox* my_hitbox = dynamic_cast<Hitbox *>(p_my_hitbox);
-  Hitbox* other_hitbox = dynamic_cast<Hitbox *>(p_other_hitbox);
+  engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+  engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
   if(get_speed_y() >= 0 && p){ //if she is falling on a platform
-    set_speed(std::make_pair(get_speed_x(), 0.0));
-    set_position(std::make_pair(get_position().first, other_hitbox->get_coordinates().second - 180));
+    set_speed_y(0.0);
+    set_position_y(other_hitbox->get_coordinates().second - 180);
   }
 }
 
@@ -34,7 +26,7 @@ void LittleGirl::on_event(GameEvent game_event){
   std::cout << "HP: " << get_hp() << std::endl;
  // std::cout << "Position X: " << get_position().first << " Position Y: " << get_position().second << " Speed X: " << get_speed_x() << " Speed Y: " << get_speed_y() << std::endl;
 
-  Animation* actual_animation = get_actual_animation();
+  engine::Animation* actual_animation = get_actual_animation();
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");
 
@@ -113,10 +105,10 @@ void LittleGirl::update_state(){
 
   if(get_speed_x() == 0.0 && get_speed_y() == 0.0){
     if(actual_x_state == "LOOKING_RIGHT"){
-      Animation* idle_right_animation = animations["idle_right_animation"];
+      engine::Animation* idle_right_animation = animations["idle_right_animation"];
       set_actual_animation(idle_right_animation);
     }else if(actual_x_state == "LOOKING_LEFT"){
-      Animation* idle_left_animation = animations["idle_left_animation"];
+      engine::Animation* idle_left_animation = animations["idle_left_animation"];
       set_actual_animation(idle_left_animation);
     }
     jumping_animation_count = 0;

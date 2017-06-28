@@ -9,6 +9,7 @@
 #include <map>
 #include <unordered_map>
 #include <vector>
+#include <list>
 #include <string>
 #include <utility>
 #include "SDL2basics.hpp"
@@ -20,11 +21,12 @@
 #include "keyboard_event.hpp"
 #include "state_map.hpp"
 #include "animation.hpp"
+#include "observer.hpp"
+#include "observable.hpp"
 #include "../../include/game_event.hpp"
 
 namespace engine {
-
-  class GameObject{
+  class GameObject : public Observer, public Observable{
     private:
       int hp = 90;
       std::pair<float, float> speed;
@@ -32,6 +34,7 @@ namespace engine {
       std::vector<Hitbox*> hitboxes;
       Animation* actual_animation = NULL;
       bool active;
+      std::list<Observer *> observers;
 
       void run_collisions(GameObject *);
 
@@ -102,6 +105,10 @@ namespace engine {
       virtual void update_state();
       void set_actual_animation(Animation*);
       Animation* get_actual_animation();
+      void attach_observer(Observer *);
+      void detach_observer(Observer *);
+      void notify_observers();
+      virtual void notify(Observable *){};
   };
 }
 

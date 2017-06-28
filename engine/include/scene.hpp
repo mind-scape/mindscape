@@ -28,7 +28,7 @@ namespace engine {
       virtual void draw(){};
       virtual void load(){};
       virtual void free(){};
-      void activate_game_object(std::string name);
+      void activate_game_object(GameObject *);
       void deactivate_game_object(std::string name);
       void deactivate_scene();
       void update();

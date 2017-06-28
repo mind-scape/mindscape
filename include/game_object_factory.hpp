@@ -6,6 +6,7 @@
 #include "../engine/include/image.hpp"
 #include "../engine/include/text.hpp"
 #include "../engine/include/animation.hpp"
+#include "../engine/include/physics.hpp"
 #include "platform.hpp"
 #include "little_girl.hpp"
 #include "fox.hpp"
