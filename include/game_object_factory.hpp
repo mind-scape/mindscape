@@ -26,8 +26,6 @@ namespace mindscape {
       GameObjectFactory(){};
       ~GameObjectFactory(){};
 
-      // FIXME: hitbox still being a SDL_Rect, it will not be included here,
-      // you need to setup it hardcoded
       engine::GameObject* fabricate(
         Options option,
         std::pair<int, int> coordinates = std::make_pair(0,0),
@@ -41,7 +39,7 @@ namespace mindscape {
       engine::GameObject* fabricate_button();
       engine::GameObject* fabricate_select_arrow();
       engine::GameObject* fabricate_fox();
-      engine::GameObject* fabricate_little_girl();
+      engine::GameObject* fabricate_little_girl(std::pair<int, int>, int);
   };
 }
 

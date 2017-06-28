@@ -6,7 +6,9 @@
 
 #include "../engine/include/game_object.hpp"
 #include "../engine/include/keyboard_event.hpp"
-#include "../engine/include/image.hpp"
+#include "../engine/include/animation.hpp"
+#include "../engine/include/hitbox.hpp"
+#include "../engine/include/physics.hpp"
 #include "fighter.hpp"
 #include <iostream>
 #include <vector>
@@ -22,27 +24,20 @@ namespace mindscape {
       int running_left_animation_count = 0;
       int jumping_animation_count = 0;
 
-    public:
-      LittleGirl(
-        std::string name,
-        std::pair<int, int> position,
-        int priority)
-        :engine::GameObject(
-          name,
-          position,
-          priority,
-          {
-            {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
-            {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
-            {engine::KeyboardEvent::UP,"JUMP"},
-            {engine::KeyboardEvent::DOWN,"CROUCH"}
-          }
-        ){
-          //[FIXME] should be in the .cpp file
-          states.set_state("X_STATE","LOOKING_RIGHT");
-          states.set_state("Y_STATE","ON_GROUND");
-        };
+      void initialize_state_map();
+      void initialize_hitboxes();
+      void initialize_animations();
+      void initialize_as_physicable();
+      engine::Animation *create_animation(
+        std::string path,
+        int sprite_lines,
+        int sprite_columns,
+        double duration,
+        std::string direction
+      );
 
+    public:
+      LittleGirl(std::string name, std::pair<int, int> position, int priority);
       ~LittleGirl(){};
 
       void on_event(GameEvent);

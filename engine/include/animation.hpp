@@ -3,7 +3,7 @@
 
 #include <string>
 #include "image.hpp"
-#include "time.hpp" 
+#include "time.hpp"
 #include "timer.hpp"
 #include <vector>
 #include <map>
@@ -44,18 +44,32 @@ namespace engine{
           std::string path,
           bool is_active,
           std::pair<int, int> displacement,
-          int p_render_priority,
+          int priority,
           unsigned int p_sprite_lines=1,
           unsigned int p_sprite_columns=1,
           double p_duration_of_animation =1.0,
           bool p_in_loop = true,
           std::string p_direction="RIGHT",
           bool p_use_default_image_size = true)
-        : Image(p_renderer, path, is_active, displacement,p_render_priority), sprite_lines(p_sprite_lines),
-        sprite_columns(p_sprite_columns), duration_of_animation(p_duration_of_animation * 1000), in_loop(p_in_loop),
-        total_sprites(p_sprite_lines * p_sprite_columns),first_sprite(0), final_sprite(total_sprites-1),
-        actual_sprite(first_sprite), is_finished(false), use_default_image_size(p_use_default_image_size), direction(p_direction) { 
-          time = new Timer(); 
+        :Image(
+          p_renderer,
+          path,
+          is_active,
+          displacement,
+          priority
+        ),
+        sprite_lines(p_sprite_lines),
+        sprite_columns(p_sprite_columns),
+        duration_of_animation(p_duration_of_animation * 1000),
+        in_loop(p_in_loop),
+        total_sprites(p_sprite_lines * p_sprite_columns),
+        first_sprite(0),
+        final_sprite(total_sprites-1),
+        actual_sprite(first_sprite),
+        is_finished(false),
+        use_default_image_size(p_use_default_image_size),
+        direction(p_direction) {
+          time = new Timer();
           set_sprites_order(total_sprites,direction);
         }
 
