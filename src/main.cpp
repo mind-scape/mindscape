@@ -1,8 +1,6 @@
 #include <iostream>
 #include <unordered_map>
 #include <string>
-#include "../include/platform.hpp"
-#include "level_factory.hpp"
 #include "../engine/include/game.hpp"
 #include "../engine/include/audio.hpp"
 #include "../engine/include/image.hpp"
@@ -11,13 +9,13 @@
 #include "../engine/include/level.hpp"
 #include "../engine/include/physics.hpp"
 #include "../engine/include/animation.hpp"
-#include "../include/globals.hpp"
-#include "../include/background.hpp"
-#include "../include/fox.hpp"
-#include "../include/select_arrow.hpp"
-#include "../include/button.hpp"
-#include "../include/spider.hpp"
-#include "../include/scorpion.hpp"
+#include "globals.hpp"
+#include "background.hpp"
+#include "fox.hpp"
+#include "select_arrow.hpp"
+#include "button.hpp"
+#include "platform.hpp"
+#include "level_factory.hpp"
 
 using namespace engine;
 
@@ -72,54 +70,32 @@ int main(int,char**){
   fox->add_component(images5);
   platform->add_component(images6);
 
-<<<<<<< HEAD
-  mindscape::GameObjectFactory mindscape_factory = mindscape::GameObjectFactory();
-  LittleGirl* little_girl = LittleGirl::get_instance();
-
-  Physics *physics = Physics::get_instance();
-  physics->add_physicable(little_girl);
-
-
-
   GameObject* spider = new mindscape::Spider("spider", std::make_pair(700, 0), 40);
   GameObject* scorpion = new mindscape::Scorpion("scorpion", std::make_pair(300, 0), 40);
 
+  Physics *physics = Physics::get_instance();
   physics->add_physicable(spider);
   physics->add_physicable(scorpion);
 
-  Level* level1 = new Level();
-=======
   mindscape::LevelFactory *level_factory = new mindscape::LevelFactory();
   Level* level1 = level_factory->fabricate_level("data/1.level.dat");
->>>>>>> Refactoring Little Girl construction to use PersistenceDat
 
-  level1->add_object(background4);
   level1->add_object(fox);
   level1->add_object(background);
   level1->add_object(background2);
   level1->add_object(background3);
+  level1->add_object(background4);
   level1->add_object(platform);
-<<<<<<< HEAD
-  level1->add_object(little_girl);
   level1->add_object(spider);
   level1->add_object(scorpion);
-  level1->activate_game_object("little_girl");
-  level1->activate_game_object("spider");
-  level1->activate_game_object("scorpion");
-  level1->activate_game_object("background");
-  level1->activate_game_object("background2");
-  level1->activate_game_object("background3");
-  level1->activate_game_object("footer_background");
-  level1->activate_game_object("fox");
-  level1->activate_game_object("platform");
-=======
+  level1->activate_game_object(fox);
   level1->activate_game_object(background);
   level1->activate_game_object(background2);
   level1->activate_game_object(background3);
   level1->activate_game_object(background4);
-  level1->activate_game_object(fox);
   level1->activate_game_object(platform);
->>>>>>> Refactoring Little Girl construction to use PersistenceDat
+  level1->activate_game_object(spider);
+  level1->activate_game_object(scorpion);
   /********************************************************************************/
 
   /**********************MAIN*MEUNU********************************************/

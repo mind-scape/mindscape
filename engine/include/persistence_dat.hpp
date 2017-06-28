@@ -8,12 +8,14 @@
 namespace engine{
   class PersistenceDat : public Persistence {
     private:
-      PersistenceDat();
+      PersistenceDat(){};
       static PersistenceDat *instance;
 
     public:
       static PersistenceDat *get_instance();
-      ~PersistenceDat();
+      ~PersistenceDat(){};
+
+      void operator=(PersistenceDat const&) = delete;
       PersistenceMap * load (std::string);
       bool dump (std::string, PersistenceMap *);
   };

@@ -8,15 +8,17 @@
 namespace engine{
   
   class PersistenceMap {
-    private:
+    public:
       typedef std::vector<std::unordered_map<std::string, std::string> > ObjectVector; 
+      typedef ObjectVector::iterator iterator;
+      typedef ObjectVector::const_iterator const_iterator;
+
+    private:
       ObjectVector persistence_map;
 
     public:
-      typedef ObjectVector::iterator iterator;
-      typedef ObjectVector::const_iterator const_iterator;
-      PersistenceMap();
-      ~PersistenceMap();
+      PersistenceMap():persistence_map({}){};
+      ~PersistenceMap(){};
 
       std::unordered_map<std::string, std::string> get_object_by_id(std::string);
       void insert_object(std::unordered_map<std::string, std::string>);

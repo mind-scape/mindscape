@@ -8,8 +8,8 @@
 namespace mindscape {
   class LevelFactory {
     public:
-      LevelFactory();
-      ~LevelFactory();
+      LevelFactory(){};
+      ~LevelFactory(){};
 
       engine::Level * fabricate_level(std::string);
       engine::Level * fabricate_menu();

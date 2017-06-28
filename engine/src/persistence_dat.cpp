@@ -7,7 +7,9 @@
 
 using namespace engine;
 
-PersistenceDat * PersistenceDat::get_instance(){
+PersistenceDat *PersistenceDat::instance = 0;
+
+PersistenceDat *PersistenceDat::get_instance(){
   if(!instance)
     instance = new PersistenceDat();
   return instance;
@@ -17,7 +19,9 @@ PersistenceMap * PersistenceDat::load(std::string path){
   PersistenceMap *data = new PersistenceMap();
 
   std::string line;
-  std::ifstream save_file(path);
+  std::ifstream save_file;
+  
+  save_file.open("../" + path, std::ifstream::in);
 
   if (save_file.is_open()){
     while (std::getline(save_file,line)){
