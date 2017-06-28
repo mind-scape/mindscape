@@ -11,7 +11,7 @@ void LittleGirl::on_collision(
   engine::Hitbox* p_my_hitbox,
   engine::Hitbox* p_other_hitbox){
 
-  engine::Platform* p = dynamic_cast<engine::Platform *>(other);
+  Platform* p = dynamic_cast<Platform *>(other);
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
