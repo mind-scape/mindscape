@@ -43,7 +43,7 @@ namespace mindscape {
       engine::GameObject* fabricate_select_arrow();
       engine::GameObject* fabricate_fox();
       engine::GameObject* fabricate_scorpion(std::pair<int, int>, int);
-      engine::GameObject* fabricate_spider();
+      engine::GameObject* fabricate_spider(std::pair<int, int>, int);
       engine::GameObject* fabricate_little_girl(std::pair<int, int>, int);
   };
 }

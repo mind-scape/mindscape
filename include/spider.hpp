@@ -20,69 +20,23 @@ namespace mindscape {
       int attacking_right_count = 0;
       int attacking_left_count = 0;
 
+      void initialize_state_map();
+      void initialize_hitboxes();
+      void initialize_animations();
+      void initialize_as_physicable();
+      engine::Animation *create_animation(
+        std::string path,
+        int sprite_lines,
+        int sprite_columns,
+        double duration,
+        std::string direction
+      );
+
     public:
       Spider(
         std::string name,
         std::pair<int, int> position,
-        int priority)
-        :Enemy(
-          name,
-          position,
-          priority
-        ){ //[FIXME] Constructor must not be implemented here
-          states.set_state("ACTION_STATE","NORMAL");
-          engine::Game& game = engine::Game::get_instance();
-
-          engine::Animation* spider_left = new engine::Animation(
-            game.get_renderer(),
-            "../assets/images/sprites/enemies/spider/spider_walking_left.png",
-            false,
-            std::make_pair(0, 0),
-            1,1,4,0.9,true,"LEFT"
-          );
-
-          engine::Animation* spider_right = new engine::Animation(
-            game.get_renderer(),
-            "../assets/images/sprites/enemies/spider/spider_walking_right.png",
-            false,
-            std::make_pair(0, 0),
-            1,1,4,0.9,true,"RIGHT"
-          );
-
-          spider_left->set_values(
-            std::make_pair(288, 288),
-            std::make_pair(288, 288),
-            std::make_pair(0, 0)
-          );
-
-          spider_right->set_values(
-            std::make_pair(288, 288),
-            std::make_pair(288, 288),
-            std::make_pair(0, 0)
-          );
-
-          engine::Hitbox* spider_hitbox = new engine::Hitbox(
-            "spider_hitbox", this->get_position(),
-            std::make_pair(60, 280),
-            std::make_pair(180,8),
-            game.get_renderer()
-          );
-
-          engine::Hitbox* spider_attack = new engine::Hitbox(
-            "spider_attack",
-            this->get_position(),
-            std::make_pair(5, 200),
-            std::make_pair(283,10),
-            game.get_renderer()
-          );
-
-          collidable = true;
-          add_animation("walking_right", spider_left);
-          add_animation("walking_left", spider_right);
-          add_component(spider_attack);
-          add_component(spider_hitbox);
-          set_actual_animation(spider_left);
-        };
+        int priority);
 
       ~Spider(){};
 
