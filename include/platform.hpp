@@ -13,22 +13,16 @@
 
 namespace mindscape {
   class Platform : public engine::GameObject {
+    private:
+      void initialize_image();
+      void initialize_animations();
     public:
       Platform(
         std::string p_name,
         std::pair<int, int> position,
-        int priority)
-        :engine::GameObject(
-          p_name,
-          position,
-          priority,
-          {
-            {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
-            {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
-          }
-        ){};
+        int priority);
 
-    ~Platform(){};
+      ~Platform(){};
 
       void on_event(GameEvent game_event);
   };

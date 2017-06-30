@@ -14,7 +14,6 @@
 #include "fox.hpp"
 #include "select_arrow.hpp"
 #include "button.hpp"
-#include "platform.hpp"
 #include "level_factory.hpp"
 #include "spider.hpp"
 #include "scorpion.hpp"
@@ -65,15 +64,10 @@ int main(int,char**){
   background3->add_component(images8);
   background4->add_component(images7);
 
-  images6-> set_values(std::make_pair(507, 256), std::make_pair(507, 256), std::make_pair(0, 0));
-  GameObject* platform = new mindscape::Platform("platform", std::make_pair(800, 300), 2);
-  Hitbox* hitbox= new Hitbox("hitbox", platform->get_position(), std::make_pair(40,70), std::make_pair(400,30), game.get_renderer());
-  platform->add_component(hitbox);
   fox->add_component(images4);
   fox->add_component(images5);
   platform->add_component(images6);
   GameObject* star = new mindscape::Star("star", std::make_pair(600, 400), 20);
-
 
   mindscape::LevelFactory *level_factory = new mindscape::LevelFactory();
   Level* level1 = level_factory->fabricate_level("data/1.level.dat");
@@ -84,14 +78,12 @@ int main(int,char**){
   level1->add_object(background2);
   level1->add_object(background3);
   level1->add_object(background4);
-  level1->add_object(platform);
   level1->activate_game_object(star);
   level1->activate_game_object(fox);
   level1->activate_game_object(background);
   level1->activate_game_object(background2);
   level1->activate_game_object(background3);
   level1->activate_game_object(background4);
-  level1->activate_game_object(platform);
   /********************************************************************************/
 
   /**********************MAIN*MEUNU********************************************/

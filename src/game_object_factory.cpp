@@ -90,3 +90,10 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(
   );
   return little_girl;
 }
+
+void GameObjectFactory::fabricate_hitbox(
+  engine::GameObject * game_object,
+  std::pair<int, int> displacement,
+  std::pair<int, int> dimensions){
+  game_object->create_hitbox(displacement, dimensions);
+}

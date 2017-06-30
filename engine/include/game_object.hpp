@@ -61,13 +61,13 @@ namespace engine {
       GameObject(
         std::string p_name,
         std::pair<float, float> p_position,
-        int p,
+        int p_priority,
         std::map<KeyboardEvent::Key,std::string> p_translations,
         StateMap p_states = StateMap())
         :name(p_name),
         position(p_position),
         active(false),
-        priority(p),
+        priority(p_priority),
         translations(p_translations),
         states(p_states),
         speed(std::make_pair(0.0,0.0)){};
@@ -100,6 +100,7 @@ namespace engine {
       bool is_active();
       std::string get_state(std::string);
       std::vector<Hitbox*> get_hitboxes();
+      void create_hitbox(std::pair<int, int>, std::pair<int, int>);
       virtual void on_event(GameEvent){};
       void update_hitboxes();
       virtual void update_state();

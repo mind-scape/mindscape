@@ -1,4 +1,5 @@
 #include "game_object.hpp"
+#include "game.hpp"
 #include <algorithm>
 
 using namespace engine;
@@ -194,6 +195,17 @@ int GameObject::get_hp(){
 
 void GameObject::set_hp(int health){
   hp = health;
+}
+
+void GameObject::create_hitbox(
+  std::pair<int, int> displacement,
+  std::pair<int, int> dimensions){
+  Game& game = Game::get_instance();
+  Hitbox* hitbox = new Hitbox("hitbox",
+    this->get_position(), displacement, dimensions, game.get_renderer()
+  );
+
+  add_component(hitbox);
 }
 
 void GameObject::attach_observer(Observer *observer){
