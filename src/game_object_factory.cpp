@@ -97,3 +97,27 @@ void GameObjectFactory::fabricate_hitbox(
   std::pair<int, int> dimensions){
   game_object->create_hitbox(displacement, dimensions);
 }
+
+void GameObjectFactory::fabricate_image(
+  engine::GameObject *game_object,
+  std::string path,
+  std::pair<int, int> displacement,
+  int priority,
+  std::pair<int, int> dimensions_on_screen,
+  std::pair<int, int> dimensions_on_texture,
+  std::pair<int, int> coordinates_on_texture){
+
+  
+  engine::Game& game = engine::Game::get_instance();
+  engine::Image* image = new engine::Image(
+    game.get_renderer(), path, true, displacement, priority
+  );
+
+  image-> set_values(
+    dimensions_on_screen,
+    dimensions_on_texture,
+    coordinates_on_texture
+  );
+
+  game_object->add_component(image);
+}

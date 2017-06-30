@@ -14,7 +14,6 @@
 namespace mindscape {
   class Platform : public engine::GameObject {
     private:
-      void initialize_image();
       void initialize_animations();
     public:
       Platform(

@@ -2,4 +2,8 @@ id little_girl type 0 x 0 y 0 priority 50
 id scorpion type 1 x 800 y 0 priority 40 follows little_girl
 id spider type 2 x 100 y 0 priority 41 follows little_girl
 id platform0 type 3 x 800 y 300 priority 30
-id hitbox1 type 9 size_x 400 size_y 30 displ_x 40 displ_y 70 belongs_to platform0
+id hitbox_platform0 type 9 size_x 400 size_y 30 displ_x 40 displ_y 70 belongs_to platform0
+id image_platform0 type 10 displ_x 0 displ_y 0 screen_x 507 screen_y 256 tex_x 507 tex_y 256 tex_coord_x 0 tex_coord_y 0 belongs_to platform0 path ../assets/images/scenes/test_scene/plataforma.png priority 1
+id footer0 type 3 x 0 y 0 priority 5
+id hitbox_footer0 type 9 size_x 10000 size_y 200 displ_x 0 displ_y 530 belongs_to footer0
+id image_footer0 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 576 tex_x 1024 tex_y 576 tex_coord_x 0 tex_coord_y 0 belongs_to footer0 path ../assets/images/scenes/test_scene/4.png priority 1

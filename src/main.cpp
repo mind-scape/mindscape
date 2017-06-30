@@ -32,17 +32,13 @@ int main(int,char**){
   Image* images2 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/1.png", true, std::make_pair(0, 0), 1);
   Image* images9 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/2.png", true, std::make_pair(0, 0), 1);
   Image* images8 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/3.png", true, std::make_pair(0, 0), 1);
-  Image* images7 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/4.png", true, std::make_pair(0, 0), 1);
 
   Animation* images4 = new Animation(game.get_renderer(), "../assets/images/sprites/fox/fox_running_right.png", true, std::make_pair(0, 0),1,1,9,0.9,true,"RIGHT");
   Animation* images5 = new Animation(game.get_renderer(), "../assets/images/sprites/fox/fox_running_left.png", false, std::make_pair(0, 0),1,1,9,0.9,true,"LEFT");
 
-  Image* images6 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/plataforma.png", true, std::make_pair(0,0), 1);
-
   images2-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
   images9-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
   images8-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
-  images7-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
 
   images4-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
   images5-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
@@ -50,9 +46,6 @@ int main(int,char**){
   mindscape::Background* background = new mindscape::Background("background", anotherplace, 1);
   mindscape::Background* background2 = new mindscape::Background("background2", anotherplace, 2);
   GameObject* background3 = new mindscape::Background("background3", anotherplace, 3);
-  GameObject* background4 = new mindscape::Platform("footer_background", anotherplace, 5);
-  Hitbox* footer= new Hitbox("hitbox", background4->get_position(), std::make_pair(0,530), std::make_pair(10000, 200), game.get_renderer());
-  background4->add_component(footer);
 
   background->paralax = 2;
   background2->paralax = 4;
@@ -62,11 +55,9 @@ int main(int,char**){
   background->add_component(images2);
   background2->add_component(images9);
   background3->add_component(images8);
-  background4->add_component(images7);
 
   fox->add_component(images4);
   fox->add_component(images5);
-  platform->add_component(images6);
   GameObject* star = new mindscape::Star("star", std::make_pair(600, 400), 20);
 
   mindscape::LevelFactory *level_factory = new mindscape::LevelFactory();
@@ -77,13 +68,11 @@ int main(int,char**){
   level1->add_object(background);
   level1->add_object(background2);
   level1->add_object(background3);
-  level1->add_object(background4);
   level1->activate_game_object(star);
   level1->activate_game_object(fox);
   level1->activate_game_object(background);
   level1->activate_game_object(background2);
   level1->activate_game_object(background3);
-  level1->activate_game_object(background4);
   /********************************************************************************/
 
   /**********************MAIN*MEUNU********************************************/

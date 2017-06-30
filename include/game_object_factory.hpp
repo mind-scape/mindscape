@@ -23,7 +23,7 @@ namespace mindscape {
     public:
       typedef enum {
         LITTLE_GIRL, SCORPION, SPIDER, PLATFORM, FOX, BUTTON,
-        SELECT_ARROW, BACKGROUND, FOOTER, HITBOX
+        SELECT_ARROW, BACKGROUND, FOOTER, HITBOX, IMAGE
       } Options;
 
       GameObjectFactory(){};
@@ -38,6 +38,9 @@ namespace mindscape {
 
       void fabricate_hitbox(engine::GameObject *, std::pair<int, int>,
         std::pair<int, int>);
+      void fabricate_image(engine::GameObject *, std::string,
+        std::pair<int, int>, int, std::pair<int, int>,
+        std::pair<int, int>, std::pair<int, int>);
 
     private:
       engine::GameObject* fabricate_footer();
