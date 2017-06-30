@@ -29,11 +29,12 @@ PersistenceMap * PersistenceDat::load(std::string path){
       std::string key;
       std::string value;
       std::unordered_map<std::string, std::string> object_data;
-      while(iss >> key && iss >> value){
-        object_data[key] = value;
+      if(line != ""){
+        while(iss >> key && iss >> value){
+          object_data[key] = value;
+        }
+        data->insert_object(object_data);
       }
-
-      data->insert_object(object_data);
     }
     return data;
   }else{
