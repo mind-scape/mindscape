@@ -27,3 +27,15 @@ void Background::on_event(GameEvent game_event){
     }
   }
 }
+
+void Background::set_paralax(int p_paralax){
+  if(p_paralax > 10 || p_paralax < 0)
+    paralax = 10;
+  else
+    paralax = p_paralax;
+}
+
+
+int Background::get_paralax(){
+  return paralax;
+}

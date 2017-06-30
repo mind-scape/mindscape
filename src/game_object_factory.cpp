@@ -25,7 +25,7 @@ engine::GameObject* GameObjectFactory::fabricate(
     case(GameObjectFactory::BUTTON):
       return fabricate_button();
     case(GameObjectFactory::BACKGROUND):
-      return fabricate_background();
+      return fabricate_background(name, coordinates, priority);
     case(GameObjectFactory::SELECT_ARROW):
       return fabricate_select_arrow();
     default:
@@ -34,11 +34,6 @@ engine::GameObject* GameObjectFactory::fabricate(
 }
 
 engine::GameObject* GameObjectFactory::fabricate_footer(){
-  std::cout << "NOT IMPLEMENTED YET" << std::endl;
-  return NULL;
-}
-
-engine::GameObject* GameObjectFactory::fabricate_background(){
   std::cout << "NOT IMPLEMENTED YET" << std::endl;
   return NULL;
 }
@@ -57,6 +52,18 @@ engine::GameObject* GameObjectFactory::fabricate_select_arrow(){
 engine::GameObject* GameObjectFactory::fabricate_fox(){
   std::cout << "NOT IMPLEMENTED YET" << std::endl;
   return NULL;
+}
+
+engine::GameObject* GameObjectFactory::fabricate_background(
+  std::string name, std::pair<int, int> postion, int priority){
+  Background* background = new Background(
+    name, postion, priority
+  );
+  if(name == "main_background")
+    background->set_paralax(10);
+  else
+    background->set_paralax(2*priority);
+  return background;
 }
 
 engine::GameObject* GameObjectFactory::fabricate_platform(

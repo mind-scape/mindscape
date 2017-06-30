@@ -44,10 +44,10 @@ namespace mindscape {
 
     private:
       engine::GameObject* fabricate_footer();
-      engine::GameObject* fabricate_background();
       engine::GameObject* fabricate_button();
       engine::GameObject* fabricate_select_arrow();
       engine::GameObject* fabricate_fox();
+      engine::GameObject* fabricate_background(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_platform(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_scorpion(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_spider(std::string, std::pair<int, int>, int);
