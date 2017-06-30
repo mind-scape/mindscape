@@ -24,16 +24,17 @@ void Star::initialize_hitboxes(){
   engine::Hitbox* star_hitbox = new engine::Hitbox(
     "star_hitbox",
     this->get_position(),
-    std::make_pair(36, 36),
-    std::make_pair(200, 200),
+    std::make_pair(0, 0),
+    std::make_pair(40, 40),
     game.get_renderer()
   );
+  add_component(star_hitbox);
 }
 
 void Star::initialize_animations(){
   engine::Animation* star = create_animation(
-    "../assets/images/sprites/items/star/coin.png",
-    1, 1, 0.9, "LEFT"
+    "../assets/images/sprites/items/star/star.png",
+    1, 6, 0.9, "LEFT"
   );
   add_animation("star", star);
   star->activate();
@@ -61,8 +62,8 @@ engine::Animation* Star::create_animation(std::string path,
   );
 
   animation->set_values(
-    std::make_pair(50, 50),
-    std::make_pair(236, 236),
+    std::make_pair(40, 40),
+    std::make_pair(40, 40),
     std::make_pair(0, 0)
   );
 
