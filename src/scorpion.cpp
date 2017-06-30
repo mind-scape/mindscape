@@ -50,7 +50,7 @@ engine::Animation* Scorpion::create_animation(
     game.get_renderer(),
     path,                 // image path
     false,                // is_active
-    std::make_pair(0, 0), // displcement
+    std::make_pair(0, 0), // displacement
     1,                    // priority
     sprite_lines,         // sprite_lines
     sprite_columns,       // sprite_columns

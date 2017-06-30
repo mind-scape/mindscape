@@ -18,6 +18,7 @@
 #include "level_factory.hpp"
 #include "spider.hpp"
 #include "scorpion.hpp"
+#include "star.hpp"
 
 using namespace engine;
 
@@ -71,16 +72,20 @@ int main(int,char**){
   fox->add_component(images4);
   fox->add_component(images5);
   platform->add_component(images6);
+  GameObject* star = new mindscape::Star("star", std::make_pair(600, 400), 20);
+
 
   mindscape::LevelFactory *level_factory = new mindscape::LevelFactory();
   Level* level1 = level_factory->fabricate_level("data/1.level.dat");
 
   level1->add_object(fox);
+  level1->add_object(star);
   level1->add_object(background);
   level1->add_object(background2);
   level1->add_object(background3);
   level1->add_object(background4);
   level1->add_object(platform);
+  level1->activate_game_object(star);
   level1->activate_game_object(fox);
   level1->activate_game_object(background);
   level1->activate_game_object(background2);
