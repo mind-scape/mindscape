@@ -4,6 +4,7 @@
 #define FOX_H
 
 #include "../engine/include/game_object.hpp"
+#include "../engine/include/animation.hpp"
 #include "../engine/include/image.hpp"
 #include "../engine/include/keyboard_event.hpp"
 #include <iostream>

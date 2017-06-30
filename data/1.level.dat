@@ -1,4 +1,4 @@
-id little_girl type 0 x 512 y 0 priority 50
+id little_girl type 0 x 430 y 0 priority 50
 id scorpion type 1 x 800 y 0 priority 40 follows little_girl
 id spider type 2 x 100 y 0 priority 41 follows little_girl
 id platform0 type 3 x 800 y 250 priority 30

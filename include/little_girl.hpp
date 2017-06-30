@@ -25,11 +25,19 @@ namespace mindscape {
       int jumping_animation_count = 0;
       int attacking_right_animation = 0;
       int attacking_left_animation = 0;
+      engine::Animation* actual_animation = NULL;
+      std::string actual_x_state;
+      std::string actual_y_state;
+      std::string actual_action_state;
 
       void initialize_state_map();
       void initialize_hitboxes();
       void initialize_animations();
       void initialize_as_physicable();
+      void jump();
+      void move_right();
+      void move_left();
+      void attack();
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
@@ -39,11 +47,7 @@ namespace mindscape {
       );
 
     public:
-      LittleGirl(std::string p_name, std::pair<int, int> position, int p):GameObject(p_name, position, priority){
-        states.set_state("X_STATE","LOOKING_RIGHT");
-        states.set_state("Y_STATE","ON_GROUND");
-        states.set_state("ACTION_STATE","NORMAL");
-      };
+      LittleGirl(std::string name, std::pair<int, int> position, int priority);
       ~LittleGirl(){};
 
       void on_event(GameEvent);

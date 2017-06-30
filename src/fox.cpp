@@ -8,7 +8,7 @@ void Fox::on_event(GameEvent game_event){
   engine::Image* moving_right_image = dynamic_cast<engine::Image*>(images[0]);
   engine::Image* moving_left_image = dynamic_cast<engine::Image*>(images[1]);
   
-  Animation* actual_animation = get_actual_animation();
+  engine::Animation* actual_animation = get_actual_animation();
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");
 
