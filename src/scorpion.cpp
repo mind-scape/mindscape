@@ -101,6 +101,14 @@ void Scorpion::initialize_state_map(){
 }
 
 void Scorpion::on_event(GameEvent game_event){
+  std::string event_name = game_event.game_event_name;
+
+  if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level){
+    set_position_x(get_position_x() + 10);
+  }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level){
+    set_position_x(get_position_x() - 10);
+  }
+
   attack();
 }
 
@@ -128,8 +136,6 @@ void Scorpion::move(engine::GameObject* girl){
       set_actual_animation(animations["walking_right"]);
       set_position_x(get_position_x() - 1);
     //little_girl close of scorpion
-    }else if(!GameObject::on_limit_of_level){
-      set_position_x(get_position_x() - 10);
     }
   //little_girl on left
   }else{
@@ -138,8 +144,6 @@ void Scorpion::move(engine::GameObject* girl){
       set_actual_animation(animations["walking_left"]);
       set_position_x(get_position_x() + 1);
     //little_girl close of scorpion
-    }else if(!GameObject::on_limit_of_level){
-      set_position_x(get_position_x() + 10);
     }
   }
 }
