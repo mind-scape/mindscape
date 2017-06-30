@@ -124,26 +124,31 @@ void Scorpion::attack(){
   // implement animation logic here
 }
 
+// TODO: the movements are stopped when too close. In that time, scorpion must attack.
 void Scorpion::move(engine::GameObject* girl){
   float scorpion_position = get_position_x();
   float girl_position = girl->get_position_x();
 
-  //little_girl on right
+  //little_girl on left
   if(scorpion_position > girl_position){
     //little_girl far from scorpion
     if(scorpion_position - girl_position <= 300){
       states.set_state("ACTION_STATE","NORMAL");
-      set_actual_animation(animations["walking_right"]);
-      set_position_x(get_position_x() - 1);
-    //little_girl close of scorpion
+      if(scorpion_position - girl_position >= 50){
+        set_actual_animation(animations["walking_right"]);
+        set_position_x(get_position_x() - 1);
+        //little_girl close of scorpion
+      }
     }
-  //little_girl on left
+  //little_girl on right
   }else{
     //little_girl far from scorpion
     if(girl_position - scorpion_position <= 588){
-      set_actual_animation(animations["walking_left"]);
-      set_position_x(get_position_x() + 1);
-    //little_girl close of scorpion
+      if(girl_position - scorpion_position >= 200){
+        set_actual_animation(animations["walking_left"]);
+        set_position_x(get_position_x() + 1);
+        //little_girl close of scorpion
+      }
     }
   }
 }
