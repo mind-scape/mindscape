@@ -101,6 +101,14 @@ void Spider::initialize_state_map(){
 }
 
 void Spider::on_event(GameEvent game_event){
+  std::string event_name = game_event.game_event_name;
+
+  if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level){
+    set_position_x(get_position_x() + 10);
+  }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level){
+    set_position_x(get_position_x() - 10);
+  }
+
   attack();
 }
 
@@ -116,30 +124,31 @@ void Spider::attack(){
   // implement animation logic here
 }
 
+// TODO: the movements are stopped when too close. In that time, spider must attack.
 void Spider::move(engine::GameObject* girl){
   float spider_position = get_position_x();
   float girl_position = girl->get_position_x();
 
-  //little_girl on right
+  //little_girl on left
   if(spider_position > girl_position){
     //little_girl far from spider
     if(spider_position - girl_position <= 300){
       states.set_state("ACTION_STATE","NORMAL");
-      set_actual_animation(animations["walking_right"]);
-      set_position_x(get_position_x() - 1);
-    //little_girl close of spider
-    }else if(!GameObject::on_limit_of_level){
-      set_position_x(get_position_x() - 10);
+      if(spider_position - girl_position >= 50){
+        set_actual_animation(animations["walking_right"]);
+        set_position_x(get_position_x() - 1);
+        //little_girl close of spider
+      }
     }
-  //little_girl on left
-  }else{
+  //little_girl on right
+}else{
     //little_girl far from spider
     if(girl_position - spider_position <= 588){
-      set_actual_animation(animations["walking_left"]);
-      set_position_x(get_position_x() + 1);
-    //little_girl close of spider
-    }else if(!GameObject::on_limit_of_level){
-      set_position_x(get_position_x() + 10);
+      if(girl_position - spider_position >= 150){
+        set_actual_animation(animations["walking_left"]);
+        set_position_x(get_position_x() + 1);
+        //little_girl close of spider
+      }    //little_girl close of spider
     }
   }
 }
