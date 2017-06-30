@@ -182,7 +182,7 @@ void LittleGirl::on_event(GameEvent game_event){
       states.set_state("X_STATE","LOOKING_LEFT");
       set_actual_animation(animations["running_left_animation"]);
 
-      set_speed_x(-1.0);
+      set_speed_x(0.000000000001);
 
       running_left_animation_count +=1;
       if(true){
@@ -201,7 +201,7 @@ void LittleGirl::on_event(GameEvent game_event){
       states.set_state("X_STATE","LOOKING_RIGHT");
       set_actual_animation(animations["running_right_animation"]);
 
-      set_speed_x(1.0);
+      set_speed_x(0.000000000001);
 
       running_right_animation_count +=1;
       if(true){
