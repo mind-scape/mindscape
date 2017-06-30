@@ -5,22 +5,23 @@ using namespace mindscape;
 
 engine::GameObject* GameObjectFactory::fabricate(
   GameObjectFactory::Options option,
+  std::string name, //used as an unique id
   std::pair<int, int> coordinates,
   int priority){
 
   switch(option){
     case(GameObjectFactory::LITTLE_GIRL):
-      return fabricate_little_girl(coordinates, priority);
+      return fabricate_little_girl(name, coordinates, priority);
     case(GameObjectFactory::SCORPION):
-      return fabricate_scorpion(coordinates, priority);
+      return fabricate_scorpion(name, coordinates, priority);
     case(GameObjectFactory::SPIDER):
-      return fabricate_spider(coordinates, priority);
+      return fabricate_spider(name, coordinates, priority);
     case(GameObjectFactory::FOOTER):
       return fabricate_footer();
     case(GameObjectFactory::FOX):
       return fabricate_fox();
     case(GameObjectFactory::PLATFORM):
-      return fabricate_platform();
+      return fabricate_platform(name, coordinates, priority);
     case(GameObjectFactory::BUTTON):
       return fabricate_button();
     case(GameObjectFactory::BACKGROUND):
@@ -33,11 +34,6 @@ engine::GameObject* GameObjectFactory::fabricate(
 }
 
 engine::GameObject* GameObjectFactory::fabricate_footer(){
-  std::cout << "NOT IMPLEMENTED YET" << std::endl;
-  return NULL;
-}
-
-engine::GameObject* GameObjectFactory::fabricate_platform(){
   std::cout << "NOT IMPLEMENTED YET" << std::endl;
   return NULL;
 }
@@ -63,26 +59,34 @@ engine::GameObject* GameObjectFactory::fabricate_fox(){
   return NULL;
 }
 
+engine::GameObject* GameObjectFactory::fabricate_platform(
+  std::string name, std::pair<int, int> postion, int priority){
+  engine::GameObject* platform = new Platform(
+    name, postion, priority
+  );
+  return platform;
+}
+
 engine::GameObject* GameObjectFactory::fabricate_spider(
-  std::pair<int, int> postion, int priority){
+  std::string name, std::pair<int, int> postion, int priority){
   engine::GameObject* spider = new Spider(
-    "spider", postion, priority
+    name, postion, priority
   );
   return spider;
 }
 
 engine::GameObject* GameObjectFactory::fabricate_scorpion(
-  std::pair<int, int> postion, int priority){
+  std::string name, std::pair<int, int> postion, int priority){
   engine::GameObject* scorpion = new Scorpion(
-    "scorpion", postion, priority
+    name, postion, priority
   );
   return scorpion;
 }
 
 engine::GameObject* GameObjectFactory::fabricate_little_girl(
-  std::pair<int, int> position, int priority){
+  std::string name, std::pair<int, int> position, int priority){
   engine::GameObject *little_girl = new LittleGirl(
-    "little_girl", position, priority
+    name , position, priority
   );
   return little_girl;
 }

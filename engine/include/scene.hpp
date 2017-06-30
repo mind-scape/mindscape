@@ -25,7 +25,7 @@ namespace engine {
       ~Scene(){};
 
       void add_object(engine::GameObject* object);
-      GameObject *get_object_by_id(int id);
+      GameObject *get_object_by_name(std::string);
       virtual void draw(){};
       virtual void load(){};
       virtual void free(){};

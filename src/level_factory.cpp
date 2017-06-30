@@ -18,28 +18,21 @@ engine::Level *LevelFactory::fabricate_level(std::string path){
       std::unordered_map<std::string, std::string> object = *it;
 
       engine::GameObject * constructed_obj = mindscape_factory.fabricate(
-        static_cast<Opts>(std::stoi(object["type"])),
+        static_cast<Opts>(std::stoi(object["type"])), object["id"],
         std::make_pair(std::stoi(object["x"]), std::stoi(object["y"])),
         std::stoi(object["priority"])
       ); 
 
 
-std::cout << "1 QUEBROOOOOOOOOOOU" << std::endl;
       if(object.count("follows") > 0){ //if follow key is declared
+        engine::Observable * observable = level->get_object_by_name(object["follows"]);
 
-std::cout << "2 QUEBROOOOOOOOOOOU" << std::endl;
-        engine::Observable * observable = level->get_object_by_id(
-          std::stoi(object["follows"])
-        );
-std::cout << "OPAAAAAA " << object["follows"] << std::endl;
+std::cout << level->get_object_by_name(object["follows"])->name <<" esta sendo seguido por "<< constructed_obj->name << std::endl;
 
-std::cout << "3 QUEBROOOOOOOOOOOU" << std::endl;
         observable->attach_observer(constructed_obj);
       }
 
-std::cout << "4 QUEBROOOOOOOOOOOU" << std::endl;
       level->add_object(constructed_obj);
-std::cout << "5 QUEBROOOOOOOOOOOU" << std::endl;
       level->activate_game_object(constructed_obj);
     }
 

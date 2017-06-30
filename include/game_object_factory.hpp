@@ -22,7 +22,7 @@ namespace mindscape {
   class GameObjectFactory {
     public:
       typedef enum {
-        LITTLE_GIRL, SCORPION, SPIDER, FOX, PLATFORM, BUTTON,
+        LITTLE_GIRL, SCORPION, SPIDER, PLATFORM, FOX, BUTTON,
         SELECT_ARROW, BACKGROUND, FOOTER
       } Options;
 
@@ -31,20 +31,22 @@ namespace mindscape {
 
       engine::GameObject* fabricate(
         Options option,
+        std::string name,
         std::pair<int, int> coordinates = std::make_pair(0,0),
         int priority = 0
       );
 
     private:
-      engine::GameObject* fabricate_platform();
+      void fabricate_hitbox(engine::GameObject *);
       engine::GameObject* fabricate_footer();
       engine::GameObject* fabricate_background();
       engine::GameObject* fabricate_button();
       engine::GameObject* fabricate_select_arrow();
       engine::GameObject* fabricate_fox();
-      engine::GameObject* fabricate_scorpion(std::pair<int, int>, int);
-      engine::GameObject* fabricate_spider(std::pair<int, int>, int);
-      engine::GameObject* fabricate_little_girl(std::pair<int, int>, int);
+      engine::GameObject* fabricate_platform(std::string, std::pair<int, int>, int);
+      engine::GameObject* fabricate_scorpion(std::string, std::pair<int, int>, int);
+      engine::GameObject* fabricate_spider(std::string, std::pair<int, int>, int);
+      engine::GameObject* fabricate_little_girl(std::string, std::pair<int, int>, int);
   };
 }
 
