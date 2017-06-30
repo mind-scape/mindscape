@@ -161,20 +161,26 @@ void LittleGirl::on_collision(
 
 void LittleGirl::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
+
+  engine::Animation* actual_animation = get_actual_animation();                    
+  std::string actual_x_state = states.get_state("X_STATE");                        
+  std::string actual_y_state = states.get_state("Y_STATE");                        
+  std::string actual_action_state = states.get_state("ACTION_STATE"); 
+
   std::cout << "HP: " << get_hp() << std::endl;
   
   if(event_name == "JUMP" && actual_y_state != "JUMPING"){
-    jump();
+    jump(actual_animation,actual_x_state);
   }else if(event_name == "MOVE_LEFT"){
-    move_left();
+    move_left(actual_animation,actual_x_state,actual_y_state);
   }else if(event_name == "MOVE_RIGHT"){
-    move_right(); 
+    move_right(actual_animation,actual_x_state,actual_y_state);
   }else if(event_name == "ATTACK" && actual_action_state != "ATTACKING"){
-    attack();
+    attack(actual_x_state);
   }
 }
 
-void LittleGirl::jump(){
+void LittleGirl::jump(engine::Animation* actual_animation,std::string actual_x_state){
   set_speed_y(-21);
   states.set_state("Y_STATE","JUMPING");
 
@@ -196,7 +202,7 @@ void LittleGirl::jump(){
   }
 }
 
-void LittleGirl::move_right(){
+void LittleGirl::move_right(engine::Animation* actual_animation,std::string actual_x_state,std::string actual_y_state){
   if(actual_y_state == "ON_GROUND"){
     states.set_state("X_STATE","LOOKING_RIGHT");
     set_actual_animation(animations["running_right_animation"]);
@@ -216,7 +222,7 @@ void LittleGirl::move_right(){
   }
 }
 
-void LittleGirl::move_left(){
+void LittleGirl::move_left(engine::Animation* actual_animation,std::string actual_x_state,std::string actual_y_state){
   if(actual_y_state == "ON_GROUND"){
     states.set_state("X_STATE","LOOKING_LEFT");
     set_actual_animation(animations["running_left_animation"]);
@@ -236,7 +242,7 @@ void LittleGirl::move_left(){
   }
 }
 
-void LittleGirl::attack(){
+void LittleGirl::attack(std::string actual_x_state){
   states.set_state("ACTION_STATE","ATTACKING");
   if(actual_x_state == "LOOKING_RIGHT"){
     set_actual_animation(animations["attacking_right_animation"]);
@@ -247,10 +253,10 @@ void LittleGirl::attack(){
 
 void LittleGirl::update_state(){
   //Should be implemented
-  actual_animation = get_actual_animation();
-  actual_x_state = states.get_state("X_STATE");
-  actual_y_state = states.get_state("Y_STATE");
-  actual_action_state = states.get_state("ACTION_STATE");
+  engine::Animation* actual_animation = get_actual_animation();
+  std::string actual_x_state = states.get_state("X_STATE");
+  std::string actual_y_state = states.get_state("Y_STATE");
+  std::string actual_action_state = states.get_state("ACTION_STATE");
 
   if(actual_action_state == "ATTACKING"){
     if(get_actual_animation()->is_finished){
@@ -259,6 +265,7 @@ void LittleGirl::update_state(){
   }
   if(get_speed_x() == 0.0 && get_speed_y() == 0.0 && actual_action_state == "NORMAL"){
     if(actual_x_state == "LOOKING_RIGHT"){
+      //TODO fix below action as are doing above
       engine::Animation* idle_right_animation = animations["idle_right_animation"];
       set_actual_animation(idle_right_animation);
     }else if(actual_x_state == "LOOKING_LEFT"){

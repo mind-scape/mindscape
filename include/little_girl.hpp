@@ -25,19 +25,15 @@ namespace mindscape {
       int jumping_animation_count = 0;
       int attacking_right_animation = 0;
       int attacking_left_animation = 0;
-      engine::Animation* actual_animation = NULL;
-      std::string actual_x_state;
-      std::string actual_y_state;
-      std::string actual_action_state;
 
       void initialize_state_map();
       void initialize_hitboxes();
       void initialize_animations();
       void initialize_as_physicable();
-      void jump();
-      void move_right();
-      void move_left();
-      void attack();
+      void jump(engine::Animation*,std::string);
+      void move_right(engine::Animation*,std::string,std::string);
+      void move_left(engine::Animation*,std::string,std::string);
+      void attack(std::string);
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,

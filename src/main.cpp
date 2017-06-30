@@ -29,16 +29,27 @@ int main(int,char**){
   std::pair<int, int> anotherotherplace (250,400);
   game.set_game_background_color(0xEB, 0xA7, 0xFC, 0xFF);
 
-  Animation* images4 = new Animation(game.get_renderer(), "../assets/images/sprites/fox/fox_running_right.png", true, std::make_pair(0, 0),1,1,9,0.9,true,"RIGHT");
-  Animation* images5 = new Animation(game.get_renderer(), "../assets/images/sprites/fox/fox_running_left.png", false, std::make_pair(0, 0),1,1,9,0.9,true,"LEFT");
+  Image* images2 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/1.png", true, std::make_pair(0, 0), 1);
+  Image* images9 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/2.png", true, std::make_pair(0, 0), 1);
+  Image* images8 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/3.png", true, std::make_pair(0, 0), 1);
 
-  images4-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
-  images5-> set_values(std::make_pair(120, 120), std::make_pair(120, 120), std::make_pair(0, 0));
+  images2-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
+  images9-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
+  images8-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
+
+  mindscape::Background* background = new mindscape::Background("background", anotherplace, 1);
+  mindscape::Background* background2 = new mindscape::Background("background2", anotherplace, 2);
+  GameObject* background3 = new mindscape::Background("background3", anotherplace, 3);
+
+  //background->paralax = 2;
+  //background2->paralax = 4;
 
   GameObject* fox = new mindscape::Fox("fox", anotherotherplace, 4);
 
-  fox->add_component(images4);
-  fox->add_component(images5);
+  background->add_component(images2);
+  background2->add_component(images9);
+  background3->add_component(images8);
+
   GameObject* star = new mindscape::Star("star", std::make_pair(600, 400), 20);
 
   mindscape::LevelFactory *level_factory = new mindscape::LevelFactory();

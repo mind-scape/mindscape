@@ -18,24 +18,20 @@ namespace mindscape {
       int velocity;
       int running_right_animation_count = 0;
       int running_left_animation_count = 0;
+      
+      void initialize_state_map();
+      void initialize_animations();
+      void initialize_as_physicable();
+      engine::Animation *create_animation(
+        std::string path,
+        int sprite_lines,
+        int sprite_columns,
+        double duration,
+        std::string direction
+      );
 
     public:
-      Fox(
-        std::string p_name,
-        std::pair<int, int> position,
-        int priority)
-        :engine::GameObject(
-          p_name,
-          position,
-          priority,
-          {
-            {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
-            {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
-            {engine::KeyboardEvent::UP,"JUMP"},
-            {engine::KeyboardEvent::DOWN,"CROUCH"},
-          }
-        ){};
-
+      Fox(std::string p_name,std::pair<int, int> position,int priority);
       ~Fox(){};
 
       void on_event(GameEvent game_event);
