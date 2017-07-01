@@ -134,8 +134,8 @@ void Spider::move(engine::GameObject* girl){
     if(spider_position - girl_position <= 300){
       states.set_state("ACTION_STATE","NORMAL");
       if(spider_position - girl_position >= 50){
-        set_actual_animation(animations["walking_right"]);
         set_position_x(get_position_x() - 1);
+        set_actual_animation(animations["walking_right"]);
         //little_girl close of spider
       }
     }
@@ -144,8 +144,8 @@ void Spider::move(engine::GameObject* girl){
     //little_girl far from spider
     if(girl_position - spider_position <= 588){
       if(girl_position - spider_position >= 150){
-        set_actual_animation(animations["walking_left"]);
         set_position_x(get_position_x() + 1);
+        set_actual_animation(animations["walking_left"]);
         //little_girl close of spider
       }    //little_girl close of spider
     }

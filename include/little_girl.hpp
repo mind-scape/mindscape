@@ -30,9 +30,9 @@ namespace mindscape {
       void initialize_hitboxes();
       void initialize_animations();
       void initialize_as_physicable();
-      void jump(engine::Animation*,std::string);
-      void move_right(engine::Animation*,std::string,std::string);
-      void move_left(engine::Animation*,std::string,std::string);
+      void jump(std::string);
+      void move_right(std::string,std::string);
+      void move_left(std::string,std::string);
       void attack(std::string);
       engine::Animation *create_animation(
         std::string path,

@@ -6,6 +6,8 @@
 
 using namespace mindscape;
 
+//TODO fix below velocity configuration
+
 LittleGirl::LittleGirl(
   std::string name,
   std::pair<int, int> position,
@@ -170,17 +172,17 @@ void LittleGirl::on_event(GameEvent game_event){
   std::cout << "HP: " << get_hp() << std::endl;
   
   if(event_name == "JUMP" && actual_y_state != "JUMPING"){
-    jump(actual_animation,actual_x_state);
+    jump(actual_x_state);
   }else if(event_name == "MOVE_LEFT"){
-    move_left(actual_animation,actual_x_state,actual_y_state);
+    move_left(actual_x_state,actual_y_state);
   }else if(event_name == "MOVE_RIGHT"){
-    move_right(actual_animation,actual_x_state,actual_y_state);
+    move_right(actual_x_state,actual_y_state);
   }else if(event_name == "ATTACK" && actual_action_state != "ATTACKING"){
     attack(actual_x_state);
   }
 }
 
-void LittleGirl::jump(engine::Animation* actual_animation,std::string actual_x_state){
+void LittleGirl::jump(std::string actual_x_state){
   set_speed_y(-21);
   states.set_state("Y_STATE","JUMPING");
 
@@ -188,6 +190,8 @@ void LittleGirl::jump(engine::Animation* actual_animation,std::string actual_x_s
     set_actual_animation(animations["jumping_right_animation"]);
   else if(actual_x_state == "LOOKING_LEFT")
     set_actual_animation(animations["jumping_left_animation"]);
+
+  engine::Animation* actual_animation = get_actual_animation();
 
   jumping_animation_count += 1;
   if(jumping_animation_count < 26){
@@ -202,40 +206,38 @@ void LittleGirl::jump(engine::Animation* actual_animation,std::string actual_x_s
   }
 }
 
-void LittleGirl::move_right(engine::Animation* actual_animation,std::string actual_x_state,std::string actual_y_state){
+void LittleGirl::move_right(std::string actual_x_state,std::string actual_y_state){
   if(actual_y_state == "ON_GROUND"){
+
+    engine::Animation* actual_animation = get_actual_animation();
+
+    actual_animation->coordinatesOnTexture.first += 192;
+
+    if(actual_animation->coordinatesOnTexture.first >= 1728)
+      actual_animation->coordinatesOnTexture.first = 0;
     states.set_state("X_STATE","LOOKING_RIGHT");
     set_actual_animation(animations["running_right_animation"]);
 
     set_speed_x(0.000000000001);
-
-    running_right_animation_count +=1;
-    if(true){
-      actual_animation->coordinatesOnTexture.first += 192;
-      running_right_animation_count = 0;
-    }
-    if(actual_animation->coordinatesOnTexture.first >= 1728)
-      actual_animation->coordinatesOnTexture.first = 0;
   }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_LEFT"){
     states.set_state("X_STATE","LOOKING_RIGHT");
     set_actual_animation(animations["jumping_right_animation"]);
   }
 }
 
-void LittleGirl::move_left(engine::Animation* actual_animation,std::string actual_x_state,std::string actual_y_state){
+void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state){
   if(actual_y_state == "ON_GROUND"){
+
+    engine::Animation* actual_animation = get_actual_animation();
+
+    actual_animation->coordinatesOnTexture.first -= 192;
+
+    if(actual_animation->coordinatesOnTexture.first <= 0)
+      actual_animation->coordinatesOnTexture.first = 1536;
     states.set_state("X_STATE","LOOKING_LEFT");
     set_actual_animation(animations["running_left_animation"]);
 
     set_speed_x(0.000000000001);
-
-    running_left_animation_count +=1;
-    if(true){
-      actual_animation->coordinatesOnTexture.first -= 192;
-      running_left_animation_count = 0;
-    }
-    if(actual_animation->coordinatesOnTexture.first <= 0)
-      actual_animation->coordinatesOnTexture.first = 1536;
   }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_RIGHT"){
     states.set_state("X_STATE","LOOKING_LEFT");
     set_actual_animation(animations["jumping_left_animation"]);
