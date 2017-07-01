@@ -16,10 +16,6 @@
 namespace mindscape {
   class Scorpion : public Enemy {
     private:
-      int walking_left_count = 0;
-      int walking_right_count = 0;
-      int attacking_right_count = 0;
-      int attacking_left_count = 0;
 
       void initialize_state_map();
       void initialize_hitboxes();

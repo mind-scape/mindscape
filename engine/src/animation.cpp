@@ -21,13 +21,13 @@ void Animation::activate(){
 
 
 void Animation::draw(int x, int y){
+  is_finished = false;
   playing_duration_of_animation += time->get_elapsed_time() - aux_time;
   aux_time = time->get_elapsed_time();
 
   if(playing_duration_of_animation >= duration_of_animation){
     is_finished = true;
     if(in_loop){
-      is_finished = false;
       playing_duration_of_animation = playing_duration_of_animation - duration_of_animation;
     } else {
       deactivate();
