@@ -6,17 +6,23 @@
 
 using namespace mindscape;
 
-Fox::Fox(std::string name, std::pair<int, int> position, int priority){
-  engine::GameObject(name, position, priority,
+Fox::Fox(
+  std::string name,
+  std::pair<int, int> position,
+  int priority)
+  :engine::GameObject(
+    name,
+    position,
+    priority,
     {
       {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
       {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
       {engine::KeyboardEvent::UP,"JUMP"},
       {engine::KeyboardEvent::DOWN,"CROUCH"},
     }
-  );
-    initialize_hitboxes();
+  ){
     initialize_state_map();
+    initialize_hitboxes();
     initialize_animations();
     initialize_as_physicable();
 };
@@ -26,8 +32,8 @@ void Fox::initialize_hitboxes(){
   engine::Hitbox* fox_hitbox = new engine::Hitbox(
     "fox_hitbox",
     this->get_position(),
-    std::make_pair(0, 0),
-    std::make_pair(120, 120),
+    std::make_pair(0, 110),
+    std::make_pair(120, 10),
     game.get_renderer()
   );
   add_component(fox_hitbox);
@@ -36,7 +42,14 @@ void Fox::initialize_hitboxes(){
 void Fox::initialize_state_map(){
   states.set_state("X_STATE","LOOKING_RIGHT");
   states.set_state("Y_STATE","ON_GROUND");
-  states.set_state("ACTION_STATE","NORMAL");
+  states.set_state("ACTION_STATE","STOPPED");
+}
+
+void Fox::notify(engine::Observable *game_object){
+  LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
+  if(little_girl){
+    move(little_girl);
+  }
 }
 
 void Fox::initialize_animations(){
@@ -117,54 +130,56 @@ void Fox::initialize_as_physicable(){
 }
 
 void Fox::on_event(GameEvent game_event){
-
   std::string event_name = game_event.game_event_name;
-
- // engine::Image* moving_right_image = dynamic_cast<engine::Image*>(images[0]);
- // engine::Image* moving_left_image = dynamic_cast<engine::Image*>(images[1]);
 
   engine::Animation* actual_animation = get_actual_animation();
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");
   std::string actual_action_state = states.get_state("ACTION_STATE");
 
-
-  if(abs(get_position().first - 512) <= 50){
-    velocity = 10;
-  }else if(abs(get_position().first - 512) > 50 && abs(get_position().first -512) < 200){
-    velocity = 5;
-  }else if(abs(get_position().first - 512) >= 200){
-    velocity = -20;
-  }
-
   if(event_name == "JUMP"){
       //state == "JUMPING";
-  }else if(event_name == "CROUCH"){
+  }else if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level && actual_action_state == "STOPPED"){
+    set_actual_animation(animations["idle_left_animation"]);
+    set_position_x(get_position_x() + 10);
 
-  }else if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level){
-
-    set_actual_animation(animations["running_left_animation"]);
-
-    running_left_animation_count += 1;
-    if(running_left_animation_count == 7){
-      actual_animation->coordinatesOnTexture.first -= 120;
-      set_speed(std::make_pair(velocity, get_speed().second));
-      running_left_animation_count = 0;
-    }
-    if(actual_animation->coordinatesOnTexture.first <= 0) actual_animation->coordinatesOnTexture.first = 960;
-
-  }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level){
-
-    set_actual_animation(animations["running_right_animation"]);
-
-    running_right_animation_count +=1;
-    if(running_right_animation_count == 7){
-      set_speed(std::make_pair(-velocity, get_speed().second));
-      actual_animation->coordinatesOnTexture.first += 120;
-      running_right_animation_count = 0;
-    }
-    if(actual_animation->coordinatesOnTexture.first >= 1080) actual_animation->coordinatesOnTexture.first = 0;
+  }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level && actual_action_state == "STOPPED"){
+    set_actual_animation(animations["idle_right_animation"]);
+    set_position_x(get_position_x() - 10);
   }
+}
+
+void Fox::move(engine::GameObject* girl){
+  float fox_position = get_position_x();
+  float girl_position = girl->get_position_x();
+
+  /*
+  //little_girl on left
+  if(fox_position > girl_position){
+    //little_girl far from spider
+    states.set_state("X_STATE","LOOKING_LEFT");
+  
+    if(fox_position - girl_position <= 300){
+      if(fox_position - girl_position >= 50){
+        set_actual_animation(animations["walking_right"]);
+        set_position_x(get_position_x() - 1);
+        //little_girl close of spider
+      }
+    }
+    //little_girl on right
+  }else{
+    //little_girl far from spider
+    states.set_state("X_STATE","LOOKING_RIGHT");
+
+    if(girl_position - fox_position <= 588){
+      if(girl_position - fox_position >= 150){
+        set_actual_animation(animations["walking_left"]);
+        set_position_x(get_position_x() + 1);
+        //little_girl close of spider
+      }    //little_girl close of spider
+    }
+  }
+  */
 }
 
 void Fox::update_state(){
@@ -172,6 +187,15 @@ void Fox::update_state(){
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");
   std::string actual_action_state = states.get_state("ACTION_STATE");
+
+  if(get_speed_x() == 0.0 && get_speed_y() == 0.0 && actual_action_state == "NORMAL"){
+    if(actual_x_state == "LOOKING_RIGHT"){
+      set_actual_animation(animations["idle_right_animation"]);
+    }else if(actual_x_state == "LOOKING_LEFT"){
+      set_actual_animation(animations["idle_left_animation"]);
+    }
+  }  
+
 }
 
 void Fox::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox){
@@ -181,6 +205,6 @@ void Fox::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, e
 
   if(get_speed_y() >= 0 && p){
     set_speed(std::make_pair(get_speed_x(), 0.0));
-    set_position(std::make_pair(get_position().first, other_hitbox->get_coordinates().second - 120));
+    set_position(std::make_pair(get_position().first, other_hitbox->get_coordinates().second - 110));
   }
 }

@@ -44,7 +44,7 @@ int main(int,char**){
   //background->paralax = 2;
   //background2->paralax = 4;
 
-  GameObject* fox = new mindscape::Fox("fox", anotherotherplace, 4);
+  //GameObject* fox = new mindscape::Fox("fox", anotherotherplace, 4);
 
   background->add_component(images2);
   background2->add_component(images9);
@@ -55,10 +55,10 @@ int main(int,char**){
   mindscape::LevelFactory *level_factory = new mindscape::LevelFactory();
   Level* level1 = level_factory->fabricate_level("data/1.level.dat");
 
-  level1->add_object(fox);
+  //level1->add_object(fox);
   level1->add_object(star);
   level1->activate_game_object(star);
-  level1->activate_game_object(fox);
+  //level1->activate_game_object(fox);
   /********************************************************************************/
 
   /**********************MAIN*MEUNU********************************************/

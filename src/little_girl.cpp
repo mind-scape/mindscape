@@ -207,7 +207,7 @@ void LittleGirl::move_right(engine::Animation* actual_animation,std::string actu
     states.set_state("X_STATE","LOOKING_RIGHT");
     set_actual_animation(animations["running_right_animation"]);
 
-    set_speed_x(1);
+    set_speed_x(0.000000000001);
 
     running_right_animation_count +=1;
     if(true){
@@ -227,7 +227,7 @@ void LittleGirl::move_left(engine::Animation* actual_animation,std::string actua
     states.set_state("X_STATE","LOOKING_LEFT");
     set_actual_animation(animations["running_left_animation"]);
 
-    set_speed_x(-1);
+    set_speed_x(0.000000000001);
 
     running_left_animation_count +=1;
     if(true){
@@ -265,12 +265,9 @@ void LittleGirl::update_state(){
   }
   if(get_speed_x() == 0.0 && get_speed_y() == 0.0 && actual_action_state == "NORMAL"){
     if(actual_x_state == "LOOKING_RIGHT"){
-      //TODO fix below action as are doing above
-      engine::Animation* idle_right_animation = animations["idle_right_animation"];
-      set_actual_animation(idle_right_animation);
+      set_actual_animation(animations["idle_right_animation"]);
     }else if(actual_x_state == "LOOKING_LEFT"){
-      engine::Animation* idle_left_animation = animations["idle_left_animation"];
-      set_actual_animation(idle_left_animation);
+      set_actual_animation(animations["idle_left_animation"]);
     }
     jumping_animation_count = 0;
   }
@@ -281,6 +278,5 @@ void LittleGirl::update_state(){
   std::cout << actual_y_state << std::endl;
   std::cout << actual_action_state << std::endl;
 
-  set_position_x(get_position_x() - get_speed_x());
   set_speed_x(0.0);
 }

@@ -8,6 +8,8 @@
 #include "../engine/include/image.hpp"
 #include "../engine/include/keyboard_event.hpp"
 #include "platform.hpp"
+#include "../engine/include/observable.hpp"
+#include "little_girl.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -24,6 +26,11 @@ namespace mindscape {
       void initialize_hitboxes();
       void initialize_animations();
       void initialize_as_physicable();
+      void jump();
+      void move_left();
+      void move_right();
+      void notify(engine::Observable*);
+      void move(engine::GameObject*); 
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
