@@ -140,11 +140,8 @@ void Fox::on_event(GameEvent game_event){
   if(event_name == "JUMP"){
       //state == "JUMPING";
   }else if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level && actual_action_state == "STOPPED"){
-    //set_actual_animation(animations["idle_left_animation"]);
     set_position_x(get_position_x() + 10);
-
   }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level && actual_action_state == "STOPPED"){
-    //set_actual_animation(animations["idle_right_animation"]);
     set_position_x(get_position_x() - 10);
   }
 }
@@ -152,20 +149,20 @@ void Fox::on_event(GameEvent game_event){
 void Fox::move(engine::GameObject* girl){
   float fox_position = get_position_x();
   float girl_position = girl->get_position_x();
-  int distance;
+  int distance_from_girl;
 
   //little_girl on left
   if(fox_position > girl_position){
     //little_girl far from spider
     states.set_state("X_STATE","LOOKING_LEFT");
-    distance = fox_position - girl_position;
+    distance_from_girl = fox_position - girl_position;
 
-    if(distance <= 200){
+    if(distance_from_girl <= 200){
       set_actual_animation(animations["idle_left_animation"]);
-    }else if(distance > 200 && distance <= 400){
+    }else if(distance_from_girl > 200 && distance_from_girl <= 400){
       set_actual_animation(animations["running_left_animation"]);
       set_position_x(get_position_x() - 3);
-    }else if(distance > 400){
+    }else if(distance_from_girl > 400){
       set_actual_animation(animations["running_left_animation"]);
       set_position_x(get_position_x() - 5);
     }
@@ -173,15 +170,15 @@ void Fox::move(engine::GameObject* girl){
   }else{
     //little_girl far from spider
     states.set_state("X_STATE","LOOKING_RIGHT");
-    distance = girl_position - fox_position;
+    distance_from_girl = girl_position - fox_position;
 
-    if(distance <= 100){
+    if(distance_from_girl <= 100){
       set_actual_animation(animations["idle_right_animation"]);
     }
-    else if(distance > 100 && distance <= 350){
+    else if(distance_from_girl > 100 && distance_from_girl <= 350){
       set_actual_animation(animations["running_right_animation"]);
       set_position_x(get_position_x() + 3);
-    }else if(distance > 350){
+    }else if(distance_from_girl > 350){
       set_actual_animation(animations["running_right_animation"]);
       set_position_x(get_position_x() + 5);
     }

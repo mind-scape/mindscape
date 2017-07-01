@@ -20,21 +20,47 @@ Scorpion::Scorpion(
     initialize_as_physicable();
 };
 
+
+//TODO fix below animations names according to others
 void Scorpion::initialize_animations(){
-    engine::Animation* scorpion_left = create_animation(
+    engine::Animation* walking_left_animation = create_animation(
       "../assets/images/sprites/enemies/scorpion/scorpion_walking_left.png",
       1, 5, 0.9, "LEFT"
     );
 
-    engine::Animation* scorpion_right = create_animation(
+    engine::Animation* walking_right_animation = create_animation(
       "../assets/images/sprites/enemies/scorpion/scorpion_walking_right.png",
       1, 5, 0.9, "RIGHT"
     );
+    
+    engine::Animation* idle_left_animation = create_animation(
+      "../assets/images/sprites/enemies/scorpion/scorpion_idle_left.png",
+      1, 2, 0.9, "LEFT"
+    );
+    
+    engine::Animation* idle_right_animation = create_animation(
+      "../assets/images/sprites/enemies/scorpion/scorpion_idle_right.png",
+      1, 2, 0.9, "RIGHT"
+    );
+    
+    engine::Animation* attacking_left_animation = create_animation(
+      "../assets/images/sprites/enemies/scorpion/scorpion_attacking_left.png",
+      1, 5, 0.9, "LEFT"
+    );
+    
+    engine::Animation* attacking_right_animation = create_animation(
+      "../assets/images/sprites/enemies/scorpion/scorpion_attacking_right.png",
+      1, 5, 0.9, "RIGHT"
+    );
 
-    add_animation("walking_right", scorpion_left);
-    add_animation("walking_left", scorpion_right);
-    scorpion_left->activate();
-    set_actual_animation(scorpion_left);
+    add_animation("walking_left_animation", walking_left_animation);
+    add_animation("walking_right_animation", walking_right_animation);
+    add_animation("idle_left_animation", idle_left_animation);
+    add_animation("idle_right_animation", idle_right_animation);
+    add_animation("attacking_left_animation", attacking_left_animation);
+    add_animation("attacking_right_animation", attacking_right_animation);
+    idle_right_animation->activate();
+    set_actual_animation(idle_right_animation);
 
 }
 
@@ -128,26 +154,33 @@ void Scorpion::attack(){
 void Scorpion::move(engine::GameObject* girl){
   float scorpion_position = get_position_x();
   float girl_position = girl->get_position_x();
+  int distance_from_girl;
 
   //little_girl on left
   if(scorpion_position > girl_position){
-    //little_girl far from scorpion
-    if(scorpion_position - girl_position <= 300){
+    states.set_state("X_STATE","LOOKING_LEFT"); 
+    distance_from_girl = scorpion_position - girl_position;
+    
+    if(distance_from_girl > 300){
+      set_actual_animation(animations["idle_left_animation"]);
+    }else if(distance_from_girl <= 300){
       states.set_state("ACTION_STATE","NORMAL");
-      if(scorpion_position - girl_position >= 50){
+      if(distance_from_girl >= 50){
         set_position_x(get_position_x() - 1);
-        set_actual_animation(animations["walking_right"]);
-        //little_girl close of scorpion
+        set_actual_animation(animations["walking_left_animation"]);
       }
     }
   //little_girl on right
   }else{
-    //little_girl far from scorpion
-    if(girl_position - scorpion_position <= 588){
-      if(girl_position - scorpion_position >= 200){
+    states.set_state("X_STATE","LOOKING_RIGHT"); 
+    distance_from_girl = girl_position - scorpion_position;
+
+    if(distance_from_girl > 588){
+      set_actual_animation(animations["idle_right_animation"]);
+    }else if(distance_from_girl <= 588){
+      if(distance_from_girl >= 200){
         set_position_x(get_position_x() + 1);
-        set_actual_animation(animations["walking_left"]);
-        //little_girl close of scorpion
+        set_actual_animation(animations["walking_right_animation"]);
       }
     }
   }

@@ -21,20 +21,32 @@ Spider::Spider(
 };
 
 void Spider::initialize_animations(){
-    engine::Animation* spider_left = create_animation(
+    engine::Animation* walking_left_animation = create_animation(
       "../assets/images/sprites/enemies/spider/spider_walking_left.png",
       1, 4, 0.9, "LEFT"
     );
 
-    engine::Animation* spider_right = create_animation(
+    engine::Animation* walking_right_animation = create_animation(
       "../assets/images/sprites/enemies/spider/spider_walking_right.png",
       1, 4, 0.9, "RIGHT"
     );
+    
+    engine::Animation* idle_left_animation = create_animation(
+      "../assets/images/sprites/enemies/spider/spider_idle_left.png",
+      1, 2, 0.9, "LEFT"
+    );
 
-    add_animation("walking_right", spider_left);
-    add_animation("walking_left", spider_right);
-    spider_left->activate();
-    set_actual_animation(spider_left);
+    engine::Animation* idle_right_animation = create_animation(
+      "../assets/images/sprites/enemies/spider/spider_idle_right.png",
+      1, 2, 0.9, "RIGHT"
+    );
+
+    add_animation("walking_left_animation", walking_left_animation);
+    add_animation("walking_right_animation", walking_right_animation);
+    add_animation("idle_left_animation", idle_left_animation);
+    add_animation("idle_right_animation", idle_right_animation);
+    idle_left_animation->activate();
+    set_actual_animation(idle_left_animation);
 }
 
 engine::Animation* Spider::create_animation(
@@ -107,8 +119,6 @@ void Spider::on_event(GameEvent game_event){
   }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level){
     set_position_x(get_position_x() - 10);
   }
-
-  attack();
 }
 
 void Spider::notify(engine::Observable *game_object){
@@ -127,27 +137,36 @@ void Spider::attack(){
 void Spider::move(engine::GameObject* girl){
   float spider_position = get_position_x();
   float girl_position = girl->get_position_x();
+  int distance_from_girl;
 
   //little_girl on left
   if(spider_position > girl_position){
-    //little_girl far from spider
-    if(spider_position - girl_position <= 300){
+    states.set_state("X_STATE","LOOKING_LEFT");
+    distance_from_girl = spider_position - girl_position;
+
+    if(distance_from_girl > 300){
+      set_actual_animation(animations["idle_left_animation"]);
+    }
+    else if(distance_from_girl <= 300){
       states.set_state("ACTION_STATE","NORMAL");
-      if(spider_position - girl_position >= 50){
+      if(distance_from_girl >= 50){
         set_position_x(get_position_x() - 1);
-        set_actual_animation(animations["walking_right"]);
-        //little_girl close of spider
+        set_actual_animation(animations["walking_left_animation"]);
       }
     }
-  //little_girl on right
-}else{
-    //little_girl far from spider
-    if(girl_position - spider_position <= 588){
-      if(girl_position - spider_position >= 150){
+    //little_girl on right
+  }else{
+    states.set_state("X_STATE","LOOKING_RIGHT");
+    distance_from_girl = girl_position - spider_position;
+
+    if(distance_from_girl > 588){
+      set_actual_animation(animations["idle_right_animation"]);
+    }
+    else if(distance_from_girl <= 588){
+      if(distance_from_girl >= 150){
         set_position_x(get_position_x() + 1);
-        set_actual_animation(animations["walking_left"]);
-        //little_girl close of spider
-      }    //little_girl close of spider
+        set_actual_animation(animations["walking_right_animation"]);
+      }
     }
   }
 }
