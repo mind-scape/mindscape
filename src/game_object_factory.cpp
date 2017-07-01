@@ -76,7 +76,7 @@ engine::GameObject* GameObjectFactory::fabricate_platform(
 engine::GameObject* GameObjectFactory::fabricate_spider(
   std::string name, std::pair<int, int> position, int priority){
   engine::GameObject* spider = new Spider(
-    name, postion, priority
+    name, position, priority
   );
   return spider;
 }

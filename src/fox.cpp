@@ -6,25 +6,32 @@
 
 using namespace mindscape;
 
-Fox::Fox(
-  std::string name,
-  std::pair<int, int> position,
-  int priority)
-  :engine::GameObject(
-    name,
-    position,
-    priority,
+Fox::Fox(std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject(name, position, priority,
     {
       {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
       {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
       {engine::KeyboardEvent::UP,"JUMP"},
       {engine::KeyboardEvent::DOWN,"CROUCH"},
     }
-  ){
-    initialize_state_map();                                                     
-    initialize_animations();                                                    
-    //initialize_as_physicable(); 
+  );
+    initialize_hitboxes();
+    initialize_state_map();
+    initialize_animations();
+    initialize_as_physicable();
 };
+
+void Fox::initialize_hitboxes(){
+  engine::Game& game = engine::Game::get_instance();
+  engine::Hitbox* fox_hitbox = new engine::Hitbox(
+    "fox_hitbox",
+    this->get_position(),
+    std::make_pair(0, 0),
+    std::make_pair(120, 120),
+    game.get_renderer()
+  );
+  add_component(fox_hitbox);
+}
 
 void Fox::initialize_state_map(){
   states.set_state("X_STATE","LOOKING_RIGHT");
@@ -62,7 +69,7 @@ void Fox::initialize_animations(){
       "../assets/images/sprites/fox/fox_jumping_left.png",
       1, 4, 1.5, "LEFT"
       );
-  
+
   add_animation("running_right_animation",running_right_animation);
   add_animation("running_left_animation",running_left_animation);
   add_animation("idle_right_animation",idle_right_animation);
@@ -115,7 +122,7 @@ void Fox::on_event(GameEvent game_event){
 
  // engine::Image* moving_right_image = dynamic_cast<engine::Image*>(images[0]);
  // engine::Image* moving_left_image = dynamic_cast<engine::Image*>(images[1]);
-  
+
   engine::Animation* actual_animation = get_actual_animation();
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");
@@ -165,4 +172,15 @@ void Fox::update_state(){
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");
   std::string actual_action_state = states.get_state("ACTION_STATE");
+}
+
+void Fox::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox){
+  mindscape::Platform* p = dynamic_cast<Platform *>(other);
+  engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+  engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+
+  if(get_speed_y() >= 0 && p){
+    set_speed(std::make_pair(get_speed_x(), 0.0));
+    set_position(std::make_pair(get_position().first, other_hitbox->get_coordinates().second - 120));
+  }
 }

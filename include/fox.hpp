@@ -7,6 +7,7 @@
 #include "../engine/include/animation.hpp"
 #include "../engine/include/image.hpp"
 #include "../engine/include/keyboard_event.hpp"
+#include "platform.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -18,8 +19,9 @@ namespace mindscape {
       int velocity;
       int running_right_animation_count = 0;
       int running_left_animation_count = 0;
-      
+
       void initialize_state_map();
+      void initialize_hitboxes();
       void initialize_animations();
       void initialize_as_physicable();
       engine::Animation *create_animation(
@@ -34,6 +36,7 @@ namespace mindscape {
       Fox(std::string p_name,std::pair<int, int> position,int priority);
       ~Fox(){};
 
+      void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
       void on_event(GameEvent game_event);
       void update_state();
   };
