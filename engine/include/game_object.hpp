@@ -26,6 +26,7 @@
 #include "../../include/game_event.hpp"
 
 namespace engine {
+  class Animation;
   class GameObject : public Observer, public Observable{
     private:
       int hp = 90;
@@ -97,6 +98,7 @@ namespace engine {
       void set_speed_y(float);
       void activate();
       void deactivate();
+      void deactivate_components();
       bool is_active();
       std::string get_state(std::string);
       std::vector<Hitbox*> get_hitboxes();

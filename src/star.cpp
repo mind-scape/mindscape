@@ -36,7 +36,17 @@ void Star::initialize_animations(){
     "../assets/images/sprites/items/star/star.png",
     1, 6, 0.9, "LEFT"
   );
+
+  engine::Animation* star_fading = create_animation(
+    "../assets/images/sprites/items/star/star_caught.png",
+    1, 5, 2.0, "LEFT"
+  );
+
+  star_fading->in_loop = false;
+  star_fading->set_name("omelete");
+
   add_animation("star", star);
+  add_animation("star_fading", star_fading);
   star->activate();
   set_actual_animation(star);
 }

@@ -2,21 +2,23 @@
 #define ANIMATION_H
 
 #include <string>
+#include <vector>
+#include <map>
+#include "game_object.hpp"
 #include "image.hpp"
 #include "time.hpp"
 #include "timer.hpp"
-#include <vector>
-#include <map>
 
 namespace engine{
-
+  class GameObject;
   class Animation : public Image{
 
-    protected:
+  private:
 
       //Construtor de image
       std::pair<int, int> displacement;
       int render_priority;
+      GameObject* game_object;
       //Atributos da animação
       int sprite_columns;
       int sprite_lines;
@@ -27,7 +29,6 @@ namespace engine{
       int time_of_sprite;
       int playing_duration_of_animation = 0;
       int duration_of_animation;
-      bool in_loop = false;
       //Atributo para o timer;
       Timer * time;
       int aux_time;
@@ -59,7 +60,7 @@ namespace engine{
         ),
         sprite_lines(p_sprite_lines),
         sprite_columns(p_sprite_columns),
-        duration_of_animation(p_duration_of_animation * 1000),
+        duration_of_animation(p_duration_of_animation*1000),
         in_loop(p_in_loop),
         total_sprites(p_sprite_lines * p_sprite_columns),
         first_sprite(0),
@@ -74,10 +75,13 @@ namespace engine{
 
       virtual ~Animation(){}
 
+      bool in_loop;
       bool is_finished;
       bool load();
       bool set_frame_time();
+      void set_game_object(GameObject*);
       void draw(int, int);
+      void activate();
       void set_sprite_sizes(std::vector<std::pair<int,int> >);
   };
 }

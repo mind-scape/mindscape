@@ -198,17 +198,33 @@ void Fox::update_state(){
     }else if(actual_x_state == "LOOKING_LEFT"){
       set_actual_animation(animations["idle_left_animation"]);
     }
-  }  
   */
 }
 
+
 void Fox::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox){
-  mindscape::Platform* p = dynamic_cast<Platform *>(other);
+  Platform* platform = dynamic_cast<Platform *>(other);
+  Star* star = dynamic_cast<Star *>(other);
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
-  if(get_speed_y() >= 0 && p){
+  if(get_speed_y() >= 0 && platform){
     set_speed(std::make_pair(get_speed_x(), 0.0));
     set_position(std::make_pair(get_position().first, other_hitbox->get_coordinates().second - 110));
+  }else if(star){
+    star->set_actual_animation(star->animations["star_fading"]);
+    star->deactivate_components();
+    set_star_count(get_star_count() + 1);
+    if(get_star_count() == 3){
+      set_star_count(0);
+    }
   }
+}
+
+int Fox::get_star_count(){
+  return star_count;
+}
+
+void Fox::set_star_count(int quantity){
+  star_count = quantity;
 }

@@ -164,13 +164,12 @@ void LittleGirl::on_collision(
 void LittleGirl::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
 
-  engine::Animation* actual_animation = get_actual_animation();                    
-  std::string actual_x_state = states.get_state("X_STATE");                        
-  std::string actual_y_state = states.get_state("Y_STATE");                        
-  std::string actual_action_state = states.get_state("ACTION_STATE"); 
+  engine::Animation* actual_animation = get_actual_animation();
+  std::string actual_x_state = states.get_state("X_STATE");
+  std::string actual_y_state = states.get_state("Y_STATE");
+  std::string actual_action_state = states.get_state("ACTION_STATE");
 
-  std::cout << "HP: " << get_hp() << std::endl;
-  
+
   if(event_name == "JUMP" && actual_y_state != "JUMPING"){
     jump(actual_x_state);
   }else if(event_name == "MOVE_LEFT"){
@@ -251,7 +250,7 @@ void LittleGirl::attack(std::string actual_x_state){
   }else if(actual_x_state == "LOOKING_LEFT"){
     set_actual_animation(animations["attacking_left_animation"]);
   }
-} 
+}
 
 void LittleGirl::update_state(){
   //Should be implemented
@@ -276,9 +275,6 @@ void LittleGirl::update_state(){
   if(get_speed_y() == 0.0){
     states.set_state("Y_STATE","ON_GROUND");
   }
-  std::cout << actual_x_state << std::endl;
-  std::cout << actual_y_state << std::endl;
-  std::cout << actual_action_state << std::endl;
 
   set_speed_x(0.0);
 }

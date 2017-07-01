@@ -26,6 +26,7 @@ void GameObject::add_component(Component* component){
 
 void GameObject::add_animation(std::string animation_name, Animation * animation){
   animations[animation_name] = animation;
+  animation->set_game_object(this);
 }
 
 bool GameObject::load(){
@@ -99,7 +100,10 @@ void GameObject::collide(GameObject* other){
 void GameObject::run_collisions(GameObject* other){
   for (auto my_hitbox : hitboxes){
     for (auto other_hitbox : other->get_hitboxes()){
-      if(my_hitbox->collides_with(other_hitbox)){
+      bool my_hitbox_active = my_hitbox->is_active();
+      bool other_hitbox_active = other_hitbox->is_active();
+      bool should_hitbox_collide = my_hitbox_active && other_hitbox_active;
+      if(my_hitbox->collides_with(other_hitbox) && should_hitbox_collide){
         this->on_collision(other, my_hitbox, other_hitbox);
       }
     }
@@ -179,6 +183,21 @@ void GameObject::activate(){
 
 void GameObject::deactivate(){
   active = false;
+}
+
+void GameObject::deactivate_components(){
+  for(auto image : images){
+    image->deactivate();
+  }
+  for(auto audio : audios){
+    audio->deactivate();
+  }
+  for(auto text : texts){
+    text->deactivate();
+  }
+  for(auto hitbox : hitboxes){
+      hitbox->deactivate();
+  }
 }
 
 bool GameObject::is_active(){
