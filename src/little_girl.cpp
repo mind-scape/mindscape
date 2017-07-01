@@ -1,5 +1,6 @@
 #include "../include/little_girl.hpp"
 #include "../include/platform.hpp"
+#include "../include/scorpion.hpp"
 #include "../engine/include/game.hpp"
 #include <typeinfo>
 #include <algorithm>
@@ -50,52 +51,54 @@ void LittleGirl::initialize_hitboxes(){
 }
 
 void LittleGirl::initialize_animations(){
-  //Creating running right animation
   engine::Animation* running_right_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_running_right.png",
       1,9,0.9, "RIGHT"
       );
 
-  //Creating running right animation
   engine::Animation* running_left_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_running_left.png",
       1, 9, 0.9, "LEFT"
       );
 
-  //Creating idle right animation
   engine::Animation* idle_right_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_idle_right.png",
       1, 10, 1.5, "RIGHT"
       );
 
-  //Creating idle left animation
   engine::Animation* idle_left_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_idle_left.png",
       1, 10, 1.5, "LEFT"
       );
 
-  //Creating jumping right animation
   engine::Animation* jumping_right_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_jumping_right.png",
       1, 5, 1.5, "RIGHT"
       );
 
-  //Creating jumping left animation
   engine::Animation* jumping_left_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_jumping_left.png",
       1, 5, 1.5, "LEFT"
       );
 
-  //Creating attacking right animation
   engine::Animation* attacking_right_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_attacking_right.png",
       1, 5, 0.6, "RIGHT"
       );
 
-  //Creating attacking left animation
   engine::Animation* attacking_left_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_attacking_left.png",
       1, 5, 0.6, "LEFT"
+      );
+  
+  engine::Animation* on_attack_right_animation = create_animation(
+      "../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
+      1, 3, 0.8, "RIGHT"
+      );
+
+  engine::Animation* on_attack_left_animation = create_animation(
+      "../assets/images/sprites/little_girl/little_girl_on_attack_left.png",
+      1, 3, 0.8, "LEFT"
       );
 
   add_animation("running_right_animation",running_right_animation);
@@ -106,6 +109,8 @@ void LittleGirl::initialize_animations(){
   add_animation("jumping_left_animation",jumping_left_animation);
   add_animation("attacking_right_animation",attacking_right_animation);
   add_animation("attacking_left_animation",attacking_left_animation);
+  add_animation("on_attack_right_animation",on_attack_right_animation);
+  add_animation("on_attack_left_animation",on_attack_left_animation);
   idle_right_animation->activate();
   set_actual_animation(idle_right_animation);
 }
@@ -151,14 +156,19 @@ void LittleGirl::on_collision(
     engine::Hitbox* p_my_hitbox,
     engine::Hitbox* p_other_hitbox){
 
-  Platform* p = dynamic_cast<Platform *>(other);
+  Platform* platform = dynamic_cast<Platform *>(other);
+  Scorpion* scorpion = dynamic_cast<Scorpion *>(other);
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
-  if(get_speed_y() >= 0 && p){ //if she is falling on a platform
+  if(get_speed_y() >= 0 && platform){ //if she is falling on a platform
     set_speed_y(0.0);
     set_position_y(other_hitbox->get_coordinates().second - 180);
   }
+  if(scorpion && scorpion->get_state("ACTION_STATE") == "ATTACKING" && scorpion->get_actual_animation()->actual_column == 3){
+      on_attack();
+  }
+
 }
 
 void LittleGirl::on_event(GameEvent game_event){
@@ -168,7 +178,6 @@ void LittleGirl::on_event(GameEvent game_event){
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");
   std::string actual_action_state = states.get_state("ACTION_STATE");
-
 
   if(event_name == "JUMP" && actual_y_state != "JUMPING"){
     jump(actual_x_state);
@@ -252,6 +261,16 @@ void LittleGirl::attack(std::string actual_x_state){
   }
 }
 
+void LittleGirl::on_attack(){
+  std::string actual_x_state = states.get_state("X_STATE");
+  states.set_state("ACTION_STATE","ON_ATTACK");
+  if(actual_x_state == "LOOKING_LEFT"){
+    set_actual_animation(animations["on_attack_left_animation"]);
+  }else if(actual_x_state == "LOOKING_RIGHT"){
+    set_actual_animation(animations["on_attack_right_animation"]);
+  }
+}
+
 void LittleGirl::update_state(){
   //Should be implemented
   engine::Animation* actual_animation = get_actual_animation();
@@ -259,11 +278,12 @@ void LittleGirl::update_state(){
   std::string actual_y_state = states.get_state("Y_STATE");
   std::string actual_action_state = states.get_state("ACTION_STATE");
 
-  if(actual_action_state == "ATTACKING"){
+  if(actual_action_state == "ATTACKING" || actual_action_state == "ON_ATTACK"){
     if(get_actual_animation()->is_finished){
       states.set_state("ACTION_STATE","NORMAL");
     }
   }
+
   if(get_speed_x() == 0.0 && get_speed_y() == 0.0 && actual_action_state == "NORMAL"){
     if(actual_x_state == "LOOKING_RIGHT"){
       set_actual_animation(animations["idle_right_animation"]);

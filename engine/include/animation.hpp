@@ -75,6 +75,8 @@ namespace engine{
 
       virtual ~Animation(){}
 
+      int actual_line;
+      int actual_column;
       bool in_loop;
       bool is_finished;
       bool load();
