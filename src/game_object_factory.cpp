@@ -19,7 +19,7 @@ engine::GameObject* GameObjectFactory::fabricate(
     case(GameObjectFactory::FOOTER):
       return fabricate_footer();
     case(GameObjectFactory::FOX):
-      return fabricate_fox();
+      return fabricate_fox(name, coordinates, priority);
     case(GameObjectFactory::PLATFORM):
       return fabricate_platform(name, coordinates, priority);
     case(GameObjectFactory::BUTTON):
@@ -49,9 +49,10 @@ engine::GameObject* GameObjectFactory::fabricate_select_arrow(){
   return NULL;
 }
 
-engine::GameObject* GameObjectFactory::fabricate_fox(){
-  std::cout << "NOT IMPLEMENTED YET" << std::endl;
-  return NULL;
+engine::GameObject* GameObjectFactory::fabricate_fox(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* fox = new Fox(name, position, priority);
+  return fox;
 }
 
 engine::GameObject* GameObjectFactory::fabricate_background(
@@ -67,15 +68,13 @@ engine::GameObject* GameObjectFactory::fabricate_background(
 }
 
 engine::GameObject* GameObjectFactory::fabricate_platform(
-  std::string name, std::pair<int, int> postion, int priority){
-  engine::GameObject* platform = new Platform(
-    name, postion, priority
-  );
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* platform = new Platform(name, position, priority);
   return platform;
 }
 
 engine::GameObject* GameObjectFactory::fabricate_spider(
-  std::string name, std::pair<int, int> postion, int priority){
+  std::string name, std::pair<int, int> position, int priority){
   engine::GameObject* spider = new Spider(
     name, postion, priority
   );
@@ -115,7 +114,7 @@ void GameObjectFactory::fabricate_image(
   std::pair<int, int> dimensions_on_texture,
   std::pair<int, int> coordinates_on_texture){
 
-  
+
   engine::Game& game = engine::Game::get_instance();
   engine::Image* image = new engine::Image(
     game.get_renderer(), path, true, displacement, priority

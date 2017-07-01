@@ -35,7 +35,6 @@ void Spider::initialize_animations(){
     add_animation("walking_left", spider_right);
     spider_left->activate();
     set_actual_animation(spider_left);
-
 }
 
 engine::Animation* Spider::create_animation(
