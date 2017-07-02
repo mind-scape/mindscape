@@ -24,10 +24,11 @@ namespace mindscape {
       virtual void update(unsigned){};
       virtual void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*){};
       virtual void notify(engine::Observable *){};
+      void update_HP(int);
+      int get_HP();
 
     private:
       int HP;
-      void update_HP(int);
   };
 
 }

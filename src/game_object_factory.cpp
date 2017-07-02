@@ -1,6 +1,5 @@
 #include "game_object_factory.hpp"
 
-
 using namespace mindscape;
 
 engine::GameObject* GameObjectFactory::fabricate(
