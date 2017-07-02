@@ -1,10 +1,12 @@
 id little_girl type 0 x 430 y 0 priority 50
 
+id girl_hud type 11 x 54 y 450 priority 55 follows little_girl
+
 id scorpion type 1 x 800 y 0 priority 40 follows little_girl
 
 id fox type 4 x 500 y 0 priority 50 follows little_girl
 
-id fox_hud type 12 x 800 y 450 priority 60 follows fox
+id fox_hud type 12 x 800 y 465 priority 60 follows fox
 
 id spider type 2 x 100 y 0 priority 41 follows little_girl
 

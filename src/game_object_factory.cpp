@@ -45,7 +45,7 @@ engine::GameObject* GameObjectFactory::fabricate_hud_fox(
 
 engine::GameObject* GameObjectFactory::fabricate_hud_girl(
   std::string name, std::pair<int, int> position, int priority){
-  engine::GameObject* hud_girl = new HudFox(name, position, priority);
+  engine::GameObject* hud_girl = new HudGirl(name, position, priority);
   return hud_girl;
 }
 

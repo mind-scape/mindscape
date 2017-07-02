@@ -18,13 +18,19 @@ namespace mindscape{
   class HudGirl : public engine::GameObject {
     private:
       void initialize_animations();
+      engine::Image* create_image();
+      engine::Animation* create_animation(
+          std::string path,
+          int sprite_lines,
+          int sprite_columns,
+          double duration,
+          std::string direction);
 
     public:
-      HudGirl();
+      HudGirl(std::string name, std::pair<int, int> position, int priority);
       ~HudGirl(){};
 
       void notify(engine::Observable*);
-      void on_event(GameEvent game_event);
   };
 }
 

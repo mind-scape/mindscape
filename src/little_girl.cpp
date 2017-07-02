@@ -90,7 +90,7 @@ void LittleGirl::initialize_animations(){
       "../assets/images/sprites/little_girl/little_girl_attacking_left.png",
       1, 5, 0.6, "LEFT"
       );
-  
+
   engine::Animation* on_attack_right_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
       1, 3, 0.8, "RIGHT"
