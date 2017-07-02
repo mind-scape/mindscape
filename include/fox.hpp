@@ -24,6 +24,7 @@ namespace mindscape {
       int running_right_animation_count = 0;
       int running_left_animation_count = 0;
       int omelete = 0;
+      int girl_hp;
 
       void initialize_state_map();
       void initialize_hitboxes();

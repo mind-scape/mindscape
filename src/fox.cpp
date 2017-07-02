@@ -49,6 +49,7 @@ void Fox::notify(engine::Observable *game_object){
   LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
   if(little_girl){
     move(little_girl);
+    girl_hp = little_girl->get_hp();
   }
 }
 
@@ -212,11 +213,13 @@ void Fox::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, e
     set_speed(std::make_pair(get_speed_x(), 0.0));
     set_position(std::make_pair(get_position().first, other_hitbox->get_coordinates().second - 110));
   }else if(star){
-    star->set_actual_animation(star->animations["star_fading"]);
-    star->deactivate_components();
-    set_star_count(get_star_count() + 1);
-    if(get_star_count() == 3){
-      set_star_count(0);
+    if(get_star_count() != 3){
+      star->set_actual_animation(star->animations["star_fading"]);
+      star->deactivate_components();
+      set_star_count(get_star_count() + 1);
+      if(get_star_count() == 3 && girl_hp < 90){
+        set_star_count(0);
+      }
     }
   }
 }

@@ -28,9 +28,25 @@ engine::GameObject* GameObjectFactory::fabricate(
       return fabricate_background(name, coordinates, priority);
     case(GameObjectFactory::SELECT_ARROW):
       return fabricate_select_arrow();
+    case(GameObjectFactory::HUD_FOX):
+      return fabricate_hud_fox(name, coordinates, priority);
+    case(GameObjectFactory::HUD_GIRL):
+      return fabricate_hud_girl(name, coordinates, priority);
     default:
       return NULL;
   }
+}
+
+engine::GameObject* GameObjectFactory::fabricate_hud_fox(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* hud_fox = new HudFox(name, position, priority);
+  return hud_fox;
+}
+
+engine::GameObject* GameObjectFactory::fabricate_hud_girl(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* hud_girl = new HudFox(name, position, priority);
+  return hud_girl;
 }
 
 engine::GameObject* GameObjectFactory::fabricate_footer(){

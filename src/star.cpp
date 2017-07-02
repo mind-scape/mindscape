@@ -39,7 +39,7 @@ void Star::initialize_animations(){
 
   engine::Animation* star_fading = create_animation(
     "../assets/images/sprites/items/star/star_caught.png",
-    1, 5, 2.0, "LEFT"
+    1, 5, 0.5, "LEFT"
   );
 
   star_fading->in_loop = false;
