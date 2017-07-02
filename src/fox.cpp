@@ -50,6 +50,10 @@ void Fox::notify(engine::Observable *game_object){
   if(little_girl){
     move(little_girl);
     girl_hp = little_girl->get_hp();
+    if(must_give_hp_to_girl){
+      little_girl->set_hp(little_girl->get_hp()+30);
+      must_give_hp_to_girl = false;
+    }
   }
 }
 
@@ -219,6 +223,7 @@ void Fox::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, e
       set_star_count(get_star_count() + 1);
       if(get_star_count() == 3 && girl_hp < 90){
         set_star_count(0);
+        must_give_hp_to_girl = true;
       }
     }
   }
