@@ -12,7 +12,8 @@ Scorpion::Scorpion(
   :Enemy(
     name,
     position,
-    priority
+    priority,
+    100
   ){
     initialize_state_map();
     initialize_hitboxes();
@@ -52,6 +53,16 @@ void Scorpion::initialize_animations(){
       "../assets/images/sprites/enemies/scorpion/scorpion_attacking_right.png",
       1, 5, 0.7, "RIGHT"
     );
+    
+    engine::Animation* on_attack_left_animation = create_animation(
+      "../assets/images/sprites/enemies/scorpion/scorpion_on_attack_left.png",
+      1, 2, 0.8, "LEFT"
+    );
+    
+    engine::Animation* on_attack_right_animation = create_animation(
+      "../assets/images/sprites/enemies/scorpion/scorpion_on_attack_right.png",
+      1, 2, 0.8, "RIGHT"
+    );
 
     add_animation("walking_left_animation", walking_left_animation);
     add_animation("walking_right_animation", walking_right_animation);
@@ -59,6 +70,8 @@ void Scorpion::initialize_animations(){
     add_animation("idle_right_animation", idle_right_animation);
     add_animation("attacking_left_animation", attacking_left_animation);
     add_animation("attacking_right_animation", attacking_right_animation);
+    add_animation("on_attack_left_animation", on_attack_left_animation);
+    add_animation("on_attack_right_animation", on_attack_right_animation);
     idle_right_animation->activate();
     set_actual_animation(idle_right_animation);
 
@@ -155,6 +168,16 @@ void Scorpion::attack(){
   }
 }
 
+void Scorpion::on_attack(){
+  states.set_state("ACTION_STATE","ON_ATTACK");
+  std::string actual_x_state = get_state("X_STATE");
+  if(actual_x_state == "LOOKING_LEFT"){
+    set_actual_animation(animations["on_attack_left_animation"]);
+  }else if(actual_x_state == "LOOKING_RIGHT"){
+    set_actual_animation(animations["on_attack_right_animation"]);
+  }
+}
+
 // TODO: the movements are stopped when too close. In that time, scorpion must attack.
 void Scorpion::move(engine::GameObject* girl){
   float scorpion_position = get_position_x();
@@ -210,7 +233,10 @@ void Scorpion::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitb
   if(get_speed_y() >= 0 && platform && my_hitbox->get_name() == "scorpion_hitbox"){
     set_speed_y(0.0);
     set_position_y(other_hitbox->get_coordinates().second - 312);
-  }else if(p_my_hitbox->get_name() == "scorpion_attack" && little_girl && get_state("FIGHT_STATE") == "ATTACKING"){
-    little_girl->set_hp(little_girl->get_hp()-30);
+  }if(little_girl && 
+           little_girl->get_state("ACTION_STATE") == "ATTACKING" &&
+           my_hitbox->get_name() == "scorpion_attack" &&
+           little_girl){
+    on_attack();
   }
 }

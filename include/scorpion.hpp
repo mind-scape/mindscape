@@ -21,6 +21,8 @@ namespace mindscape {
       void initialize_hitboxes();
       void initialize_animations();
       void initialize_as_physicable();
+      void on_attack();
+      void attack();
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
@@ -37,7 +39,6 @@ namespace mindscape {
       );
       ~Scorpion(){};
 
-      void attack();
       void move(engine::GameObject *);
       void on_event(GameEvent);
       void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);

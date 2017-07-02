@@ -83,12 +83,12 @@ void LittleGirl::initialize_animations(){
 
   engine::Animation* attacking_right_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_attacking_right.png",
-      1, 5, 0.6, "RIGHT"
+      1, 5, 0.3, "RIGHT"
       );
 
   engine::Animation* attacking_left_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_attacking_left.png",
-      1, 5, 0.6, "LEFT"
+      1, 5, 0.3, "LEFT"
       );
 
   engine::Animation* on_attack_right_animation = create_animation(
@@ -165,10 +165,12 @@ void LittleGirl::on_collision(
     set_speed_y(0.0);
     set_position_y(other_hitbox->get_coordinates().second - 180);
   }
-  if(scorpion && scorpion->get_state("ACTION_STATE") == "ATTACKING" && scorpion->get_actual_animation()->actual_column == 3){
+  if(scorpion &&
+     scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
+     other_hitbox->get_name() == "scorpion_attack" &&
+     scorpion->get_actual_animation()->actual_column == 1){
       on_attack();
   }
-
 }
 
 void LittleGirl::on_event(GameEvent game_event){
