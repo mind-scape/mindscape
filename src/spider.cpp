@@ -12,7 +12,8 @@ Spider::Spider(
   :Enemy(
     name,
     position,
-    priority
+    priority,
+    100
   ){
     initialize_state_map();
     initialize_hitboxes();
@@ -41,10 +42,34 @@ void Spider::initialize_animations(){
       1, 2, 0.9, "RIGHT"
     );
 
+    engine::Animation* on_attack_left_animation = create_animation(
+      "../assets/images/sprites/enemies/spider/spider_on_attack_left.png",
+      1, 2, 0.5, "LEFT"
+    );
+
+    engine::Animation* on_attack_right_animation = create_animation(
+      "../assets/images/sprites/enemies/spider/spider_on_attack_right.png",
+      1, 2, 0.5, "RIGHT"
+    );
+    
+    engine::Animation* dying_left_animation = create_animation(
+      "../assets/images/sprites/enemies/spider/spider_dying_left.png",
+      1, 2, 0.5, "LEFT"
+    );
+
+    engine::Animation* dying_right_animation = create_animation(
+      "../assets/images/sprites/enemies/spider/spider_dying_right.png",
+      1, 2, 0.5, "RIGHT"
+    );
+
     add_animation("walking_left_animation", walking_left_animation);
     add_animation("walking_right_animation", walking_right_animation);
     add_animation("idle_left_animation", idle_left_animation);
     add_animation("idle_right_animation", idle_right_animation);
+    add_animation("on_attack_left_animation", on_attack_left_animation);
+    add_animation("on_attack_right_animation", on_attack_right_animation);
+    add_animation("dying_left_animation", dying_left_animation);
+    add_animation("dying_right_animation", dying_right_animation);
     idle_left_animation->activate();
     set_actual_animation(idle_left_animation);
 }
@@ -139,6 +164,12 @@ void Spider::move(engine::GameObject* girl){
   float girl_position = girl->get_position_x();
   int distance_from_girl;
 
+  if(get_actual_animation()->is_finished){
+    states.set_state("ACTION_STATE","NORMAL");
+  }
+
+  if(get_state("ACTION_STATE") == "ON_ATTTACK") return;
+
   //little_girl on left
   if(spider_position > girl_position){
     states.set_state("X_STATE","LOOKING_LEFT");
@@ -171,16 +202,35 @@ void Spider::move(engine::GameObject* girl){
   }
 }
 
+void Spider::on_attack(){
+  states.set_state("ACTION_STATE","ON_ATTACK");
+  std::string actual_x_state = get_state("X_STATE");
+
+  update_HP(-35);
+  int actual_HP = get_HP();
+
+  if(actual_x_state == "LOOKING_LEFT"){
+    set_actual_animation(animations["on_attack_left_animation"]);
+  }else if(actual_x_state == "LOOKING_RIGHT"){
+    set_actual_animation(animations["on_attack_right_animation"]);
+  }
+} 
+
 void Spider::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox){
-  Platform* p = dynamic_cast<Platform *>(other);
-  LittleGirl* l = dynamic_cast<LittleGirl *>(other);
+  Platform* platform = dynamic_cast<Platform *>(other);
+  LittleGirl* little_girl = dynamic_cast<LittleGirl *>(other);
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
-  if(get_speed_y() >= 0 && p && my_hitbox->get_name() == "spider_hitbox"){
+  if(get_speed_y() >= 0 && platform && my_hitbox->get_name() == "spider_hitbox"){
     set_speed(std::make_pair(get_speed_x(), 0.0));
     set_position(std::make_pair(get_position().first, other_hitbox->get_coordinates().second - 280));
-  }else if(p_my_hitbox->get_name() == "spider_attack" && l && get_state("FIGHT_STATE") == "ATTACKING"){
-    l->set_hp(l->get_hp()-30);
+  }
+  if(little_girl && 
+      little_girl->get_state("ACTION_STATE") == "ATTACKING" &&
+      my_hitbox->get_name() == "spider_attack" &&
+      little_girl->get_actual_animation()->actual_column == 2){
+        if(get_state("ACTION_STATE") == "ON_ATTACK") return;
+        else on_attack();
   }
 }

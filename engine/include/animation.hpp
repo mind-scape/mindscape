@@ -25,7 +25,6 @@ namespace engine{
       int first_sprite;
       int final_sprite;
       int total_sprites;
-      int actual_sprite;
       int time_of_sprite;
       int playing_duration_of_animation = 0;
       int duration_of_animation;
@@ -77,8 +76,10 @@ namespace engine{
 
       int actual_line;
       int actual_column;
+      int actual_sprite;
       bool in_loop;
       bool is_finished;
+      bool is_a_final_animation = false;
       bool load();
       bool set_frame_time();
       void set_game_object(GameObject*);

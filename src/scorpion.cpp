@@ -68,11 +68,13 @@ void Scorpion::initialize_animations(){
       "../assets/images/sprites/enemies/scorpion/scorpion_dying_left.png",
       1, 5, 0.8, "LEFT"
     );
+    dying_left_animation->is_a_final_animation = true;
     
     engine::Animation* dying_right_animation = create_animation(
       "../assets/images/sprites/enemies/scorpion/scorpion_dying_right.png",
       1, 5, 0.8, "RIGHT"
     );
+    dying_right_animation->is_a_final_animation = true;
 
     add_animation("walking_left_animation", walking_left_animation);
     add_animation("walking_right_animation", walking_right_animation);
@@ -181,7 +183,7 @@ void Scorpion::attack(){
 }
 
 void Scorpion::on_attack(){
-  std::cout << "CHEGOOU AKIIII E A PARADA EH " << get_state("ACTION_STATE");
+  //std::cout << "CHEGOOU AKIIII E A PARADA EH " << get_state("ACTION_STATE");
   states.set_state("ACTION_STATE","ON_ATTACK");
 
   std::string actual_x_state = get_state("X_STATE");
@@ -263,10 +265,11 @@ void Scorpion::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitb
   if(get_speed_y() >= 0 && platform && my_hitbox->get_name() == "scorpion_hitbox"){
     set_speed_y(0.0);
     set_position_y(other_hitbox->get_coordinates().second - 312);
-  }if(little_girl && 
-      little_girl->get_state("ACTION_STATE") == "ATTACKING" &&
-      my_hitbox->get_name() == "scorpion_attack" &&
-      little_girl->get_actual_animation()->actual_column == 2){
+  }
+  if(little_girl && 
+     little_girl->get_state("ACTION_STATE") == "ATTACKING" &&
+     my_hitbox->get_name() == "scorpion_attack" &&
+     little_girl->get_actual_animation()->actual_column == 2){
         if(get_state("ACTION_STATE") == "ON_ATTACK") return;
         else on_attack();
   }

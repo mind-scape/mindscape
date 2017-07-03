@@ -41,6 +41,7 @@ void Star::initialize_animations(){
     "../assets/images/sprites/items/star/star_caught.png",
     1, 5, 0.5, "LEFT"
   );
+  star_fading->is_a_final_animation = true;
 
   star_fading->in_loop = false;
   star_fading->set_name("omelete");

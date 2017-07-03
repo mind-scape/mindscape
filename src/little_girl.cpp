@@ -83,14 +83,16 @@ void LittleGirl::initialize_animations(){
 
   engine::Animation* attacking_right_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_attacking_right.png",
-      1, 5, 0.3, "RIGHT"
+      1, 5, 0.5, "RIGHT"
       );
+  attacking_right_animation->in_loop = false;
 
   engine::Animation* attacking_left_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_attacking_left.png",
-      1, 5, 0.3, "LEFT"
+      1, 5, 0.5, "LEFT"
       );
-
+  attacking_left_animation->in_loop = false;
+  
   engine::Animation* on_attack_right_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
       1, 3, 0.8, "RIGHT"
@@ -107,8 +109,8 @@ void LittleGirl::initialize_animations(){
   add_animation("idle_left_animation",idle_left_animation);
   add_animation("jumping_right_animation",jumping_right_animation);
   add_animation("jumping_left_animation",jumping_left_animation);
-  add_animation("attacking_right_animation",attacking_right_animation);
-  add_animation("attacking_left_animation",attacking_left_animation);
+  add_animation("omelete1",attacking_right_animation);
+  add_animation("omelete2",attacking_left_animation);
   add_animation("on_attack_right_animation",on_attack_right_animation);
   add_animation("on_attack_left_animation",on_attack_left_animation);
   idle_right_animation->activate();
@@ -257,9 +259,9 @@ void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state
 void LittleGirl::attack(std::string actual_x_state){
   states.set_state("ACTION_STATE","ATTACKING");
   if(actual_x_state == "LOOKING_RIGHT"){
-    set_actual_animation(animations["attacking_right_animation"]);
+    set_actual_animation(animations["omelete1"]);
   }else if(actual_x_state == "LOOKING_LEFT"){
-    set_actual_animation(animations["attacking_left_animation"]);
+    set_actual_animation(animations["omelete2"]);
   }
 }
 
@@ -275,6 +277,11 @@ void LittleGirl::on_attack(){
 
 void LittleGirl::update_state(){
   //Should be implemented
+  if(get_actual_animation() == animations["omelete1"] || get_actual_animation() == animations["omelete2"]){
+    std::cout << "SPRITE " << get_actual_animation()->actual_sprite << std::endl;
+    std::cout << "COLUMN " << get_actual_animation()->actual_column << std::endl;
+  }
+
   engine::Animation* actual_animation = get_actual_animation();
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");
@@ -283,6 +290,8 @@ void LittleGirl::update_state(){
   if(actual_action_state == "ATTACKING" || actual_action_state == "ON_ATTACK"){
     if(get_actual_animation()->is_finished){
       states.set_state("ACTION_STATE","NORMAL");
+    }else{
+       return;
     }
   }
 
