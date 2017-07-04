@@ -25,6 +25,7 @@ namespace mindscape {
       int running_left_animation_count = 0;
       int omelete = 0;
       int girl_hp;
+      bool animation_hud_fading = false;
       bool must_give_hp_to_girl = false;
 
       void initialize_state_map();
@@ -56,6 +57,8 @@ namespace mindscape {
       void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
       void on_event(GameEvent game_event);
       void update_state();
+      bool get_animation_hud_fading();
+      void set_animation_hud_fading(bool);
   };
 }
 

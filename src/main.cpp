@@ -55,6 +55,7 @@ int main(int,char**){
   GameObject* star3 = new mindscape::Star("star3", std::make_pair(800, 520), 20);
   GameObject* star4 = new mindscape::Star("star4", std::make_pair(850, 520), 20);
   GameObject* star5 = new mindscape::Star("star5", std::make_pair(900, 520), 20);
+  GameObject* star6 = new mindscape::Star("star6", std::make_pair(950, 520), 20);
 
   mindscape::LevelFactory *level_factory = new mindscape::LevelFactory();
   Level* level1 = level_factory->fabricate_level("data/1.level.dat");
@@ -70,6 +71,8 @@ int main(int,char**){
   level1->activate_game_object(star4);
   level1->add_object(star5);
   level1->activate_game_object(star5);
+  level1->add_object(star6);
+  level1->activate_game_object(star6);
   //level1->activate_game_object(fox);
   /********************************************************************************/
 

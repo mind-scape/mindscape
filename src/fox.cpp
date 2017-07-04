@@ -47,33 +47,34 @@ void Fox::initialize_state_map(){
 
 void Fox::notify(engine::Observable *game_object){
   LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
-for(int i = 10; i > 0; i--){
-  std::cout << "Y LittleGirl: " << little_girl->get_position_y() << std::endl;
-  std::cout << "X LittleGirl: " << little_girl->get_position_x() << std::endl;
-  std::cout << "Raposa Y State: " << get_state("Y_STATE") << std::endl;
-  std::cout << "Raposa X State: " << get_state("X_STATE") << std::endl;
-  std::cout << "Y Raposa: " << get_position_y() << std::endl;
-  std::cout << "Speed Y Raposa: " << get_speed_y() << std::endl;
-  std::cout << "X Raposa: " << get_position_x() << std::endl;
-  std::cout << "Speed X Raposa: " << get_speed_x() << std::endl;
+  for(int i = 10; i > 0; i--){
+    // std::cout << "Y LittleGirl: " << little_girl->get_position_y() << std::endl;
+    // std::cout << "X LittleGirl: " << little_girl->get_position_x() << std::endl;
+    // std::cout << "Raposa Y State: " << get_state("Y_STATE") << std::endl;
+    // std::cout << "Raposa X State: " << get_state("X_STATE") << std::endl;
+    // std::cout << "Y Raposa: " << get_position_y() << std::endl;
+    // std::cout << "Speed Y Raposa: " << get_speed_y() << std::endl;
+    // std::cout << "X Raposa: " << get_position_x() << std::endl;
+    // std::cout << "Speed X Raposa: " << get_speed_x() << std::endl;
 
-}
-  if(little_girl && little_girl->get_position_y() + 70 == get_position_y()){
-for(int i = 3; i > 0; i--){
-  std::cout << "MOVEUUUU" << std::endl;
-}
-    move(little_girl);
+  }
+  if(little_girl){
     girl_hp = little_girl->get_hp();
     if(must_give_hp_to_girl){
-      little_girl->set_hp(little_girl->get_hp()+30);
+      if(get_hp()+30 > 90){
+        little_girl->set_hp(90);
+      }else{
+        little_girl->set_hp(little_girl->get_hp()+30);
+      }
       must_give_hp_to_girl = false;
+      animation_hud_fading = true;
     }
-  }else if(little_girl && little_girl->get_position_y() + 70 != get_position_y() &&
-    little_girl->get_state("Y_STATE") == "ON_GROUND" && get_state("Y_STATE") == "ON_GROUND"){
-for(int i = 3; i > 0; i--){
-  std::cout << "PULOUUUUU" << std::endl;
-}
-    jump(little_girl);
+    if(little_girl->get_position_y() + 70 == get_position_y()){
+      move(little_girl);
+    }else if(little_girl && little_girl->get_position_y() + 70 != get_position_y() &&
+      little_girl->get_state("Y_STATE") == "ON_GROUND" && get_state("Y_STATE") == "ON_GROUND"){
+      jump(little_girl);
+    }
   }
 }
 
@@ -235,7 +236,7 @@ void Fox::follow_jump(GameObject *little_girl){
 }
 
 float Fox::calculate_vy_jump(float final_y, float gravity, float jump_time){
-  float initial_y = (float) get_position_y();  
+  float initial_y = (float) get_position_y();
   float throw_speed_y;
   float delta_y = final_y - initial_y;
   throw_speed_y = ((gravity*jump_time/2.0) + (delta_y/jump_time));
@@ -272,11 +273,18 @@ void Fox::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, e
       star->deactivate_components();
       set_star_count(get_star_count() + 1);
       if(get_star_count() == 3 && girl_hp < 90){
-        set_star_count(0);
         must_give_hp_to_girl = true;
       }
     }
   }
+}
+
+bool Fox::get_animation_hud_fading(){
+  return animation_hud_fading;
+}
+
+void Fox::set_animation_hud_fading(bool bol){
+  animation_hud_fading = bol;
 }
 
 int Fox::get_star_count(){
