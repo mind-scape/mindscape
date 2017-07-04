@@ -27,6 +27,7 @@ namespace engine {
 
       void operator=(Physics const&) = delete;
       void add_physicable(GameObject *);
+      float get_gravity();
       void act();
   };
 }

@@ -41,19 +41,39 @@ void Fox::initialize_hitboxes(){
 
 void Fox::initialize_state_map(){
   states.set_state("X_STATE","LOOKING_RIGHT");
-  states.set_state("Y_STATE","ON_GROUND");
+  states.set_state("Y_STATE","FALLING");
   states.set_state("ACTION_STATE","STOPPED");
 }
 
 void Fox::notify(engine::Observable *game_object){
   LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
-  if(little_girl){
+for(int i = 10; i > 0; i--){
+  std::cout << "Y LittleGirl: " << little_girl->get_position_y() << std::endl;
+  std::cout << "X LittleGirl: " << little_girl->get_position_x() << std::endl;
+  std::cout << "Raposa Y State: " << get_state("Y_STATE") << std::endl;
+  std::cout << "Raposa X State: " << get_state("X_STATE") << std::endl;
+  std::cout << "Y Raposa: " << get_position_y() << std::endl;
+  std::cout << "Speed Y Raposa: " << get_speed_y() << std::endl;
+  std::cout << "X Raposa: " << get_position_x() << std::endl;
+  std::cout << "Speed X Raposa: " << get_speed_x() << std::endl;
+
+}
+  if(little_girl && little_girl->get_position_y() + 70 == get_position_y()){
+for(int i = 3; i > 0; i--){
+  std::cout << "MOVEUUUU" << std::endl;
+}
     move(little_girl);
     girl_hp = little_girl->get_hp();
     if(must_give_hp_to_girl){
       little_girl->set_hp(little_girl->get_hp()+30);
       must_give_hp_to_girl = false;
     }
+  }else if(little_girl && little_girl->get_position_y() + 70 != get_position_y() &&
+    little_girl->get_state("Y_STATE") == "ON_GROUND" && get_state("Y_STATE") == "ON_GROUND"){
+for(int i = 3; i > 0; i--){
+  std::cout << "PULOUUUUU" << std::endl;
+}
+    jump(little_girl);
   }
 }
 
@@ -156,54 +176,84 @@ void Fox::move(engine::GameObject* girl){
   float girl_position = girl->get_position_x();
   int distance_from_girl;
 
-  //little_girl on left
   if(fox_position > girl_position){
-    //little_girl far from spider
     states.set_state("X_STATE","LOOKING_LEFT");
     distance_from_girl = fox_position - girl_position;
 
     if(distance_from_girl <= 200){
       set_actual_animation(animations["idle_left_animation"]);
+      set_speed_x(0);
     }else if(distance_from_girl > 200 && distance_from_girl <= 400){
       set_actual_animation(animations["running_left_animation"]);
-      set_position_x(get_position_x() - 3);
+      set_speed_x(-3);
     }else if(distance_from_girl > 400){
       set_actual_animation(animations["running_left_animation"]);
-      set_position_x(get_position_x() - 5);
+      set_speed_x(-5);
     }
-    //little_girl on right
   }else{
-    //little_girl far from spider
     states.set_state("X_STATE","LOOKING_RIGHT");
     distance_from_girl = girl_position - fox_position;
 
     if(distance_from_girl <= 100){
       set_actual_animation(animations["idle_right_animation"]);
+      set_speed_x(0);
     }
     else if(distance_from_girl > 100 && distance_from_girl <= 350){
       set_actual_animation(animations["running_right_animation"]);
-      set_position_x(get_position_x() + 3);
+      set_speed_x(3);
     }else if(distance_from_girl > 350){
       set_actual_animation(animations["running_right_animation"]);
-      set_position_x(get_position_x() + 5);
+      set_speed_x(5);
     }
   }
 }
 
-void Fox::update_state(){
-  /*
-  engine::Animation* actual_animation = get_actual_animation();
-  std::string actual_x_state = states.get_state("X_STATE");
-  std::string actual_y_state = states.get_state("Y_STATE");
-  std::string actual_action_state = states.get_state("ACTION_STATE");
-
-  if(get_speed_x() == 0.0 && get_speed_y() == 0.0 && actual_action_state == "NORMAL"){
-    if(actual_x_state == "LOOKING_RIGHT"){
-      set_actual_animation(animations["idle_right_animation"]);
-    }else if(actual_x_state == "LOOKING_LEFT"){
-      set_actual_animation(animations["idle_left_animation"]);
+void Fox::jump(GameObject *little_girl){
+  if(get_state("Y_STATE") != "JUMPING" && get_state("Y_STATE") != "FALLING"){
+    states.set_state("Y_STATE", "JUMPING");
+    follow_jump(little_girl);
+  }else{
+    if(get_position_x() > little_girl->get_position_x()){ //girl on left
+      states.set_state("X_STATE","LOOKING_LEFT");
+    }else{ //girl on right
+      states.set_state("X_STATE","LOOKING_RIGHT");
     }
-  */
+  }
+
+}
+
+void Fox::follow_jump(GameObject *little_girl){
+  engine::Physics *physics = engine::Physics::get_instance();
+  float gravity = physics->get_gravity();
+  float number_of_sprites = 11.755; //time
+  float final_y = little_girl->get_position_y();
+  float final_x = little_girl->get_position_x();
+  float throw_speed_y = calculate_vy_jump(final_y, gravity, number_of_sprites);
+  float throw_speed_x = calculate_vx_jump(final_x, gravity, number_of_sprites);
+  set_speed_y(throw_speed_y);
+  set_speed_x(throw_speed_x);
+}
+
+float Fox::calculate_vy_jump(float final_y, float gravity, float jump_time){
+  float initial_y = (float) get_position_y();  
+  float throw_speed_y;
+  float delta_y = final_y - initial_y;
+  throw_speed_y = ((gravity*jump_time/2.0) + (delta_y/jump_time));
+  return throw_speed_y;
+}
+
+float Fox::calculate_vx_jump(float final_x, float gravity, float jump_time){
+  float throw_speed_x;
+  float initial_x = (float) get_position_x();
+  float delta_x = final_x - initial_x;
+  throw_speed_x = delta_x/(jump_time*2);
+  return throw_speed_x;
+}
+
+void Fox::update_state(){
+  if(get_speed_y() == 0.0){
+    states.set_state("Y_STATE","ON_GROUND");
+  }
 }
 
 
@@ -214,8 +264,8 @@ void Fox::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, e
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
   if(get_speed_y() >= 0 && platform){
-    set_speed(std::make_pair(get_speed_x(), 0.0));
-    set_position(std::make_pair(get_position().first, other_hitbox->get_coordinates().second - 110));
+    set_speed_y(0.0);
+    set_position_y(other_hitbox->get_coordinates().second - 110);
   }else if(star){
     if(get_star_count() != 3){
       star->set_actual_animation(star->animations["star_fading"]);

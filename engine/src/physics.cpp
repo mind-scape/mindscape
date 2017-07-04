@@ -56,3 +56,7 @@ void Physics::act(){
     }
   }
 }
+
+float Physics::get_gravity(){
+  return gravity;
+}

@@ -33,7 +33,7 @@ LittleGirl::LittleGirl(
 
 void LittleGirl::initialize_state_map(){
   states.set_state("X_STATE","LOOKING_RIGHT");
-  states.set_state("Y_STATE","ON_GROUND");
+  states.set_state("Y_STATE","FALLING");
   states.set_state("ACTION_STATE","NORMAL");
 }
 
@@ -171,7 +171,7 @@ void LittleGirl::on_collision(
      scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
      other_hitbox->get_name() == "scorpion_attack" &&
      scorpion->get_actual_animation()->actual_column == 1){
-      on_attack();
+    on_attack();
   }
 }
 
@@ -230,7 +230,7 @@ void LittleGirl::move_right(std::string actual_x_state,std::string actual_y_stat
     states.set_state("X_STATE","LOOKING_RIGHT");
     set_actual_animation(animations["running_right_animation"]);
 
-    set_speed_x(0.000000000001);
+    set_speed_x(0.1);
   }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_LEFT"){
     states.set_state("X_STATE","LOOKING_RIGHT");
     set_actual_animation(animations["jumping_right_animation"]);
@@ -249,7 +249,7 @@ void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state
     states.set_state("X_STATE","LOOKING_LEFT");
     set_actual_animation(animations["running_left_animation"]);
 
-    set_speed_x(0.000000000001);
+    set_speed_x(-0.1);
   }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_RIGHT"){
     states.set_state("X_STATE","LOOKING_LEFT");
     set_actual_animation(animations["jumping_left_animation"]);
@@ -307,5 +307,6 @@ void LittleGirl::update_state(){
     states.set_state("Y_STATE","ON_GROUND");
   }
 
+  set_position_x(get_position_x() + get_speed_x());
   set_speed_x(0.0);
 }

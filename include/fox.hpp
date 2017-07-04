@@ -31,11 +31,14 @@ namespace mindscape {
       void initialize_hitboxes();
       void initialize_animations();
       void initialize_as_physicable();
-      void jump();
+      void jump(GameObject *);
       void move_left();
       void move_right();
       void notify(engine::Observable*);
       void move(engine::GameObject*);
+      void  follow_jump(GameObject *);
+      float calculate_vx_jump(float, float, float);
+      float calculate_vy_jump(float, float, float);
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
