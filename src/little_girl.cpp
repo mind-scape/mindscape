@@ -28,6 +28,7 @@ LittleGirl::LittleGirl(
     initialize_state_map();
     initialize_hitboxes();
     initialize_animations();
+    initialize_audio_effects();
     initialize_as_physicable();
 };
 
@@ -48,6 +49,12 @@ void LittleGirl::initialize_hitboxes(){
       );
 
   add_component(hitbox);
+}
+
+void LittleGirl::initialize_audio_effects(){
+
+  engine::Audio * little_girl_steps = new engine::Audio("../assets/audios/effects_songs/menina_passos.wav", engine::Audio::MUSIC);
+  add_component(little_girl_steps);
 }
 
 void LittleGirl::initialize_animations(){
@@ -92,7 +99,7 @@ void LittleGirl::initialize_animations(){
       1, 5, 0.5, "LEFT"
       );
   attacking_left_animation->in_loop = false;
-  
+
   engine::Animation* on_attack_right_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
       1, 3, 0.8, "RIGHT"
@@ -176,6 +183,10 @@ void LittleGirl::on_collision(
 }
 
 void LittleGirl::on_event(GameEvent game_event){
+
+  engine::Audio* little_girl_steps = dynamic_cast<engine::Audio *>(audios[0]);
+
+
   std::string event_name = game_event.game_event_name;
 
   engine::Animation* actual_animation = get_actual_animation();
@@ -184,6 +195,7 @@ void LittleGirl::on_event(GameEvent game_event){
   std::string actual_action_state = states.get_state("ACTION_STATE");
 
   if(event_name == "JUMP" && actual_y_state != "JUMPING"){
+    little_girl_steps->play_music();
     jump(actual_x_state);
   }else if(event_name == "MOVE_LEFT"){
     move_left(actual_x_state,actual_y_state);

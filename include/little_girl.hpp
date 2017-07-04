@@ -29,6 +29,7 @@ namespace mindscape {
       void initialize_state_map();
       void initialize_hitboxes();
       void initialize_animations();
+      void initialize_audio_effects();
       void initialize_as_physicable();
       void jump(std::string);
       void move_right(std::string,std::string);
