@@ -61,9 +61,9 @@ void GameObject::free(){
 }
 
 void GameObject::draw(){
-  for(auto audio : audios){
-    audio->draw(position.first, position.second);
-  }
+  // for(auto audio : audios){
+  //   audio->draw(position.first, position.second);
+  // }
   for(auto text : texts){
     text->draw(position.first, position.second);
   }

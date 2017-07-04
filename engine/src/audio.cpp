@@ -35,30 +35,27 @@ void Audio::free(){
   audio_chunk = NULL;
 }
 
-void Audio::draw(int x, int y){
-  if(m_audio_type == MUSIC && !Mix_PlayingMusic()){
-    play_music();
-  } else {
-    Mix_ResumeMusic();
-  }
-
-  if(m_audio_type == CHUNK){
-    play_chunk();
-  }
-}
-
 void Audio::play_chunk(){
   Mix_PlayChannel( audio_chanel, audio_chunk, audio_repeat);
 }
 
 void Audio::play_music(){
-  Mix_PlayMusic(audio_music, -1 );
+  if( Mix_PlayingMusic() == 0 )
+    {
+      //Play the music
+      Mix_PlayMusic(audio_music, -1 );
+    }
+    if(Mix_PlayingMusic() == 1){
+      Mix_ResumeMusic();
+    }
 }
 
 void Audio::pause_music(){
   if(m_audio_type == MUSIC && Mix_PlayingMusic()){
     Mix_PauseMusic();
-  } else {
-    Mix_ResumeMusic();
   }
+}
+
+void Audio::set_repetitions(int repeat){
+  audio_repeat = repeat;
 }

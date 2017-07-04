@@ -186,7 +186,6 @@ void LittleGirl::on_event(GameEvent game_event){
 
   engine::Audio* little_girl_steps = dynamic_cast<engine::Audio *>(audios[0]);
 
-
   std::string event_name = game_event.game_event_name;
 
   engine::Animation* actual_animation = get_actual_animation();
@@ -195,12 +194,14 @@ void LittleGirl::on_event(GameEvent game_event){
   std::string actual_action_state = states.get_state("ACTION_STATE");
 
   if(event_name == "JUMP" && actual_y_state != "JUMPING"){
-    little_girl_steps->play_music();
+    little_girl_steps->pause_music();
     jump(actual_x_state);
   }else if(event_name == "MOVE_LEFT"){
     move_left(actual_x_state,actual_y_state);
+    little_girl_steps->play_music();
   }else if(event_name == "MOVE_RIGHT"){
     move_right(actual_x_state,actual_y_state);
+    little_girl_steps->play_music();
   }else if(event_name == "ATTACK" && actual_action_state != "ATTACKING"){
     attack(actual_x_state);
   }

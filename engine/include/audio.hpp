@@ -40,7 +40,7 @@ namespace engine{
 
     bool load();
     void free();
-    void draw(int x, int y);
+    void set_repetitions(int repeat);
     void play_chunk();
     void play_music();
     void pause_music();
