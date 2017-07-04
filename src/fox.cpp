@@ -60,6 +60,11 @@ void Fox::notify(engine::Observable *game_object){
   }
   if(little_girl){
     girl_hp = little_girl->get_hp();
+    std::cout << "VIDA GIRL: " << girl_hp << std::endl;
+    std::cout << "QUANTAS ESTRELAS TEM: " << get_star_count() << std::endl;
+    if(girl_hp < 90 && get_star_count() == 3){
+      must_give_hp_to_girl = true;
+    }
     if(must_give_hp_to_girl){
       if(get_hp()+30 > 90){
         little_girl->set_hp(90);
@@ -272,9 +277,9 @@ void Fox::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, e
       star->set_actual_animation(star->animations["star_fading"]);
       star->deactivate_components();
       set_star_count(get_star_count() + 1);
-      if(get_star_count() == 3 && girl_hp < 90){
-        must_give_hp_to_girl = true;
-      }
+      // if(get_star_count() == 3 && girl_hp < 90){
+      //   must_give_hp_to_girl = true;
+      // }
     }
   }
 }

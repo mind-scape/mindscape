@@ -172,6 +172,7 @@ void LittleGirl::on_collision(
      other_hitbox->get_name() == "scorpion_attack" &&
      scorpion->get_actual_animation()->actual_column == 1){
     on_attack();
+    set_hp(get_hp()-1);
   }
 }
 

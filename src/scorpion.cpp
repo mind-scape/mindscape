@@ -33,32 +33,32 @@ void Scorpion::initialize_animations(){
       "../assets/images/sprites/enemies/scorpion/scorpion_walking_right.png",
       1, 5, 0.9, "RIGHT"
     );
-    
+
     engine::Animation* idle_left_animation = create_animation(
       "../assets/images/sprites/enemies/scorpion/scorpion_idle_left.png",
       1, 2, 0.9, "LEFT"
     );
-    
+
     engine::Animation* idle_right_animation = create_animation(
       "../assets/images/sprites/enemies/scorpion/scorpion_idle_right.png",
       1, 2, 0.9, "RIGHT"
     );
-    
+
     engine::Animation* attacking_left_animation = create_animation(
       "../assets/images/sprites/enemies/scorpion/scorpion_attacking_left.png",
       1, 5, 0.7, "LEFT"
     );
-    
+
     engine::Animation* attacking_right_animation = create_animation(
       "../assets/images/sprites/enemies/scorpion/scorpion_attacking_right.png",
       1, 5, 0.7, "RIGHT"
     );
-    
+
     engine::Animation* on_attack_left_animation = create_animation(
       "../assets/images/sprites/enemies/scorpion/scorpion_on_attack_left.png",
       1, 2, 0.8, "LEFT"
     );
-    
+
     engine::Animation* on_attack_right_animation = create_animation(
       "../assets/images/sprites/enemies/scorpion/scorpion_on_attack_right.png",
       1, 2, 0.8, "RIGHT"
@@ -69,12 +69,14 @@ void Scorpion::initialize_animations(){
       1, 5, 0.8, "LEFT"
     );
     dying_left_animation->is_a_final_animation = true;
-    
+    dying_left_animation->in_loop = false;
+
     engine::Animation* dying_right_animation = create_animation(
       "../assets/images/sprites/enemies/scorpion/scorpion_dying_right.png",
       1, 5, 0.8, "RIGHT"
     );
     dying_right_animation->is_a_final_animation = true;
+    dying_right_animation->in_loop = false;
 
     add_animation("walking_left_animation", walking_left_animation);
     add_animation("walking_right_animation", walking_right_animation);
@@ -187,25 +189,26 @@ void Scorpion::on_attack(){
   states.set_state("ACTION_STATE","ON_ATTACK");
 
   std::string actual_x_state = get_state("X_STATE");
-  update_HP(-35);
+  update_HP(-5);
 
   int actual_HP = get_HP();
   std::cout << "EU SOU O ESCORPIAO E MEU HP EH " << actual_HP << std::endl;
-
   if(actual_x_state == "LOOKING_LEFT"){
-  //  if(actual_HP > 0){
+   if(actual_HP > 0){
       set_actual_animation(animations["on_attack_left_animation"]);
-  //  }else{
-  //    std::cout << "MORIIIIII " << std::endl; 
-  //  }
+   }else{
+     states.set_state("ACTION_STATE", "DYING");
+     set_actual_animation(animations["dying_left_animation"]);
+   }
   }else if(actual_x_state == "LOOKING_RIGHT"){
-  //  if(actual_HP > 0){
+   if(actual_HP > 0){
       set_actual_animation(animations["on_attack_right_animation"]);
-  //  }else{
-  //    std::cout << "MORIIIIII " << std::endl; 
-   // }
+    }else{
+      states.set_state("ACTION_STATE", "DYING");
+      set_actual_animation(animations["dying_right_animation"]);
+    }
   }
-  
+
 }
 
 // TODO: the movements are stopped when too close. In that time, scorpion must attack.
@@ -214,7 +217,8 @@ void Scorpion::move(engine::GameObject* girl){
   float girl_position = girl->get_position_x();
   int distance_from_girl;
   std::string actual_x_state;
-  
+
+  if(get_state("ACTION_STATE") == "DYING") return;
   if(get_actual_animation()->is_finished){
     states.set_state("ACTION_STATE","NORMAL");
   }
@@ -223,9 +227,9 @@ void Scorpion::move(engine::GameObject* girl){
 
   //little_girl on left
   if(scorpion_position > girl_position){
-    states.set_state("X_STATE","LOOKING_LEFT"); 
+    states.set_state("X_STATE","LOOKING_LEFT");
     distance_from_girl = scorpion_position - girl_position;
-    
+
     if(distance_from_girl > 300){
       set_actual_animation(animations["idle_left_animation"]);
     }else if(distance_from_girl <= 300){
@@ -239,7 +243,7 @@ void Scorpion::move(engine::GameObject* girl){
     }
   //little_girl on right
   }else{
-    states.set_state("X_STATE","LOOKING_RIGHT"); 
+    states.set_state("X_STATE","LOOKING_RIGHT");
     distance_from_girl = girl_position - scorpion_position;
 
     if(distance_from_girl > 588){
@@ -266,11 +270,12 @@ void Scorpion::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitb
     set_speed_y(0.0);
     set_position_y(other_hitbox->get_coordinates().second - 312);
   }
-  if(little_girl && 
+  if(little_girl &&
      little_girl->get_state("ACTION_STATE") == "ATTACKING" &&
      my_hitbox->get_name() == "scorpion_attack" &&
      little_girl->get_actual_animation()->actual_column == 2){
         if(get_state("ACTION_STATE") == "ON_ATTACK") return;
-        else on_attack();
+        else
+        on_attack();
   }
 }
