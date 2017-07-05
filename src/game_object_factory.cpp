@@ -31,6 +31,8 @@ engine::GameObject* GameObjectFactory::fabricate(
       return fabricate_hud_fox(name, coordinates, priority);
     case(GameObjectFactory::HUD_GIRL):
       return fabricate_hud_girl(name, coordinates, priority);
+    case(GameObjectFactory::CLOWN):
+      return fabricate_clown(name, coordinates, priority);
     default:
       return NULL;
   }
@@ -142,4 +144,13 @@ void GameObjectFactory::fabricate_image(
   );
 
   game_object->add_component(image);
+}
+
+engine::GameObject* GameObjectFactory::fabricate_clown(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* clown = new Clown(
+    name , position, priority
+  );
+
+  return clown;
 }

@@ -6,6 +6,13 @@ using namespace engine;
 
 bool Animation::load(){
   time_of_sprite = (int) std::ceil(double(duration_of_animation)/double(total_sprites));
+  if(image_path == "../assets/images/sprites/enemies/clown/clown_idle.png"){
+      std::cout << "DEUUUUUU  " << total_sprites << std::endl << "\n\n\n";
+      std::cout << "DEUUUUUU  " << total_sprites << std::endl << "\n\n\n";
+      std::cout << "DEUUUUUU  " << total_sprites << std::endl << "\n\n\n";
+      std::cout << "DEUUUUUU  " << total_sprites << std::endl << "\n\n\n";
+      std::cout << "DEUUUUUU  " << total_sprites << std::endl << "\n\n\n";
+  }
 
   aux_time = 0;
 
@@ -19,12 +26,15 @@ void Animation::activate(){
   if(!in_loop) time->init_timer();
 }
 
-
 void Animation::draw(int x, int y){
   is_finished = false;
   playing_duration_of_animation += time->get_elapsed_time() - aux_time;
   aux_time = time->get_elapsed_time();
-
+  
+  if(image_path != "../assets/images/sprites/enemies/clown/clown_idle.png"){
+//    std::cout << image_path << std::endl;
+//    std::cout << duration_of_animation << "   " << playing_duration_of_animation << std::endl;
+  }
   if(playing_duration_of_animation >= duration_of_animation){
     is_finished = true;
     if(in_loop){
@@ -37,6 +47,11 @@ void Animation::draw(int x, int y){
         playing_duration_of_animation = duration_of_animation;
       }
     }
+  }
+
+  if(time_of_sprite == 0.0){
+    std::cout << "ENTROU COM 000000" << std::endl;
+    time_of_sprite = 1.0;
   }
 
   actual_sprite = (playing_duration_of_animation / time_of_sprite) + first_sprite;

@@ -20,14 +20,10 @@ namespace engine{
       int render_priority;
       GameObject* game_object;
       //Atributos da animação
-      int sprite_columns;
-      int sprite_lines;
       int first_sprite;
       int final_sprite;
-      int total_sprites;
       int time_of_sprite;
       int playing_duration_of_animation = 0;
-      int duration_of_animation;
       //Atributo para o timer;
       Timer * time;
       int aux_time;
@@ -77,9 +73,14 @@ namespace engine{
       int actual_line;
       int actual_column;
       int actual_sprite;
+      int total_sprites;
+      int duration_of_animation;
+      int sprite_columns;
+      int sprite_lines;
       bool in_loop;
       bool is_finished;
       bool is_a_final_animation = false;
+
       bool load();
       bool set_frame_time();
       void set_game_object(GameObject*);

@@ -22,8 +22,6 @@ namespace mindscape {
 
       std::map<std::string, Enemy*> get_boss_parts();
       void set_boss_part(std::string, Enemy*);
-      void draw();
-      void activate();
   };
 
 }

@@ -1,5 +1,5 @@
-#ifndef SCORPION_H
-#define SCORPION_H
+#ifndef CLOWN_H
+#define CLOWN_H
 
 #include "../engine/include/game_object.hpp"
 #include "../engine/include/keyboard_event.hpp"
@@ -13,6 +13,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <map>
 
 namespace mindscape {
   class Clown : public Boss {
@@ -43,6 +44,9 @@ namespace mindscape {
       void on_event(GameEvent);
       void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
       void notify(engine::Observable *);
+      void draw();
+      void activate();
+      void load();
   };
 
 }
