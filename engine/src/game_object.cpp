@@ -64,9 +64,6 @@ void GameObject::draw(){
   for(auto audio : audios){
     audio->draw(position.first, position.second);
   }
-  for(auto text : texts){
-    text->draw(position.first, position.second);
-  }
   for(auto animation : animations){
     if(animation.second->is_active()){
       animation.second->draw(position.first, position.second);
@@ -76,6 +73,9 @@ void GameObject::draw(){
     if(image->is_active()){
       image->draw(position.first, position.second);
     }
+  }
+  for(auto text : texts){
+    text->draw(position.first, position.second);
   }
   for(auto hitbox : hitboxes){
     if(hitbox -> wanna_draw_hitbox()){
