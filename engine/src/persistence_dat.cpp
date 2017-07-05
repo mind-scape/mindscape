@@ -21,7 +21,7 @@ PersistenceMap * PersistenceDat::load(std::string path){
   std::string line;
   std::ifstream save_file;
   
-  save_file.open("../" + path, std::ifstream::in);
+  save_file.open(path, std::ifstream::in);
 
   if (save_file.is_open()){
     while (std::getline(save_file,line)){

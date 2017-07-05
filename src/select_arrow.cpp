@@ -1,6 +1,31 @@
-#include "../include/select_arrow.hpp"
+#include "select_arrow.hpp"
+#include "../engine/include/game.hpp"
 
 using namespace mindscape;
+
+SelectArrow::SelectArrow(
+  std::string name,
+  std::pair<int, int> position,
+  int priority)
+  :engine::GameObject(
+    name,
+    position,
+    priority,
+    {
+      {engine::KeyboardEvent::UP,"UP"},
+      {engine::KeyboardEvent::DOWN,"DOWN"},
+      {engine::KeyboardEvent::RETURN,"ENTER"}
+    }){
+
+  initialize_arrow();
+};
+
+void SelectArrow::initialize_arrow(){
+  engine::Game game = engine::Game::get_instance();
+  engine::Text* sel = new engine::Text(game.get_renderer(), "selector", std::make_pair(0,0), 5, ">", "../assets/fonts/FFF_Tusj.ttf", 35);
+  sel->activate();
+  add_component(sel);
+}
 
 void SelectArrow::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
@@ -11,7 +36,6 @@ void SelectArrow::on_event(GameEvent game_event){
     } else {
       arrow_seletor = 0;
     }
-
   }
 
   if(event_name == "DOWN"){
@@ -21,7 +45,6 @@ void SelectArrow::on_event(GameEvent game_event){
       arrow_seletor = 6;
     }
   }
-
 
   switch(arrow_seletor){
     case(0):

@@ -7,6 +7,7 @@
 #include "../engine/include/image.hpp"
 #include "../engine/include/game.hpp"
 #include "../engine/include/keyboard_event.hpp"
+#include "action.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -14,6 +15,10 @@
 
 namespace mindscape {
   class Button : public engine::GameObject {
+    private:
+      Action *action;
+      std::string param;
+      
     public:
       Button(
         std::string p_name,
@@ -29,7 +34,8 @@ namespace mindscape {
       ){};
 
       ~Button(){};
-
+      
+      void set_action(Action *, std::string param);
       void on_event(GameEvent game_event);
   };
 }

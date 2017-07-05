@@ -62,11 +62,9 @@ void Game::init(){
   }
 }
 
-bool Game::load_media(){
-  for(auto scene : scenes){
-    scene.second->load();
-  }
-  return true;
+void Game::load_media(){
+  actual_scene->load();
+  loaded_media = true;
 }
 
 void Game::close(){
@@ -83,12 +81,16 @@ void Game::close(){
   SDL_Quit();
 }
 
+bool Game::is_media_loaded(){
+  return loaded_media;
+}
+
 void Game::run(){
   int right_cont = 0, left_cont = 0;
   std::pair<int,int> pos; pos.first =240;pos.second = 350;
   state = RUNNING;
 
-  if(load_media()){
+  if(is_media_loaded()){
 
     SDL_Event e;
     EventHandler event_handler = EventHandler();
@@ -101,7 +103,9 @@ void Game::run(){
       event_handler.dispatch_pending_events(now);
       actual_scene->update();
 
-      SDL_SetRenderDrawColor(renderer,game_background_color.r, game_background_color.g, game_background_color.b, game_background_color.a);
+      SDL_SetRenderDrawColor(renderer,game_background_color.r,
+        game_background_color.g, game_background_color.b,
+        game_background_color.a);
       SDL_RenderClear(renderer);
       actual_scene->draw();
       SDL_RenderPresent(renderer);
@@ -119,13 +123,13 @@ void Game::set_information(std::string p_name,std::pair<int,int> p_dimensions){
   set_window_dimensions(p_dimensions);
 }
 
-void Game::add_scene(std::string name, Scene* scene){
-  scenes.insert({name, scene});
-}
-
-void Game::change_scene(std::string name){
-  last_scene = actual_scene;
-  actual_scene = scenes[name];
+void Game::change_scene(Scene *level){
+  if(actual_scene){
+    actual_scene->free();
+    delete actual_scene;
+  }
+  actual_scene = level;
+  load_media();
 }
 
 void Game::set_game_background_color(int R, int G, int B, int A){

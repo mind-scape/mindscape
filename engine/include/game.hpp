@@ -31,9 +31,8 @@ namespace engine{
       State state;
       SDL_Window* window;
       SDL_Renderer* renderer;
-      std::unordered_map<std::string, Scene*> scenes;
       Scene* actual_scene;
-      Scene* last_scene;
+      bool loaded_media = false;
 
       Game(){};
       void init();
@@ -45,9 +44,9 @@ namespace engine{
       static Game& initialize(std::string, std::pair<int, int>);
       void run();
       void close();
-      bool load_media();
-      void change_scene(std::string);
-      void add_scene(std::string name, Scene* scene);
+      void load_media();
+      bool is_media_loaded();
+      void change_scene(Scene *);
       void set_game_background_color(int R, int G, int B, int A);
       void set_name(std::string);
       std::string get_name();
