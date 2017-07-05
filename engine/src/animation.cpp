@@ -1,70 +1,100 @@
 #include <cmath>
+#include <algorithm>    // std::reverse
 #include "../include/animation.hpp"
 #include "../include/game.hpp"
 
 using namespace engine;
 
+
+Animation::Animation(
+  std::string name,
+  std::string path,
+  std::pair<int, int> displacement,
+  double p_duration_of_animation,
+  std::pair<int, int> sprite_sheet_size,
+  std::pair<int, int> sprite_size,
+  Direction p_direction,
+  int priority)
+  :Component(name, displacement, false, priority){
+  direction = p_direction;
+  initialize_images(path, sprite_sheet_size, sprite_size);
+}
+
+void Animation::initialize_images( std::string path,
+  std::pair<int, int> sprite_sheet_size, std::pair<int, int> sprite_size){
+
+  engine::Game& game = engine::Game::get_instance();
+  int number_of_sprites = sprite_sheet_size.first/sprite_size.first;
+  
+  for(int sprite_step = 0; sprite_step < number_of_sprites; sprite_step++){
+    engine::Image* image = new engine::Image(
+      game.get_renderer(), path, true, get_displacement(), get_priority()
+    );
+
+    image-> set_values(
+      sprite_size,
+      sprite_size, //works only for a single line
+      std::make_pair(sprite_size.first * sprite_step, 0)
+    );
+
+    images.push_back(image);
+  }
+
+  setup_direction();
+  actual_sprite = images.begin();
+}
+
+void Animation::setup_direction(){
+  if(direction == Direction::LEFT)
+    std::reverse(images.begin(), images.end());
+}
+
 bool Animation::load(){
-  time_of_sprite = (int) std::ceil(double(duration_of_animation)/double(total_sprites));
-
-  aux_time = 0;
-
-  Image::load();
-  if(in_loop) time->init_timer();
+  std::vector<Image *>::iterator it;
+  for(it = images.begin(); it < images.end(); it++){
+    (*it)->load();
+  }
   return true;
 }
 
-void Animation::activate(){
-  Component::activate();
-  if(!in_loop) time->init_timer();
+void Animation::draw(int x, int y){
+  (*actual_sprite)->draw(x,y);
+  next();
 }
 
+bool Animation::is_end_of_sprites(){
+  return actual_sprite == images.end();
+}
 
-void Animation::draw(int x, int y){
-  is_finished = false;
-  playing_duration_of_animation += time->get_elapsed_time() - aux_time;
-  aux_time = time->get_elapsed_time();
-
-  if(playing_duration_of_animation >= duration_of_animation){
-    is_finished = true;
-    if(in_loop){
-      playing_duration_of_animation = playing_duration_of_animation - duration_of_animation;
-    } else {
-      if(is_a_final_animation){
-        deactivate();
-        game_object->deactivate();
-      }else{
-        playing_duration_of_animation = duration_of_animation;
-      }
-    }
+void Animation::next(){
+  if(is_end_of_sprites() && !is_in_loop()){
+    finish();
+  }else if(actual_sprite < images.end()){
+    (*actual_sprite)->deactivate();
+    actual_sprite++;
+    (*actual_sprite)->activate();
+  }else{
+    actual_sprite = images.begin();
   }
-
-  actual_sprite = (playing_duration_of_animation / time_of_sprite) + first_sprite;
-  actual_line = 0;
-  actual_column  = abs(actual_sprite % sprite_columns);
-  
-
-  coordinatesOnTexture.first = sprites_order[actual_column] * dimensionOnTexture.first;
-  coordinatesOnTexture.second = actual_line * dimensionOnTexture.second;
-
-  Image::draw(x,y);
 }
 
 void Animation::set_sprites_order(int total_sprites, std::string direction){
-  if(direction == "LEFT"){
-    int reverse_index = total_sprites - 1;
-    for(int i = 0;i < total_sprites;++i){
-      sprites_order[i] = reverse_index;
-      reverse_index--;
-    }
-  }
-  else if(direction == "RIGHT"){
-    for(int j = 0;j < total_sprites;++j){
-      sprites_order[j] = j;
-    }
-  }
+  //[TODO]
 }
 
-void Animation::set_game_object(GameObject* obj){
-  game_object = obj;
+void Animation::finish(){
+  deactivate();
+  finished = true;
+}
+
+bool Animation::is_finished(){
+  return finished;
+}
+
+bool Animation::is_in_loop(){
+  return in_loop;
+}
+
+void Animation::deactivate_loop(){
+  in_loop = false; 
 }

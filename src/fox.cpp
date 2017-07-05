@@ -120,30 +120,19 @@ void Fox::initialize_animations(){
 
 engine::Animation* Fox::create_animation(
     std::string path,
-    int sprite_lines,
-    int sprite_columns,
-    double duration,
-    std::string direction){
+    std::pair<int, int> sprite_sheet_size,
+    std::pair<int, int> sprite_size,
+    double duration, engine::Animation::Direction direction){
 
-  engine::Game& game = engine::Game::get_instance();
   engine::Animation* animation = new engine::Animation(
-      game.get_renderer(),
-      path,                 // image path
-      false,                // is_active
-      std::make_pair(0, 0), // displcement
-      1,                    // priority
-      sprite_lines,         // sprite_lines
-      sprite_columns,       // sprite_columns
-      duration,             // duration
-      true,                 // in_loop
-      direction             // direction
-      );
-
-  animation->set_values(
-      std::make_pair(120, 120),
-      std::make_pair(120, 120),
-      std::make_pair(0, 0)
-      );
+    "fox_animation"
+    path,                 // image path
+    std::make_pair(0, 0), // displcement
+    duration,             // duration
+    sprite_sheet_size,
+    sprite_sheet,
+    direction
+  );
 
   return animation;
 }

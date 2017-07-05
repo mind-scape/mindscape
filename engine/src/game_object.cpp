@@ -26,7 +26,6 @@ void GameObject::add_component(Component* component){
 
 void GameObject::add_animation(std::string animation_name, Animation * animation){
   animations[animation_name] = animation;
-  animation->set_game_object(this);
 }
 
 bool GameObject::load(){

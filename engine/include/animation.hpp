@@ -8,84 +8,46 @@
 #include "image.hpp"
 #include "time.hpp"
 #include "timer.hpp"
+#include <vector>
 
 namespace engine{
-  class GameObject;
-  class Animation : public Image{
+  class Animation : public Component {
+    public:
+      typedef enum Direction {
+        RIGHT, LEFT
+      } Direction;
 
-  private:
-
-      //Construtor de image
-      std::pair<int, int> displacement;
-      int render_priority;
-      GameObject* game_object;
-      //Atributos da animação
-      int sprite_columns;
-      int sprite_lines;
-      int first_sprite;
-      int final_sprite;
-      int total_sprites;
-      int time_of_sprite;
-      int playing_duration_of_animation = 0;
-      int duration_of_animation;
-      //Atributo para o timer;
-      Timer * time;
-      int aux_time;
-      std::vector<std::pair<int,int> > sprites_sizes;
-      bool use_default_image_size = true;
-      std::string direction;
-      std::map<int,int> sprites_order;
+    private:
+      std::vector<Image *> images;
+      std::vector<Image *>::iterator actual_sprite;
+      int sprite_time;
+      bool in_loop;
+      bool finished = false;
+      Direction direction;
 
     public:
-
-      void set_sprites_order(int, std::string);
-      Animation(SDL_Renderer* p_renderer,
-          std::string path,
-          bool is_active,
-          std::pair<int, int> displacement,
-          int priority,
-          unsigned int p_sprite_lines=1,
-          unsigned int p_sprite_columns=1,
-          double p_duration_of_animation =1.0,
-          bool p_in_loop = true,
-          std::string p_direction="RIGHT",
-          bool p_use_default_image_size = true)
-        :Image(
-          p_renderer,
-          path,
-          is_active,
-          displacement,
-          priority
-        ),
-        sprite_lines(p_sprite_lines),
-        sprite_columns(p_sprite_columns),
-        duration_of_animation(p_duration_of_animation*1000),
-        in_loop(p_in_loop),
-        total_sprites(p_sprite_lines * p_sprite_columns),
-        first_sprite(0),
-        final_sprite(total_sprites-1),
-        actual_sprite(first_sprite),
-        is_finished(false),
-        use_default_image_size(p_use_default_image_size),
-        direction(p_direction) {
-          time = new Timer();
-          set_sprites_order(total_sprites,direction);
-        }
+      Animation(
+      std::string name,
+      std::string path,
+      std::pair<int, int> displacement,
+      double p_duration_of_animation,
+      std::pair<int, int> sprite_sheet_size,
+      std::pair<int, int> sprite_size,
+      Direction p_direction,
+      int priority = 1);
 
       virtual ~Animation(){}
-
-      int actual_line;
-      int actual_column;
-      int actual_sprite;
-      bool in_loop;
-      bool is_finished;
-      bool is_a_final_animation = false;
+      void initialize_images(std::string, std::pair<int, int>, std::pair<int, int>);
       bool load();
-      bool set_frame_time();
-      void set_game_object(GameObject*);
       void draw(int, int);
-      void activate();
-      void set_sprite_sizes(std::vector<std::pair<int,int> >);
+      void next();
+      bool is_finished();
+      void finish();
+      bool is_in_loop();
+      void deactivate_loop();
+      void set_sprites_order(int, std::string);
+      bool is_end_of_sprites();
+      void setup_direction();
   };
 }
 

@@ -23,7 +23,6 @@ namespace mindscape {
       int star_count = 0;
       int running_right_animation_count = 0;
       int running_left_animation_count = 0;
-      int omelete = 0;
       int girl_hp;
       bool must_give_hp_to_girl = false;
 
