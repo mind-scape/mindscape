@@ -47,21 +47,8 @@ void Fox::initialize_state_map(){
 
 void Fox::notify(engine::Observable *game_object){
   LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
-  for(int i = 10; i > 0; i--){
-    // std::cout << "Y LittleGirl: " << little_girl->get_position_y() << std::endl;
-    // std::cout << "X LittleGirl: " << little_girl->get_position_x() << std::endl;
-    // std::cout << "Raposa Y State: " << get_state("Y_STATE") << std::endl;
-    // std::cout << "Raposa X State: " << get_state("X_STATE") << std::endl;
-    // std::cout << "Y Raposa: " << get_position_y() << std::endl;
-    // std::cout << "Speed Y Raposa: " << get_speed_y() << std::endl;
-    // std::cout << "X Raposa: " << get_position_x() << std::endl;
-    // std::cout << "Speed X Raposa: " << get_speed_x() << std::endl;
-
-  }
   if(little_girl){
     girl_hp = little_girl->get_hp();
-    std::cout << "VIDA GIRL: " << girl_hp << std::endl;
-    std::cout << "QUANTAS ESTRELAS TEM: " << get_star_count() << std::endl;
     if(girl_hp < 90 && get_star_count() == 3){
       must_give_hp_to_girl = true;
     }
@@ -277,9 +264,6 @@ void Fox::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, e
       star->set_actual_animation(star->animations["star_fading"]);
       star->deactivate_components();
       set_star_count(get_star_count() + 1);
-      // if(get_star_count() == 3 && girl_hp < 90){
-      //   must_give_hp_to_girl = true;
-      // }
     }
   }
 }

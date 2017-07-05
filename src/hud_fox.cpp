@@ -21,7 +21,6 @@ void HudFox::notify(engine::Observable* game_object){
   if(fox){
     bool give_hp = fox->get_animation_hud_fading();
     int count = fox->get_star_count();
-    std::cout << "COUNT: " << count << std::endl;
     engine::Animation* actual = get_actual_animation();
     if(actual == animations["three_star_fading"]){
       if(actual->is_finished){

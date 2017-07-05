@@ -160,6 +160,7 @@ void LittleGirl::on_collision(
 
   Platform* platform = dynamic_cast<Platform *>(other);
   Scorpion* scorpion = dynamic_cast<Scorpion *>(other);
+  Spider* spider = dynamic_cast<Spider *>(other);
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
@@ -171,6 +172,13 @@ void LittleGirl::on_collision(
      scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
      other_hitbox->get_name() == "scorpion_attack" &&
      scorpion->get_actual_animation()->actual_column == 1){
+    on_attack();
+    set_hp(get_hp()-1);
+  }
+  if(spider &&
+     spider->get_state("ACTION_STATE") == "ATTACKING" &&
+     other_hitbox->get_name() == "spider_attack" &&
+     spider->get_actual_animation()->actual_column == 3){
     on_attack();
     set_hp(get_hp()-1);
   }
@@ -279,8 +287,6 @@ void LittleGirl::on_attack(){
 void LittleGirl::update_state(){
   //Should be implemented
   if(get_actual_animation() == animations["omelete1"] || get_actual_animation() == animations["omelete2"]){
-    std::cout << "SPRITE " << get_actual_animation()->actual_sprite << std::endl;
-    std::cout << "COLUMN " << get_actual_animation()->actual_column << std::endl;
   }
 
   engine::Animation* actual_animation = get_actual_animation();

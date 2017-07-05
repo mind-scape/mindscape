@@ -273,7 +273,8 @@ void Scorpion::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitb
   if(little_girl &&
      little_girl->get_state("ACTION_STATE") == "ATTACKING" &&
      my_hitbox->get_name() == "scorpion_attack" &&
-     little_girl->get_actual_animation()->actual_column == 2){
+     little_girl->get_actual_animation()->actual_column == 2
+     && get_state("X_STATE") != little_girl->get_state("X_STATE")){
         if(get_state("ACTION_STATE") == "ON_ATTACK") return;
         else
         on_attack();
