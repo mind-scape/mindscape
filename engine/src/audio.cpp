@@ -15,7 +15,7 @@ bool Audio::load(){
     }
   }else if(m_audio_type == CHUNK){
     audio_chunk = Mix_LoadWAV(audio_path.c_str());
-    if(!audio_music){
+    if(!audio_chunk){
       printf("\nAudio error %s\n", Mix_GetError());
       return false;
     }

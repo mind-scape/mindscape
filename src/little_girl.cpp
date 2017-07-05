@@ -55,7 +55,7 @@ void LittleGirl::initialize_audio_effects(){
 
   engine::Audio * little_girl_steps = new engine::Audio("../assets/audios/effects_songs/menina_passos_rapido.wav", engine::Audio::CHUNK);
   little_girl_steps->set_duration(1);
-  little_girl_steps->set_effect_volume(30);
+  little_girl_steps->set_effect_volume(45);
 
   engine::Audio * little_girl_getting_hit = new engine::Audio("../assets/audios/effects_songs/menina_apanhando.wav", engine::Audio::CHUNK);
   little_girl_getting_hit->set_duration(0.5);
