@@ -14,10 +14,20 @@ HudFox::HudFox(
     }
   ){
     initialize_animations();
+    initialize_audio_effects();
 };
+
+void HudFox::initialize_audio_effects(){
+  engine::Audio * take_this_hp = new engine::Audio("../assets/audios/effects_songs/mindscape_heart.wav", engine::Audio::CHUNK);
+  take_this_hp->set_duration(1);
+
+  add_component(take_this_hp);
+}
 
 void HudFox::notify(engine::Observable* game_object){
   Fox* fox = dynamic_cast<Fox *>(game_object);
+  engine::Audio* take_this_hp = dynamic_cast<engine::Audio *>(audios[0]);
+
   if(fox){
     bool give_hp = fox->get_animation_hud_fading();
     int count = fox->get_star_count();
@@ -48,6 +58,7 @@ void HudFox::notify(engine::Observable* game_object){
       }else if(count == 3 && give_hp){
         fox->set_animation_hud_fading(false);
         set_actual_animation(animations["three_star_fading"]);
+        take_this_hp->play_effect();
       }
     }
   }

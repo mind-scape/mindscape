@@ -16,6 +16,7 @@ namespace mindscape{
   class HudFox : public engine::GameObject{
   private:
     void initialize_animations();
+    void initialize_audio_effects();
     engine::Animation *create_animation(
       std::string path,
       int sprite_lines,

@@ -49,7 +49,7 @@ void Audio::play_effect(){
   if(!playing){
     time = 0;
     playing = true;
-    Mix_VolumeChunk(audio_chunk, 50);
+    Mix_VolumeChunk(audio_chunk, volume);
     Mix_PlayChannel(audio_chanel, audio_chunk, audio_repeat);
   }
 }
@@ -80,6 +80,13 @@ void Audio::set_duration(float duration){
 }
 
 void Audio::stop_effect(){
-  std::cout << "\naquiii" << std::endl;
   Mix_VolumeChunk(audio_chunk, 0);
+}
+
+void Audio::set_effect_volume(int _volume){
+  if(_volume > -1 && volume < 129){
+    volume = _volume;
+  } else {
+    std::cout << "\nThe volume must be between 0 and 128" << std::endl;
+  }
 }
