@@ -33,6 +33,8 @@ engine::GameObject* GameObjectFactory::fabricate(
       return fabricate_select_arrow(name, coordinates, priority);
     case(GameObjectFactory::MUSIC_PLAYER):
       return fabricate_music_player(name, coordinates, priority);
+    case(GameObjectFactory::CLOWN):
+      return fabricate_clown(name, coordinates, priority);
     default:
       return NULL;
   }
@@ -185,4 +187,12 @@ engine::GameObject* GameObjectFactory::fabricate_music_player(
   );
 
   return music_player;
+
+engine::GameObject* GameObjectFactory::fabricate_clown(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* clown = new Clown(
+    name , position, priority
+  );
+
+  return clown;
 }

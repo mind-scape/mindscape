@@ -20,10 +20,9 @@ Clown::Clown(
     initialize_animations();
 };
 
-
 void Clown::initialize_boss_parts(){
-  Enemy* body = new Enemy("body",std::make_pair(0,0),52,150);
-  Enemy* goop = new Enemy("goop",std::make_pair(0,0),52,0);
+  Enemy* body = new Enemy("body",std::make_pair(180,180),60,150);
+  Enemy* goop = new Enemy("goop",std::make_pair(180,180),60,0);
 
   set_boss_part("body",body);
   set_boss_part("goop",goop);
@@ -34,12 +33,12 @@ void Clown::initialize_animations(){
 
     engine::Animation* clown_idle = create_animation(
       "../assets/images/sprites/enemies/clown/clown_idle.png",
-      1, 15, 0.9, "LEFT"
+      1, 15, 3.0, "LEFT"
     );
 
     engine::Animation* clown_goop = create_animation(
       "../assets/images/sprites/enemies/scorpion/clown_goop.png",
-      1, 1, 0.9, "LEFT"
+      1, 1, 3.0, "LEFT"
     );
 
     boss_parts["body"]->add_animation("clown_idle",clown_idle);
@@ -74,8 +73,8 @@ engine::Animation* Clown::create_animation(
   );
 
   animation->set_values(
-    std::make_pair(320, 320),
-    std::make_pair(320, 320),
+    std::make_pair(100, 100),
+    std::make_pair(100, 100),
     std::make_pair(0, 0)
   );
 
@@ -122,4 +121,28 @@ void Clown::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox,
   LittleGirl* little_girl = dynamic_cast<LittleGirl *>(other);
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+}
+
+void Clown::activate(){
+  std::map<std::string,Enemy*> boss_parts = get_boss_parts();
+  for(auto boss_part : boss_parts){
+    boss_part.second->activate();
+  }
+}
+
+void Clown::draw(){
+  std::map<std::string,Enemy*> boss_parts = get_boss_parts();
+  for(auto boss_part : boss_parts){
+    boss_part.second->draw();
+  }
+}
+
+void Clown::load(){
+  for(int i  =0;i < 300;++i){
+    std::cout << "DESENHOUUUUU " << std::endl;
+  }
+  std::map<std::string,Enemy*> boss_parts = get_boss_parts();
+  for(auto boss_part : boss_parts){
+    boss_part.second->load(); 
+  }
 }

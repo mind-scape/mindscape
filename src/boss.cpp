@@ -10,14 +10,3 @@ std::map<std::string,Enemy*> Boss::get_boss_parts(){
   return boss_parts;
 }
 
-void Boss::activate(){
-  for(auto boss_part : boss_parts){
-    boss_part.second->activate();
-  }
-}
-
-void Boss::draw(){
-  for(auto boss_part : boss_parts){
-    boss_part.second->draw();
-  }
-}

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "scene.hpp"
+#include "../../include/clown.hpp"
 
 namespace engine {
 
