@@ -55,7 +55,12 @@ void LittleGirl::initialize_audio_effects(){
 
   engine::Audio * little_girl_steps = new engine::Audio("../assets/audios/effects_songs/menina_passos_rapido.wav", engine::Audio::CHUNK);
   little_girl_steps->set_duration(1);
+
+  engine::Audio * little_girl_getting_hit = new engine::Audio("../assets/audios/effects_songs/menina_apanhando.wav", engine::Audio::CHUNK);
+  little_girl_getting_hit->set_duration(0.5);
+
   add_component(little_girl_steps);
+  add_component(little_girl_getting_hit);
 
 }
 
@@ -173,6 +178,8 @@ void LittleGirl::on_collision(
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
+  engine::Audio* little_girl_getting_hit = dynamic_cast<engine::Audio *>(audios[1]);
+
   if(get_speed_y() >= 0 && platform){ //if she is falling on a platform
     set_speed_y(0.0);
     set_position_y(other_hitbox->get_coordinates().second - 180);
@@ -181,6 +188,7 @@ void LittleGirl::on_collision(
      scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
      other_hitbox->get_name() == "scorpion_attack" &&
      scorpion->get_actual_animation()->actual_column == 1){
+     little_girl_getting_hit->play_effect();
     on_attack();
     set_hp(get_hp()-1);
   }
@@ -188,6 +196,7 @@ void LittleGirl::on_collision(
      spider->get_state("ACTION_STATE") == "ATTACKING" &&
      other_hitbox->get_name() == "spider_attack" &&
      spider->get_actual_animation()->actual_column == 3){
+    little_girl_getting_hit->play_effect();
     on_attack();
     set_hp(get_hp()-1);
   }
