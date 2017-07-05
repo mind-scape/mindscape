@@ -29,27 +29,6 @@ int main(int,char**){
   std::pair<int, int> anotherotherplace (250,400);
   game.set_game_background_color(0xEB, 0xA7, 0xFC, 0xFF);
 
-  Image* images2 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/1.png", true, std::make_pair(0, 0), 1);
-  Image* images9 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/2.png", true, std::make_pair(0, 0), 1);
-  Image* images8 = new Image(game.get_renderer(), "../assets/images/scenes/test_scene/3.png", true, std::make_pair(0, 0), 1);
-
-  images2-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
-  images9-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
-  images8-> set_values(std::make_pair(1024, 576), std::make_pair(1024, 576), std::make_pair(0, 0));
-
-  mindscape::Background* background = new mindscape::Background("background", anotherplace, 1);
-  mindscape::Background* background2 = new mindscape::Background("background2", anotherplace, 2);
-  GameObject* background3 = new mindscape::Background("background3", anotherplace, 3);
-
-  //background->paralax = 2;
-  //background2->paralax = 4;
-
-  //GameObject* fox = new mindscape::Fox("fox", anotherotherplace, 4);
-
-  background->add_component(images2);
-  background2->add_component(images9);
-  background3->add_component(images8);
-
   GameObject* star = new mindscape::Star("star", std::make_pair(700, 520), 20);
   GameObject* star2 = new mindscape::Star("star2", std::make_pair(750, 520), 20);
   GameObject* star3 = new mindscape::Star("star3", std::make_pair(800, 520), 20);
