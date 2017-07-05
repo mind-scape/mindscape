@@ -51,6 +51,7 @@ namespace engine{
     void play_effect();
     void play_music();
     void pause_music();
+    void stop_effect();
   };
 }
 

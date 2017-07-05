@@ -49,6 +49,7 @@ void Audio::play_effect(){
   if(!playing){
     time = 0;
     playing = true;
+    Mix_VolumeChunk(audio_chunk, 50);
     Mix_PlayChannel(audio_chanel, audio_chunk, audio_repeat);
   }
 }
@@ -76,4 +77,9 @@ void Audio::set_repetitions(int repeat){
 
 void Audio::set_duration(float duration){
   effect_duration = duration * 1000;
+}
+
+void Audio::stop_effect(){
+  std::cout << "\naquiii" << std::endl;
+  Mix_VolumeChunk(audio_chunk, 0);
 }

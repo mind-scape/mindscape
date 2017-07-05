@@ -224,13 +224,17 @@ void LittleGirl::on_event(GameEvent game_event){
 }
 
 void LittleGirl::jump(std::string actual_x_state){
+  engine::Audio* little_girl_steps = dynamic_cast<engine::Audio *>(audios[0]);
   set_speed_y(-21);
   states.set_state("Y_STATE","JUMPING");
 
-  if(actual_x_state == "LOOKING_RIGHT")
+  if(actual_x_state == "LOOKING_RIGHT"){
+    little_girl_steps->stop_effect();
     set_actual_animation(animations["jumping_right_animation"]);
-  else if(actual_x_state == "LOOKING_LEFT")
+  }else if(actual_x_state == "LOOKING_LEFT"){
+    little_girl_steps->stop_effect();
     set_actual_animation(animations["jumping_left_animation"]);
+  }
 
   engine::Animation* actual_animation = get_actual_animation();
 
@@ -263,6 +267,7 @@ void LittleGirl::move_right(std::string actual_x_state,std::string actual_y_stat
     set_speed_x(0.1);
   }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_LEFT"){
     states.set_state("X_STATE","LOOKING_RIGHT");
+    little_girl_steps->stop_effect();
     set_actual_animation(animations["jumping_right_animation"]);
   }
 }
@@ -283,6 +288,7 @@ void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state
     set_speed_x(-0.1);
   }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_RIGHT"){
     states.set_state("X_STATE","LOOKING_LEFT");
+    little_girl_steps->stop_effect();
     set_actual_animation(animations["jumping_left_animation"]);
   }
 }
