@@ -3,6 +3,7 @@
 
 #include "SDL2basics.hpp"
 #include "component.hpp"
+#include "time.hpp"
 #include <string>
 
 namespace engine{
@@ -17,7 +18,11 @@ namespace engine{
       AudioType m_audio_type;
       int audio_repeat;
       int audio_chanel;
-      bool playing;
+      bool playing = false;
+      Time * timer;
+      float time=0;
+      float aux_time=0;
+      float effect_duration=0;
 
       Mix_Music *audio_music;
       Mix_Chunk *audio_chunk;
@@ -42,6 +47,7 @@ namespace engine{
     bool load();
     void free();
     void set_repetitions(int repeat);
+    void set_duration(float duration);
     void play_effect();
     void play_music();
     void pause_music();

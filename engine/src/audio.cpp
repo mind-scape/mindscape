@@ -6,6 +6,7 @@
 using namespace engine;
 
 bool Audio::load(){
+    timer->init();
   if(m_audio_type == MUSIC){
     audio_music = Mix_LoadMUS(audio_path.c_str());
     if(!audio_music){
@@ -36,15 +37,21 @@ void Audio::free(){
 }
 
 void Audio::play_effect(){
-  if(audio_cont == 0){
-    Mix_PlayChannel( audio_chanel, audio_chunk, audio_repeat);
-    audio_cont++;
-  }else{
-    audio_cont++;
-    if(audio_cont == 57){
-      audio_cont = 0;
-    }
+
+  time += timer->time_elapsed() - aux_time;
+  aux_time = timer->time_elapsed();
+
+  if(time >= effect_duration){
+    playing = false;
+    time = 0;
   }
+
+  if(!playing){
+    time = 0;
+    playing = true;
+    Mix_PlayChannel(audio_chanel, audio_chunk, audio_repeat);
+  }
+  std::cout << time << std::endl;
 }
 
 void Audio::play_music(){
@@ -66,4 +73,8 @@ void Audio::pause_music(){
 
 void Audio::set_repetitions(int repeat){
   audio_repeat = repeat;
+}
+
+void Audio::set_duration(float duration){
+  effect_duration = duration * 1000;
 }
