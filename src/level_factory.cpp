@@ -63,6 +63,13 @@ engine::Level *LevelFactory::fabricate_level(std::string path){
           level->get_object_by_name(object["belongs_to"]),
           text, font_path, font_size, displacement, priority);
 
+      }else if(type == Opts::AUDIO){
+        std::string path = object["path"];
+        int audio_type = std::stoi(object["audio_type"]);
+        mindscape_factory.fabricate_audio(
+          level->get_object_by_name(object["belongs_to"]),
+          path, audio_type);
+
       }else if(type == Opts::ACTION){
         mindscape_factory.fabricate_action(
           level->get_object_by_name(object["belongs_to"]),

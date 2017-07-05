@@ -31,6 +31,8 @@ engine::GameObject* GameObjectFactory::fabricate(
       return fabricate_star(name, coordinates, priority);
     case(GameObjectFactory::SELECT_ARROW):
       return fabricate_select_arrow(name, coordinates, priority);
+    case(GameObjectFactory::MUSIC_PLAYER):
+      return fabricate_music_player(name, coordinates, priority);
     default:
       return NULL;
   }
@@ -167,4 +169,20 @@ void GameObjectFactory::fabricate_action(
   Action *action = new Action(command);
   Button* button = dynamic_cast<Button *>(game_object);
   button->set_action(action, param);
+}
+
+void GameObjectFactory::fabricate_audio(engine::GameObject *game_object,
+  std::string path, int p_audio_type){
+  engine::Audio::AudioType audio_type = static_cast<engine::Audio::AudioType>(p_audio_type);
+  engine::Audio *audio = new engine::Audio(path, audio_type);
+  game_object->add_component(audio);
+}
+
+engine::GameObject* GameObjectFactory::fabricate_music_player(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject *music_player = new MusicPlayer(
+    name , position, priority
+  );
+
+  return music_player;
 }
