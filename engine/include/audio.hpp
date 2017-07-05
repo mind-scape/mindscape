@@ -52,10 +52,12 @@ namespace engine{
     void set_repetitions(int repeat);
     void set_duration(float duration);
     void play_effect();
-    void play_music();
+    void draw(int x, int y);
     void pause_music();
     void stop_effect();
     void set_effect_volume(int _volume);
+    void set_music_volume(int _volume);
+
   };
 }
 

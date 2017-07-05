@@ -54,7 +54,8 @@ void Audio::play_effect(){
   }
 }
 
-void Audio::play_music(){
+void Audio::draw(int x, int y){
+  is_active();
   if( Mix_PlayingMusic() == 0 )
     {
       //Play the music
@@ -86,6 +87,14 @@ void Audio::stop_effect(){
 void Audio::set_effect_volume(int _volume){
   if(_volume > -1 && volume < 129){
     volume = _volume;
+  } else {
+    std::cout << "\nThe volume must be between 0 and 128" << std::endl;
+  }
+}
+
+void Audio::set_music_volume(int _volume){
+  if(_volume > -1 && volume < 129){
+    Mix_VolumeMusic(_volume);
   } else {
     std::cout << "\nThe volume must be between 0 and 128" << std::endl;
   }

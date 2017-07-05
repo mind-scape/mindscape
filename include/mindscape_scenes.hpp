@@ -94,7 +94,8 @@ Level * create_main_menu(Game game){
 
   Audio* music = new Audio("../assets/audios/background_songs/mindscape_open3.wav", Audio::MUSIC);
   GameObject * menu_loop =  new GameObject("menu_loop", std::make_pair(0,0),1,{});
- menu_loop->add_component(music);
+  music->set_music_volume(30);
+  menu_loop->add_component(music);
 
 
 

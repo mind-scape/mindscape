@@ -25,10 +25,8 @@ using namespace engine;
 int main(int,char**){
   Game& game = Game::initialize(globals::game_name, globals::window_size);
 
-
   Level* level1 = create_level_1(game);
   Level * menu = create_main_menu(game);
-
 
   game.add_scene("menu", menu);
   game.add_scene("first level", level1);
