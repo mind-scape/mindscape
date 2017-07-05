@@ -66,6 +66,7 @@ void Text::free(){
 }
 
 void Text::draw(int x, int y){
-  SDL_Rect renderQuad = {x, y, weigth, heigth};
+  SDL_Rect renderQuad = {x + get_displacement().first,
+    y + get_displacement().second, weigth, heigth};
   SDL_RenderCopy(renderer, texture, NULL, &renderQuad);
 }
