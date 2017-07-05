@@ -56,11 +56,16 @@ void LittleGirl::initialize_audio_effects(){
   engine::Audio * little_girl_steps = new engine::Audio("../assets/audios/effects_songs/menina_passos_rapido.wav", engine::Audio::CHUNK);
   little_girl_steps->set_duration(1);
   little_girl_steps->set_effect_volume(30);
+
   engine::Audio * little_girl_getting_hit = new engine::Audio("../assets/audios/effects_songs/menina_apanhando.wav", engine::Audio::CHUNK);
   little_girl_getting_hit->set_duration(0.5);
 
+  engine::Audio * little_girl_attacking_level_1 = new engine::Audio("../assets/audios/effects_songs/espada_fase_1.wav", engine::Audio::CHUNK);
+  little_girl_attacking_level_1->set_duration(0.5);
+
   add_component(little_girl_steps);
   add_component(little_girl_getting_hit);
+  add_component(little_girl_attacking_level_1);
 
 }
 
@@ -294,13 +299,16 @@ void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state
 }
 
 void LittleGirl::attack(std::string actual_x_state){
+  engine::Audio* little_girl_attacking_level_1 = dynamic_cast<engine::Audio *>(audios[2]);
   states.set_state("ACTION_STATE","ATTACKING");
   if(actual_x_state == "LOOKING_RIGHT"){
     set_actual_animation(animations["attacking_right_animation"]);
     get_actual_animation()->is_finished = false;
+    little_girl_attacking_level_1->play_effect();
   }else if(actual_x_state == "LOOKING_LEFT"){
     set_actual_animation(animations["attacking_left_animation"]);
     get_actual_animation()->is_finished = false;
+    little_girl_attacking_level_1->play_effect();
   }
 }
 

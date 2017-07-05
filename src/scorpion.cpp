@@ -27,7 +27,11 @@ void Scorpion::initialize_audio_effects(){
   engine::Audio * scorpion_attacking = new engine::Audio("../assets/audios/effects_songs/ataque_insetos.wav", engine::Audio::CHUNK);
   scorpion_attacking->set_duration(0.7);
 
+  engine::Audio * scorpion_on_attack = new engine::Audio("../assets/audios/effects_songs/inseto_apanhando.wav", engine::Audio::CHUNK);
+  scorpion_on_attack->set_duration(0.8);
+
   add_component(scorpion_attacking);
+  add_component(scorpion_on_attack);
 }
 
 //TODO fix below animations names according to others
@@ -199,6 +203,7 @@ void Scorpion::attack(){
 
 void Scorpion::on_attack(){
   //std::cout << "CHEGOOU AKIIII E A PARADA EH " << get_state("ACTION_STATE");
+  engine::Audio* scorpion_on_attack = dynamic_cast<engine::Audio *>(audios[1]);
   states.set_state("ACTION_STATE","ON_ATTACK");
 
   std::string actual_x_state = get_state("X_STATE");
@@ -209,16 +214,20 @@ void Scorpion::on_attack(){
   if(actual_x_state == "LOOKING_LEFT"){
    if(actual_HP > 0){
       set_actual_animation(animations["on_attack_left_animation"]);
+      scorpion_on_attack->play_effect();
    }else{
      states.set_state("ACTION_STATE", "DYING");
      set_actual_animation(animations["dying_left_animation"]);
+      scorpion_on_attack->play_effect();
    }
   }else if(actual_x_state == "LOOKING_RIGHT"){
    if(actual_HP > 0){
       set_actual_animation(animations["on_attack_right_animation"]);
+      scorpion_on_attack->play_effect();
     }else{
       states.set_state("ACTION_STATE", "DYING");
       set_actual_animation(animations["dying_right_animation"]);
+      scorpion_on_attack->play_effect();
     }
   }
 
