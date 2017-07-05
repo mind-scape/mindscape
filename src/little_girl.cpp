@@ -269,8 +269,10 @@ void LittleGirl::attack(std::string actual_x_state){
   states.set_state("ACTION_STATE","ATTACKING");
   if(actual_x_state == "LOOKING_RIGHT"){
     set_actual_animation(animations["attacking_right_animation"]);
+    get_actual_animation()->is_finished = false;
   }else if(actual_x_state == "LOOKING_LEFT"){
     set_actual_animation(animations["attacking_left_animation"]);
+    get_actual_animation()->is_finished = false;
   }
 }
 
@@ -297,7 +299,6 @@ void LittleGirl::update_state(){
        return;
     }
   }
-
   if(get_speed_x() == 0.0 && get_speed_y() == 0.0 && actual_action_state == "NORMAL"){
     if(actual_x_state == "LOOKING_RIGHT"){
       set_actual_animation(animations["idle_right_animation"]);
