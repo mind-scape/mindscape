@@ -19,8 +19,16 @@ Scorpion::Scorpion(
     initialize_hitboxes();
     initialize_animations();
     initialize_as_physicable();
+    initialize_audio_effects();
 };
 
+
+void Scorpion::initialize_audio_effects(){
+  engine::Audio * scorpion_attacking = new engine::Audio("../assets/audios/effects_songs/ataque_insetos.wav", engine::Audio::CHUNK);
+  scorpion_attacking->set_duration(0.7);
+
+  add_component(scorpion_attacking);
+}
 
 //TODO fix below animations names according to others
 void Scorpion::initialize_animations(){
@@ -175,12 +183,17 @@ void Scorpion::notify(engine::Observable *game_object){
 }
 
 void Scorpion::attack(){
+
+  engine::Audio* scorpion_attacking = dynamic_cast<engine::Audio *>(audios[0]);
+
   states.set_state("ACTION_STATE","ATTACKING");
   std::string actual_x_state = get_state("X_STATE");
   if(actual_x_state == "LOOKING_LEFT"){
     set_actual_animation(animations["attacking_left_animation"]);
+    scorpion_attacking->play_effect();
   }else if(actual_x_state == "LOOKING_RIGHT"){
     set_actual_animation(animations["attacking_right_animation"]);
+    scorpion_attacking->play_effect();
   }
 }
 

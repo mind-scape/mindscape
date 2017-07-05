@@ -16,10 +16,19 @@ Spider::Spider(
     100
   ){
     initialize_state_map();
+    initialize_animations();
     initialize_hitboxes();
     initialize_animations();
+    initialize_audio_effects();
     initialize_as_physicable();
 };
+
+void Spider::initialize_audio_effects(){
+  engine::Audio * spider_attacking = new engine::Audio("../assets/audios/effects_songs/ataque_insetos.wav", engine::Audio::CHUNK);
+  spider_attacking->set_duration(0.5);
+
+  add_component(spider_attacking);
+}
 
 void Spider::initialize_animations(){
     engine::Animation* walking_left_animation = create_animation(
@@ -172,12 +181,17 @@ void Spider::notify(engine::Observable *game_object){
 }
 
 void Spider::attack(){
+
+  engine::Audio* spider_attacking = dynamic_cast<engine::Audio *>(audios[0]);
+
   states.set_state("ACTION_STATE","ATTACKING");
   std::string actual_x_state = get_state("X_STATE");
   if(actual_x_state == "LOOKING_LEFT"){
     set_actual_animation(animations["attacking_left_animation"]);
+    spider_attacking->play_effect();
   }else if(actual_x_state == "LOOKING_RIGHT"){
     set_actual_animation(animations["attacking_right_animation"]);
+    spider_attacking->play_effect();
   }
 }
 

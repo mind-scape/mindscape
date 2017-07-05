@@ -51,7 +51,6 @@ void Audio::play_effect(){
     playing = true;
     Mix_PlayChannel(audio_chanel, audio_chunk, audio_repeat);
   }
-  std::cout << time << std::endl;
 }
 
 void Audio::play_music(){

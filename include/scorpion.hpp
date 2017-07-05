@@ -21,6 +21,7 @@ namespace mindscape {
       void initialize_hitboxes();
       void initialize_animations();
       void initialize_as_physicable();
+      void initialize_audio_effects();
       void on_attack();
       void attack();
       engine::Animation *create_animation(

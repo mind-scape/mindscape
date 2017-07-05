@@ -23,6 +23,7 @@ namespace mindscape {
       void initialize_state_map();
       void initialize_hitboxes();
       void initialize_animations();
+      void initialize_audio_effects();
       void initialize_as_physicable();
       void attack();
       void on_attack();
