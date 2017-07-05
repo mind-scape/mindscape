@@ -22,6 +22,7 @@ namespace engine{
       Mix_Music *audio_music;
       Mix_Chunk *audio_chunk;
 
+      int audio_cont = 0;
 
     public:
       Audio(
@@ -41,7 +42,7 @@ namespace engine{
     bool load();
     void free();
     void set_repetitions(int repeat);
-    void play_chunk();
+    void play_effect();
     void play_music();
     void pause_music();
   };

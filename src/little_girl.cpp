@@ -53,8 +53,9 @@ void LittleGirl::initialize_hitboxes(){
 
 void LittleGirl::initialize_audio_effects(){
 
-  engine::Audio * little_girl_steps = new engine::Audio("../assets/audios/effects_songs/menina_passos.wav", engine::Audio::MUSIC);
+  engine::Audio * little_girl_steps = new engine::Audio("../assets/audios/effects_songs/menina_passos_rapido.wav", engine::Audio::CHUNK);
   add_component(little_girl_steps);
+
 }
 
 void LittleGirl::initialize_animations(){
@@ -203,17 +204,21 @@ void LittleGirl::on_event(GameEvent game_event){
   std::string actual_action_state = states.get_state("ACTION_STATE");
 
   if(event_name == "JUMP" && actual_y_state != "JUMPING"){
-    little_girl_steps->pause_music();
     jump(actual_x_state);
   }else if(event_name == "MOVE_LEFT"){
     move_left(actual_x_state,actual_y_state);
-    little_girl_steps->play_music();
+   little_girl_steps->play_effect();
   }else if(event_name == "MOVE_RIGHT"){
     move_right(actual_x_state,actual_y_state);
-    little_girl_steps->play_music();
+    little_girl_steps->play_effect();
   }else if(event_name == "ATTACK" && actual_action_state != "ATTACKING"){
     attack(actual_x_state);
+  }else if(actual_action_state == "NORMAL" && actual_y_state == "ON_GROUND");{
+    // std::cout << "\n XABLAAAAAAAU \n" << std::endl;
+    // little_girl_steps->pause_music();
   }
+
+
 }
 
 void LittleGirl::jump(std::string actual_x_state){

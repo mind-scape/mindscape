@@ -35,8 +35,16 @@ void Audio::free(){
   audio_chunk = NULL;
 }
 
-void Audio::play_chunk(){
-  Mix_PlayChannel( audio_chanel, audio_chunk, audio_repeat);
+void Audio::play_effect(){
+  if(audio_cont == 0){
+    Mix_PlayChannel( audio_chanel, audio_chunk, audio_repeat);
+    audio_cont++;
+  }else{
+    audio_cont++;
+    if(audio_cont == 57){
+      audio_cont = 0;
+    }
+  }
 }
 
 void Audio::play_music(){
