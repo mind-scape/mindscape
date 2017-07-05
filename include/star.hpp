@@ -19,6 +19,7 @@ namespace mindscape {
     private:
       void initialize_hitboxes();
       void initialize_animations();
+      void initialize_audio_effects();
       engine::Animation* create_animation(
         std::string path,
         int sprite_lines,
@@ -33,6 +34,7 @@ namespace mindscape {
 
       void on_event(GameEvent game_event);
       void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+      void they_got_me();
   };
 
 }

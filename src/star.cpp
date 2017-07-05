@@ -17,6 +17,7 @@ Star::Star(
   ){
     initialize_hitboxes();
     initialize_animations();
+    initialize_audio_effects();
 };
 
 void Star::initialize_hitboxes(){
@@ -29,6 +30,13 @@ void Star::initialize_hitboxes(){
     game.get_renderer()
   );
   add_component(star_hitbox);
+}
+
+void Star::initialize_audio_effects(){
+  engine::Audio * got_me = new engine::Audio("../assets/audios/effects_songs/pegando_estrela.wav", engine::Audio::CHUNK);
+  got_me->set_duration(0.5);
+
+  add_component(got_me);
 }
 
 void Star::initialize_animations(){
@@ -88,6 +96,11 @@ void Star::on_event(GameEvent game_event){
   }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level){
     set_position_x(get_position_x() - 10);
   }
+}
+
+void Star::they_got_me(){
+    engine::Audio* got_me = dynamic_cast<engine::Audio *>(audios[0]);
+    got_me->play_effect();
 }
 
 void Star::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox){

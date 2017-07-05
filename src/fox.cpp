@@ -277,6 +277,7 @@ void Fox::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, e
     set_position_y(other_hitbox->get_coordinates().second - 110);
   }else if(star){
     if(get_star_count() != 3){
+      star->they_got_me();
       star->set_actual_animation(star->animations["star_fading"]);
       star->deactivate_components();
       set_star_count(get_star_count() + 1);
