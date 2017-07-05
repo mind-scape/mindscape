@@ -9,6 +9,7 @@
 #include "../engine/include/animation.hpp"
 #include "../engine/include/hitbox.hpp"
 #include "../engine/include/physics.hpp"
+#include "spider.hpp"
 #include "fighter.hpp"
 #include <iostream>
 #include <vector>
