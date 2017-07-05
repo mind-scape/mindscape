@@ -5,72 +5,67 @@
 using namespace engine;
 
 bool Text::load(){
+  font = TTF_OpenFont(font_path.c_str(), font_size);
 
-    text_font = TTF_OpenFont(text_font_path.c_str(), text_font_size);
+  SDL_Color sdl_color = {
+    color.r,
+    color.g,
+    color.b,
+    color.a
+  };
 
-    SDL_Color color  = {text_color.r, text_color.g,
-                                  text_color.b, text_color.a};
+  SDL_Color bg_color = {
+    background_color.r,
+    background_color.g,
+    background_color.b,
+    background_color.a
+  };
 
-    SDL_Color bg_color = {text_background_color.r, text_background_color.g,
-                                       text_background_color.b, text_background_color.a};
+  SDL_Surface * surface = NULL;
 
-    SDL_Surface * surface = NULL;
+  if(bg_color.a == 0x00){
+    surface = TTF_RenderText_Blended(
+      font,
+      text.c_str(),
+      sdl_color
+    );
+  }else{
+    surface = TTF_RenderText_Solid(font, text.c_str(), sdl_color);
+  }
 
-    if(bg_color.a == 0x00){
+  if(surface == NULL){
+    printf("\nThe text surface cannot be NULL\n");
+    return false;
+  }
 
-        surface = TTF_RenderText_Blended(text_font, text_for_view.c_str(), color);
+  texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-    } else {
+  if(!texture){
+    printf("\nError in the text_texture :%s\n", SDL_GetError());
+  }
 
-        surface = TTF_RenderText_Solid(text_font, text_for_view.c_str(), color);
+  if(texture == NULL){
+    printf("\n The text_texture cannot be NULL\n");
+    return false;
+  }
 
-    }
+  weigth = surface->w;
+  heigth = surface->h;
 
-    if(surface == NULL){
-        printf("\nThe text surface cannot be NULL\n");
-        return false;
-    }
-
-    text_texture = SDL_CreateTextureFromSurface(renderer, surface);
-
-    if(!text_texture){
-        printf("\nError in the text_texture :%s\n", SDL_GetError());
-    }
-
-    if(text_texture == NULL){
-        printf("\n The text_texture cannot be NULL\n");
-        return false;
-    }
-
-    text_weigth = surface->w;
-    text_heigth = surface->h;
-
-    activate();
-    SDL_FreeSurface(surface);
-    return true;
+  activate();
+  SDL_FreeSurface(surface);
+  return true;
 }
 
 void Text::free(){
+  SDL_DestroyTexture(texture);
+  texture = NULL;
 
-
-    SDL_DestroyTexture(text_texture);
-    text_texture = NULL;
-
-    TTF_CloseFont(text_font);
-    text_font = NULL;
-
+  TTF_CloseFont(font);
+  font = NULL;
 }
 
-void Text::draw(int posX, int posY){
-
-    SDL_Rect renderQuad = {
-        posX,
-        posY,
-        text_weigth,
-        text_heigth
-    };
-
-    SDL_RenderCopy(renderer, text_texture, NULL, &renderQuad);
-
-
+void Text::draw(int x, int y){
+  SDL_Rect renderQuad = {x, y, weigth, heigth};
+  SDL_RenderCopy(renderer, texture, NULL, &renderQuad);
 }

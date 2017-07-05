@@ -15,22 +15,22 @@ engine::GameObject* GameObjectFactory::fabricate(
       return fabricate_scorpion(name, coordinates, priority);
     case(GameObjectFactory::SPIDER):
       return fabricate_spider(name, coordinates, priority);
-    case(GameObjectFactory::FOOTER):
-      return fabricate_footer();
     case(GameObjectFactory::FOX):
       return fabricate_fox(name, coordinates, priority);
     case(GameObjectFactory::PLATFORM):
       return fabricate_platform(name, coordinates, priority);
     case(GameObjectFactory::BUTTON):
-      return fabricate_button();
+      return fabricate_button(name, coordinates, priority);
     case(GameObjectFactory::BACKGROUND):
       return fabricate_background(name, coordinates, priority);
-    case(GameObjectFactory::SELECT_ARROW):
-      return fabricate_select_arrow();
     case(GameObjectFactory::HUD_FOX):
       return fabricate_hud_fox(name, coordinates, priority);
     case(GameObjectFactory::HUD_GIRL):
       return fabricate_hud_girl(name, coordinates, priority);
+    case(GameObjectFactory::STAR):
+      return fabricate_star(name, coordinates, priority);
+    case(GameObjectFactory::SELECT_ARROW):
+      return fabricate_select_arrow(name, coordinates, priority);
     default:
       return NULL;
   }
@@ -48,20 +48,17 @@ engine::GameObject* GameObjectFactory::fabricate_hud_girl(
   return hud_girl;
 }
 
-engine::GameObject* GameObjectFactory::fabricate_footer(){
-  std::cout << "NOT IMPLEMENTED YET" << std::endl;
-  return NULL;
-}
-
-engine::GameObject* GameObjectFactory::fabricate_button(){
-  std::cout << "NOT IMPLEMENTED YET" << std::endl;
-  return NULL;
+engine::GameObject* GameObjectFactory::fabricate_button(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* button = new Button(name, position, priority);
+  return button;
 }
 
 
-engine::GameObject* GameObjectFactory::fabricate_select_arrow(){
-  std::cout << "NOT IMPLEMENTED YET" << std::endl;
-  return NULL;
+engine::GameObject* GameObjectFactory::fabricate_select_arrow(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* select_arrow = new SelectArrow(name, position, priority);
+  return select_arrow;
 }
 
 engine::GameObject* GameObjectFactory::fabricate_fox(
@@ -71,9 +68,9 @@ engine::GameObject* GameObjectFactory::fabricate_fox(
 }
 
 engine::GameObject* GameObjectFactory::fabricate_background(
-  std::string name, std::pair<int, int> postion, int priority){
+  std::string name, std::pair<int, int> position, int priority){
   Background* background = new Background(
-    name, postion, priority
+    name, position, priority
   );
   if(name == "main_background")
     background->set_paralax(10);
@@ -97,9 +94,17 @@ engine::GameObject* GameObjectFactory::fabricate_spider(
 }
 
 engine::GameObject* GameObjectFactory::fabricate_scorpion(
-  std::string name, std::pair<int, int> postion, int priority){
+  std::string name, std::pair<int, int> position, int priority){
   engine::GameObject* scorpion = new Scorpion(
-    name, postion, priority
+    name, position, priority
+  );
+  return scorpion;
+}
+
+engine::GameObject* GameObjectFactory::fabricate_star(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* scorpion = new Star(
+    name, position, priority
   );
   return scorpion;
 }
@@ -142,4 +147,24 @@ void GameObjectFactory::fabricate_image(
   );
 
   game_object->add_component(image);
+}
+
+void GameObjectFactory::fabricate_text(
+  engine::GameObject *game_object, std::string p_text,
+  std::string font_path, int font_size,
+  std::pair<int, int> displacement, int priority){
+
+    engine::Game& game = engine::Game::get_instance();
+    engine::Text* text = new engine::Text(game.get_renderer(),
+      "text", displacement, priority, p_text, font_path, font_size);
+
+    game_object->add_component(text);
+}
+
+void GameObjectFactory::fabricate_action(
+  engine::GameObject *game_object, int p_command, std::string param){
+  Action::Command command = static_cast<Action::Command>(p_command);
+  Action *action = new Action(command);
+  Button* button = dynamic_cast<Button *>(game_object);
+  button->set_action(action, param);
 }

@@ -11,28 +11,18 @@
 
 namespace mindscape {
   class SelectArrow : public engine::GameObject{
-    public:
+    private:
+      void initialize_arrow();
       int arrow_seletor = 0;
       bool enter_handler = false;
       char option_select = 'z';
 
+    public:
       SelectArrow(
         std::string name,
         std::pair<int, int> position,
-        int priority)
-        :engine::GameObject(
-          name,
-          position,
-          priority,
-          {
-            {engine::KeyboardEvent::UP,"UP"},
-            {engine::KeyboardEvent::DOWN,"DOWN"},
-            {engine::KeyboardEvent::RETURN,"ENTER"}
-          }
-        ){};
-
+        int priority);
       ~SelectArrow(){};
-
       void on_event(GameEvent game_event);
   };
 }

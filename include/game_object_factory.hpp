@@ -25,7 +25,8 @@ namespace mindscape {
     public:
       typedef enum {
         LITTLE_GIRL, SCORPION, SPIDER, PLATFORM, FOX, BUTTON,
-        SELECT_ARROW, BACKGROUND, FOOTER, HITBOX, IMAGE, HUD_GIRL, HUD_FOX
+        SELECT_ARROW, BACKGROUND, STAR, HITBOX, IMAGE, HUD_GIRL,
+        HUD_FOX, TEXT, ACTION
       } Options;
 
       GameObjectFactory(){};
@@ -43,11 +44,13 @@ namespace mindscape {
       void fabricate_image(engine::GameObject *, std::string,
         std::pair<int, int>, int, std::pair<int, int>,
         std::pair<int, int>, std::pair<int, int>);
+      void fabricate_text(engine::GameObject *, std::string,
+        std::string, int, std::pair<int, int>, int);
+      void fabricate_action(engine::GameObject *, int, std::string);
 
     private:
-      engine::GameObject* fabricate_footer();
-      engine::GameObject* fabricate_button();
-      engine::GameObject* fabricate_select_arrow();
+      engine::GameObject* fabricate_button(std::string, std::pair<int, int>, int);
+      engine::GameObject* fabricate_select_arrow(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_fox(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_background(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_platform(std::string, std::pair<int, int>, int);
@@ -56,6 +59,7 @@ namespace mindscape {
       engine::GameObject* fabricate_little_girl(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_hud_fox(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_hud_girl(std::string, std::pair<int, int>, int);
+      engine::GameObject* fabricate_star(std::string, std::pair<int, int>, int);
   };
 }
 

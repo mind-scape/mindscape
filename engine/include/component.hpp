@@ -39,7 +39,6 @@ namespace engine{
       void set_priority(int);
       std::string get_name();
       void set_name(std::string);
-
     };
 }
 

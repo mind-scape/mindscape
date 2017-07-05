@@ -33,3 +33,15 @@ id image_background1 type 10 belongs_to background1 displ_x 0 displ_y 0 screen_x
 id main_background type 7 x 0 y 0 priority 3
 
 id image_main_background type 10 belongs_to main_background displ_x 0 displ_y 0 screen_x 1024 screen_y 576 tex_x 1024 tex_y 576 tex_coord_x 0 tex_coord_y 0 path ../assets/images/scenes/test_scene/3.png priority 1
+
+id star0 type 8 x 700 y 520 priority 20 
+
+id star1 type 8 x 750 y 520 priority 20 
+
+id star2 type 8 x 800 y 520 priority 20 
+
+id star3 type 8 x 850 y 520 priority 20 
+
+id star4 type 8 x 900 y 520 priority 20 
+
+id star5 type 8 x 950 y 520 priority 20 
