@@ -19,12 +19,15 @@ namespace mindscape {
   class Clown : public Boss {
     private:
       void initialize_boss_parts();
+      Enemy* initialize_goop();
+      Enemy* initialize_body();
       void initialize_state_map();
       void initialize_hitboxes();
       void initialize_animations();
       void initialize_as_physicable();
       void on_attack();
       void attack(engine::GameObject*);
+      void attack_normally_1();
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,

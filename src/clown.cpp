@@ -17,34 +17,49 @@ Clown::Clown(
     initialize_boss_parts();
     initialize_state_map();
     initialize_hitboxes();
-    initialize_animations();
 };
 
 void Clown::initialize_boss_parts(){
+  Enemy* body = initialize_body();
+  set_boss_part("body",body);
+
+  Enemy* goop_1 = initialize_goop();
+  Enemy* goop_2 = initialize_goop();
+  Enemy* goop_3 = initialize_goop();
+  set_boss_part("goop_1",goop_1);
+  set_boss_part("goop_2",goop_2);
+  set_boss_part("goop_3",goop_3);
+}
+
+Enemy* Clown::initialize_body(){
   Enemy* body = new Enemy("body",std::make_pair(1800,180),60,150);
   body->translations = {
     {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
     {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
   };
-  Enemy* goop = new Enemy("goop",std::make_pair(300,180),60,0);
 
-  set_boss_part("body",body);
-  set_boss_part("goop",goop);
-}
-
-void Clown::initialize_animations(){
-    std::map<std::string,Enemy *> boss_parts = get_boss_parts();
-
-    engine::Animation* clown_idle = create_animation(
+  engine::Animation* clown_idle = create_animation(
       "../assets/images/sprites/enemies/clown/clown_idle.png",
       1, 15, 3.0, "LEFT"
-    );
-    clown_idle->set_values(
+      );
+  clown_idle->set_values(
       std::make_pair(448, 448),
       std::make_pair(448, 448),
       std::make_pair(0, 0)
-    );
+      );
 
+  body->add_animation("clown_idle",clown_idle);
+  clown_idle->activate();
+  body->set_actual_animation(clown_idle);
+
+  return body;
+}
+
+Enemy* Clown::initialize_goop(){
+    Enemy* goop = new Enemy("goop",std::make_pair(300,180),60,0);
+    goop->deactivate();
+    std::cout << "DUEREWJRIJEW " << goop->is_active() << std::endl;
+    
     engine::Animation* clown_goop = create_animation(
       "../assets/images/sprites/enemies/clown/clown_goop.png",
       1, 1, 3.0, "LEFT"
@@ -54,16 +69,13 @@ void Clown::initialize_animations(){
       std::make_pair(135, 70),
       std::make_pair(0, 0)
     );
-
-    boss_parts["body"]->add_animation("clown_idle",clown_idle);
-    boss_parts["goop"]->add_animation("clown_goop",clown_goop);
-
-    clown_idle->activate();
-    clown_goop->activate();
     
-    boss_parts["body"]->set_actual_animation(clown_idle);
-    boss_parts["goop"]->set_actual_animation(clown_goop);
-}
+    goop->add_animation("clown_goop",clown_goop);
+    clown_goop->activate();
+    goop->set_actual_animation(clown_goop);
+
+    return goop;
+} 
 
 engine::Animation* Clown::create_animation(
   std::string path,
@@ -138,16 +150,21 @@ void Clown::attack(engine::GameObject* little_girl){
 
   if(distance_from_girl < 650){
     attack_animation_trigger += 1;
-    if(attack_animation_trigger == 10){
+    if(attack_animation_trigger == 40){
       states.set_state("ACTION_STATE","ATTACKING");
+      attack_normally_1();
       //std::cout << "Random Ataque" << std::endl;
-    }else if(attack_animation_trigger == 20){
+    }else if(attack_animation_trigger == 80){
       states.set_state("ACTION_STATE","ATTACKING");
       //std::cout << "Ataque 444" << std::endl;
       attack_animation_trigger = 0;
     }
     states.set_state("ACTION_STATE","NORMAL");
   }
+}
+
+void Clown::attack_normally_1(){
+  std::cout << "Normally" << std::endl;
 }
 
 void Clown::on_attack(){
@@ -159,17 +176,19 @@ void Clown::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox,
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 }
 
-void Clown::activate(){
-  std::map<std::string,Enemy*> boss_parts = get_boss_parts();
-  for(auto boss_part : boss_parts){
-    boss_part.second->activate();
-  }
-}
+//void Clown::activate(){
+//  std::map<std::string,Enemy*> boss_parts = get_boss_parts();
+//  for(auto boss_part : boss_parts){
+//    boss_part.second->activate();
+//  }
+//}
 
 void Clown::draw(){
   std::map<std::string,Enemy*> boss_parts = get_boss_parts();
   for(auto boss_part : boss_parts){
-    boss_part.second->draw();
+    if(boss_part.second->is_active()){
+      boss_part.second->draw();
+    }
   }
 }
 
