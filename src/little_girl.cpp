@@ -54,7 +54,7 @@ void LittleGirl::initialize_hitboxes(){
       "footer",
       get_position(),
       std::make_pair(60, 180),
-      std::make_pair(50, 2),
+      std::make_pair(50, 20),
       game.get_renderer()
   );
 
@@ -252,6 +252,7 @@ void LittleGirl::die(engine::GameObject *game_object){
 }
 
 void LittleGirl::on_event(GameEvent game_event){
+  std::cout << "Posicao da girl: " << get_position_x() << std::endl;
   std::string event_name = game_event.game_event_name;
 
   engine::Animation* actual_animation = get_actual_animation();
