@@ -4,6 +4,8 @@
 #include "../engine/include/game_object.hpp"
 #include "../engine/include/text.hpp"
 #include "../engine/include/keyboard_event.hpp"
+#include "../engine/include/time.hpp"
+#include "../engine/include/game.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -13,9 +15,13 @@ namespace mindscape {
   class SelectArrow : public engine::GameObject{
     private:
       void initialize_arrow();
+      engine::Time * timer;
+      float time;
+      float time_aux = 0;
+      float next_time = 0;
+      bool enable = true;
       int arrow_seletor = 0;
-      bool enter_handler = false;
-      char option_select = 'z';
+      engine::Game * game = &(engine::Game::get_instance());
 
     public:
       SelectArrow(

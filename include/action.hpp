@@ -8,7 +8,7 @@ namespace mindscape {
   class Action {
     public:
       typedef enum {
-        CHANGE_SCENE
+        CHANGE_SCENE_TO_LEVEL_1
       } Command;
     private:
       Command command;
