@@ -23,7 +23,7 @@ namespace mindscape {
       bool enable = true;
       int arrow_seletor = 0;
       engine::Game * game = &(engine::Game::get_instance());
-      std::vector<Action*> actions;
+      Action* action;
 
     public:
       SelectArrow(

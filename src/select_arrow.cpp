@@ -26,11 +26,10 @@ void SelectArrow::initialize_arrow(){
   engine::Game game = engine::Game::get_instance();
   engine::Text* sel = new engine::Text(game.get_renderer(), "selector", std::make_pair(0,0), 5, ">", "../assets/fonts/FFF_Tusj.ttf", 35);
   sel->activate();
-
-
-
   add_component(sel);
   timer->init();
+
+  action = new Action(Action::Command::CHANGE_SCENE);
 }
 
 void SelectArrow::on_event(GameEvent game_event){
@@ -73,21 +72,21 @@ void SelectArrow::on_event(GameEvent game_event){
     case(0):
       set_position(std::make_pair(get_position().first, 175));
       if(event_name == "ENTER"){
-
+        action->execute("../data/1.level.dat");
       }
       break;
     //INSTRUÇÕES
     case(1):
       set_position(std::make_pair(get_position().first, 227));
       if(event_name == "ENTER"){
-
+        action->execute("../data/credits_scene.dat");
       }
       break;
     //CRÉDITOS
     case(2):
       set_position(std::make_pair(get_position().first, 280));
       if(event_name == "ENTER"){
-
+        action->execute("../data/instructions_scene.dat");
       }
       break;
     //SAIR
@@ -101,8 +100,4 @@ void SelectArrow::on_event(GameEvent game_event){
       break;
   }
 
-}
-
-void SelectArrow::add_action(Action * act){
-  actions.push_back(act);
 }
