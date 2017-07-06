@@ -29,7 +29,7 @@ namespace mindscape {
           position,
           priority,
           {
-            {engine::KeyboardEvent::RETURN,"ENTER"},
+            {engine::KeyboardEvent::RETURN,"CHANGE_SCENE"},
           }
       ){};
 

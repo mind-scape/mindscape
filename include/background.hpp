@@ -6,6 +6,7 @@
 #include "../engine/include/game_object.hpp"
 #include "../engine/include/keyboard_event.hpp"
 #include "../engine/include/image.hpp"
+#include "globals.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
