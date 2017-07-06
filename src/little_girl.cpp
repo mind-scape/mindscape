@@ -252,6 +252,7 @@ void LittleGirl::die(engine::GameObject *game_object){
 }
 
 void LittleGirl::on_event(GameEvent game_event){
+  std::cout << "Posicao da girl: " << get_position_x() << std::endl;
   std::string event_name = game_event.game_event_name;
 
   engine::Animation* actual_animation = get_actual_animation();
