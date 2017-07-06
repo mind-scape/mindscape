@@ -82,6 +82,11 @@ namespace engine {
       void add_animation(std::string, Animation*);
       bool equals(GameObject *);
       void collide(GameObject *);
+      int get_hp();
+      void set_hp(int);
+      Audio * get_audio_by_name(std::string);
+      void play_song(std::string);
+      void stop_song(std::string);
       std::pair<float, float> get_position();
       float get_position_x();
       float get_position_y();
@@ -91,8 +96,6 @@ namespace engine {
       std::pair<float, float> get_speed();
       float get_speed_x();
       float get_speed_y();
-      int get_hp();
-      void set_hp(int);
       void set_speed(std::pair<float, float>);
       void set_speed_x(float);
       void set_speed_y(float);

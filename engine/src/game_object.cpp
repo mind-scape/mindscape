@@ -240,3 +240,24 @@ void GameObject::notify_observers(){
     observer->notify(this);
   }
 }
+
+Audio * GameObject::get_audio_by_name(std::string audio_name){
+  Audio *matched_audio = NULL;
+  for(auto audio : audios){
+    if(audio->get_name() == audio_name){
+      matched_audio = dynamic_cast<Audio *>(audio);
+      break;
+    }
+  }
+  return matched_audio;
+}
+
+void GameObject::play_song(std::string song_name){
+  Audio *song = get_audio_by_name(song_name);
+  song->play_effect();
+}
+
+void GameObject::stop_song(std::string song_name){
+  Audio *song = get_audio_by_name(song_name);
+  song->stop_effect();
+}

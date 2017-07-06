@@ -172,9 +172,9 @@ void GameObjectFactory::fabricate_action(
 }
 
 void GameObjectFactory::fabricate_audio(engine::GameObject *game_object,
-  std::string path, int p_audio_type){
+  std::string name, std::string path, int p_audio_type){
   engine::Audio::AudioType audio_type = static_cast<engine::Audio::AudioType>(p_audio_type);
-  engine::Audio *audio = new engine::Audio(path, audio_type);
+  engine::Audio *audio = new engine::Audio(name, path, audio_type);
   game_object->add_component(audio);
 }
 

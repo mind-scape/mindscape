@@ -24,10 +24,14 @@ Scorpion::Scorpion(
 
 
 void Scorpion::initialize_audio_effects(){
-  engine::Audio * scorpion_attacking = new engine::Audio("../assets/audios/effects_songs/ataque_insetos.wav", engine::Audio::CHUNK);
+  engine::Audio * scorpion_attacking = new engine::Audio(
+  "attack",
+  "../assets/audios/effects_songs/ataque_insetos.wav", engine::Audio::CHUNK);
   scorpion_attacking->set_duration(0.7);
 
-  engine::Audio * scorpion_on_attack = new engine::Audio("../assets/audios/effects_songs/inseto_apanhando.wav", engine::Audio::CHUNK);
+  engine::Audio * scorpion_on_attack = new engine::Audio(
+  "hit_me",
+  "../assets/audios/effects_songs/inseto_apanhando.wav", engine::Audio::CHUNK);
   scorpion_on_attack->set_duration(0.8);
 
   add_component(scorpion_attacking);
@@ -187,23 +191,17 @@ void Scorpion::notify(engine::Observable *game_object){
 }
 
 void Scorpion::attack(){
-
-  engine::Audio* scorpion_attacking = dynamic_cast<engine::Audio *>(audios[0]);
-
   states.set_state("ACTION_STATE","ATTACKING");
   std::string actual_x_state = get_state("X_STATE");
   if(actual_x_state == "LOOKING_LEFT"){
     set_actual_animation(animations["attacking_left_animation"]);
-    scorpion_attacking->play_effect();
   }else if(actual_x_state == "LOOKING_RIGHT"){
     set_actual_animation(animations["attacking_right_animation"]);
-    scorpion_attacking->play_effect();
   }
+  play_song("attack");
 }
 
 void Scorpion::on_attack(){
-  //std::cout << "CHEGOOU AKIIII E A PARADA EH " << get_state("ACTION_STATE");
-  engine::Audio* scorpion_on_attack = dynamic_cast<engine::Audio *>(audios[1]);
   states.set_state("ACTION_STATE","ON_ATTACK");
 
   std::string actual_x_state = get_state("X_STATE");
@@ -212,25 +210,24 @@ void Scorpion::on_attack(){
   int actual_HP = get_HP();
   std::cout << "EU SOU O ESCORPIAO E MEU HP EH " << actual_HP << std::endl;
   if(actual_x_state == "LOOKING_LEFT"){
-   if(actual_HP > 0){
+    if(actual_HP > 0){
       set_actual_animation(animations["on_attack_left_animation"]);
-      scorpion_on_attack->play_effect();
-   }else{
-     states.set_state("ACTION_STATE", "DYING");
-     set_actual_animation(animations["dying_left_animation"]);
-      scorpion_on_attack->play_effect();
-   }
+      play_song("hit_me");
+    }else{
+      states.set_state("ACTION_STATE", "DYING");
+      set_actual_animation(animations["dying_left_animation"]);
+      play_song("hit_me");
+    }
   }else if(actual_x_state == "LOOKING_RIGHT"){
-   if(actual_HP > 0){
+    if(actual_HP > 0){
       set_actual_animation(animations["on_attack_right_animation"]);
-      scorpion_on_attack->play_effect();
+      play_song("hit_me");
     }else{
       states.set_state("ACTION_STATE", "DYING");
       set_actual_animation(animations["dying_right_animation"]);
-      scorpion_on_attack->play_effect();
+      play_song("hit_me");
     }
   }
-
 }
 
 // TODO: the movements are stopped when too close. In that time, scorpion must attack.

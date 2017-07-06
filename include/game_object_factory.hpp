@@ -48,7 +48,7 @@ namespace mindscape {
       void fabricate_text(engine::GameObject *, std::string,
         std::string, int, std::pair<int, int>, int);
       void fabricate_action(engine::GameObject *, int, std::string);
-      void fabricate_audio(engine::GameObject *, std::string, int);
+      void fabricate_audio(engine::GameObject *, std::string, std::string, int);
 
     private:
       engine::GameObject* fabricate_button(std::string, std::pair<int, int>, int);

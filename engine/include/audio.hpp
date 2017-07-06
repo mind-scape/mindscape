@@ -14,7 +14,6 @@ namespace engine{
       } AudioType;
 
     private:
-
       std::string audio_path;
       AudioType m_audio_type;
       int audio_repeat;
@@ -34,30 +33,24 @@ namespace engine{
 
     public:
       Audio(
+        std::string p_name,
         std::string path,
-        AudioType m_type = MUSIC,
+        AudioType m_type,
         int repeat = 0,
-        int chanel = -1)
-        :audio_path(path),
-        m_audio_type(m_type),
-        audio_repeat(repeat),
-        audio_chanel(chanel),
-        audio_music(NULL),
-        audio_chunk(NULL) {}
+        int chanel = -1);
 
-    ~Audio(){}
+      ~Audio(){}
 
-    bool load();
-    void free();
-    void set_repetitions(int repeat);
-    void set_duration(float duration);
-    void play_effect();
-    void draw(int x, int y);
-    void pause_music();
-    void stop_effect();
-    void set_effect_volume(int _volume);
-    void set_music_volume(int _volume);
-
+      bool load();
+      void free();
+      void set_repetitions(int repeat);
+      void set_duration(float duration);
+      void play_effect();
+      void draw(int x, int y);
+      void pause_music();
+      void stop_effect();
+      void set_effect_volume(int _volume);
+      void set_music_volume(int _volume);
   };
 }
 

@@ -4,6 +4,21 @@
 #include <iostream>
 
 using namespace engine;
+Audio::Audio(
+  std::string p_name,
+  std::string path,
+  AudioType m_type,
+  int repeat,
+  int chanel)
+  :audio_path(path),
+  m_audio_type(m_type),
+  audio_repeat(repeat),
+  audio_chanel(chanel),
+  audio_music(NULL),
+  audio_chunk(NULL),
+  Component(p_name, std::make_pair(0, 0), true, 1){
+
+}
 
 bool Audio::load(){
     timer->init();
@@ -11,12 +26,14 @@ bool Audio::load(){
     audio_music = Mix_LoadMUS(audio_path.c_str());
     if(!audio_music){
       printf("\nAudio error %s\n", Mix_GetError());
+      exit(1);
       return false;
     }
   }else if(m_audio_type == CHUNK){
     audio_chunk = Mix_LoadWAV(audio_path.c_str());
     if(!audio_chunk){
       printf("\nAudio error %s\n", Mix_GetError());
+      exit(1);
       return false;
     }
   }else{
@@ -37,7 +54,6 @@ void Audio::free(){
 }
 
 void Audio::play_effect(){
-
   time += timer->time_elapsed() - aux_time;
   aux_time = timer->time_elapsed();
 
@@ -49,7 +65,7 @@ void Audio::play_effect(){
   if(!playing){
     time = 0;
     playing = true;
-    Mix_VolumeChunk(audio_chunk, volume);
+    //Mix_VolumeChunk(audio_chunk, volume);
     Mix_PlayChannel(audio_chanel, audio_chunk, audio_repeat);
   }
 }
@@ -81,7 +97,7 @@ void Audio::set_duration(float duration){
 }
 
 void Audio::stop_effect(){
-  Mix_VolumeChunk(audio_chunk, 0);
+  //Mix_VolumeChunk(audio_chunk, 0);
 }
 
 void Audio::set_effect_volume(int _volume){

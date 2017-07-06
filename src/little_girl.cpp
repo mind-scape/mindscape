@@ -52,21 +52,28 @@ void LittleGirl::initialize_hitboxes(){
 }
 
 void LittleGirl::initialize_audio_effects(){
-
-  engine::Audio * little_girl_steps = new engine::Audio("../assets/audios/effects_songs/menina_passos_rapido.wav", engine::Audio::CHUNK);
+  engine::Audio * little_girl_steps = new engine::Audio(
+  "steps",
+  "../assets/audios/effects_songs/menina_passos_rapido.wav",
+  engine::Audio::CHUNK);
   little_girl_steps->set_duration(1);
   little_girl_steps->set_effect_volume(45);
 
-  engine::Audio * little_girl_getting_hit = new engine::Audio("../assets/audios/effects_songs/menina_apanhando.wav", engine::Audio::CHUNK);
+  engine::Audio * little_girl_getting_hit = new engine::Audio(
+  "hit_me",
+  "../assets/audios/effects_songs/menina_apanhando.wav",
+  engine::Audio::CHUNK);
   little_girl_getting_hit->set_duration(0.5);
 
-  engine::Audio * little_girl_attacking_level_1 = new engine::Audio("../assets/audios/effects_songs/espada_fase_1.wav", engine::Audio::CHUNK);
-  little_girl_attacking_level_1->set_duration(0.5);
+  engine::Audio * sword_song = new engine::Audio(
+  "sword_attack",
+  "../assets/audios/effects_songs/espada_fase_1.wav",
+  engine::Audio::CHUNK);
+  sword_song->set_duration(0.5);
 
   add_component(little_girl_steps);
   add_component(little_girl_getting_hit);
-  add_component(little_girl_attacking_level_1);
-
+  add_component(sword_song);
 }
 
 void LittleGirl::initialize_animations(){
@@ -183,8 +190,6 @@ void LittleGirl::on_collision(
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
-  engine::Audio* little_girl_getting_hit = dynamic_cast<engine::Audio *>(audios[1]);
-
   if(get_speed_y() >= 0 && platform){ //if she is falling on a platform
     set_speed_y(0.0);
     set_position_y(other_hitbox->get_coordinates().second - 180);
@@ -193,7 +198,7 @@ void LittleGirl::on_collision(
      scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
      other_hitbox->get_name() == "scorpion_attack" &&
      scorpion->get_actual_animation()->actual_column == 1){
-     little_girl_getting_hit->play_effect();
+    play_song("hit_me");
     on_attack();
     set_hp(get_hp()-1);
   }
@@ -201,7 +206,7 @@ void LittleGirl::on_collision(
      spider->get_state("ACTION_STATE") == "ATTACKING" &&
      other_hitbox->get_name() == "spider_attack" &&
      spider->get_actual_animation()->actual_column == 3){
-    little_girl_getting_hit->play_effect();
+    play_song("hit_me");
     on_attack();
     set_hp(get_hp()-1);
   }
@@ -229,15 +234,14 @@ void LittleGirl::on_event(GameEvent game_event){
 }
 
 void LittleGirl::jump(std::string actual_x_state){
-  engine::Audio* little_girl_steps = dynamic_cast<engine::Audio *>(audios[0]);
   set_speed_y(-21);
   states.set_state("Y_STATE","JUMPING");
 
   if(actual_x_state == "LOOKING_RIGHT"){
-    little_girl_steps->stop_effect();
+    stop_song("steps");
     set_actual_animation(animations["jumping_right_animation"]);
   }else if(actual_x_state == "LOOKING_LEFT"){
-    little_girl_steps->stop_effect();
+    stop_song("steps");
     set_actual_animation(animations["jumping_left_animation"]);
   }
 
@@ -257,7 +261,6 @@ void LittleGirl::jump(std::string actual_x_state){
 }
 
 void LittleGirl::move_right(std::string actual_x_state,std::string actual_y_state){
-  engine::Audio* little_girl_steps = dynamic_cast<engine::Audio *>(audios[0]);
   if(actual_y_state == "ON_GROUND"){
 
     engine::Animation* actual_animation = get_actual_animation();
@@ -268,17 +271,16 @@ void LittleGirl::move_right(std::string actual_x_state,std::string actual_y_stat
       actual_animation->coordinatesOnTexture.first = 0;
     states.set_state("X_STATE","LOOKING_RIGHT");
     set_actual_animation(animations["running_right_animation"]);
-    little_girl_steps->play_effect();
+    play_song("steps");
     set_speed_x(0.1);
   }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_LEFT"){
     states.set_state("X_STATE","LOOKING_RIGHT");
-    little_girl_steps->stop_effect();
+    play_song("steps");
     set_actual_animation(animations["jumping_right_animation"]);
   }
 }
 
 void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state){
-   engine::Audio* little_girl_steps = dynamic_cast<engine::Audio *>(audios[0]);
   if(actual_y_state == "ON_GROUND"){
 
     engine::Animation* actual_animation = get_actual_animation();
@@ -289,27 +291,25 @@ void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state
       actual_animation->coordinatesOnTexture.first = 1536;
     states.set_state("X_STATE","LOOKING_LEFT");
     set_actual_animation(animations["running_left_animation"]);
-    little_girl_steps->play_effect();
+    play_song("steps");
     set_speed_x(-0.1);
   }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_RIGHT"){
     states.set_state("X_STATE","LOOKING_LEFT");
-    little_girl_steps->stop_effect();
+    play_song("steps");
     set_actual_animation(animations["jumping_left_animation"]);
   }
 }
 
 void LittleGirl::attack(std::string actual_x_state){
-  engine::Audio* little_girl_attacking_level_1 = dynamic_cast<engine::Audio *>(audios[2]);
   states.set_state("ACTION_STATE","ATTACKING");
   if(actual_x_state == "LOOKING_RIGHT"){
     set_actual_animation(animations["attacking_right_animation"]);
     get_actual_animation()->is_finished = false;
-    little_girl_attacking_level_1->play_effect();
   }else if(actual_x_state == "LOOKING_LEFT"){
     set_actual_animation(animations["attacking_left_animation"]);
     get_actual_animation()->is_finished = false;
-    little_girl_attacking_level_1->play_effect();
   }
+  play_song("sword_attack");
 }
 
 void LittleGirl::on_attack(){
