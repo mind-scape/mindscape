@@ -244,7 +244,7 @@ void LittleGirl::on_collision(
       goop->set_speed_y(-10);
       goop->set_actual_animation(goop->animations["refuted_goop_animation"]);
       goop->states.set_state("ACTION_STATE","REFUTED");
-    }else{
+    }else if(get_state("ACTION_STATE") != "ATTACKING"){
       play_song("hit_me");
       on_attack(other);
       hit(other,1);
