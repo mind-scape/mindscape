@@ -70,10 +70,7 @@ void SelectArrow::on_event(GameEvent game_event){
     case(0):
       set_position(std::make_pair(get_position().first, 175));
       if(event_name == "ENTER"){
-      LevelFactory *level_factory = new LevelFactory();
-      engine::Level* level = level_factory->fabricate_level("1.level.dat");
-      engine::Game* game = &(engine::Game::get_instance());
-      game->change_scene(level);
+
       }
       break;
     //INSTRUÇÕES
