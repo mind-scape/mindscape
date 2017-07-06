@@ -2,8 +2,10 @@
 #include "../include/platform.hpp"
 #include "../include/scorpion.hpp"
 #include "../engine/include/game.hpp"
+#include "level_factory.hpp"
 #include <typeinfo>
 #include <algorithm>
+#include <unistd.h>
 
 using namespace mindscape;
 
@@ -138,6 +140,22 @@ void LittleGirl::initialize_animations(){
       1, 3, 0.8, "LEFT"
       );
 
+  engine::Animation* dying_left_animation = create_animation(
+      "../assets/images/sprites/little_girl/little_girl_dying_left.png",
+      1, 5, 0.8, "LEFT"
+      );
+  dying_left_animation->in_loop = false;
+  dying_left_animation->is_a_final_animation = true;
+
+  engine::Animation* dying_right_animation = create_animation(
+      "../assets/images/sprites/little_girl/little_girl_dying_right.png",
+      1, 5, 1.0, "RIGHT"
+      );
+  dying_right_animation->in_loop = false;
+  dying_right_animation->is_a_final_animation = true;
+
+  add_animation("dying_right_animation",dying_right_animation);
+  add_animation("dying_left_animation",dying_left_animation);
   add_animation("running_right_animation",running_right_animation);
   add_animation("running_left_animation",running_left_animation);
   add_animation("idle_right_animation",idle_right_animation);
@@ -222,7 +240,15 @@ void LittleGirl::on_collision(
 }
 
 void LittleGirl::die(engine::GameObject *game_object){
-  
+  std::string actual_x_state = get_state("X_STATE");
+  if(actual_x_state == "LOOKING_LEFT"){
+    states.set_state("ACTION_STATE", "DYING");
+    set_actual_animation(animations["dying_left_animation"]);
+  }else if(actual_x_state == "LOOKING_RIGHT"){
+    states.set_state("ACTION_STATE", "DYING");
+    set_actual_animation(animations["dying_right_animation"]);
+  }
+  sleep(1);
 }
 
 void LittleGirl::on_event(GameEvent game_event){
