@@ -20,7 +20,7 @@ PersistenceMap * PersistenceDat::load(std::string path){
 
   std::string line;
   std::ifstream save_file;
-  
+
   save_file.open(path, std::ifstream::in);
 
   if (save_file.is_open()){
@@ -29,7 +29,7 @@ PersistenceMap * PersistenceDat::load(std::string path){
       std::string key;
       std::string value;
       std::unordered_map<std::string, std::string> object_data;
-      if(line != ""){
+      if(line != "" && line[0] != '#'){
         while(iss >> key && iss >> value){
           object_data[key] = value;
         }
