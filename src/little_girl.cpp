@@ -44,11 +44,20 @@ void LittleGirl::initialize_hitboxes(){
       "hitbox",
       get_position(),
       std::make_pair(60, 45),
-      std::make_pair(50,140),
+      std::make_pair(50,130),
       game.get_renderer()
-      );
+  );
+
+  engine::Hitbox* footer= new engine::Hitbox(
+      "footer",
+      get_position(),
+      std::make_pair(60, 180),
+      std::make_pair(50, 2),
+      game.get_renderer()
+  );
 
   add_component(hitbox);
+  add_component(footer);
 }
 
 void LittleGirl::initialize_audio_effects(){
@@ -190,7 +199,7 @@ void LittleGirl::on_collision(
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
-  if(get_speed_y() >= 0 && platform){ //if she is falling on a platform
+  if(get_speed_y() >= 0 && platform && my_hitbox->get_name() == "footer"){ //if she is falling on a platform
     set_speed_y(0.0);
     set_position_y(other_hitbox->get_coordinates().second - 180);
   }
