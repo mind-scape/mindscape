@@ -119,7 +119,7 @@ void Goop::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, 
     set_speed_y(0.0);
     set_position_y(other_hitbox->get_coordinates().second - 30);
     states.set_state("Y_STATE","ON_GROUND");
-    //engine::Game::get_instance().get_actual_scene()->deactivate_game_object("goop");
+    engine::Game::get_instance().get_actual_scene()->deactivate_game_object(name);
     free();
   }
 }

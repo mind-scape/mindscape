@@ -26,11 +26,15 @@ void Scene::activate_game_object(GameObject *go){
 }
 
 void Scene::deactivate_game_object(std::string game_object_name){
+  int counter = 0;
   for(auto go : objects){
     if(go->name == game_object_name){
       go->deactivate();
       EventHandler::remove_listener(go);
+      objects.erase(objects.begin() + counter);
+      break;
     }
+    counter++;
   }
 }
 
