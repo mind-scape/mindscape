@@ -65,7 +65,7 @@ void Audio::play_effect(){
   if(!playing){
     time = 0;
     playing = true;
-    //Mix_VolumeChunk(audio_chunk, volume);
+    Mix_VolumeChunk(audio_chunk, volume);
     Mix_PlayChannel(audio_chanel, audio_chunk, audio_repeat);
   }
 }
@@ -97,7 +97,9 @@ void Audio::set_duration(float duration){
 }
 
 void Audio::stop_effect(){
-  //Mix_VolumeChunk(audio_chunk, 0);
+  if(audio_chunk != NULL){
+    Mix_VolumeChunk(audio_chunk, 0);
+  }
 }
 
 void Audio::set_effect_volume(int _volume){
@@ -109,9 +111,11 @@ void Audio::set_effect_volume(int _volume){
 }
 
 void Audio::set_music_volume(int _volume){
-  if(_volume > -1 && volume < 129){
-    Mix_VolumeMusic(_volume);
-  } else {
-    std::cout << "\nThe volume must be between 0 and 128" << std::endl;
-  }
+  if(audio_music != NULL){
+    if(_volume > -1 && volume < 129){
+      Mix_VolumeMusic(_volume);
+    } else {
+      std::cout << "\nThe volume must be between 0 and 128" << std::endl;
+    }
+   }
 }

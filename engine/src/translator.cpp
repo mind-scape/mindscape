@@ -6,10 +6,10 @@ using namespace engine;
 
 bool Translator::is_a_valid_event;
 
-std::list<GameEvent> Translator::keyboard_events_to_game_events(std::list<KeyboardEvent> keyboard_events){  
+std::list<GameEvent> Translator::keyboard_events_to_game_events(std::list<KeyboardEvent> keyboard_events){
   std::list<GameEvent> game_events;
-  std::unordered_map<KeyboardEvent::Key, bool> used_keys;
-  
+  std::map<KeyboardEvent::Key, bool> used_keys;
+
   for(auto keyboard_event : keyboard_events){
       KeyboardEvent::Key key = keyboard_event.key();
       bool key_repeated = keyboard_event.repeated();
@@ -20,7 +20,7 @@ std::list<GameEvent> Translator::keyboard_events_to_game_events(std::list<Keyboa
         used_keys[key] = false;
       else
         used_keys[key] = true;
-    
+
     for(auto game_object : EventHandler::listeners){
       //disable multiple jumps
       if((game_object->name == "little_girl" && key == 50) && (key_repeated || key_released)){
