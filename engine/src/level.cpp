@@ -5,10 +5,7 @@ using namespace engine;
 void Level::load(){
   for(auto game_object : objects){
     std::cout << "Loading " << game_object->name << std::endl;
-    mindscape::Clown* clown = dynamic_cast<mindscape::Clown*>(game_object);
-    
-    if(clown) clown->load();
-    else game_object->load();
+    game_object->load();
     for(auto hit : game_object->get_hitboxes()){
       hit->initialize();
     }
@@ -25,12 +22,8 @@ void Level::free(){
 
 void Level::draw(){
   for(auto game_object : objects){
-    std::cout << "Game Objecdt " << game_object->name << std::endl;
     if(game_object->is_active()){
-      mindscape::Clown* clown = dynamic_cast<mindscape::Clown*>(game_object);
-
-      if(clown) clown->draw(); 
-      else game_object->draw();
+      game_object->draw();
     }
   }
 }

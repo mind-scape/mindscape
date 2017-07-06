@@ -10,7 +10,7 @@ id fox_hud type 12 x 800 y 465 priority 60 follows fox
 
 id spider type 2 x 100 y 0 priority 41 follows little_girl
 
-id clown type 17 x 1200 y 100 priority 62 follows little_girl
+id clown type 17 x 1800 y 100 priority 50 follows little_girl
 
 id platform0 type 3 x 800 y 200 priority 30
 

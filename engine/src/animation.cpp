@@ -24,10 +24,7 @@ void Animation::draw(int x, int y){
   playing_duration_of_animation += time->get_elapsed_time() - aux_time;
   aux_time = time->get_elapsed_time();
   
-  if(image_path != "../assets/images/sprites/enemies/clown/clown_idle.png"){
-//    std::cout << image_path << std::endl;
-//    std::cout << duration_of_animation << "   " << playing_duration_of_animation << std::endl;
-  }
+
   if(playing_duration_of_animation >= duration_of_animation){
     is_finished = true;
     if(in_loop){
@@ -41,7 +38,7 @@ void Animation::draw(int x, int y){
       }
     }
   }
-
+    
   if(time_of_sprite == 0.0){
     std::cout << "ENTROU COM 000000" << std::endl;
     time_of_sprite = 1.0;

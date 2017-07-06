@@ -261,7 +261,6 @@ void Spider::on_attack(){
     if(actual_HP > 0){
       set_actual_animation(animations["on_attack_left_animation"]);
     }else{
-      printf("ENSDIJSDOJFOI\n");
       states.set_state("ACTION_STATE", "DYING");
       set_actual_animation(animations["dying_left_animation"]);
     }

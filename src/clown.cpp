@@ -1,4 +1,5 @@
 #include "../include/clown.hpp"
+#include "../include/platform.hpp"
 #include "../include/little_girl.hpp"
 #include <stdlib.h>
 
@@ -8,36 +9,24 @@ Clown::Clown(
   std::string name,
   std::pair<int, int> position,
   int priority)
-  :Boss(
+  :Enemy(
     name,
     position,
     priority,
     100
   ){
-    initialize_boss_parts();
     initialize_state_map();
     initialize_hitboxes();
+    initialize_animations();
+    initialize_as_physicable();
+    initialize_audio_effects();
 };
 
-void Clown::initialize_boss_parts(){
-  Enemy* body = initialize_body();
-  set_boss_part("body",body);
 
-  Enemy* goop_1 = initialize_goop();
-  Enemy* goop_2 = initialize_goop();
-  Enemy* goop_3 = initialize_goop();
-  set_boss_part("goop_1",goop_1);
-  set_boss_part("goop_2",goop_2);
-  set_boss_part("goop_3",goop_3);
+void Clown::initialize_audio_effects(){
 }
 
-Enemy* Clown::initialize_body(){
-  Enemy* body = new Enemy("body",std::make_pair(1800,180),60,150);
-  body->translations = {
-    {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
-    {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
-  };
-
+void Clown::initialize_animations(){
   engine::Animation* clown_idle = create_animation(
       "../assets/images/sprites/enemies/clown/clown_idle.png",
       1, 15, 3.0, "LEFT"
@@ -48,34 +37,10 @@ Enemy* Clown::initialize_body(){
       std::make_pair(0, 0)
       );
 
-  body->add_animation("clown_idle",clown_idle);
+  add_animation("clown_idle",clown_idle);
   clown_idle->activate();
-  body->set_actual_animation(clown_idle);
-
-  return body;
+  set_actual_animation(clown_idle);
 }
-
-Enemy* Clown::initialize_goop(){
-    Enemy* goop = new Enemy("goop",std::make_pair(300,180),60,0);
-    goop->deactivate();
-    std::cout << "DUEREWJRIJEW " << goop->is_active() << std::endl;
-    
-    engine::Animation* clown_goop = create_animation(
-      "../assets/images/sprites/enemies/clown/clown_goop.png",
-      1, 1, 3.0, "LEFT"
-    );
-    clown_goop->set_values(
-      std::make_pair(135, 70),
-      std::make_pair(135, 70),
-      std::make_pair(0, 0)
-    );
-    
-    goop->add_animation("clown_goop",clown_goop);
-    clown_goop->activate();
-    goop->set_actual_animation(clown_goop);
-
-    return goop;
-} 
 
 engine::Animation* Clown::create_animation(
   std::string path,
@@ -99,25 +64,40 @@ engine::Animation* Clown::create_animation(
   );
 
   animation->set_values(
-    std::make_pair(100, 100),
-    std::make_pair(100, 100),
+    std::make_pair(320, 320),
+    std::make_pair(320, 320),
     std::make_pair(0, 0)
   );
 
   return animation;
 }
 
+void Clown::initialize_as_physicable(){
+  engine::Physics *physics = engine::Physics::get_instance();
+  physics->add_physicable(this);
+  collidable = true;
+}
+
 void Clown::initialize_hitboxes(){
   engine::Game& game = engine::Game::get_instance();
-  engine::Hitbox* clown_hitbox = new engine::Hitbox(
-    "clown_hitbox",
+  engine::Hitbox* foot_hitbox = new engine::Hitbox(
+    "foot_hitbox",
     this->get_position(),
     std::make_pair(40, 312),
     std::make_pair(180,8),
     game.get_renderer()
   );
 
-  add_component(clown_hitbox);
+  engine::Hitbox* attack_hitbox = new engine::Hitbox(
+    "attack_hitbox",
+    this->get_position(),
+    std::make_pair(5, 200),
+    std::make_pair(283,10),
+    game.get_renderer()
+  );
+
+  add_component(foot_hitbox);
+  add_component(attack_hitbox);
 }
 
 void Clown::initialize_state_map(){
@@ -125,14 +105,12 @@ void Clown::initialize_state_map(){
 }
 
 void Clown::on_event(GameEvent game_event){
-  std::string event_name = game_event.game_event_name; 
-  std::string actual_action_state = states.get_state("ACTION_STATE");
-  Enemy* body = get_boss_parts()["body"];
+  std::string event_name = game_event.game_event_name;
 
-  if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level && actual_action_state == "NORMAL"){
-    body->set_position_x(body->get_position_x() + 10);
-  }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level && actual_action_state == "NORMAL"){
-    body->set_position_x(body->get_position_x() - 10);
+  if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level){
+    set_position_x(get_position_x() + 10);
+  }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level){
+    set_position_x(get_position_x() - 10);
   }
 }
 
@@ -144,7 +122,7 @@ void Clown::notify(engine::Observable *game_object){
 }
 
 void Clown::attack(engine::GameObject* little_girl){
-  int clown_position = get_boss_parts()["body"]->get_position_x();
+  int clown_position = get_position_x();
   int little_girl_position = little_girl->get_position_x();
   int distance_from_girl = clown_position - little_girl_position; 
 
@@ -164,54 +142,27 @@ void Clown::attack(engine::GameObject* little_girl){
 }
 
 void Clown::attack_normally_1(){
-  std::cout << "Normally" << std::endl;
+  if(goops_counter == 0){
+    engine::GameObject* goop = new Goop("goop",std::make_pair(180,180),60);
+    engine::Game::get_instance().get_actual_scene()->add_object(goop);
+    engine::Game::get_instance().get_actual_scene()->activate_game_object(goop);
+    goop->load();
+    goops_counter += 1;
+    goop->set_speed_x(-7.0);
+  }
 }
 
 void Clown::on_attack(){
 }
 
 void Clown::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox){
+  Platform* platform = dynamic_cast<Platform *>(other);
   LittleGirl* little_girl = dynamic_cast<LittleGirl *>(other);
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
-}
 
-//void Clown::activate(){
-//  std::map<std::string,Enemy*> boss_parts = get_boss_parts();
-//  for(auto boss_part : boss_parts){
-//    boss_part.second->activate();
-//  }
-//}
-
-void Clown::draw(){
-  std::map<std::string,Enemy*> boss_parts = get_boss_parts();
-  for(auto boss_part : boss_parts){
-    if(boss_part.second->is_active()){
-      boss_part.second->draw();
-    }
+  if(get_speed_y() >= 0 && platform && my_hitbox->get_name() == "foot_hitbox"){
+    set_speed_y(0.0);
+    set_position_y(other_hitbox->get_coordinates().second - 312);
   }
 }
-
-void Clown::load(){
-  std::map<std::string,Enemy*> boss_parts = get_boss_parts();
-  for(auto boss_part : boss_parts){
-    boss_part.second->load(); 
-  }
-}
-/*
-float Clown::calculate_goop_vy(float final_y, float gravity, float jump_time){
-  float initial_y = (float) get_position_y();
-  float throw_speed_y;
-  float delta_y = final_y - initial_y;
-  throw_speed_y = ((gravity*jump_time/2.0) + (delta_y/jump_time));
-  return throw_speed_y;
-}
-
-float Clown::calculate_goop_vx(float final_x, float gravity, float jump_time){
-  float throw_speed_x;
-  float initial_x = (float) get_position_x();
-  float delta_x = final_x - initial_x;
-  throw_speed_x = delta_x/(jump_time*2);
-  return throw_speed_x;
-}
-*/

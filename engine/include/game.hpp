@@ -55,7 +55,7 @@ namespace engine{
       void set_state(State);
       State get_state();
       SDL_Renderer *get_renderer();
-
+      Scene* get_actual_scene();
   };
 }
 
