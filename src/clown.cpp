@@ -127,6 +127,7 @@ void Clown::attack(engine::GameObject* little_girl){
   int distance_from_girl = clown_position - little_girl_position; 
 
   if(distance_from_girl < 650){
+    std::cout << "O TAMANHO DEU " << clown_goops.size() << std::endl;
     attack_animation_trigger += 1;
     if(attack_animation_trigger == 40){
       states.set_state("ACTION_STATE","ATTACKING");
@@ -158,19 +159,19 @@ void Clown::basic_attack(){
 
 void Clown::serial_attack(){
   if(clown_goops.size() > 3) clown_goops.clear();
-  engine::GameObject* goop_1 = new Goop("goop",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
+  engine::GameObject* goop_1 = new Goop("goop_1",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
   engine::Game::get_instance().get_actual_scene()->add_object(goop_1);
   engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_1);
   goop_1->load();
   goop_1->set_speed_x(-20.0);
   goop_1->set_speed_y(-8.0);
-  engine::GameObject* goop_2 = new Goop("goop",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
+  engine::GameObject* goop_2 = new Goop("goop_2",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
   engine::Game::get_instance().get_actual_scene()->add_object(goop_2);
   engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_2);
   goop_2->load();
   goop_2->set_speed_x(-20.0);
   goop_2->set_speed_y(-20.0);
-  engine::GameObject* goop_3 = new Goop("goop",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
+  engine::GameObject* goop_3 = new Goop("goop_3",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
   engine::Game::get_instance().get_actual_scene()->add_object(goop_3);
   engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_3);
   goop_3->load();
