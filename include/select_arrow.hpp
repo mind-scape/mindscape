@@ -24,6 +24,7 @@ namespace mindscape {
       int arrow_seletor = 0;
       engine::Game * game = &(engine::Game::get_instance());
       Action* action;
+      Action* action_1;
 
     public:
       SelectArrow(

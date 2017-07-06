@@ -1,3 +1,21 @@
-id main_background type 7 x 0 y 0 priority 1
+# Camada da little_girl
 
+## Backgrounds
+
+id main_background type 7 x 0 y 0 priority 1
 id image_background type 10 belongs_to main_background displ_x 0 displ_y 0 screen_x 1024 screen_y 576 tex_x 1024 tex_y 576 tex_coord_x 0 tex_coord_y 0 path ../assets/images/scenes/main_menu/instructions_screen.png priority 1
+
+## Objetos vivos e tal
+
+id little_girl type 0 x 1030 y 0 priority 6
+id fox type 4 x 500 y 10000 priority 6 follows little_girl
+id spider_1 type 2 x 1800 y 0 priority 6 follows little_girl
+id scorpion_1 type 1 x 2800 y 0 priority 6 follows little_girl
+id spider_2 type 2 x 3000 y 0 priority 6 follows little_girl
+id scorpion_2 type 1 x 3200 y 0 priority 6 follows little_girl
+id scorpion_3 type 1 x 5000 y 0 priority 6 follows little_girl
+id scorpion_4 type 1 x 7300 y 0 priority 6 follows little_girl
+id scorpion_5 type 1 x 8100 y 0 priority 6 follows little_girl
+id scorpion_5 type 1 x 12900 y 0 priority 6 follows little_girl
+id spider_4 type 2 x 5700 y 0 priority 6 follows little_girl
+id spider_5 type 2 x 9400 y 0 priority 6 follows little_girl
