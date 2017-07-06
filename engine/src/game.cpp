@@ -91,7 +91,7 @@ void Game::run(){
     Time::init();
 
     while(state != QUIT){
-      //sleep(1);
+
       unsigned now = Time::time_elapsed();
       event_handler.dispatch_pending_events(now);
       actual_scene->update();
