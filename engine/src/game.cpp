@@ -158,3 +158,7 @@ Game::State Game::get_state(){
 SDL_Renderer * Game::get_renderer(){
   return renderer;
 }
+
+Scene* Game::get_actual_scene(){
+  return actual_scene;
+}

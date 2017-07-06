@@ -9,22 +9,23 @@
 #include "../engine/include/observable.hpp"
 #include "../engine/include/animation.hpp"
 #include "enemy.hpp"
-#include "boss.hpp"
+#include "goop.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
 #include <map>
 
 namespace mindscape {
-  class Clown : public Boss {
+  class Clown : public Enemy {
     private:
-      void initialize_boss_parts();
       void initialize_state_map();
       void initialize_hitboxes();
       void initialize_animations();
       void initialize_as_physicable();
+      void initialize_audio_effects();
       void on_attack();
       void attack(engine::GameObject*);
+      void attack_normally_1();
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
@@ -32,6 +33,8 @@ namespace mindscape {
         double duration,
         std::string direction
       );
+      int goops_counter = 0;
+      int attack_animation_trigger = 0;
 
     public:
       Clown(
@@ -41,13 +44,9 @@ namespace mindscape {
       );
       ~Clown(){};
 
-      int attack_animation_trigger = 0;
       void on_event(GameEvent);
       void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
       void notify(engine::Observable *);
-      void draw();
-      void activate();
-      void load();
   };
 
 }

@@ -201,32 +201,32 @@ void Scorpion::attack(){
   play_song("attack");
 }
 
-void Scorpion::on_attack(){
+void Scorpion::on_attack(GameObject *game_object){
   states.set_state("ACTION_STATE","ON_ATTACK");
 
   std::string actual_x_state = get_state("X_STATE");
-  update_HP(-5);
+  hit(game_object, 5);
 
-  int actual_HP = get_HP();
-  if(actual_x_state == "LOOKING_LEFT"){
-    if(actual_HP > 0){
+  if(is_alive()){
+    if(actual_x_state == "LOOKING_LEFT"){
       set_actual_animation(animations["on_attack_left_animation"]);
-      play_song("hit_me");
-    }else{
-      states.set_state("ACTION_STATE", "DYING");
-      set_actual_animation(animations["dying_left_animation"]);
-      play_song("hit_me");
-    }
-  }else if(actual_x_state == "LOOKING_RIGHT"){
-    if(actual_HP > 0){
+    }else if(actual_x_state == "LOOKING_RIGHT"){
       set_actual_animation(animations["on_attack_right_animation"]);
-      play_song("hit_me");
-    }else{
-      states.set_state("ACTION_STATE", "DYING");
-      set_actual_animation(animations["dying_right_animation"]);
-      play_song("hit_me");
     }
+    play_song("hit_me");
   }
+}
+
+void Scorpion::die(engine::GameObject *game_object){
+  std::string actual_x_state = get_state("X_STATE");
+  if(actual_x_state == "LOOKING_LEFT"){
+    states.set_state("ACTION_STATE", "DYING");
+    set_actual_animation(animations["dying_left_animation"]);
+  }else if(actual_x_state == "LOOKING_RIGHT"){
+    states.set_state("ACTION_STATE", "DYING");
+    set_actual_animation(animations["dying_right_animation"]);
+  }
+  play_song("hit_me");
 }
 
 // TODO: the movements are stopped when too close. In that time, scorpion must attack.
@@ -295,6 +295,6 @@ void Scorpion::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitb
      && get_state("X_STATE") != little_girl->get_state("X_STATE")){
         if(get_state("ACTION_STATE") == "ON_ATTACK") return;
         else
-        on_attack();
+        on_attack(other);
   }
 }

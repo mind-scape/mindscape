@@ -250,28 +250,30 @@ void Spider::move(engine::GameObject* girl){
   }
 }
 
-void Spider::on_attack(){
+void Spider::on_attack(GameObject *game_object){
   states.set_state("ACTION_STATE","ON_ATTACK");
+
   std::string actual_x_state = get_state("X_STATE");
+  hit(game_object, 5);
 
-  update_HP(-5);
-  int actual_HP = get_HP();
-
-  if(actual_x_state == "LOOKING_LEFT"){
-    if(actual_HP > 0){
+  if(is_alive()){
+    if(actual_x_state == "LOOKING_LEFT"){
       set_actual_animation(animations["on_attack_left_animation"]);
-    }else{
-      printf("ENSDIJSDOJFOI\n");
-      states.set_state("ACTION_STATE", "DYING");
-      set_actual_animation(animations["dying_left_animation"]);
-    }
-  }else if(actual_x_state == "LOOKING_RIGHT"){
-    if(actual_HP > 0){
+    }else if(actual_x_state == "LOOKING_RIGHT"){
       set_actual_animation(animations["on_attack_right_animation"]);
-    }else{
-      states.set_state("ACTION_STATE", "DYING");
-      set_actual_animation(animations["dying_right_animation"]);
     }
+    play_song("hit_me");
+  }
+}
+
+void Spider::die(engine::GameObject *game_object){
+  std::string actual_x_state = get_state("X_STATE");
+  if(actual_x_state == "LOOKING_LEFT"){
+    states.set_state("ACTION_STATE", "DYING");
+    set_actual_animation(animations["dying_left_animation"]);
+  }else if(actual_x_state == "LOOKING_RIGHT"){
+    states.set_state("ACTION_STATE", "DYING");
+    set_actual_animation(animations["dying_right_animation"]);
   }
   play_song("hit_me");
 }
@@ -292,6 +294,6 @@ void Spider::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox
       little_girl->get_actual_animation()->actual_column == 2
     && get_state("X_STATE") != little_girl->get_state("X_STATE")){
         if(get_state("ACTION_STATE") == "ON_ATTACK") return;
-        else on_attack();
+        else on_attack(other);
   }
 }

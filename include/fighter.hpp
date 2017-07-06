@@ -10,11 +10,25 @@
 
 namespace mindscape {
   class Fighter {
-    public:
-      virtual void attack(){};
-      virtual void die(engine::GameObject*){};
-  };
+    private:
+      int max_hitpoints;
+      int hitpoints;
 
+    public:
+      Fighter(int p_hitpoints):hitpoints(p_hitpoints),
+        max_hitpoints(p_hitpoints){};
+      ~Fighter(){};
+
+      virtual void attack(){};
+      virtual void on_attack(engine::GameObject *){};
+      virtual void die(engine::GameObject*){};
+      int get_hp();
+      void set_hp(int);
+      void heal(int);
+      void hit(engine::GameObject *, int);
+      bool is_life_full();
+      bool is_alive();
+  };
 }
 
 #endif
