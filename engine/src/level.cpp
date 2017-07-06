@@ -17,6 +17,7 @@ void Level::free(){
     std::cout << "Freeing" << go->name << std::endl;
     go->free();
   }
+  EventHandler::listeners.clear();
 }
 
 void Level::draw(){

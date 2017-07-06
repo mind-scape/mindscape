@@ -68,10 +68,6 @@ void Game::load_media(){
 }
 
 void Game::close(){
-  //TODO add steps to deallocate all rendered textures
-  // images[1]->free();
-  // images[2]->free();
-
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   renderer = NULL;
@@ -86,8 +82,6 @@ bool Game::is_media_loaded(){
 }
 
 void Game::run(){
-  int right_cont = 0, left_cont = 0;
-  std::pair<int,int> pos; pos.first =240;pos.second = 350;
   state = RUNNING;
 
   if(is_media_loaded()){
@@ -97,8 +91,7 @@ void Game::run(){
     Time::init();
 
     while(state != QUIT){
-
-//      sleep(1);
+      //sleep(1);
       unsigned now = Time::time_elapsed();
       event_handler.dispatch_pending_events(now);
       actual_scene->update();
@@ -125,9 +118,11 @@ void Game::set_information(std::string p_name,std::pair<int,int> p_dimensions){
 
 void Game::change_scene(Scene *level){
   if(actual_scene){
+    actual_scene->deactivate();
     actual_scene->free();
     delete actual_scene;
   }
+  level->activate();
   actual_scene = level;
   load_media();
 }

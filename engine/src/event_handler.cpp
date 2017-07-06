@@ -40,6 +40,7 @@ std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now){
       events.push_back(event);
       it = sdl_events.erase(it);
       has_events = true;
+
     } else
       ++it;
   }

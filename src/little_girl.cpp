@@ -229,8 +229,6 @@ void LittleGirl::on_event(GameEvent game_event){
   }else if(event_name == "ATTACK" && actual_action_state != "ATTACKING"){
     attack(actual_x_state);
   }
-
-
 }
 
 void LittleGirl::jump(std::string actual_x_state){

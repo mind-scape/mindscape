@@ -87,9 +87,7 @@ engine::Level *LevelFactory::fabricate_level(std::string path){
             object["follows"]);
           observable->attach_observer(constructed_obj);
         }
-
         level->add_object(constructed_obj);
-        level->activate_game_object(constructed_obj);
       }
     }
 

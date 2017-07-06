@@ -34,6 +34,18 @@ void Scene::deactivate_game_object(std::string game_object_name){
   }
 }
 
+void Scene::deactivate(){
+  for(auto go : objects){
+      go->deactivate();
+  }
+  EventHandler::listeners.clear();
+}
+
+void Scene::activate(){
+  for(auto go : objects)
+    activate_game_object(go);
+}
+
 void Scene::run_collisions(){
   for(auto go : objects){
     if(go->collidable){
