@@ -48,16 +48,8 @@ void Fox::initialize_state_map(){
 void Fox::notify(engine::Observable *game_object){
   LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
   if(little_girl){
-    girl_hp = little_girl->get_hp();
-    if(girl_hp < 90 && get_star_count() == 3){
-      must_give_hp_to_girl = true;
-    }
-    if(must_give_hp_to_girl){
-      if(get_hp()+30 > 90){
-        little_girl->set_hp(90);
-      }else{
-        little_girl->set_hp(little_girl->get_hp()+30);
-      }
+    if(!little_girl->is_life_full() && get_star_count() == 3){
+      little_girl->heal(30);
       must_give_hp_to_girl = false;
       animation_hud_fading = true;
     }

@@ -24,7 +24,7 @@ LittleGirl::LittleGirl(
       {engine::KeyboardEvent::DOWN,"CROUCH"},
       {engine::KeyboardEvent::F,"ATTACK"},
     }
-  ){
+  ), Fighter(90){
     initialize_state_map();
     initialize_hitboxes();
     initialize_animations();
@@ -208,17 +208,21 @@ void LittleGirl::on_collision(
      other_hitbox->get_name() == "scorpion_attack" &&
      scorpion->get_actual_animation()->actual_column == 1){
     play_song("hit_me");
-    on_attack();
-    set_hp(get_hp()-1);
+    on_attack(other);
+    hit(other, 1);
   }
   if(spider &&
      spider->get_state("ACTION_STATE") == "ATTACKING" &&
      other_hitbox->get_name() == "spider_attack" &&
      spider->get_actual_animation()->actual_column == 3){
     play_song("hit_me");
-    on_attack();
-    set_hp(get_hp()-1);
+    on_attack(other);
+    hit(other, 1);
   }
+}
+
+void LittleGirl::die(engine::GameObject *game_object){
+  
 }
 
 void LittleGirl::on_event(GameEvent game_event){
@@ -236,7 +240,7 @@ void LittleGirl::on_event(GameEvent game_event){
   }else if(event_name == "MOVE_RIGHT"){
     move_right(actual_x_state,actual_y_state);
   }else if(event_name == "ATTACK" && actual_action_state != "ATTACKING"){
-    attack(actual_x_state);
+    attack();
   }
 }
 
@@ -307,7 +311,8 @@ void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state
   }
 }
 
-void LittleGirl::attack(std::string actual_x_state){
+void LittleGirl::attack(){
+  std::string actual_x_state = states.get_state("X_STATE");
   states.set_state("ACTION_STATE","ATTACKING");
   if(actual_x_state == "LOOKING_RIGHT"){
     set_actual_animation(animations["attacking_right_animation"]);
@@ -319,7 +324,7 @@ void LittleGirl::attack(std::string actual_x_state){
   play_song("sword_attack");
 }
 
-void LittleGirl::on_attack(){
+void LittleGirl::on_attack(GameObject *game_object){
   std::string actual_x_state = states.get_state("X_STATE");
   states.set_state("ACTION_STATE","ON_ATTACK");
   if(actual_x_state == "LOOKING_LEFT"){

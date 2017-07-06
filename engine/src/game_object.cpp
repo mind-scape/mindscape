@@ -208,14 +208,6 @@ void GameObject::update_state(){
 //std::cout << "GAME OBJECT UPDATE" << std::endl;
 }
 
-int GameObject::get_hp(){
-  return hp;
-}
-
-void GameObject::set_hp(int health){
-  hp = health;
-}
-
 void GameObject::create_hitbox(
   std::pair<int, int> displacement,
   std::pair<int, int> dimensions){

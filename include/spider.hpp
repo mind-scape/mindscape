@@ -26,7 +26,8 @@ namespace mindscape {
       void initialize_audio_effects();
       void initialize_as_physicable();
       void attack();
-      void on_attack();
+      void on_attack(engine::GameObject *);
+      void die(engine::GameObject*);
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,

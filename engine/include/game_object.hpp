@@ -29,7 +29,6 @@ namespace engine {
   class Animation;
   class GameObject : public Observer, public Observable{
     private:
-      int hp = 90;
       std::pair<float, float> speed;
       std::pair<float,float> position;
       std::vector<Hitbox*> hitboxes;
@@ -82,8 +81,6 @@ namespace engine {
       void add_animation(std::string, Animation*);
       bool equals(GameObject *);
       void collide(GameObject *);
-      int get_hp();
-      void set_hp(int);
       Audio * get_audio_by_name(std::string);
       void play_song(std::string);
       void stop_song(std::string);

@@ -35,8 +35,9 @@ namespace mindscape {
       void jump(std::string);
       void move_right(std::string,std::string);
       void move_left(std::string,std::string);
-      void attack(std::string);
-      void on_attack();
+      void attack();
+      void on_attack(engine::GameObject *);
+      void die(engine::GameObject*);
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
