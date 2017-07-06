@@ -19,8 +19,8 @@ void Background::on_event(GameEvent game_event){
   }else if(event_name == "MOVE_RIGHT"){
     ref0->coordinatesOnTexture.first += paralax;
 
-    if(ref0->coordinatesOnTexture.first > 1728){
-      ref0->coordinatesOnTexture.first = 1728;
+    if(ref0->coordinatesOnTexture.first > globals::first_level_width){
+      ref0->coordinatesOnTexture.first = globals::first_level_width;
       engine::GameObject::on_limit_of_level = true;
     } else {
       engine::GameObject::on_limit_of_level = false;
