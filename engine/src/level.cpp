@@ -23,6 +23,7 @@ void Level::free(){
 void Level::draw(){
   for(auto game_object : objects){
     if(game_object->is_active()){
+      std::cout << "Drawing " << game_object->name << std::endl;
       game_object->draw();
     }
   }

@@ -130,29 +130,67 @@ void Clown::attack(engine::GameObject* little_girl){
     attack_animation_trigger += 1;
     if(attack_animation_trigger == 40){
       states.set_state("ACTION_STATE","ATTACKING");
-      attack_normally_1();
-      //std::cout << "Random Ataque" << std::endl;
+      basic_attack();
     }else if(attack_animation_trigger == 80){
       states.set_state("ACTION_STATE","ATTACKING");
-      //std::cout << "Ataque 444" << std::endl;
+      serial_attack(); 
       attack_animation_trigger = 0;
     }
     states.set_state("ACTION_STATE","NORMAL");
   }
 }
 
-void Clown::attack_normally_1(){
-  if(goops_counter == 0){
-    engine::GameObject* goop = new Goop("goop",std::make_pair(180,180),60);
+void Clown::basic_attack(){
+  if(clown_goops.size() == 0){
+    engine::GameObject* goop = new Goop("goop",get_position(),60);
     engine::Game::get_instance().get_actual_scene()->add_object(goop);
     engine::Game::get_instance().get_actual_scene()->activate_game_object(goop);
     goop->load();
-    goops_counter += 1;
-    goop->set_speed_x(-7.0);
+    goop->set_speed_x(-30.0);
+    goop->set_speed_y(-10);
+    clown_goops.push_back(goop);
+  }else if(clown_goops.size() == 1){
+    if(clown_goops[0]->get_state("Y_STATE") == "ON_GROUND"){
+      clown_goops.clear();
+    }
   }
 }
 
+void Clown::serial_attack(){
+  if(clown_goops.size() > 3) clown_goops.clear();
+  engine::GameObject* goop_1 = new Goop("goop",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
+  engine::Game::get_instance().get_actual_scene()->add_object(goop_1);
+  engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_1);
+  goop_1->load();
+  goop_1->set_speed_x(-20.0);
+  goop_1->set_speed_y(-8.0);
+  engine::GameObject* goop_2 = new Goop("goop",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
+  engine::Game::get_instance().get_actual_scene()->add_object(goop_2);
+  engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_2);
+  goop_2->load();
+  goop_2->set_speed_x(-20.0);
+  goop_2->set_speed_y(-20.0);
+  engine::GameObject* goop_3 = new Goop("goop",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
+  engine::Game::get_instance().get_actual_scene()->add_object(goop_3);
+  engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_3);
+  goop_3->load();
+  goop_3->set_speed_x(-20.0);
+  goop_3->set_speed_y(-25.0);
+
+  clown_goops.push_back(goop_1);
+  clown_goops.push_back(goop_2);
+  clown_goops.push_back(goop_3);
+}
+
 void Clown::on_attack(){
+}
+
+engine::GameObject* Clown::create_goop(){
+    engine::GameObject* goop = new Goop("goop",std::make_pair(885,420),60);
+    engine::Game::get_instance().get_actual_scene()->add_object(goop);
+    engine::Game::get_instance().get_actual_scene()->activate_game_object(goop);
+    goop->load();
+    return goop;
 }
 
 void Clown::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox){
