@@ -6,6 +6,7 @@
 #include "../engine/include/keyboard_event.hpp"
 #include "../engine/include/time.hpp"
 #include "../engine/include/game.hpp"
+#include "action.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -22,6 +23,7 @@ namespace mindscape {
       bool enable = true;
       int arrow_seletor = 0;
       engine::Game * game = &(engine::Game::get_instance());
+      std::vector<Action*> actions;
 
     public:
       SelectArrow(
@@ -30,6 +32,7 @@ namespace mindscape {
         int priority);
       ~SelectArrow(){};
       void on_event(GameEvent game_event);
+      void add_action(Action* act);
   };
 }
 #endif
