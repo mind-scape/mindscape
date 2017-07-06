@@ -3,43 +3,33 @@
 using namespace engine;
 
 void Level::load(){
-  for(auto go : objects){
-    std::cout << "Loading " << go->name << std::endl;
-    mindscape::Clown* clown = dynamic_cast<mindscape::Clown*>(go);
+  for(auto game_objects : objects){
+    std::cout << "Loading " << game_objects->name << std::endl;
+    mindscape::Clown* clown = dynamic_cast<mindscape::Clown*>(game_objects);
     
     if(clown) clown->load();
-    else go->load();
-    for(auto hit : go->get_hitboxes()){
+    else game_objects->load();
+    for(auto hit : game_objects->get_hitboxes()){
       hit->initialize();
     }
   }
 }
 
 void Level::free(){
-  for(auto go : objects){
-    std::cout << "Freeing" << go->name << std::endl;
-    go->free();
+  for(auto game_objects : objects){
+    std::cout << "Freeing" << game_objects->name << std::endl;
+    game_objects->free();
   }
   EventHandler::listeners.clear();
 }
 
 void Level::draw(){
-  for(auto object : objects){
-    if(object->is_active()){
-      if(object->name == "clown"){
-        mindscape::Clown* clown = dynamic_cast<mindscape::Clown*>(object);
-        clown->draw();
-        for(auto el : clown->get_boss_parts()){
-          for(auto animation : el.second->animations){
-            std::cout << "Echo animation"  << std::endl;
-            std::cout << "Total sprites "  <<animation.second->total_sprites << std::endl;
-            std::cout << "Duration of Animation " << animation.second->duration_of_animation << std::endl;
-            std::cout << "Numero de linhas " << animation.second->sprite_lines << std::endl;
-            std::cout << "Numero de colunas " << animation.second->sprite_columns << std::endl;
-          }
-        } 
-      }
-      else object->draw();
+  for(auto game_objects : objects){
+    if(game_objects->is_active()){
+      mindscape::Clown* clown = dynamic_cast<mindscape::Clown*>(game_objects);
+
+      if(clown) clown->draw(); 
+      else game_objects->draw();
     }
   }
 }

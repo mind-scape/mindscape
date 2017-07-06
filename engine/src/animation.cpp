@@ -6,13 +6,6 @@ using namespace engine;
 
 bool Animation::load(){
   time_of_sprite = (int) std::ceil(double(duration_of_animation)/double(total_sprites));
-  if(image_path == "../assets/images/sprites/enemies/clown/clown_idle.png"){
-      std::cout << "DEUUUUUU  " << total_sprites << std::endl << "\n\n\n";
-      std::cout << "DEUUUUUU  " << total_sprites << std::endl << "\n\n\n";
-      std::cout << "DEUUUUUU  " << total_sprites << std::endl << "\n\n\n";
-      std::cout << "DEUUUUUU  " << total_sprites << std::endl << "\n\n\n";
-      std::cout << "DEUUUUUU  " << total_sprites << std::endl << "\n\n\n";
-  }
 
   aux_time = 0;
 

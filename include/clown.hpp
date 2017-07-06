@@ -24,7 +24,7 @@ namespace mindscape {
       void initialize_animations();
       void initialize_as_physicable();
       void on_attack();
-      void attack();
+      void attack(engine::GameObject*);
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
@@ -41,6 +41,7 @@ namespace mindscape {
       );
       ~Clown(){};
 
+      int attack_animation_trigger = 0;
       void on_event(GameEvent);
       void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
       void notify(engine::Observable *);

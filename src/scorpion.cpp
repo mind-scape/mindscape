@@ -208,7 +208,6 @@ void Scorpion::on_attack(){
   update_HP(-5);
 
   int actual_HP = get_HP();
-  std::cout << "EU SOU O ESCORPIAO E MEU HP EH " << actual_HP << std::endl;
   if(actual_x_state == "LOOKING_LEFT"){
     if(actual_HP > 0){
       set_actual_animation(animations["on_attack_left_animation"]);

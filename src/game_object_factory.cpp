@@ -187,6 +187,7 @@ engine::GameObject* GameObjectFactory::fabricate_music_player(
   );
 
   return music_player;
+}
 
 engine::GameObject* GameObjectFactory::fabricate_clown(
   std::string name, std::pair<int, int> position, int priority){
