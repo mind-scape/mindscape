@@ -1,5 +1,7 @@
 #include "select_arrow.hpp"
 #include "../engine/include/game.hpp"
+#include "../engine/include/level.hpp"
+#include "level_factory.hpp"
 
 using namespace mindscape;
 
@@ -24,67 +26,83 @@ void SelectArrow::initialize_arrow(){
   engine::Game game = engine::Game::get_instance();
   engine::Text* sel = new engine::Text(game.get_renderer(), "selector", std::make_pair(0,0), 5, ">", "../assets/fonts/FFF_Tusj.ttf", 35);
   sel->activate();
+
+
+
   add_component(sel);
+  timer->init();
 }
 
 void SelectArrow::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
+  time += timer->time_elapsed() -  time_aux;
+  time_aux = timer->time_elapsed();
 
-  if(event_name == "UP"){
-    if(arrow_seletor >= 0 && arrow_seletor < 6){
-      arrow_seletor += 1;
-    } else {
-      arrow_seletor = 0;
+  if(enable){
+    if(event_name == "DOWN"){
+      enable = false;
+      next_time = time + 200;
+      if(arrow_seletor >= 0 && arrow_seletor < 3){
+        arrow_seletor += 1;
+      } else {
+        arrow_seletor = 0;
+      }
     }
-  }
 
-  if(event_name == "DOWN"){
-    if(arrow_seletor <= 6 && arrow_seletor > 0){
-      arrow_seletor -= 1;
-    } else {
-      arrow_seletor = 6;
+    if(event_name == "UP"){
+      enable = false;
+      next_time = time + 200;
+      if(arrow_seletor <= 3 && arrow_seletor > 0){
+        arrow_seletor -= 1;
+      } else {
+        arrow_seletor = 3;
+      }
     }
-  }
+   }
+
+   if(enable == false){
+      if(time > next_time){
+        enable = true;
+        time = 0;
+      }
+   }
+
 
   switch(arrow_seletor){
+    //INICIAR
     case(0):
-      set_position(std::make_pair(get_position().first, 275));
+      set_position(std::make_pair(get_position().first, 175));
       if(event_name == "ENTER"){
-        enter_handler = true;
-        option_select = 'i';
-        std::cout << option_select << std::endl;
-        enter_handler = false;
+
       }
       break;
+    //INSTRUÇÕES
+    case(1):
+      set_position(std::make_pair(get_position().first, 227));
+      if(event_name == "ENTER"){
+
+      }
+      break;
+    //CRÉDITOS
     case(2):
-      set_position(std::make_pair(get_position().first, 310));
+      set_position(std::make_pair(get_position().first, 280));
       if(event_name == "ENTER"){
-        enter_handler = true;
-        option_select = 'a';
-        std::cout << option_select << std::endl;
-        enter_handler = false;
+
       }
       break;
-    case(4):
-      set_position(std::make_pair(get_position().first, 345));
+    //SAIR
+    case(3):
+      set_position(std::make_pair(get_position().first, 335));
       if(event_name == "ENTER"){
-        enter_handler = true;
-        option_select = 'c';
-        std::cout << option_select << std::endl;
-        enter_handler = false;
-      }
-      break;
-    case(6):
-      set_position(std::make_pair(get_position().first, 380));
-      if(event_name == "ENTER"){
-        enter_handler = true;
-        option_select = 's';
-        std::cout << option_select << std::endl;
-        enter_handler = false;
+
       }
       break;
     default:
       break;
   }
 
+}
+
+void SelectArrow::add_action(Action * act){
+  actions.push_back(act);
 }

@@ -8,7 +8,10 @@ namespace mindscape {
   class Action {
     public:
       typedef enum {
-        CHANGE_SCENE
+        CHANGE_SCENE_TO_LEVEL_1
+        CHANGE_SCENE_TO_CREDITS
+        CHANGE_SCENE_TO_INSTRUCTIONS
+        CHAGE_SCENE_TO_MENU
       } Command;
     private:
       Command command;
