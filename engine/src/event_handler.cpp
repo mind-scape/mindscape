@@ -13,6 +13,9 @@ void EventHandler::dispatch_pending_events(unsigned now){
     for (auto listener : listeners){
       if(listener->name == event.solver || event.solver == "All"){
         listener->on_event(event);
+        if(event.game_event_name == "CHANGE_SCENE"){
+          break;
+        }
         listener->update_hitboxes();
         listener->notify_observers();
       }
