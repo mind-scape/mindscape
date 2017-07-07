@@ -8,8 +8,16 @@ using namespace mindscape;
 
 typedef mindscape::GameObjectFactory::Options Opts;
 
-engine::Level *LevelFactory::fabricate_level(std::string path){
-  engine::Level *level = new engine::Level();
+void LevelFactory::update_level(engine::Level *level, std::string path){
+  std::vector<engine::GameObject *> new_objects = execute_dat(level, path);
+  for(auto game_object : new_objects){
+    game_object->load();
+    level->activate_game_object(game_object);
+  }
+}
+
+std::vector<engine::GameObject *> LevelFactory::execute_dat(engine::Level *level, std::string path){
+  std::vector<engine::GameObject *> added_game_objects;
   GameObjectFactory mindscape_factory = GameObjectFactory();
   engine::PersistenceDat *persistence = engine::PersistenceDat::get_instance();
   engine::PersistenceMap *objects = persistence->load(path);
@@ -88,13 +96,17 @@ engine::Level *LevelFactory::fabricate_level(std::string path){
           observable->attach_observer(constructed_obj);
         }
         level->add_object(constructed_obj);
+        added_game_objects.push_back(constructed_obj);
       }
     }
-
-    return level;
   }
+  return added_game_objects;
+}
 
-  return NULL;
+engine::Level *LevelFactory::fabricate_level(std::string path){
+  engine::Level *level = new engine::Level();
+  execute_dat(level, path);
+  return level;
 }
 
 engine::Level* LevelFactory::fabricate_menu(){
