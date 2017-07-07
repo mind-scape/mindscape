@@ -25,6 +25,7 @@ namespace mindscape {
       void on_attack(engine::GameObject *);
       void attack();
       void die(engine::GameObject*);
+      bool same_nivel = false;
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
