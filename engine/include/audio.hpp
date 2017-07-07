@@ -16,7 +16,7 @@ namespace engine{
     private:
       std::string audio_path;
       AudioType m_audio_type;
-      int audio_repeat;
+      int audio_repeat = 0;
       int audio_chanel;
       bool playing = false;
       int volume = 50;
@@ -46,6 +46,7 @@ namespace engine{
       void set_repetitions(int repeat);
       void set_duration(float duration);
       void play_effect();
+      void play_music_type();
       void draw(int x, int y);
       void pause_music();
       void stop_effect();
