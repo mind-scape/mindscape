@@ -1,7 +1,10 @@
 ## Objetos vivos e tal
 
-id dark_girl type 19 x 430 y 0 priority 6
+id dark_girl type 19 x 430 y 0 priority 8
 id girl_hud type 11 x 54 y 450 priority 7 follows dark_girl
+id uncle type 20 x 900 y -100 priority 7 follows dark_girl
+id arm_right type 21 x 500 y -100 priority 7 
+id arm_left type 21 x 1600 y -100 priority 7 
 
 ## Backgrounds
 

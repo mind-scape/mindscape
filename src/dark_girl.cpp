@@ -129,16 +129,6 @@ void DarkGirl::initialize_animations(){
       );
   attacking_left_animation->in_loop = false;
 
-  engine::Animation* on_attack_right_animation = create_animation(
-      "../assets/images/sprites/dark_girl/dark_girl_on_attack_right.png",
-      1, 3, 0.8, "RIGHT"
-      );
-
-  engine::Animation* on_attack_left_animation = create_animation(
-      "../assets/images/sprites/dark_girl/dark_girl_on_attack_left.png",
-      1, 3, 0.8, "LEFT"
-      );
-
   engine::Animation* dying_left_animation = create_animation(
       "../assets/images/sprites/dark_girl/dark_girl_dying_left.png",
       1, 5, 0.8, "LEFT"
@@ -163,8 +153,6 @@ void DarkGirl::initialize_animations(){
   add_animation("jumping_left_animation",jumping_left_animation);
   add_animation("attacking_right_animation",attacking_right_animation);
   add_animation("attacking_left_animation",attacking_left_animation);
-  add_animation("on_attack_right_animation",on_attack_right_animation);
-  add_animation("on_attack_left_animation",on_attack_left_animation);
   idle_right_animation->activate();
   set_actual_animation(idle_right_animation);
 }

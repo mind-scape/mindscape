@@ -9,6 +9,7 @@
 #include "../engine/include/observable.hpp"
 #include "../engine/include/animation.hpp"
 #include "enemy.hpp"
+#include "arm.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -20,7 +21,6 @@ namespace mindscape {
       void initialize_state_map();
       void initialize_hitboxes();
       void initialize_animations();
-      void initialize_as_physicable();
       void initialize_audio_effects();
       void on_attack(engine::GameObject *);
       void attack(engine::GameObject*);

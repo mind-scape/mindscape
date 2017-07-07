@@ -37,6 +37,10 @@ engine::GameObject* GameObjectFactory::fabricate(
       return fabricate_clown(name, coordinates, priority);
     case(GameObjectFactory::DARK_GIRL):
       return fabricate_dark_girl(name, coordinates, priority);
+    case(GameObjectFactory::UNCLE):
+      return fabricate_uncle(name, coordinates, priority);
+    case(GameObjectFactory::ARM):
+      return fabricate_arm(name, coordinates, priority);
     default:
       return NULL;
   }
@@ -213,4 +217,22 @@ engine::GameObject* GameObjectFactory::fabricate_dark_girl(
   );
 
   return dark_girl;
+}
+
+engine::GameObject* GameObjectFactory::fabricate_uncle(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* uncle = new Uncle(
+    name , position, priority
+  );
+
+  return uncle;
+}
+
+engine::GameObject* GameObjectFactory::fabricate_arm(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* arm = new Arm(
+    name , position, priority
+  );
+
+  return arm;
 }

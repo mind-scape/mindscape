@@ -19,6 +19,8 @@
 #include "hud_fox.hpp"
 #include "button.hpp"
 #include "clown.hpp"
+#include "uncle.hpp"
+#include "arm.hpp"
 #include "select_arrow.hpp"
 #include "music_player.hpp"
 #include <iostream>
@@ -31,7 +33,7 @@ namespace mindscape {
         LITTLE_GIRL, SCORPION, SPIDER, PLATFORM, FOX, BUTTON,
         SELECT_ARROW, BACKGROUND, STAR, HITBOX, IMAGE, HUD_GIRL,
         HUD_FOX, TEXT, ACTION, AUDIO, MUSIC_PLAYER, CLOWN, TRANSLATION,
-        DARK_GIRL
+        DARK_GIRL, UNCLE, ARM
       } Options;
 
       GameObjectFactory(){};
@@ -70,6 +72,8 @@ namespace mindscape {
       engine::GameObject* fabricate_music_player(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_clown(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_dark_girl(std::string, std::pair<int, int>, int);
+      engine::GameObject* fabricate_uncle(std::string, std::pair<int, int>, int);
+      engine::GameObject* fabricate_arm(std::string, std::pair<int, int>, int);
   };
 }
 

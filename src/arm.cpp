@@ -22,23 +22,33 @@ Arm::Arm(
       {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
       {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
     };
-    initialize_as_physicable();
 };
 
 void Arm::initialize_animations(){
-  engine::Animation* arm_animation = create_animation(
+  engine::Animation* right_arm = create_animation(
       "../assets/images/sprites/enemies/arm/right_arm.png",
-      1, 1, 3.0, "LEFT"
+      1, 4, 3.0, "RIGHT"
       );
-  arm_animation->set_values(
-      std::make_pair(135, 70),
-      std::make_pair(135, 70),
+  right_arm->set_values(
+      std::make_pair(405, 542),
+      std::make_pair(405, 542),
       std::make_pair(0, 0)
       );
-
-  add_animation("arm_animation",arm_animation);
-  arm_animation->activate();
-  set_actual_animation(arm_animation);
+  
+  engine::Animation* left_arm = create_animation(
+      "../assets/images/sprites/enemies/arm/left_arm.png",
+      1, 4, 3.0, "LEFT"
+      );
+  left_arm->set_values(
+      std::make_pair(405, 542),
+      std::make_pair(405, 542),
+      std::make_pair(0, 0)
+      );
+ 
+  add_animation("right_arm",right_arm);
+  add_animation("left_arm",left_arm);
+  right_arm->activate();
+  set_actual_animation(right_arm);
 }
 
 engine::Animation* Arm::create_animation(
@@ -88,7 +98,7 @@ void Arm::initialize_hitboxes(){
   );
   arm_hitbox->initialize();
 
-  add_component(arm_hitbox);
+add_component(arm_hitbox);
 }
 
 void Arm::initialize_state_map(){
@@ -100,9 +110,9 @@ void Arm::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
 
   if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level){
-    //set_speed_x(speed_x + 5);
+    set_position_x(get_position_x() + 10);
   }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level){
-    //set_speed_x(speed_x - 5);
+    set_position_x(get_position_x() - 10);
   }
 }
 

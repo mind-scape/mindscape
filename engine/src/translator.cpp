@@ -28,7 +28,6 @@ std::list<GameEvent> Translator::keyboard_events_to_game_events(std::list<Keyboa
 
 
       if(game_object->translations[key] != "" && !used_keys[key]){
-std::cout << "Ele tem " << game_object->name << std::endl;
         auto game_event = GameEvent(
           game_object->name,
           game_object->translations[key],

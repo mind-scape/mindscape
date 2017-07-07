@@ -40,7 +40,6 @@ PersistenceMap * PersistenceDat::load(std::string p_path){
         if(line != "" && line[0] != '#'){
           while(iss >> key && iss >> value){
             if((is_include = (key == "include"))){
-              std::cout << "ENTROOOOOOOOOOOU " << value << std::endl;
               paths.push(value);
             }
             object_data[key] = value;

@@ -15,33 +15,19 @@ Uncle::Uncle(
     priority,
     100
   ){
-    //initialize_arms();
     initialize_state_map();
     initialize_hitboxes();
     initialize_animations();
-    initialize_as_physicable();
     initialize_audio_effects();
 };
-/*
-void Uncle::initialize_arms(){
-  right_arm = new Arm("right_arm",std::make_pair(get_position_x() + 40,get_position_y() + 150),60););
-  engine::Game::get_instance().get_actual_scene()->add_object(right_arm);
-  engine::Game::get_instance().get_actual_scene()->activate_game_object(right_arm);
-  right_arm->load();
-  
-  left_arm = new Arm("left_arm",std::make_pair(get_position_x() + 40,get_position_y() + 150),60););
-  engine::Game::get_instance().get_actual_scene()->add_object(left_arm);
-  engine::Game::get_instance().get_actual_scene()->activate_game_object(left_arm);
-  left_arm->load();
-}
-*/
+
 void Uncle::initialize_audio_effects(){
 }
 
 void Uncle::initialize_animations(){
   engine::Animation* idle_animation = create_animation(
       "../assets/images/sprites/enemies/uncle/uncle_idle.png",
-      1, 1, 3.0, "LEFT"
+      1, 4, 3.0, "LEFT"
       );
   idle_animation->set_values(
       std::make_pair(665, 484),
@@ -60,21 +46,8 @@ void Uncle::initialize_animations(){
       );
   attacking_animation->in_loop = false;
 
-  engine::Animation* dying_animation = create_animation(
-      "../assets/images/sprites/enemies/uncle/uncle_dying.png",
-      1, 1, 3.0, "LEFT"
-      );
-  dying_animation->set_values(
-      std::make_pair(448, 448),
-      std::make_pair(448, 448),
-      std::make_pair(0, 0)
-      );
-  dying_animation->in_loop = false;
-  dying_animation->is_a_final_animation = false;
-
   add_animation("idle_animation",idle_animation);
   add_animation("attacking_animation",attacking_animation);
-  add_animation("dying_animation",dying_animation);
   idle_animation->activate();
   set_actual_animation(idle_animation);
 }
@@ -107,12 +80,6 @@ engine::Animation* Uncle::create_animation(
   );
 
   return animation;
-}
-
-void Uncle::initialize_as_physicable(){
-  engine::Physics *physics = engine::Physics::get_instance();
-  physics->add_physicable(this);
-  collidable = true;
 }
 
 void Uncle::initialize_hitboxes(){
