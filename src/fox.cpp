@@ -184,10 +184,10 @@ void Fox::move(engine::GameObject* girl){
       set_speed_x(0);
     }else if(distance_from_girl > 200 && distance_from_girl <= 400){
       set_actual_animation(animations["running_left_animation"]);
-      set_speed_x(-6);
+      set_speed_x(-7);
     }else if(distance_from_girl > 400){
       set_actual_animation(animations["running_left_animation"]);
-      set_speed_x(-14);
+      set_speed_x(-15);
     }
   }else{
     states.set_state("X_STATE","LOOKING_RIGHT");
@@ -199,10 +199,10 @@ void Fox::move(engine::GameObject* girl){
     }
     else if(distance_from_girl > 100 && distance_from_girl <= 350){
       set_actual_animation(animations["running_right_animation"]);
-      set_speed_x(6);
+      set_speed_x(7);
     }else if(distance_from_girl > 350){
       set_actual_animation(animations["running_right_animation"]);
-      set_speed_x(14);
+      set_speed_x(15);
     }
   }
 }
@@ -232,7 +232,7 @@ void Fox::follow_jump(engine::GameObject *little_girl){
   float gravity = physics->get_gravity();
   float final_y = little_girl->get_position_y() + 70;
   float final_x = 500; //little_girl->get_position_x();
-  float throw_speed_x = is_on_the_right(little_girl) ? 10 : -10;
+  float throw_speed_x = is_on_the_right(little_girl) ? 15 : -15;
 
   float jump_time = calculate_jump_time(final_x, throw_speed_x);
 std::cout << "Tempo de lançamento " << jump_time << std::endl;
@@ -241,8 +241,8 @@ std::cout << "Tempo de lançamento " << jump_time << std::endl;
 
 std::cout << "Velocidade de lançamento X " << throw_speed_x << std::endl;
 std::cout << "Velocidade de lançamento Y " << throw_speed_y << std::endl;
-  set_speed_y(throw_speed_y);
-  set_speed_x(throw_speed_x);
+  set_speed_y(throw_speed_y < -30? -20 : throw_speed_y);
+  set_speed_x(std::abs(throw_speed_x) > 20 ? throw_speed_x/std::abs(throw_speed_x)*15 : throw_speed_x);
 }
 
 bool Fox::is_on_the_right(engine::GameObject *target){
