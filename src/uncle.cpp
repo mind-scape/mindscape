@@ -1,4 +1,4 @@
-#include "../include/clown.hpp"
+#include "../include/uncle.hpp"
 #include "../include/platform.hpp"
 #include "../include/little_girl.hpp"
 #include <stdlib.h>
@@ -15,14 +15,14 @@ Uncle::Uncle(
     priority,
     100
   ){
-    initialize_arms();
+    //initialize_arms();
     initialize_state_map();
     initialize_hitboxes();
     initialize_animations();
     initialize_as_physicable();
     initialize_audio_effects();
 };
-
+/*
 void Uncle::initialize_arms(){
   right_arm = new Arm("right_arm",std::make_pair(get_position_x() + 40,get_position_y() + 150),60););
   engine::Game::get_instance().get_actual_scene()->add_object(right_arm);
@@ -34,14 +34,14 @@ void Uncle::initialize_arms(){
   engine::Game::get_instance().get_actual_scene()->activate_game_object(left_arm);
   left_arm->load();
 }
-
+*/
 void Uncle::initialize_audio_effects(){
 }
 
 void Uncle::initialize_animations(){
   engine::Animation* idle_animation = create_animation(
       "../assets/images/sprites/enemies/uncle/uncle_idle.png",
-      1, X, 3.0, "LEFT"
+      1, 1, 3.0, "LEFT"
       );
   idle_animation->set_values(
       std::make_pair(665, 484),
@@ -51,7 +51,7 @@ void Uncle::initialize_animations(){
   
   engine::Animation* attacking_animation = create_animation(
       "../assets/images/sprites/enemies/uncle/uncle_attacking.png",
-      1, X, 3.0, "LEFT"
+      1, 1, 3.0, "LEFT"
       );
   attacking_animation->set_values(
       std::make_pair(719, 523),
@@ -62,7 +62,7 @@ void Uncle::initialize_animations(){
 
   engine::Animation* dying_animation = create_animation(
       "../assets/images/sprites/enemies/uncle/uncle_dying.png",
-      1, X, 3.0, "LEFT"
+      1, 1, 3.0, "LEFT"
       );
   dying_animation->set_values(
       std::make_pair(448, 448),

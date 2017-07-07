@@ -31,12 +31,12 @@ namespace mindscape {
       );
 
     public:
-      Goop(
+      Arm(
         std::string name,
         std::pair<int, int> position,
         int priority
       );
-      ~Goop(){};
+      ~Arm(){};
 
       void on_event(GameEvent);
       void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
