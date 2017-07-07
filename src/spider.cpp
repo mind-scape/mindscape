@@ -238,7 +238,7 @@ void Spider::move(engine::GameObject* girl){
     else if(distance_from_girl <= 300 && same_nivel){
       states.set_state("ACTION_STATE","NORMAL");
       if(distance_from_girl >= 50){
-        set_position_x(get_position_x() - 1);
+        set_position_x(get_position_x() - 8);
         set_actual_animation(animations["walking_left_animation"]);
       }else{
         attack();
@@ -254,7 +254,7 @@ void Spider::move(engine::GameObject* girl){
     }
     else if(distance_from_girl <= 588 && same_nivel){
       if(distance_from_girl >= 150){
-        set_position_x(get_position_x() + 1);
+        set_position_x(get_position_x() + 8);
         set_actual_animation(animations["walking_right_animation"]);
       }else{
         attack();
@@ -267,7 +267,7 @@ void Spider::on_attack(GameObject *game_object){
   states.set_state("ACTION_STATE","ON_ATTACK");
 
   std::string actual_x_state = get_state("X_STATE");
-  hit(game_object, 5);
+  hit(game_object, 15);
 
   if(is_alive()){
     if(actual_x_state == "LOOKING_LEFT"){

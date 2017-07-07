@@ -81,7 +81,7 @@ void LittleGirl::initialize_audio_effects(){
   "sword_attack",
   "../assets/audios/effects_songs/espada_fase_1.wav",
   engine::Audio::CHUNK);
-  sword_song->set_duration(0.5);
+  sword_song->set_duration(0.4);
 
   add_component(little_girl_steps);
   add_component(little_girl_getting_hit);
@@ -121,13 +121,13 @@ void LittleGirl::initialize_animations(){
 
   engine::Animation* attacking_right_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_attacking_right.png",
-      1, 5, 0.5, "RIGHT"
+      1, 5, 0.4, "RIGHT"
       );
   attacking_right_animation->in_loop = false;
 
   engine::Animation* attacking_left_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_attacking_left.png",
-      1, 5, 0.5, "LEFT"
+      1, 5, 0.4, "LEFT"
       );
   attacking_left_animation->in_loop = false;
 
