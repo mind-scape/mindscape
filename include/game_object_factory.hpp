@@ -13,6 +13,7 @@
 #include "scorpion.hpp"
 #include "spider.hpp"
 #include "background.hpp"
+#include "dark_girl.hpp"
 #include "hud_girl.hpp"
 #include "hud_fox.hpp"
 #include "button.hpp"
@@ -28,7 +29,7 @@ namespace mindscape {
       typedef enum {
         LITTLE_GIRL, SCORPION, SPIDER, PLATFORM, FOX, BUTTON,
         SELECT_ARROW, BACKGROUND, STAR, HITBOX, IMAGE, HUD_GIRL,
-        HUD_FOX, TEXT, ACTION, AUDIO, MUSIC_PLAYER, CLOWN
+        HUD_FOX, TEXT, ACTION, AUDIO, MUSIC_PLAYER, CLOWN, DARK_GIRL
       } Options;
 
       GameObjectFactory(){};
@@ -65,6 +66,7 @@ namespace mindscape {
       engine::GameObject* fabricate_star(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_music_player(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_clown(std::string, std::pair<int, int>, int);
+      engine::GameObject* fabricate_dark_girl(std::string, std::pair<int, int>, int);
   };
 }
 

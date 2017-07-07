@@ -35,6 +35,8 @@ engine::GameObject* GameObjectFactory::fabricate(
       return fabricate_music_player(name, coordinates, priority);
     case(GameObjectFactory::CLOWN):
       return fabricate_clown(name, coordinates, priority);
+    case(GameObjectFactory::DARK_GIRL):
+      return fabricate_dark_girl(name, coordinates, priority);
     default:
       return NULL;
   }
@@ -196,4 +198,13 @@ engine::GameObject* GameObjectFactory::fabricate_clown(
   );
 
   return clown;
+}
+
+engine::GameObject* GameObjectFactory::fabricate_dark_girl(
+  std::string name, std::pair<int, int> position, int priority){
+  engine::GameObject* dark_girl = new DarkGirl(
+    name , position, priority
+  );
+
+  return dark_girl;
 }
