@@ -222,4 +222,10 @@ id star4 type 8 x 9000 y 280 priority 6
 id star5 type 8 x 10000 y 470 priority 6
 id star6 type 8 x 13000 y 470 priority 6
 
+## Music
+
+id music_player type 16 x 0 y 0 priority 1
+
+id music_menu type 15 belongs_to music_player path ../assets/audios/background_songs/mindscape-1fase.mp3 audio_type 0
+
 include ../data/play_pause_buttons.dat

@@ -46,4 +46,10 @@ id image_footer3 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 134 tex_x 10
 id limiter type 3 x 3000 y 0 priority -2
 id limiter_hitbox type 9 size_x 210 size_y 30 displ_x 6000 displ_y 350 belongs_to limiter
 
+## Music
+
+id music_player type 16 x 0 y 0 priority 1
+
+id music_menu type 15 belongs_to music_player path ../assets/audios/background_songs/mindscape-2fase.mp3 audio_type 0
+
 include ../data/play_pause_buttons.dat
