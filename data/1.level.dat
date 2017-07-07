@@ -185,7 +185,7 @@ id thorns_image_2 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 116 tex_x 1
 id thorns_3 type 3 x 11422 y 460 priority 5
 id thorns_image_3 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 116 tex_x 1024 tex_y 116 tex_coord_x 0 tex_coord_y 0 belongs_to thorns_3 path ../assets/images/cenarios/1-level/floor/thorns.png priority 5
 
-id thorns_4 type 3 x 12446 y 460 priority 5
+id thorns_4 type 3 x 12446 y 460 priority 4
 id thorns_image_4 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 116 tex_x 1024 tex_y 116 tex_coord_x 0 tex_coord_y 0 belongs_to thorns_4 path ../assets/images/cenarios/1-level/floor/thorns.png priority 5
 
 id medium_platform_2 type 3 x 8900 y 270 priority 5
@@ -209,6 +209,8 @@ id spider_5 type 2 x 9400 y 0 priority 6 follows little_girl
 id girl_hud type 11 x 54 y 450 priority 7 follows little_girl
 id fox_hud type 12 x 800 y 465 priority 7 follows fox
 id clown type 17 x 15000 y 100 priority 6 follows little_girl
+id spider_6 type 2 x 14600 y 0 priority 6 follows little_girl
+id scorpion_6 type 1 x 14000 y 0 priority 6 follows little_girl
 
 ## Stars
 

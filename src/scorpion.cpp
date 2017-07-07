@@ -264,13 +264,14 @@ void Scorpion::move(engine::GameObject* girl){
 
     if(distance_from_girl > 300){
       set_actual_animation(animations["idle_left_animation"]);
-    }else if(distance_from_girl <= 300 && same_nivel){
+    }else if(distance_from_girl <= 300){
       states.set_state("ACTION_STATE","NORMAL");
       if(distance_from_girl >= 50){
-        set_position_x(get_position_x() - 8);
+        set_position_x(get_position_x() - (same_nivel? 8 : 3));
         set_actual_animation(animations["walking_left_animation"]);
       }else{
-        attack();
+        if(same_nivel)
+          attack();
       }
     }
   //little_girl on right
@@ -280,12 +281,13 @@ void Scorpion::move(engine::GameObject* girl){
 
     if(distance_from_girl > 588){
       set_actual_animation(animations["idle_right_animation"]);
-    }else if(distance_from_girl <= 588 && same_nivel){
+    }else if(distance_from_girl <= 588){
       if(distance_from_girl >= 200){
-        set_position_x(get_position_x() + 8);
+        set_position_x(get_position_x() + (same_nivel? 8 : 3));
         set_actual_animation(animations["walking_right_animation"]);
       }else{
-        attack();
+        if(same_nivel)
+          attack();
       }
     }
 
