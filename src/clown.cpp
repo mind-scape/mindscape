@@ -69,11 +69,22 @@ void Clown::initialize_animations(){
       std::make_pair(448, 448),
       std::make_pair(0, 0)
       );
+  
+  engine::Animation* idle_vulnerable_animation = create_animation(
+      "../assets/images/sprites/enemies/clown/clown_vulnerable_idle.png",
+      1, 15, 3.0, "LEFT"
+      );
+  idle_vulnerable_animation->set_values(
+      std::make_pair(448, 448),
+      std::make_pair(448, 448),
+      std::make_pair(0, 0)
+      );
 
   add_animation("idle_animation",idle_animation);
   add_animation("on_attack_animation",on_attack_animation);
   add_animation("dying_animation",dying_animation);
   add_animation("attacking_animation",attacking_animation);
+  add_animation("idle_vulnerable_animation",idle_vulnerable_animation);
   idle_animation->activate();
   set_actual_animation(idle_animation);
 }
@@ -131,9 +142,18 @@ void Clown::initialize_hitboxes(){
     std::make_pair(100,25),
     game.get_renderer()
   );
+  
+  engine::Hitbox* head_hitbox = new engine::Hitbox(
+    "head_hitbox",
+    this->get_position(),
+    std::make_pair(120, 90),
+    std::make_pair(110,110),
+    game.get_renderer()
+  );
 
   add_component(foot_hitbox);
   add_component(attack_hitbox);
+  add_component(head_hitbox);
 }
 
 void Clown::initialize_state_map(){
@@ -160,6 +180,19 @@ void Clown::notify(engine::Observable *game_object){
 void Clown::attack(engine::GameObject* little_girl){
   std::string actual_action_state = get_state("ACTION_STATE");
 
+  if(actual_action_state == "VULNERABLE"){
+    if(get_actual_animation()->is_finished){
+      set_actual_animation(animations["idle_vulnerable_animation"]);
+    }
+    vulnerable_counter++;
+    if(vulnerable_counter >= 600){
+      states.set_state("ACTION_STATE","NORMAL");
+      set_actual_animation(animations["idle_animation"]);
+      vulnerable_counter = 0;
+    }else{
+      return;
+    }
+  }
   if(actual_action_state == "DYING") return;
   if(actual_action_state == "ON_ATTACK" || actual_action_state == "ATTACKING"){
     if(get_actual_animation()->is_finished){
@@ -176,9 +209,7 @@ void Clown::attack(engine::GameObject* little_girl){
 
   if(distance_from_girl < 650){
     attack_animation_trigger += 1;
-    if(attack_animation_trigger == 60){
-      std::cout << "Ja entrou aki vei " << std::endl;
-  
+    if(attack_animation_trigger == 90){
       states.set_state("ACTION_STATE","ATTACKING");
       set_actual_animation(animations["attacking_animation"]);
       
@@ -233,7 +264,7 @@ void Clown::serial_attack(){
 }
 
 void Clown::on_attack(engine::GameObject *game_object){
-  states.set_state("ACTION_STATE","ON_ATTACK");
+  //states.set_state("ACTION_STATE","ON_ATTACK");
   
   std::cout << "MEU HP " << get_hp() << std::endl;
   hit(game_object, 1);
@@ -263,6 +294,7 @@ void Clown::die(engine::GameObject *game_object){
 void Clown::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox){
   Platform* platform = dynamic_cast<Platform *>(other);
   LittleGirl* little_girl = dynamic_cast<LittleGirl *>(other);
+  Goop* goop = dynamic_cast<Goop *>(other);
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
@@ -273,8 +305,19 @@ void Clown::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox,
      little_girl->get_state("ACTION_STATE") == "ATTACKING" &&
      my_hitbox->get_name() == "attack_hitbox" &&
      little_girl->get_actual_animation()->actual_column == 2
-     && get_state("X_STATE") != little_girl->get_state("X_STATE")){
-      if(get_state("ACTION_STATE") == "ON_ATTACK") return;
-      else on_attack(other);
+     && get_state("X_STATE") != little_girl->get_state("X_STATE")
+      && get_state("ACTION_STATE") == "VULNERABLE"){
+        if(get_state("ACTION_STATE") == "ON_ATTACK") return;
+        else on_attack(other);
+  }if(goop){
+    if(get_state("ACTION_STATE") == "NORMAL" && goop->get_state("ACTION_STATE") == "REFUTED"
+      && my_hitbox->get_name() == "head_hitbox"){
+        refuted_goop_hits++;
+        if(refuted_goop_hits >= 10){
+          states.set_state("ACTION_STATE","VULNERABLE");
+          set_actual_animation(animations["idle_vulnerable_animation"]);
+          refuted_goop_hits = 0;
+        }
+    }
   }
 }

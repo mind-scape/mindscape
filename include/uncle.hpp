@@ -1,5 +1,5 @@
-#ifndef CLOWN_H
-#define CLOWN_H
+#ifndef UNCLE_H
+#define UNCLE_H
 
 #include "../engine/include/game_object.hpp"
 #include "../engine/include/keyboard_event.hpp"
@@ -9,14 +9,13 @@
 #include "../engine/include/observable.hpp"
 #include "../engine/include/animation.hpp"
 #include "enemy.hpp"
-#include "goop.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
 #include <map>
 
 namespace mindscape {
-  class Clown : public Enemy {
+  class Uncle : public Enemy {
     private:
       void initialize_state_map();
       void initialize_hitboxes();
@@ -37,19 +36,17 @@ namespace mindscape {
         double duration,
         std::string direction
       );
-      int goops_counter = 0;
-      int attack_animation_trigger = 0;
-      int refuted_goop_hits = 0;
-      int vulnerable_counter = 0;
       std::vector<engine::GameObject*> clown_goops;
+      GameObject* right_arm; 
+      GameObject* left_arm;
 
     public:
-      Clown(
+      Uncle(
         std::string name,
         std::pair<int, int> position,
         int priority
       );
-      ~Clown(){};
+      ~Uncle(){};
 
       void on_event(GameEvent);
       void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
