@@ -215,10 +215,12 @@ void Clown::attack(engine::GameObject* little_girl){
       
       int clown_attack_option = rand() % 1000;
 
-      if(clown_attack_option < 700){
+      if(clown_attack_option < 300){
         basic_attack();
+      }else if(clown_attack_option >= 300 && clown_attack_option < 700){
+        double_attack(); 
       }else{
-        serial_attack(); 
+        serial_attack();
       }
 
       attack_animation_trigger = 0;
@@ -235,6 +237,25 @@ void Clown::basic_attack(){
     goop->set_speed_x(-30.0);
     goop->set_speed_y(-10);
     clown_goops.push_back(goop);
+}
+
+void Clown::double_attack(){
+    clown_goops.clear();
+    engine::GameObject* goop_5 = new Goop("goop_5",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
+    engine::Game::get_instance().get_actual_scene()->add_object(goop_5);
+    engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_5);
+    goop_5->load();
+    goop_5->set_speed_x(-7.0);
+    goop_5->set_speed_y(-10);
+    clown_goops.push_back(goop_5);
+    
+    engine::GameObject* goop_6 = new Goop("goop_6",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
+    engine::Game::get_instance().get_actual_scene()->add_object(goop_6);
+    engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_6);
+    goop_6->load();
+    goop_6->set_speed_x(-15.0);
+    goop_6->set_speed_y(-10);
+    clown_goops.push_back(goop_6);
 }
 
 void Clown::serial_attack(){
@@ -313,10 +334,14 @@ void Clown::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox,
     if(get_state("ACTION_STATE") == "NORMAL" && goop->get_state("ACTION_STATE") == "REFUTED"
       && my_hitbox->get_name() == "head_hitbox"){
         refuted_goop_hits++;
-        if(refuted_goop_hits >= 10){
+        goop->set_actual_animation(goop->animations["goop_squash_animation"]);
+        goop->set_speed_x(0.0); 
+        if(refuted_goop_hits >= 20){
           states.set_state("ACTION_STATE","VULNERABLE");
           set_actual_animation(animations["idle_vulnerable_animation"]);
           refuted_goop_hits = 0;
+          //engine::Game::get_instance().get_actual_scene()->deactivate_game_object(goop->name);
+          //goop->free();
         }
     }
   }

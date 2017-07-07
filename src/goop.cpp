@@ -47,9 +47,22 @@ void Goop::initialize_animations(){
       std::make_pair(135, 70),
       std::make_pair(0, 0)
       );
+  
+  engine::Animation* goop_squash_animation = create_animation(
+      "../assets/images/sprites/enemies/clown/goop_squash.png",
+      1, 1, 5.0, "LEFT"
+      );
+  goop_squash_animation->set_values(
+      std::make_pair(240, 140),
+      std::make_pair(240, 140),
+      std::make_pair(0, 0)
+      );
+  goop_squash_animation->in_loop = false;
+  goop_squash_animation->is_a_final_animation = true;
       
   add_animation("goop_animation",goop_animation);
   add_animation("refuted_goop_animation",refuted_goop_animation);
+  add_animation("goop_squash_animation",goop_squash_animation);
   goop_animation->activate();
   set_actual_animation(goop_animation);
 }

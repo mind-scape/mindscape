@@ -26,6 +26,7 @@ namespace mindscape {
       void on_attack(engine::GameObject *);
       void attack(engine::GameObject*);
       void basic_attack();
+      void double_attack();
       void serial_attack();
       void on_attack();
       void die(engine::GameObject*);
