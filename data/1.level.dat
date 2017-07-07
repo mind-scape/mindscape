@@ -203,12 +203,14 @@ id scorpion_2 type 1 x 3200 y 0 priority 6 follows little_girl
 id scorpion_3 type 1 x 5000 y 0 priority 6 follows little_girl
 id scorpion_4 type 1 x 7300 y 0 priority 6 follows little_girl
 id scorpion_5 type 1 x 8100 y 0 priority 6 follows little_girl
-id scorpion_5 type 1 x 12900 y 0 priority 6 follows little_girl
+id scorpion_6 type 1 x 14500 y 0 priority 6 follows little_girl
 id spider_4 type 2 x 5700 y 0 priority 6 follows little_girl
 id spider_5 type 2 x 9400 y 0 priority 6 follows little_girl
 id girl_hud type 11 x 54 y 450 priority 7 follows little_girl
 id fox_hud type 12 x 800 y 465 priority 7 follows fox
 id clown type 17 x 15000 y 100 priority 6 follows little_girl
+id spider_6 type 2 x 12800 y 0 priority 6 follows little_girl
+id spider_7 type 2 x 14200 y 0 priority 6 follows little_girl
 
 ## Stars
 
