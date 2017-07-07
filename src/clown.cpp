@@ -291,7 +291,7 @@ void Clown::on_attack(engine::GameObject *game_object){
   //states.set_state("ACTION_STATE","ON_ATTACK");
 
   hit(game_object, 1);
-  std::cout << "MEU HP " << get_hp() << std::endl;
+  //std::cout << "MEU HP " << get_hp() << std::endl;
 
   if(is_alive()){
     set_actual_animation(animations["on_attack_animation"]);

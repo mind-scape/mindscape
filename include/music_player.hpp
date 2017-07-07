@@ -4,18 +4,12 @@
 #include "../engine/include/game_object.hpp"
 #include "../engine/include/time.hpp"
 #include "../engine/include/game.hpp"
+#include "../engine/include/keyboard_event.hpp"
 #include <string>
 
 namespace mindscape {
   class MusicPlayer : public engine::GameObject {
-    // public:
-    //   typedef enum {
-    //     MENU,
-    //     INTRODUCTION,
-    //     CREDITS,
-    //     LEVEL1,
-    //     LEVEL2
-    //   } SetList;
+
     private:
         int cont = 0;
         bool test = true;
@@ -23,12 +17,17 @@ namespace mindscape {
         int time = 0;
         int time_aux = 0;
         engine::Game * game;
-        // SetList setlist;
+
+        int sub_position_x = 0;
+
     public:
       MusicPlayer(
         std::string name,
         std::pair<int, int> position,
-        int priority):engine::GameObject(name, position, priority, {}){
+        int priority):engine::GameObject(name, position, priority, {
+      {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
+      {engine::KeyboardEvent::RIGHT,"MOVE_RIGHT"},
+        }){
         timer->init();
         engine::Game& game = engine::Game::get_instance();
       };
@@ -37,6 +36,7 @@ namespace mindscape {
 
 
       void update_state();
+      void on_event(GameEvent);
   };
 }
 

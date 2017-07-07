@@ -21,9 +21,12 @@ void MusicPlayer::update_state(){
         set_music_volume("loop_level_1",30);
         if(time < 25850){
             play_song("intro_level_1");
-        } else {
+        } else if(sub_position_x < 14000){
             free_music("intro_level_1");
             play_song("loop_level_1");
+        } else if(sub_position_x > 14000){
+             free_music("loop_level_1");
+            play_song("loop_palhaco");
         }
 
     //search and play the songs of level_2
@@ -33,4 +36,21 @@ void MusicPlayer::update_state(){
 
     }
 
+}
+
+void MusicPlayer::on_event(GameEvent game_event){
+  std::string event_name = game_event.game_event_name;
+
+  if(event_name == "MOVE_LEFT"){
+;
+    if(sub_position_x > 0){
+        sub_position_x -= 10;
+    } else {
+        sub_position_x = 0;
+    }
+  } else if(event_name ==  "MOVE_RIGHT"){
+    sub_position_x += 10;
+  }
+
+  std::cout << "sub_positon_x  " << sub_position_x << std::endl;
 }
