@@ -123,13 +123,13 @@ void LittleGirl::initialize_animations(){
       "../assets/images/sprites/little_girl/little_girl_attacking_right.png",
       1, 5, 0.4, "RIGHT"
       );
-  attacking_right_animation->in_loop = false;
+ // attacking_right_animation->in_loop = false;
 
   engine::Animation* attacking_left_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_attacking_left.png",
       1, 5, 0.4, "LEFT"
       );
-  attacking_left_animation->in_loop = false;
+ // attacking_left_animation->in_loop = false;
 
   engine::Animation* on_attack_right_animation = create_animation(
       "../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
