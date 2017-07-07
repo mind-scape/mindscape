@@ -11,9 +11,11 @@ typedef mindscape::GameObjectFactory::Options Opts;
 void LevelFactory::update_level(engine::Level *level, std::string path){
   std::vector<engine::GameObject *> new_objects = execute_dat(level, path);
   for(auto game_object : new_objects){
-    game_object->load();
+std::cout << game_object->name << " AAAAAAAAAAAAAAAAAA" << std::endl;
     level->activate_game_object(game_object);
+    game_object->load();
   }
+std::cout << "BBBBBBBBBBBBBBBBBBBBBBB" << std::endl;
 }
 
 std::vector<engine::GameObject *> LevelFactory::execute_dat(engine::Level *level, std::string path){
