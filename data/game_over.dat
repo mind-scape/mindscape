@@ -12,4 +12,4 @@ id menu_title type 13 text <Enter> font_path ../assets/fonts/FFF_Tusj.ttf font_s
 
 id music_player type 16 x 0 y 0 priority 1
 
-id music_menu type 15 belongs_to music_player path ../assets/audios/background_songs/mindscape_open3.wav audio_type 0
+id music_menu type 15 belongs_to music_player path ../assets/audios/effects_songs/faleceu.wav audio_type 0
