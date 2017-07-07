@@ -22,12 +22,13 @@ std::list<GameEvent> Translator::keyboard_events_to_game_events(std::list<Keyboa
         used_keys[key] = true;
 
     for(auto game_object : EventHandler::listeners){
-      //disable multiple jumps
       if((game_object->name == "little_girl" && key == 50) && (key_repeated || key_released)){
         continue;
       }
 
+
       if(game_object->translations[key] != "" && !used_keys[key]){
+std::cout << "Ele tem " << game_object->name << std::endl;
         auto game_event = GameEvent(
           game_object->name,
           game_object->translations[key],

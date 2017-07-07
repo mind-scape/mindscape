@@ -175,6 +175,12 @@ void GameObjectFactory::fabricate_action(
   button->set_action(action, param);
 }
 
+void GameObjectFactory::fabricate_translation(
+  engine::GameObject *game_object, int p_key, std::string event_name){
+  engine::KeyboardEvent::Key key = static_cast<engine::KeyboardEvent::Key>(p_key);
+  game_object->translations[key] = event_name;
+}
+
 void GameObjectFactory::fabricate_audio(engine::GameObject *game_object,
   std::string name, std::string path, int p_audio_type){
   engine::Audio::AudioType audio_type = static_cast<engine::Audio::AudioType>(p_audio_type);

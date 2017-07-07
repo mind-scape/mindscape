@@ -94,6 +94,7 @@ void Game::run(){
 
       unsigned now = Time::time_elapsed();
       event_handler.dispatch_pending_events(now);
+      if(state == PAUSED) continue;
       actual_scene->update();
 
       SDL_SetRenderDrawColor(renderer, 0xE2, 0xAC, 0xF3, 0x00);

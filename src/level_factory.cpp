@@ -11,14 +11,13 @@ typedef mindscape::GameObjectFactory::Options Opts;
 void LevelFactory::update_level(engine::Level *level, std::string path){
   std::vector<engine::GameObject *> new_objects = execute_dat(level, path);
   for(auto game_object : new_objects){
-std::cout << game_object->name << " AAAAAAAAAAAAAAAAAA" << std::endl;
     level->activate_game_object(game_object);
     game_object->load();
   }
-std::cout << "BBBBBBBBBBBBBBBBBBBBBBB" << std::endl;
 }
 
 std::vector<engine::GameObject *> LevelFactory::execute_dat(engine::Level *level, std::string path){
+  std::vector<std::string> includes;
   std::vector<engine::GameObject *> added_game_objects;
   GameObjectFactory mindscape_factory = GameObjectFactory();
   engine::PersistenceDat *persistence = engine::PersistenceDat::get_instance();
@@ -28,7 +27,6 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(engine::Level *level
     for(auto it = objects->begin(); it < objects->end(); it++){
       std::unordered_map<std::string, std::string> object = *it;
       Opts type = static_cast<Opts>(std::stoi(object["type"]));
-
       if(type == Opts::HITBOX){
         std::pair<int, int> dimensions;
         std::pair<int, int> displacement;
@@ -85,7 +83,14 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(engine::Level *level
         mindscape_factory.fabricate_action(
           level->get_object_by_name(object["belongs_to"]),
           std::stoi(object["command"]), object["param"]);
-        
+
+      }else if(type == Opts::TRANSLATION){
+        std::string event_name = object["event_name"];
+        int key = std::stoi(object["key"]);
+        mindscape_factory.fabricate_translation(
+          level->get_object_by_name(object["belongs_to"]),
+          key, event_name);
+
       }else{
         engine::GameObject * constructed_obj = mindscape_factory.fabricate(
           type, object["id"], std::make_pair(std::stoi(object["x"]),

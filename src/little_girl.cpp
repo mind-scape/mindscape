@@ -262,16 +262,14 @@ void LittleGirl::die(engine::GameObject *game_object){
     set_actual_animation(animations["dying_right_animation"]);
   }
 
-  static bool one_time = false;
-  if(!one_time){
-    LevelFactory *level_factory = new LevelFactory();
-    engine::Game* game = &(engine::Game::get_instance());
-    level_factory->update_level(
-      dynamic_cast<engine::Level *>(game->get_actual_scene()),
-      "../data/game_over.dat"
-    );
-    one_time = true;
-  }
+  LevelFactory *level_factory = new LevelFactory();
+  engine::Game* game = &(engine::Game::get_instance());
+  level_factory->update_level(
+    dynamic_cast<engine::Level *>(game->get_actual_scene()),
+    "../data/game_over.dat"
+  );
+
+  game->set_state(engine::Game::PAUSED);
 }
 
 void LittleGirl::on_event(GameEvent game_event){

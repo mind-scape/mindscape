@@ -1,0 +1,8 @@
+id main_background type 7 x 0 y 0 priority 100
+
+id image_background type 10 belongs_to main_background displ_x 0 displ_y 0 screen_x 1024 screen_y 576 tex_x 1024 tex_y 576 tex_coord_x 0 tex_coord_y 0 path ../assets/images/scenes/main_menu/invalid.jpg priority 1
+
+id menu_title type 13 text Paused font_path ../assets/fonts/FFF_Tusj.ttf font_size 90 displ_x 280 displ_y 30 belongs_to main_background priority 1
+
+
+# id menu_title type 13 text <SPACE> font_path ../assets/fonts/FFF_Tusj.ttf font_size 35 displ_x 0 displ_y 0 belongs_to change_scene_button priority 10 

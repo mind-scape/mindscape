@@ -1,6 +1,6 @@
 ## Objetos vivos e tal
 
-id dark_girl type 18 x 430 y 0 priority 6
+id dark_girl type 19 x 430 y 0 priority 6
 id girl_hud type 11 x 54 y 450 priority 7 follows dark_girl
 
 ## Backgrounds
