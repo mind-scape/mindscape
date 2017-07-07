@@ -261,3 +261,13 @@ void GameObject::set_repetitions(std::string song_name, int repet){
   Audio *song = get_audio_by_name(song_name);
   song->set_repetitions(repet);
 }
+
+void GameObject::set_music_volume(std::string song_name, int vol){
+  Audio *song = get_audio_by_name(song_name);
+  song->set_music_volume(vol);
+};
+
+void GameObject::free_music(std::string song_name){
+  Audio *song = get_audio_by_name(song_name);
+  song->free();
+};

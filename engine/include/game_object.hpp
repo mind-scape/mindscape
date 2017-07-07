@@ -85,6 +85,8 @@ namespace engine {
       void play_song(std::string);
       void stop_song(std::string);
       void set_repetitions(std::string, int repet);
+      void set_music_volume(std::string, int vol);
+      void free_music(std::string);
       std::pair<float, float> get_position();
       float get_position_x();
       float get_position_y();

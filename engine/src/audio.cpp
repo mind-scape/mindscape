@@ -56,18 +56,19 @@ void Audio::free(){
 void Audio::play_effect(){
   time += timer->time_elapsed() - aux_time;
   aux_time = timer->time_elapsed();
+  if(audio_chunk != NULL){
+    if(time >= effect_duration){
+      playing = false;
+      time = 0;
+    }
 
-  if(time >= effect_duration){
-    playing = false;
-    time = 0;
-  }
-
-  if(!playing){
-    time = 0;
-    playing = true;
-    Mix_VolumeChunk(audio_chunk, volume);
-    Mix_PlayChannel(audio_chanel, audio_chunk, audio_repeat);
-  }
+    if(!playing){
+      time = 0;
+      playing = true;
+      Mix_VolumeChunk(audio_chunk, volume);
+      Mix_PlayChannel(audio_chanel, audio_chunk, audio_repeat);
+    }
+   }
 }
 
 void Audio::draw(int x, int y){
@@ -86,7 +87,7 @@ void Audio::draw(int x, int y){
 
 void Audio::play_music_type(){
 
-  if(audio_music != NULL){
+    if(audio_music != NULL){
     is_active();
         if( Mix_PlayingMusic() == 0 )
       {
@@ -97,6 +98,7 @@ void Audio::play_music_type(){
         Mix_ResumeMusic();
       }
     }
+
 }
 
 void Audio::pause_music(){
