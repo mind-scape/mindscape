@@ -253,7 +253,7 @@ void LittleGirl::die(engine::GameObject *game_object){
 
 void LittleGirl::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
-  std::cout << "Position: " << get_position_x() << std::endl;
+  // std::cout << "Position: " << get_position_x() << std::endl;
 
   engine::Animation* actual_animation = get_actual_animation();
   std::string actual_x_state = states.get_state("X_STATE");
@@ -386,7 +386,7 @@ void LittleGirl::update_state(){
     states.set_state("Y_STATE", "FALLING");
   }
 
-  std::cout << "MINHA SPEED EH: " << get_speed_x() << std::endl;
+  // std::cout << "MINHA SPEED EH: " << get_speed_x() << std::endl;
   set_position_x(get_position_x() - get_speed_x());
   set_speed_x(0.0);
 }

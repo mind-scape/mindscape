@@ -71,14 +71,31 @@ void Audio::play_effect(){
 }
 
 void Audio::draw(int x, int y){
-  is_active();
-  if( Mix_PlayingMusic() == 0 )
-    {
-      //Play the music
-      Mix_PlayMusic(audio_music, -1 );
-    }
-    if(Mix_PlayingMusic() == 1){
-      Mix_ResumeMusic();
+  // if(m_audio_type == MUSIC){
+  //   is_active();
+  //   if( Mix_PlayingMusic() == 0 )
+  //     {
+  //       //Play the music
+  //       Mix_PlayMusic(audio_music, -1 );
+  //     }
+  //     if(Mix_PlayingMusic() == 1){
+  //       Mix_ResumeMusic();
+  //     }
+  //   }
+}
+
+void Audio::play_music_type(){
+
+  if(audio_music != NULL){
+    is_active();
+        if( Mix_PlayingMusic() == 0 )
+      {
+        //Play the music
+        Mix_PlayMusic(audio_music, 0 );
+      }
+      if(Mix_PlayingMusic() == 1){
+        Mix_ResumeMusic();
+      }
     }
 }
 
@@ -89,7 +106,10 @@ void Audio::pause_music(){
 }
 
 void Audio::set_repetitions(int repeat){
-  audio_repeat = repeat;
+  if(audio_music != NULL){
+    audio_repeat = repeat;
+    //load();
+  }
 }
 
 void Audio::set_duration(float duration){

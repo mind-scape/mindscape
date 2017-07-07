@@ -2,7 +2,7 @@ id main_background type 7 x 0 y 0 priority 1
 
 id image_background type 10 belongs_to main_background displ_x 0 displ_y 0 screen_x 1024 screen_y 576 tex_x 1024 tex_y 576 tex_coord_x 0 tex_coord_y 0 path ../assets/images/scenes/main_menu/menu_screen2.jpg priority 1
 
-id menu_select_arrow type 6 x 425 y 275 priority 2 
+id menu_select_arrow type 6 x 425 y 275 priority 2
 
 id menu_title type 13 text MindScape font_path ../assets/fonts/FFF_Tusj.ttf font_size 90 displ_x 280 displ_y 30 belongs_to main_background priority 1
 
@@ -10,8 +10,8 @@ id change_scene_button type 5 x 450 y 275 priority 2
 
 id change_scene_action type 14 belongs_to change_scene_button command 0 param ../data/1.level.dat
 
-id menu_title type 13 text Iniciar font_path ../assets/fonts/FFF_Tusj.ttf font_size 35 displ_x 0 displ_y 0 belongs_to change_scene_button priority 10 
+id menu_title type 13 text Iniciar font_path ../assets/fonts/FFF_Tusj.ttf font_size 35 displ_x 0 displ_y 0 belongs_to change_scene_button priority 10
 
-id music_player type 16 x 0 y 0 priority 1
+#id music_player type 16 x 0 y 0 priority 1
 
-id music_menu type 15 belongs_to music_player path ../assets/audios/background_songs/mindscape_open3.wav audio_type 0
+#id music_menu type 15 belongs_to music_player path ../assets/audios/background_songs/menu/mindscape_open.wav audio_type 0
