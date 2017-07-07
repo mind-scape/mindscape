@@ -28,19 +28,30 @@ Goop::Goop(
 };
 
 void Goop::initialize_animations(){
-  engine::Animation* goop = create_animation(
+  engine::Animation* goop_animation = create_animation(
       "../assets/images/sprites/enemies/clown/clown_goop.png",
       1, 1, 3.0, "LEFT"
       );
-  goop->set_values(
+  goop_animation->set_values(
+      std::make_pair(135, 70),
+      std::make_pair(135, 70),
+      std::make_pair(0, 0)
+      );
+  
+  engine::Animation* refuted_goop_animation = create_animation(
+      "../assets/images/sprites/enemies/clown/clown_goop_refuted.png",
+      1, 1, 3.0, "LEFT"
+      );
+  refuted_goop_animation->set_values(
       std::make_pair(135, 70),
       std::make_pair(135, 70),
       std::make_pair(0, 0)
       );
       
-  add_animation("goop",goop);
-  goop->activate();
-  set_actual_animation(goop);
+  add_animation("goop_animation",goop_animation);
+  add_animation("refuted_goop_animation",refuted_goop_animation);
+  goop_animation->activate();
+  set_actual_animation(goop_animation);
 }
 
 engine::Animation* Goop::create_animation(
@@ -84,7 +95,7 @@ void Goop::initialize_hitboxes(){
   engine::Hitbox* goop_hitbox = new engine::Hitbox(
     "goop_hitbox",
     this->get_position(),
-    std::make_pair(10, 60),
+    std::make_pair(10, 45),
     std::make_pair(60,8),
     game.get_renderer()
   );
