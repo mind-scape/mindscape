@@ -5,6 +5,9 @@ id girl_hud type 11 x 54 y 450 priority 7 follows dark_girl
 
 ## Backgrounds
 
+id background_0 type 7 x 0 y 0 priority -1
+id tree_image_0 type 10 displ_x 0 displ_y 0 screen_x 8000 screen_y 576 tex_x 8000 tex_y 576 tex_coord_x 0 tex_coord_y 0 belongs_to background_0 path ../assets/images/cenarios/2-level/background/background_0.png priority 1
+
 id background_1 type 7 x 0 y 0 priority 1
 id tree_image_1 type 10 displ_x 0 displ_y 0 screen_x 3072 screen_y 576 tex_x 3072 tex_y 576 tex_coord_x 0 tex_coord_y 0 belongs_to background_1 path ../assets/images/cenarios/2-level/background/background_1.png priority 1
 
@@ -40,5 +43,5 @@ id image_footer3 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 134 tex_x 10
 
 ## Limiter
 
-id limiter type 3 x 3000 y 0 priority -1
+id limiter type 3 x 3000 y 0 priority -2
 id limiter_hitbox type 9 size_x 210 size_y 30 displ_x 6000 displ_y 350 belongs_to limiter
