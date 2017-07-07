@@ -30,7 +30,6 @@ void SelectArrow::initialize_arrow(){
   timer->init();
 
   action = new Action(Action::Command::CHANGE_SCENE);
-  action_1 = new Action(Action::Command::CHANGE_SCENE);
 }
 
 void SelectArrow::on_event(GameEvent game_event){
@@ -80,7 +79,7 @@ void SelectArrow::on_event(GameEvent game_event){
     case(1):
       set_position(std::make_pair(get_position().first, 227));
       if(event_name == "ENTER"){
-        action_1->execute("../data/instructions_scene.dat");
+        action->execute("../data/instructions_scene.dat");
       }
       break;
     //CRÉDITOS
