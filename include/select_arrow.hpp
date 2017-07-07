@@ -33,6 +33,7 @@ namespace mindscape {
       ~SelectArrow(){};
       void on_event(GameEvent game_event);
       void add_action(Action* act);
+      void update_state();
   };
 }
 #endif

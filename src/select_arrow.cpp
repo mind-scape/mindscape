@@ -1,6 +1,7 @@
 #include "select_arrow.hpp"
 #include "../engine/include/game.hpp"
 #include "../engine/include/level.hpp"
+#include "../engine/include/audio.hpp"
 #include "level_factory.hpp"
 
 using namespace mindscape;
@@ -30,6 +31,8 @@ void SelectArrow::initialize_arrow(){
   timer->init();
 
   action = new Action(Action::Command::CHANGE_SCENE);
+
+
 }
 
 void SelectArrow::on_event(GameEvent game_event){
@@ -99,5 +102,9 @@ void SelectArrow::on_event(GameEvent game_event){
     default:
       break;
   }
+
+}
+
+void SelectArrow::update_state(){
 
 }

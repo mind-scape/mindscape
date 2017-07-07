@@ -55,21 +55,21 @@ void Fox::notify(engine::Observable *game_object){
       animation_hud_fading = true;
     }
 
-// std::cout << "---------------------------------------------------------INFO" << std::endl;
+std::cout << "---------------------------------------------------------INFO" << std::endl;
 
-// std::cout << "Fox State Y " << get_state("Y_STATE") << std::endl;
-// std::cout << "LittleGirl State Y " << little_girl->get_state("Y_STATE") << std::endl;
-// std::cout << "LittleGirl Position Y " << little_girl->get_position_y() << std::endl;
-// std::cout << "Fox Position Y " << get_position_y() << std::endl;
-// std::cout << "LittleGirl Position X " << little_girl->get_position_x() << std::endl;
-// std::cout << "Fox Position X " << get_position_x() << std::endl;
-// std::cout << "Fox Speed Y " << get_speed_y() << std::endl;
+std::cout << "Fox State Y " << get_state("Y_STATE") << std::endl;
+std::cout << "LittleGirl State Y " << little_girl->get_state("Y_STATE") << std::endl;
+std::cout << "LittleGirl Position Y " << little_girl->get_position_y() << std::endl;
+std::cout << "Fox Position Y " << get_position_y() << std::endl;
+std::cout << "LittleGirl Position X " << little_girl->get_position_x() << std::endl;
+std::cout << "Fox Position X " << get_position_x() << std::endl;
+std::cout << "Fox Speed Y " << get_speed_y() << std::endl;
 
     if(little_girl->get_position_y() + 70 == get_position_y()){
       move(little_girl);
     }else if(little_girl && little_girl->get_position_y() + 70 != get_position_y() &&
       little_girl->get_state("Y_STATE") == "ON_GROUND" && get_state("Y_STATE") == "ON_GROUND"){
-// std::cout << "----------------------------------------------JUMP" << std::endl;
+std::cout << "----------------------------------------------JUMP" << std::endl;
       jump(little_girl);
     }else if(little_girl->get_state("Y_STATE") != "ON_GROUND" && get_state("Y_STATE") == "ON_GROUND"){
       set_speed_x(0.0);
