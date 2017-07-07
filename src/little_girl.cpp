@@ -260,7 +260,7 @@ void LittleGirl::on_event(GameEvent game_event){
   std::string actual_y_state = states.get_state("Y_STATE");
   std::string actual_action_state = states.get_state("ACTION_STATE");
 
-  if(event_name == "JUMP" && actual_y_state != "JUMPING"){
+  if(event_name == "JUMP" && actual_y_state == "ON_GROUND"){
     jump(actual_x_state);
   }else if(event_name == "MOVE_LEFT"){
     move_left(actual_x_state,actual_y_state);
@@ -272,29 +272,31 @@ void LittleGirl::on_event(GameEvent game_event){
 }
 
 void LittleGirl::jump(std::string actual_x_state){
-  set_speed_y(-21);
-  states.set_state("Y_STATE","JUMPING");
+  if(get_state("Y_STATE") != "JUMPING" || get_state("Y_STATE") != "FALLING"){
+    set_speed_y(-23);
+    states.set_state("Y_STATE","JUMPING");
 
-  if(actual_x_state == "LOOKING_RIGHT"){
-    stop_song("steps");
-    set_actual_animation(animations["jumping_right_animation"]);
-  }else if(actual_x_state == "LOOKING_LEFT"){
-    stop_song("steps");
-    set_actual_animation(animations["jumping_left_animation"]);
-  }
-
-  engine::Animation* actual_animation = get_actual_animation();
-
-  jumping_animation_count += 1;
-  if(jumping_animation_count < 26){
-    if(jumping_animation_count % 5 == 0){
-      actual_animation->coordinatesOnTexture.first += 192;
-      if(actual_animation->coordinatesOnTexture.first == 960){
-        actual_animation->coordinatesOnTexture.first = 0;
-      }
+    if(actual_x_state == "LOOKING_RIGHT"){
+      stop_song("steps");
+      set_actual_animation(animations["jumping_right_animation"]);
+    }else if(actual_x_state == "LOOKING_LEFT"){
+      stop_song("steps");
+      set_actual_animation(animations["jumping_left_animation"]);
     }
-  }else{
-    jumping_animation_count = 26;
+
+    engine::Animation* actual_animation = get_actual_animation();
+
+    jumping_animation_count += 1;
+    if(jumping_animation_count < 26){
+      if(jumping_animation_count % 5 == 0){
+        actual_animation->coordinatesOnTexture.first += 192;
+        if(actual_animation->coordinatesOnTexture.first == 960){
+          actual_animation->coordinatesOnTexture.first = 0;
+        }
+      }
+    }else{
+      jumping_animation_count = 26;
+    }
   }
 }
 
@@ -378,8 +380,10 @@ void LittleGirl::update_state(){
     }
     jumping_animation_count = 0;
   }
-  if(get_speed_y() == 0.0){
+  if(get_speed_y() == 0.0 && get_state("Y_STATE") != "JUMPING"){
     states.set_state("Y_STATE","ON_GROUND");
+  }else if(get_speed_y() == 0.0){
+    states.set_state("Y_STATE", "FALLING");
   }
 
   std::cout << "MINHA SPEED EH: " << get_speed_x() << std::endl;
