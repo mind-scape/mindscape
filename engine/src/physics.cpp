@@ -2,7 +2,7 @@
 
 using namespace engine;
 
-float Physics::gravity = 0.9;
+float Physics::gravity = 1.0;
 Physics *Physics::instance = 0;
 std::vector<GameObject *> Physics::physicables = {};
 

@@ -38,8 +38,10 @@ namespace mindscape {
       void notify(engine::Observable*);
       void move(engine::GameObject*);
       void  follow_jump(GameObject *);
-      float calculate_vx_jump(float, float, float);
+      float calculate_jump_time(float, float);
       float calculate_vy_jump(float, float, float);
+      float calculate_vx_jump(float, float);
+      bool is_on_the_right(engine::GameObject *);
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
