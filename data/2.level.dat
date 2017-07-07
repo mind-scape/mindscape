@@ -3,8 +3,8 @@
 id dark_girl type 19 x 430 y 0 priority 8
 id girl_hud type 11 x 54 y 450 priority 7 follows dark_girl
 id uncle type 20 x 900 y -100 priority 7 follows dark_girl
-id arm_right type 21 x 500 y -100 priority 7 
-id arm_left type 21 x 1600 y -100 priority 7 
+id arm_right type 21 x 500 y -100 priority 7
+id arm_left type 21 x 1600 y -100 priority 7
 
 ## Backgrounds
 
@@ -53,6 +53,6 @@ id limiter_hitbox type 9 size_x 210 size_y 30 displ_x 6000 displ_y 350 belongs_t
 
 id music_player type 16 x 0 y 0 priority 1
 
-id music_menu type 15 belongs_to music_player path ../assets/audios/background_songs/mindscape-2fase.mp3 audio_type 0
+id loop_level_2 type 15 belongs_to music_player path ../assets/audios/background_songs/level_2/2fase-1.mp3 audio_type 0
 
 include ../data/play_pause_buttons.dat
