@@ -15,7 +15,7 @@ Clown::Clown(
     name,
     position,
     priority,
-    1
+    100
   ){
     initialize_state_map();
     initialize_hitboxes();
