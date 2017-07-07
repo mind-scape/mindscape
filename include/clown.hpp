@@ -23,10 +23,12 @@ namespace mindscape {
       void initialize_animations();
       void initialize_as_physicable();
       void initialize_audio_effects();
-      void on_attack();
+      void on_attack(engine::GameObject *);
       void attack(engine::GameObject*);
       void basic_attack();
       void serial_attack();
+      void on_attack();
+      void die(engine::GameObject*);
       GameObject* create_goop();
       engine::Animation *create_animation(
         std::string path,

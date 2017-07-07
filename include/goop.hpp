@@ -9,6 +9,7 @@
 #include "../engine/include/observable.hpp"
 #include "../engine/include/animation.hpp"
 #include "enemy.hpp"
+#include "little_girl.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
