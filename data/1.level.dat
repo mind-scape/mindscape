@@ -121,11 +121,11 @@ id footer7 type 3 x 8124 y 409 priority 5
 id hitbox_footer7 type 9 size_x 1024 size_y 80 displ_x 0 displ_y 70 belongs_to footer7
 id image_footer7 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer7 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
-id footer8 type 3 x 9148 y 409 priority 5
+id footer8 type 3 x 9148 y 409 priority 6
 id hitbox_footer8 type 9 size_x 1250 size_y 80 displ_x 0 displ_y 70 belongs_to footer8
 id image_footer8 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer8 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
-id footer9 type 3 x 12745 y 409 priority 5
+id footer9 type 3 x 12745 y 409 priority 6
 id hitbox_footer8 type 9 size_x 1270 size_y 80 displ_x -245 displ_y 70 belongs_to footer9
 id image_footer8 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer9 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
@@ -179,13 +179,13 @@ id border_left_image_2 type 10 displ_x 0 displ_y 0 screen_x 245 screen_y 158 tex
 id thorns_1 type 3 x 6389 y 460 priority 4
 id thorns_image_1 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 116 tex_x 1024 tex_y 116 tex_coord_x 0 tex_coord_y 0 belongs_to thorns_1 path ../assets/images/cenarios/1-level/floor/thorns.png priority 5
 
-id thorns_2 type 3 x 10398 y 460 priority 4
+id thorns_2 type 3 x 10398 y 460 priority 5
 id thorns_image_2 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 116 tex_x 1024 tex_y 116 tex_coord_x 0 tex_coord_y 0 belongs_to thorns_2 path ../assets/images/cenarios/1-level/floor/thorns.png priority 5
 
-id thorns_3 type 3 x 11422 y 460 priority 4
+id thorns_3 type 3 x 11422 y 460 priority 5
 id thorns_image_3 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 116 tex_x 1024 tex_y 116 tex_coord_x 0 tex_coord_y 0 belongs_to thorns_3 path ../assets/images/cenarios/1-level/floor/thorns.png priority 5
 
-id thorns_4 type 3 x 12446 y 460 priority 4
+id thorns_4 type 3 x 12446 y 460 priority 5
 id thorns_image_4 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 116 tex_x 1024 tex_y 116 tex_coord_x 0 tex_coord_y 0 belongs_to thorns_4 path ../assets/images/cenarios/1-level/floor/thorns.png priority 5
 
 id medium_platform_2 type 3 x 8900 y 270 priority 5
