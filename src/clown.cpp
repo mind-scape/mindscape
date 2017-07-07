@@ -1,6 +1,8 @@
 #include "../include/clown.hpp"
 #include "../include/platform.hpp"
 #include "../include/little_girl.hpp"
+#include "../engine/include/game.hpp"
+#include "level_factory.hpp"
 #include <stdlib.h>
 
 using namespace mindscape;
@@ -13,7 +15,7 @@ Clown::Clown(
     name,
     position,
     priority,
-    100
+    1
   ){
     initialize_state_map();
     initialize_hitboxes();
@@ -47,7 +49,7 @@ void Clown::initialize_animations(){
       std::make_pair(0, 0)
       );
   on_attack_animation->in_loop = false;
-  
+
   engine::Animation* dying_animation = create_animation(
       "../assets/images/sprites/enemies/clown/clown_dying.png",
       1, 5, 0.9, "LEFT"
@@ -58,8 +60,8 @@ void Clown::initialize_animations(){
       std::make_pair(0, 0)
       );
   dying_animation->in_loop = false;
-  dying_animation->is_a_final_animation = true; 
-  
+  dying_animation->is_a_final_animation = true;
+
   engine::Animation* attacking_animation = create_animation(
       "../assets/images/sprites/enemies/clown/clown_attacking.png",
       1, 6, 1.5, "LEFT"
@@ -69,7 +71,7 @@ void Clown::initialize_animations(){
       std::make_pair(448, 448),
       std::make_pair(0, 0)
       );
-  
+
   engine::Animation* idle_vulnerable_animation = create_animation(
       "../assets/images/sprites/enemies/clown/clown_vulnerable_idle.png",
       1, 15, 3.0, "LEFT"
@@ -142,7 +144,7 @@ void Clown::initialize_hitboxes(){
     std::make_pair(100,25),
     game.get_renderer()
   );
-  
+
   engine::Hitbox* head_hitbox = new engine::Hitbox(
     "head_hitbox",
     this->get_position(),
@@ -162,6 +164,7 @@ void Clown::initialize_state_map(){
 
 void Clown::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
+  std::cout << "MEU HP " << get_hp() << std::endl;
 
   if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level){
     set_position_x(get_position_x() + 10);
@@ -205,20 +208,20 @@ void Clown::attack(engine::GameObject* little_girl){
 
   int clown_position = get_position_x();
   int little_girl_position = little_girl->get_position_x();
-  int distance_from_girl = clown_position - little_girl_position; 
+  int distance_from_girl = clown_position - little_girl_position;
 
   if(distance_from_girl < 650){
     attack_animation_trigger += 1;
     if(attack_animation_trigger == 90){
       states.set_state("ACTION_STATE","ATTACKING");
       set_actual_animation(animations["attacking_animation"]);
-      
+
       int clown_attack_option = rand() % 1000;
 
       if(clown_attack_option < 300){
         basic_attack();
       }else if(clown_attack_option >= 300 && clown_attack_option < 700){
-        double_attack(); 
+        double_attack();
       }else{
         serial_attack();
       }
@@ -248,7 +251,7 @@ void Clown::double_attack(){
     goop_5->set_speed_x(-7.0);
     goop_5->set_speed_y(-10);
     clown_goops.push_back(goop_5);
-    
+
     engine::GameObject* goop_6 = new Goop("goop_6",std::make_pair(get_position_x() + 40,get_position_y() + 150),60);
     engine::Game::get_instance().get_actual_scene()->add_object(goop_6);
     engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_6);
@@ -286,8 +289,7 @@ void Clown::serial_attack(){
 
 void Clown::on_attack(engine::GameObject *game_object){
   //states.set_state("ACTION_STATE","ON_ATTACK");
-  
-  std::cout << "MEU HP " << get_hp() << std::endl;
+
   hit(game_object, 1);
   std::cout << "MEU HP " << get_hp() << std::endl;
 
@@ -310,6 +312,15 @@ void Clown::die(engine::GameObject *game_object){
   states.set_state("ACTION_STATE", "DYING");
   set_actual_animation(animations["dying_animation"]);
   //play_song("hit_me");
+
+  LevelFactory *level_factory = new LevelFactory();
+  engine::Game* game = &(engine::Game::get_instance());
+  level_factory->update_level(
+    dynamic_cast<engine::Level *>(game->get_actual_scene()),
+    "../data/win.dat"
+  );
+
+  game->set_state(engine::Game::PAUSED);
 }
 
 void Clown::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox){
@@ -335,7 +346,7 @@ void Clown::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox,
       && my_hitbox->get_name() == "head_hitbox"){
         refuted_goop_hits++;
         goop->set_actual_animation(goop->animations["goop_squash_animation"]);
-        goop->set_speed_x(0.0); 
+        goop->set_speed_x(0.0);
         if(refuted_goop_hits >= 20){
           states.set_state("ACTION_STATE","VULNERABLE");
           set_actual_animation(animations["idle_vulnerable_animation"]);
