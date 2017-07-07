@@ -23,9 +23,9 @@ void Platform::on_event(GameEvent game_event){
     if(get_position_x() > 13350){
       engine::GameObject::on_limit_of_level = true;
       set_position_x(13350);
-    }else if(get_position_x() < -710){
+    }else if(get_position_x() < -1300){
       engine::GameObject::on_limit_of_level = true;
-      set_position_x(-710);
+      set_position_x(-1300);
     }else{
       engine::GameObject::on_limit_of_level = false;
     }

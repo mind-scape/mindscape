@@ -378,6 +378,10 @@ void LittleGirl::update_state(){
   std::string actual_y_state = states.get_state("Y_STATE");
   std::string actual_action_state = states.get_state("ACTION_STATE");
 
+  if(get_position_y() >= 576){
+    die(NULL);
+  }
+
   if(actual_action_state == "ATTACKING" || actual_action_state == "ON_ATTACK"){
     if(get_actual_animation()->is_finished){
       states.set_state("ACTION_STATE","NORMAL");

@@ -184,7 +184,7 @@ void Fox::move(engine::GameObject* girl){
       set_speed_x(0);
     }else if(distance_from_girl > 200 && distance_from_girl <= 400){
       set_actual_animation(animations["running_left_animation"]);
-      set_speed_x(-7);
+      set_speed_x(-10);
     }else if(distance_from_girl > 400){
       set_actual_animation(animations["running_left_animation"]);
       set_speed_x(-15);
@@ -199,7 +199,7 @@ void Fox::move(engine::GameObject* girl){
     }
     else if(distance_from_girl > 100 && distance_from_girl <= 350){
       set_actual_animation(animations["running_right_animation"]);
-      set_speed_x(7);
+      set_speed_x(10);
     }else if(distance_from_girl > 350){
       set_actual_animation(animations["running_right_animation"]);
       set_speed_x(15);
