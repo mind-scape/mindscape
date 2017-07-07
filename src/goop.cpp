@@ -147,5 +147,3 @@ void Goop::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox, 
     free();
   }
 }
-
-

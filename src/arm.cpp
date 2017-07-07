@@ -36,16 +36,6 @@ void Arm::initialize_animations(){
       std::make_pair(0, 0)
       );
 
-  engine::Animation* arm_animation = create_animation(
-      "../assets/images/sprites/enemies/arm/left_arm.png",
-      1, 1, 3.0, "LEFT"
-      );
-  arm_animation->set_values(
-      std::make_pair(135, 70),
-      std::make_pair(135, 70),
-      std::make_pair(0, 0)
-      );
-
   add_animation("arm_animation",arm_animation);
   arm_animation->activate();
   set_actual_animation(arm_animation);
