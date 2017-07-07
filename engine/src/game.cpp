@@ -94,8 +94,11 @@ void Game::run(){
 
       unsigned now = Time::time_elapsed();
       event_handler.dispatch_pending_events(now);
-      actual_scene->update();
-
+      
+      if(state != PAUSED)
+        actual_scene->update();
+      
+      audio_first_level
       SDL_SetRenderDrawColor(renderer, 0xE2, 0xAC, 0xF3, 0x00);
       SDL_RenderClear(renderer);
       actual_scene->draw();

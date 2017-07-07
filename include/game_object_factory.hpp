@@ -7,12 +7,14 @@
 #include "../engine/include/text.hpp"
 #include "../engine/include/animation.hpp"
 #include "../engine/include/physics.hpp"
+#include "../engine/include/keyboard_event.hpp"
 #include "platform.hpp"
 #include "little_girl.hpp"
 #include "fox.hpp"
 #include "scorpion.hpp"
 #include "spider.hpp"
 #include "background.hpp"
+#include "dark_girl.hpp"
 #include "hud_girl.hpp"
 #include "hud_fox.hpp"
 #include "button.hpp"
@@ -28,7 +30,8 @@ namespace mindscape {
       typedef enum {
         LITTLE_GIRL, SCORPION, SPIDER, PLATFORM, FOX, BUTTON,
         SELECT_ARROW, BACKGROUND, STAR, HITBOX, IMAGE, HUD_GIRL,
-        HUD_FOX, TEXT, ACTION, AUDIO, MUSIC_PLAYER, CLOWN
+        HUD_FOX, TEXT, ACTION, AUDIO, MUSIC_PLAYER, CLOWN, TRANSLATION,
+        DARK_GIRL
       } Options;
 
       GameObjectFactory(){};
@@ -50,6 +53,7 @@ namespace mindscape {
         std::string, int, std::pair<int, int>, int);
       void fabricate_action(engine::GameObject *, int, std::string);
       void fabricate_audio(engine::GameObject *, std::string, std::string, int);
+      void fabricate_translation(engine::GameObject *, int, std::string);
 
     private:
       engine::GameObject* fabricate_button(std::string, std::pair<int, int>, int);
@@ -65,6 +69,7 @@ namespace mindscape {
       engine::GameObject* fabricate_star(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_music_player(std::string, std::pair<int, int>, int);
       engine::GameObject* fabricate_clown(std::string, std::pair<int, int>, int);
+      engine::GameObject* fabricate_dark_girl(std::string, std::pair<int, int>, int);
   };
 }
 

@@ -41,6 +41,15 @@ id tree_image_1 type 10 displ_x 0 displ_y 0 screen_x 295 screen_y 525 tex_x 295 
 id tree_2 type 3 x 7160 y 0 priority 5
 id tree_image_2 type 10 displ_x 0 displ_y 0 screen_x 295 screen_y 525 tex_x 295 tex_y 525 tex_coord_x 0 tex_coord_y 0 belongs_to tree_2 path ../assets/images/cenarios/1-level/trees/tree_5.png priority 5
 
+id tree_3 type 3 x 1000 y 0 priority 5
+id tree_image_3 type 10 displ_x 0 displ_y 0 screen_x 295 screen_y 525 tex_x 295 tex_y 525 tex_coord_x 0 tex_coord_y 0 belongs_to tree_3 path ../assets/images/cenarios/1-level/trees/tree_3.png priority 5
+
+id tree_4 type 3 x 7000 y 0 priority 5
+id tree_image_4 type 10 displ_x 0 displ_y 0 screen_x 295 screen_y 525 tex_x 295 tex_y 525 tex_coord_x 0 tex_coord_y 0 belongs_to tree_3 path ../assets/images/cenarios/1-level/trees/tree_2.png priority 5
+
+id tree_5 type 3 x 9000 y 0 priority 5
+id tree_image_5 type 10 displ_x 0 displ_y 0 screen_x 401 screen_y 536 tex_x 401 tex_y 536 tex_coord_x 0 tex_coord_y 0 belongs_to tree_3 path ../assets/images/cenarios/1-level/trees/tree_4.png priority 5
+
 id tree_hole type 3 x 10398 y 0 priority 4
 id tree_hole_image type 10 displ_x 0 displ_y 0 screen_x 1983 screen_y 576 tex_x 1983 tex_y 576 tex_coord_x 0 tex_coord_y 0 belongs_to tree_hole path ../assets/images/cenarios/1-level/trees/tree_on_hole.png priority 3
 
@@ -90,48 +99,52 @@ id tree_platform_image_5 type 10 displ_x 0 displ_y 0 screen_x 220 screen_y 126 t
 ## Chãos
 
 id footer0 type 3 x 0 y 409 priority 5
-id hitbox_footer0 type 9 size_x 1024 size_y 20 displ_x 0 displ_y 70 belongs_to footer0
+id hitbox_footer0 type 9 size_x 1024 size_y 80 displ_x 0 displ_y 70 belongs_to footer0
 id image_footer0 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer0 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
 id footer1 type 3 x 1024 y 409 priority 5
-id hitbox_footer1 type 9 size_x 1024 size_y 20 displ_x 0 displ_y 70 belongs_to footer1
+id hitbox_footer1 type 9 size_x 1024 size_y 80 displ_x 0 displ_y 70 belongs_to footer1
 id image_footer1 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer1 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
 id footer2 type 3 x 2048 y 409 priority 5
-id hitbox_footer2 type 9 size_x 1024 size_y 20 displ_x 0 displ_y 70 belongs_to footer2
+id hitbox_footer2 type 9 size_x 1024 size_y 80 displ_x 0 displ_y 70 belongs_to footer2
 id image_footer2 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer2 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
 id footer3 type 3 x 3072 y 409 priority 5
-id hitbox_footer3 type 9 size_x 1024 size_y 20 displ_x 0 displ_y 70 belongs_to footer3
+id hitbox_footer3 type 9 size_x 1024 size_y 80 displ_x 0 displ_y 70 belongs_to footer3
 id image_footer3 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer3 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
 id footer4 type 3 x 4096 y 409 priority 5
-id hitbox_footer4 type 9 size_x 1024 size_y 20 displ_x 0 displ_y 70 belongs_to footer4
+id hitbox_footer4 type 9 size_x 1024 size_y 80 displ_x 0 displ_y 70 belongs_to footer4
 id image_footer4 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer4 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
 id footer5 type 3 x 5120 y 409 priority 5
-id hitbox_footer5 type 9 size_x 1230 size_y 20 displ_x 0 displ_y 70 belongs_to footer5
+id hitbox_footer5 type 9 size_x 1230 size_y 80 displ_x 0 displ_y 70 belongs_to footer5
 id image_footer5 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer5 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
 id footer6 type 3 x 7100 y 409 priority 5
-id hitbox_footer6 type 9 size_x 1024 size_y 20 displ_x 0 displ_y 70 belongs_to footer6
+id hitbox_footer6 type 9 size_x 1024 size_y 80 displ_x 0 displ_y 70 belongs_to footer6
 id image_footer6 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer6 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
 id footer7 type 3 x 8124 y 409 priority 5
-id hitbox_footer7 type 9 size_x 1024 size_y 20 displ_x 0 displ_y 70 belongs_to footer7
+id hitbox_footer7 type 9 size_x 1024 size_y 80 displ_x 0 displ_y 70 belongs_to footer7
 id image_footer7 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer7 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
 id footer8 type 3 x 9148 y 409 priority 5
-id hitbox_footer8 type 9 size_x 1250 size_y 20 displ_x 0 displ_y 70 belongs_to footer8
+id hitbox_footer8 type 9 size_x 1250 size_y 80 displ_x 0 displ_y 70 belongs_to footer8
 id image_footer8 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer8 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
 id footer9 type 3 x 12745 y 409 priority 5
-id hitbox_footer8 type 9 size_x 1270 size_y 20 displ_x -245 displ_y 70 belongs_to footer9
+id hitbox_footer8 type 9 size_x 1270 size_y 80 displ_x -245 displ_y 70 belongs_to footer9
 id image_footer8 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer9 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
 id footer10 type 3 x 13769 y 409 priority 5
-id hitbox_footer10 type 9 size_x 1270 size_y 20 displ_x -245 displ_y 70 belongs_to footer10
+id hitbox_footer10 type 9 size_x 1270 size_y 80 displ_x -245 displ_y 70 belongs_to footer10
 id image_footer10 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer10 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
+
+id footer11 type 3 x 14793 y 409 priority 5
+id hitbox_footer11 type 9 size_x 1270 size_y 80 displ_x -245 displ_y 70 belongs_to footer11
+id image_footer11 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 170 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer11 path ../assets/images/cenarios/1-level/floor/floor.png priority 5
 
 ## Morros
 
@@ -202,3 +215,18 @@ id scorpion_5 type 1 x 8100 y 0 priority 6 follows little_girl
 id scorpion_5 type 1 x 12900 y 0 priority 6 follows little_girl
 id spider_4 type 2 x 5700 y 0 priority 6 follows little_girl
 id spider_5 type 2 x 9400 y 0 priority 6 follows little_girl
+id girl_hud type 11 x 54 y 450 priority 7 follows little_girl
+id fox_hud type 12 x 800 y 465 priority 7 follows fox
+id clown type 17 x 15000 y 100 priority 6 follows little_girl
+
+## Stars
+
+id star0 type 8 x 800 y 470 priority 6
+id star1 type 8 x 850 y 470 priority 6
+id star2 type 8 x 2150 y 280 priority 6
+id star3 type 8 x 3100 y 150 priority 6
+id star4 type 8 x 9000 y 280 priority 6
+id star5 type 8 x 10000 y 470 priority 6
+id star6 type 8 x 13000 y 470 priority 6
+
+include ../data/play_pause_buttons.dat

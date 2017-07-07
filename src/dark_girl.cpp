@@ -1,4 +1,4 @@
-#include "../include/little_girl.hpp"
+#include "../include/dark_girl.hpp"
 #include "../include/platform.hpp"
 #include "../include/scorpion.hpp"
 #include "../include/goop.hpp"
@@ -10,9 +10,7 @@
 
 using namespace mindscape;
 
-//TODO fix below velocity configuration
-
-LittleGirl::LittleGirl(
+DarkGirl::DarkGirl(
   std::string name,
   std::pair<int, int> position,
   int priority)
@@ -35,13 +33,13 @@ LittleGirl::LittleGirl(
     initialize_as_physicable();
 };
 
-void LittleGirl::initialize_state_map(){
+void DarkGirl::initialize_state_map(){
   states.set_state("X_STATE","LOOKING_RIGHT");
   states.set_state("Y_STATE","FALLING");
   states.set_state("ACTION_STATE","NORMAL");
 }
 
-void LittleGirl::initialize_hitboxes(){
+void DarkGirl::initialize_hitboxes(){
   engine::Game& game = engine::Game::get_instance();
   engine::Hitbox* hitbox= new engine::Hitbox(
       "hitbox",
@@ -63,7 +61,7 @@ void LittleGirl::initialize_hitboxes(){
   add_component(footer);
 }
 
-void LittleGirl::initialize_audio_effects(){
+void DarkGirl::initialize_audio_effects(){
   engine::Audio * little_girl_steps = new engine::Audio(
   "steps",
   "../assets/audios/effects_songs/menina_passos_rapido.wav",
@@ -88,68 +86,68 @@ void LittleGirl::initialize_audio_effects(){
   add_component(sword_song);
 }
 
-void LittleGirl::initialize_animations(){
+void DarkGirl::initialize_animations(){
   engine::Animation* running_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_running_right.png",
+      "../assets/images/sprites/dark_girl/dark_girl_running_right.png",
       1,9,0.9, "RIGHT"
       );
 
   engine::Animation* running_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_running_left.png",
+      "../assets/images/sprites/dark_girl/dark_girl_running_left.png",
       1, 9, 0.9, "LEFT"
       );
 
   engine::Animation* idle_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_idle_right.png",
+      "../assets/images/sprites/dark_girl/dark_girl_idle_right.png",
       1, 10, 1.5, "RIGHT"
       );
 
   engine::Animation* idle_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_idle_left.png",
+      "../assets/images/sprites/dark_girl/dark_girl_idle_left.png",
       1, 10, 1.5, "LEFT"
       );
 
   engine::Animation* jumping_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_jumping_right.png",
+      "../assets/images/sprites/dark_girl/dark_girl_jumping_right.png",
       1, 5, 1.5, "RIGHT"
       );
 
   engine::Animation* jumping_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_jumping_left.png",
+      "../assets/images/sprites/dark_girl/dark_girl_jumping_left.png",
       1, 5, 1.5, "LEFT"
       );
 
   engine::Animation* attacking_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_attacking_right.png",
+      "../assets/images/sprites/dark_girl/dark_girl_attacking_right.png",
       1, 5, 0.5, "RIGHT"
       );
   attacking_right_animation->in_loop = false;
 
   engine::Animation* attacking_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_attacking_left.png",
+      "../assets/images/sprites/dark_girl/dark_girl_attacking_left.png",
       1, 5, 0.5, "LEFT"
       );
   attacking_left_animation->in_loop = false;
 
   engine::Animation* on_attack_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
+      "../assets/images/sprites/dark_girl/dark_girl_on_attack_right.png",
       1, 3, 0.8, "RIGHT"
       );
 
   engine::Animation* on_attack_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_on_attack_left.png",
+      "../assets/images/sprites/dark_girl/dark_girl_on_attack_left.png",
       1, 3, 0.8, "LEFT"
       );
 
   engine::Animation* dying_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_dying_left.png",
+      "../assets/images/sprites/dark_girl/dark_girl_dying_left.png",
       1, 5, 0.8, "LEFT"
       );
   dying_left_animation->in_loop = false;
   dying_left_animation->is_a_final_animation = true;
 
   engine::Animation* dying_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_dying_right.png",
+      "../assets/images/sprites/dark_girl/dark_girl_dying_right.png",
       1, 5, 1.0, "RIGHT"
       );
   dying_right_animation->in_loop = false;
@@ -171,7 +169,7 @@ void LittleGirl::initialize_animations(){
   set_actual_animation(idle_right_animation);
 }
 
-engine::Animation* LittleGirl::create_animation(
+engine::Animation* DarkGirl::create_animation(
     std::string path,
     int sprite_lines,
     int sprite_columns,
@@ -201,13 +199,13 @@ engine::Animation* LittleGirl::create_animation(
   return animation;
 }
 
-void LittleGirl::initialize_as_physicable(){
+void DarkGirl::initialize_as_physicable(){
   engine::Physics *physics = engine::Physics::get_instance();
   physics->add_physicable(this);
   collidable = true;
 }
 
-void LittleGirl::on_collision(
+void DarkGirl::on_collision(
     engine::GameObject* other,
     engine::Hitbox* p_my_hitbox,
     engine::Hitbox* p_other_hitbox){
@@ -252,7 +250,7 @@ void LittleGirl::on_collision(
   }
 }
 
-void LittleGirl::die(engine::GameObject *game_object){
+void DarkGirl::die(engine::GameObject *game_object){
   std::string actual_x_state = get_state("X_STATE");
   if(actual_x_state == "LOOKING_LEFT"){
     states.set_state("ACTION_STATE", "DYING");
@@ -261,18 +259,10 @@ void LittleGirl::die(engine::GameObject *game_object){
     states.set_state("ACTION_STATE", "DYING");
     set_actual_animation(animations["dying_right_animation"]);
   }
-
-  LevelFactory *level_factory = new LevelFactory();
-  engine::Game* game = &(engine::Game::get_instance());
-  level_factory->update_level(
-    dynamic_cast<engine::Level *>(game->get_actual_scene()),
-    "../data/game_over.dat"
-  );
-
-  game->set_state(engine::Game::PAUSED);
+  sleep(1);
 }
 
-void LittleGirl::on_event(GameEvent game_event){
+void DarkGirl::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
 
   engine::Animation* actual_animation = get_actual_animation();
@@ -291,7 +281,7 @@ void LittleGirl::on_event(GameEvent game_event){
   }
 }
 
-void LittleGirl::jump(std::string actual_x_state){
+void DarkGirl::jump(std::string actual_x_state){
   if(get_state("Y_STATE") != "JUMPING" || get_state("Y_STATE") != "FALLING"){
     set_speed_y(-23);
     states.set_state("Y_STATE","JUMPING");
@@ -320,7 +310,7 @@ void LittleGirl::jump(std::string actual_x_state){
   }
 }
 
-void LittleGirl::move_right(std::string actual_x_state,std::string actual_y_state){
+void DarkGirl::move_right(std::string actual_x_state,std::string actual_y_state){
   engine::Animation* actual_animation = get_actual_animation();
 
   actual_animation->coordinatesOnTexture.first += 192;
@@ -338,7 +328,7 @@ void LittleGirl::move_right(std::string actual_x_state,std::string actual_y_stat
   }
 }
 
-void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state){
+void DarkGirl::move_left(std::string actual_x_state,std::string actual_y_state){
   engine::Animation* actual_animation = get_actual_animation();
 
   actual_animation->coordinatesOnTexture.first -= 192;
@@ -356,7 +346,7 @@ void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state
   }
 }
 
-void LittleGirl::attack(){
+void DarkGirl::attack(){
   std::string actual_x_state = states.get_state("X_STATE");
   states.set_state("ACTION_STATE","ATTACKING");
   if(actual_x_state == "LOOKING_RIGHT"){
@@ -369,7 +359,7 @@ void LittleGirl::attack(){
   play_song("sword_attack");
 }
 
-void LittleGirl::on_attack(GameObject *game_object){
+void DarkGirl::on_attack(GameObject *game_object){
   std::string actual_x_state = states.get_state("X_STATE");
   states.set_state("ACTION_STATE","ON_ATTACK");
   if(actual_x_state == "LOOKING_LEFT"){
@@ -379,7 +369,7 @@ void LittleGirl::on_attack(GameObject *game_object){
   }
 }
 
-void LittleGirl::update_state(){
+void DarkGirl::update_state(){
   engine::Animation* actual_animation = get_actual_animation();
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");

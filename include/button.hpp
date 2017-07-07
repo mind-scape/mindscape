@@ -28,9 +28,7 @@ namespace mindscape {
           p_name,
           position,
           priority,
-          {
-            {engine::KeyboardEvent::RETURN,"CHANGE_SCENE"},
-          }
+          {}
       ){};
 
       ~Button(){};

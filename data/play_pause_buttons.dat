@@ -1,0 +1,11 @@
+id pause_button type 5 x 450 y 275 priority 2
+
+id pause_key type 18 belongs_to pause_button event_name PAUSE_GAME key 5
+
+id pause_action type 14 belongs_to pause_button command 1 param NULL
+
+id play_button type 5 x 450 y 275 priority 2
+
+id play_key type 18 belongs_to play_button event_name PLAY_GAME key 6
+
+id play_action type 14 belongs_to play_button command 2 param NULL

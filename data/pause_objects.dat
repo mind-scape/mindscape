@@ -1,0 +1,3 @@
+id pause_background type 7 x 0 y 0 priority 500
+
+id menu_title type 13 text Parado font_path ../assets/fonts/FFF_Tusj.ttf font_size 90 displ_x 355 displ_y 220 belongs_to pause_background priority 1

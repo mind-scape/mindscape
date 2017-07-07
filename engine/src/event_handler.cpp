@@ -5,21 +5,29 @@ using namespace engine;
 std::list<GameObject *> EventHandler::listeners;
 
 void EventHandler::dispatch_pending_events(unsigned now){
+  engine::Game& game = engine::Game::get_instance();
   auto keyboard_events = pending_keyboard_events(now);
-
   auto game_events = Translator::keyboard_events_to_game_events(keyboard_events);
 
   for (auto event : game_events){
     for (auto listener : listeners){
       if(listener->name == event.solver || event.solver == "All"){
-        listener->on_event(event);
-        if(event.game_event_name == "CHANGE_SCENE"){
+
+        if(game.get_state() == Game::PAUSED && (
+          event.game_event_name != "CHANGE_SCENE" ||
+          event.game_event_name != "PLAY_GAME")){
+          listener->on_event(event);
           break;
         }
+
+        listener->on_event(event);
+
+        if(game.get_state() == Game::PAUSED) break;
         listener->update_hitboxes();
         listener->notify_observers();
       }
     }
+    if(game.get_state() == Game::PAUSED) break;
   }
 }
 

@@ -19,15 +19,29 @@ void Platform::on_event(GameEvent game_event){
   }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level){
     set_position_x(get_position_x() - 10);
   }
+  // First Level Limiter
   if(name == "clown_tree"){
     if(get_position_x() > 13350){
       engine::GameObject::on_limit_of_level = true;
       set_position_x(13350);
-    }else if(get_position_x() < -710){
+    }else if(get_position_x() < -1300){
       engine::GameObject::on_limit_of_level = true;
-      set_position_x(-710);
+      set_position_x(-1300);
     }else{
       engine::GameObject::on_limit_of_level = false;
     }
   }
+  // Second Level Limiter
+  if(name == "limiter"){
+    if(get_position_x() > 3000){
+      engine::GameObject::on_limit_of_level = true;
+      set_position_x(3000);
+    }else if(get_position_x() < 0){
+      engine::GameObject::on_limit_of_level = true;
+      set_position_x(0);
+    }else{
+      engine::GameObject::on_limit_of_level = false;
+    }
+  }
+
 }
