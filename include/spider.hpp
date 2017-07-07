@@ -19,7 +19,7 @@ namespace mindscape {
       int walking_right_count = 0;
       int attacking_right_count = 0;
       int attacking_left_count = 0;
-
+      bool same_nivel = false;
       void initialize_state_map();
       void initialize_hitboxes();
       void initialize_animations();

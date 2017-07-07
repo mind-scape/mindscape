@@ -1,6 +1,7 @@
 #include "../include/fox.hpp"
 #include "../engine/include/game.hpp"
 #include "../engine/include/physics.hpp"
+#include <cmath>
 
 //TODO generalize methos create_animation in GOs
 
@@ -53,10 +54,22 @@ void Fox::notify(engine::Observable *game_object){
       must_give_hp_to_girl = false;
       animation_hud_fading = true;
     }
+
+// std::cout << "---------------------------------------------------------INFO" << std::endl;
+
+// std::cout << "Fox State Y " << get_state("Y_STATE") << std::endl;
+// std::cout << "LittleGirl State Y " << little_girl->get_state("Y_STATE") << std::endl;
+// std::cout << "LittleGirl Position Y " << little_girl->get_position_y() << std::endl;
+// std::cout << "Fox Position Y " << get_position_y() << std::endl;
+// std::cout << "LittleGirl Position X " << little_girl->get_position_x() << std::endl;
+// std::cout << "Fox Position X " << get_position_x() << std::endl;
+// std::cout << "Fox Speed Y " << get_speed_y() << std::endl;
+
     if(little_girl->get_position_y() + 70 == get_position_y()){
       move(little_girl);
     }else if(little_girl && little_girl->get_position_y() + 70 != get_position_y() &&
       little_girl->get_state("Y_STATE") == "ON_GROUND" && get_state("Y_STATE") == "ON_GROUND"){
+// std::cout << "----------------------------------------------JUMP" << std::endl;
       jump(little_girl);
     }else if(little_girl->get_state("Y_STATE") != "ON_GROUND" && get_state("Y_STATE") == "ON_GROUND"){
       set_speed_x(0.0);
@@ -149,9 +162,7 @@ void Fox::on_event(GameEvent game_event){
   std::string actual_y_state = states.get_state("Y_STATE");
   std::string actual_action_state = states.get_state("ACTION_STATE");
 
-  if(event_name == "JUMP"){
-      //state == "JUMPING";
-  }else if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level && actual_action_state == "NORMAL"){
+  if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level && actual_action_state == "NORMAL"){
     set_position_x(get_position_x() + 10);
   }else if(event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level && actual_action_state == "NORMAL"){
     set_position_x(get_position_x() - 10);
@@ -163,6 +174,7 @@ void Fox::move(engine::GameObject* girl){
   float girl_position = girl->get_position_x();
   int distance_from_girl;
 
+  states.set_state("Y_STATE","ON_GROUND");
   if(fox_position > girl_position){
     states.set_state("X_STATE","LOOKING_LEFT");
     distance_from_girl = fox_position - girl_position;
@@ -195,7 +207,7 @@ void Fox::move(engine::GameObject* girl){
   }
 }
 
-void Fox::jump(GameObject *little_girl){
+void Fox::jump(engine::GameObject *little_girl){
   if(get_state("Y_STATE") != "JUMPING" && get_state("Y_STATE") != "FALLING"){
     states.set_state("Y_STATE", "JUMPING");
 
@@ -215,32 +227,54 @@ void Fox::jump(GameObject *little_girl){
   }
 }
 
-void Fox::follow_jump(GameObject *little_girl){
+void Fox::follow_jump(engine::GameObject *little_girl){
   engine::Physics *physics = engine::Physics::get_instance();
   float gravity = physics->get_gravity();
-  float number_of_sprites = 11.755; //time
-  float final_y = little_girl->get_position_y();
-  float final_x = little_girl->get_position_x();
-  float throw_speed_y = calculate_vy_jump(final_y, gravity, number_of_sprites);
-  float throw_speed_x = calculate_vx_jump(final_x, gravity, number_of_sprites);
+  float final_y = little_girl->get_position_y() + 70;
+  float final_x = 500; //little_girl->get_position_x();
+  float throw_speed_x = is_on_the_right(little_girl) ? 10 : -10;
+
+  float jump_time = calculate_jump_time(final_x, throw_speed_x);
+std::cout << "Tempo de lançamento " << jump_time << std::endl;
+  float throw_speed_y = calculate_vy_jump(final_y, gravity, jump_time);
+  throw_speed_x = calculate_vx_jump(final_x, jump_time);
+
+std::cout << "Velocidade de lançamento X " << throw_speed_x << std::endl;
+std::cout << "Velocidade de lançamento Y " << throw_speed_y << std::endl;
   set_speed_y(throw_speed_y);
   set_speed_x(throw_speed_x);
+}
+
+bool Fox::is_on_the_right(engine::GameObject *target){
+  return (get_position_x() - target->get_position_x() < 0);
 }
 
 float Fox::calculate_vy_jump(float final_y, float gravity, float jump_time){
   float initial_y = (float) get_position_y();
   float throw_speed_y;
   float delta_y = final_y - initial_y;
-  throw_speed_y = ((gravity*jump_time/2.0) + (delta_y/jump_time));
+std::cout << "Delta (" << delta_y << ") = Y("<< final_y << ") - Yo(" << initial_y << ")" << std::endl;
+std::cout << "(" << delta_y <<  " / " << jump_time << ") - (" << gravity << " * " << jump_time << " / " << 2 << ")" << std::endl;
+
+  throw_speed_y = (delta_y/jump_time) - (gravity * jump_time/2);
   return throw_speed_y;
 }
 
-float Fox::calculate_vx_jump(float final_x, float gravity, float jump_time){
+float Fox::calculate_vx_jump(float final_x, float jump_time){
+  float initial_x = (float) get_position_x();
   float throw_speed_x;
+  float delta_x = final_x - initial_x;
+  throw_speed_x = std::floor(delta_x/jump_time);
+  return throw_speed_x;
+}
+
+float Fox::calculate_jump_time(float final_x, float speed_x){
+  float jump_time;
   float initial_x = (float) get_position_x();
   float delta_x = final_x - initial_x;
-  throw_speed_x = delta_x/(jump_time*2);
-  return throw_speed_x;
+std::cout << "Delta X - Xo = " << delta_x << std::endl;
+  jump_time = delta_x/speed_x;
+  return jump_time;
 }
 
 void Fox::update_state(){
@@ -253,8 +287,10 @@ void Fox::update_state(){
       set_actual_animation(animations["idle_left_animation"]);
     }
   };
-  if(get_speed_y() == 0.0){
+  if(get_speed_y() == 0.0 && get_state("Y_STATE") != "JUMPING"){
     states.set_state("Y_STATE","ON_GROUND");
+  }else if(get_speed_y() == 0.0){
+    states.set_state("Y_STATE", "FALLING");
   }
 }
 

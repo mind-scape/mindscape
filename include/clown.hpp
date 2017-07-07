@@ -23,9 +23,13 @@ namespace mindscape {
       void initialize_animations();
       void initialize_as_physicable();
       void initialize_audio_effects();
-      void on_attack();
+      void on_attack(engine::GameObject *);
       void attack(engine::GameObject*);
-      void attack_normally_1();
+      void basic_attack();
+      void serial_attack();
+      void on_attack();
+      void die(engine::GameObject*);
+      GameObject* create_goop();
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
@@ -35,6 +39,7 @@ namespace mindscape {
       );
       int goops_counter = 0;
       int attack_animation_trigger = 0;
+      std::vector<engine::GameObject*> clown_goops;
 
     public:
       Clown(

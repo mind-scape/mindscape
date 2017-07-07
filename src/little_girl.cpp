@@ -1,6 +1,7 @@
 #include "../include/little_girl.hpp"
 #include "../include/platform.hpp"
 #include "../include/scorpion.hpp"
+#include "../include/goop.hpp"
 #include "../engine/include/game.hpp"
 #include "level_factory.hpp"
 #include <typeinfo>
@@ -214,6 +215,7 @@ void LittleGirl::on_collision(
   Platform* platform = dynamic_cast<Platform *>(other);
   Scorpion* scorpion = dynamic_cast<Scorpion *>(other);
   Spider* spider = dynamic_cast<Spider *>(other);
+  Goop* goop = dynamic_cast<Goop *>(other);
   engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
   engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
@@ -236,6 +238,17 @@ void LittleGirl::on_collision(
     play_song("hit_me");
     on_attack(other);
     hit(other, 1);
+  }if(goop){
+    if(get_state("ACTION_STATE") == "ATTACKING" && goop->get_state("ACTION_STATE") != "REFUTED"){
+      goop->set_speed_x(goop->get_speed_x() * (-1));
+      goop->set_speed_y(-10);
+      goop->set_actual_animation(goop->animations["refuted_goop_animation"]);
+      goop->states.set_state("ACTION_STATE","REFUTED");
+    }else{
+      play_song("hit_me");
+      on_attack(other);
+      hit(other,1);
+    }
   }
 }
 
@@ -252,15 +265,15 @@ void LittleGirl::die(engine::GameObject *game_object){
 }
 
 void LittleGirl::on_event(GameEvent game_event){
-  std::cout << "Posicao da girl: " << get_position_x() << std::endl;
   std::string event_name = game_event.game_event_name;
+  // std::cout << "Position: " << get_position_x() << std::endl;
 
   engine::Animation* actual_animation = get_actual_animation();
   std::string actual_x_state = states.get_state("X_STATE");
   std::string actual_y_state = states.get_state("Y_STATE");
   std::string actual_action_state = states.get_state("ACTION_STATE");
 
-  if(event_name == "JUMP" && actual_y_state != "JUMPING"){
+  if(event_name == "JUMP" && actual_y_state == "ON_GROUND"){
     jump(actual_x_state);
   }else if(event_name == "MOVE_LEFT"){
     move_left(actual_x_state,actual_y_state);
@@ -272,46 +285,46 @@ void LittleGirl::on_event(GameEvent game_event){
 }
 
 void LittleGirl::jump(std::string actual_x_state){
-  set_speed_y(-21);
-  states.set_state("Y_STATE","JUMPING");
+  if(get_state("Y_STATE") != "JUMPING" || get_state("Y_STATE") != "FALLING"){
+    set_speed_y(-23);
+    states.set_state("Y_STATE","JUMPING");
 
-  if(actual_x_state == "LOOKING_RIGHT"){
-    stop_song("steps");
-    set_actual_animation(animations["jumping_right_animation"]);
-  }else if(actual_x_state == "LOOKING_LEFT"){
-    stop_song("steps");
-    set_actual_animation(animations["jumping_left_animation"]);
-  }
-
-  engine::Animation* actual_animation = get_actual_animation();
-
-  jumping_animation_count += 1;
-  if(jumping_animation_count < 26){
-    if(jumping_animation_count % 5 == 0){
-      actual_animation->coordinatesOnTexture.first += 192;
-      if(actual_animation->coordinatesOnTexture.first == 960){
-        actual_animation->coordinatesOnTexture.first = 0;
-      }
+    if(actual_x_state == "LOOKING_RIGHT"){
+      stop_song("steps");
+      set_actual_animation(animations["jumping_right_animation"]);
+    }else if(actual_x_state == "LOOKING_LEFT"){
+      stop_song("steps");
+      set_actual_animation(animations["jumping_left_animation"]);
     }
-  }else{
-    jumping_animation_count = 26;
+
+    engine::Animation* actual_animation = get_actual_animation();
+
+    jumping_animation_count += 1;
+    if(jumping_animation_count < 26){
+      if(jumping_animation_count % 5 == 0){
+        actual_animation->coordinatesOnTexture.first += 192;
+        if(actual_animation->coordinatesOnTexture.first == 960){
+          actual_animation->coordinatesOnTexture.first = 0;
+        }
+      }
+    }else{
+      jumping_animation_count = 26;
+    }
   }
 }
 
 void LittleGirl::move_right(std::string actual_x_state,std::string actual_y_state){
-  if(actual_y_state == "ON_GROUND"){
+  engine::Animation* actual_animation = get_actual_animation();
 
-    engine::Animation* actual_animation = get_actual_animation();
+  actual_animation->coordinatesOnTexture.first += 192;
 
-    actual_animation->coordinatesOnTexture.first += 192;
-
-    if(actual_animation->coordinatesOnTexture.first >= 1728)
-      actual_animation->coordinatesOnTexture.first = 0;
-    states.set_state("X_STATE","LOOKING_RIGHT");
-    set_actual_animation(animations["running_right_animation"]);
-    play_song("steps");
-    set_speed_x(0.1);
-  }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_LEFT"){
+  if(actual_animation->coordinatesOnTexture.first >= 1728)
+    actual_animation->coordinatesOnTexture.first = 0;
+  states.set_state("X_STATE","LOOKING_RIGHT");
+  set_actual_animation(animations["running_right_animation"]);
+  play_song("steps");
+  set_speed_x(0.1);
+  if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_LEFT"){
     states.set_state("X_STATE","LOOKING_RIGHT");
     play_song("steps");
     set_actual_animation(animations["jumping_right_animation"]);
@@ -319,19 +332,17 @@ void LittleGirl::move_right(std::string actual_x_state,std::string actual_y_stat
 }
 
 void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state){
-  if(actual_y_state == "ON_GROUND"){
+  engine::Animation* actual_animation = get_actual_animation();
 
-    engine::Animation* actual_animation = get_actual_animation();
+  actual_animation->coordinatesOnTexture.first -= 192;
 
-    actual_animation->coordinatesOnTexture.first -= 192;
-
-    if(actual_animation->coordinatesOnTexture.first <= 0)
-      actual_animation->coordinatesOnTexture.first = 1536;
-    states.set_state("X_STATE","LOOKING_LEFT");
-    set_actual_animation(animations["running_left_animation"]);
-    play_song("steps");
-    set_speed_x(-0.1);
-  }else if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_RIGHT"){
+  if(actual_animation->coordinatesOnTexture.first <= 0)
+    actual_animation->coordinatesOnTexture.first = 1536;
+  states.set_state("X_STATE","LOOKING_LEFT");
+  set_actual_animation(animations["running_left_animation"]);
+  play_song("steps");
+  set_speed_x(-0.1);
+  if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_RIGHT"){
     states.set_state("X_STATE","LOOKING_LEFT");
     play_song("steps");
     set_actual_animation(animations["jumping_left_animation"]);
@@ -382,10 +393,13 @@ void LittleGirl::update_state(){
     }
     jumping_animation_count = 0;
   }
-  if(get_speed_y() == 0.0){
+  if(get_speed_y() == 0.0 && get_state("Y_STATE") != "JUMPING"){
     states.set_state("Y_STATE","ON_GROUND");
+  }else if(get_speed_y() == 0.0){
+    states.set_state("Y_STATE", "FALLING");
   }
 
-  set_position_x(get_position_x() + get_speed_x());
+  // std::cout << "MINHA SPEED EH: " << get_speed_x() << std::endl;
+  set_position_x(get_position_x() - get_speed_x());
   set_speed_x(0.0);
 }

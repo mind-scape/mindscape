@@ -246,10 +246,28 @@ Audio * GameObject::get_audio_by_name(std::string audio_name){
 
 void GameObject::play_song(std::string song_name){
   Audio *song = get_audio_by_name(song_name);
+  song->play_music_type();
   song->play_effect();
+
 }
 
 void GameObject::stop_song(std::string song_name){
   Audio *song = get_audio_by_name(song_name);
   song->stop_effect();
+  song->pause_music();
 }
+
+void GameObject::set_repetitions(std::string song_name, int repet){
+  Audio *song = get_audio_by_name(song_name);
+  song->set_repetitions(repet);
+}
+
+void GameObject::set_music_volume(std::string song_name, int vol){
+  Audio *song = get_audio_by_name(song_name);
+  song->set_music_volume(vol);
+};
+
+void GameObject::free_music(std::string song_name){
+  Audio *song = get_audio_by_name(song_name);
+  song->free();
+};

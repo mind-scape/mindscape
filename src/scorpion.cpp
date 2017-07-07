@@ -233,7 +233,21 @@ void Scorpion::die(engine::GameObject *game_object){
 void Scorpion::move(engine::GameObject* girl){
   float scorpion_position = get_position_x();
   float girl_position = girl->get_position_x();
+
+  float scorpion_position_y = get_position_y();
+  float girl_position_y = girl->get_position_y();
+
+  //132 is the diference of girl position_y and scorpion position_y
+  if(scorpion_position_y + 132 == girl_position_y){
+    same_nivel = true;
+  } else {
+    same_nivel = false;
+  }
+
+  //std::cout << "\n Same nivel?  " << same_nivel << std::endl;
+
   int distance_from_girl;
+
   std::string actual_x_state;
 
   if(get_state("ACTION_STATE") == "DYING") return;
@@ -250,7 +264,7 @@ void Scorpion::move(engine::GameObject* girl){
 
     if(distance_from_girl > 300){
       set_actual_animation(animations["idle_left_animation"]);
-    }else if(distance_from_girl <= 300){
+    }else if(distance_from_girl <= 300 && same_nivel){
       states.set_state("ACTION_STATE","NORMAL");
       if(distance_from_girl >= 50){
         set_position_x(get_position_x() - 1);
@@ -266,7 +280,7 @@ void Scorpion::move(engine::GameObject* girl){
 
     if(distance_from_girl > 588){
       set_actual_animation(animations["idle_right_animation"]);
-    }else if(distance_from_girl <= 588){
+    }else if(distance_from_girl <= 588 && same_nivel){
       if(distance_from_girl >= 200){
         set_position_x(get_position_x() + 1);
         set_actual_animation(animations["walking_right_animation"]);
