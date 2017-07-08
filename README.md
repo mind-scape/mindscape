@@ -20,8 +20,9 @@ A história acompanha uma menina que encontra-se em coma por um acidente misteri
 * Andar para frente: →  
 * Andar para trás: ← 
 * Pular:  ↑
-* Agachar/defender:  ↓
-* Atacar: Barra de Espaço
+* Atacar: F
+* Pausar: Esq
+* Despausar: Barra de espaço
 
 ### Envolvidos
 
