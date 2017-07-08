@@ -40,7 +40,6 @@ void Animation::draw(int x, int y){
   }
     
   if(time_of_sprite == 0.0){
-    std::cout << "ENTROU COM 000000" << std::endl;
     time_of_sprite = 1.0;
   }
 

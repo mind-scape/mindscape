@@ -205,7 +205,6 @@ bool GameObject::is_active(){
 }
 
 void GameObject::update_state(){
-//std::cout << "GAME OBJECT UPDATE" << std::endl;
 }
 
 void GameObject::create_hitbox(

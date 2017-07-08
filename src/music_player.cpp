@@ -52,5 +52,4 @@ void MusicPlayer::on_event(GameEvent game_event){
     sub_position_x += 10;
   }
 
-  std::cout << "sub_positon_x  " << sub_position_x << std::endl;
 }

@@ -164,7 +164,6 @@ void Clown::initialize_state_map(){
 
 void Clown::on_event(GameEvent game_event){
   std::string event_name = game_event.game_event_name;
-  std::cout << "MEU HP " << get_hp() << std::endl;
 
   if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level){
     set_position_x(get_position_x() + 10);
@@ -291,7 +290,6 @@ void Clown::on_attack(engine::GameObject *game_object){
   //states.set_state("ACTION_STATE","ON_ATTACK");
 
   hit(game_object, 1);
-  //std::cout << "MEU HP " << get_hp() << std::endl;
 
   if(is_alive()){
     set_actual_animation(animations["on_attack_animation"]);
