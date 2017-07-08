@@ -217,8 +217,6 @@ void Spider::move(engine::GameObject* girl){
     same_nivel = false;
   }
 
-  //std::cout << "\n Same nivel?  " << same_nivel << std::endl;
-  //std::cout << "\n positon of spider  " << spider_position_y << "  position of girl  " << girl_position_y << std::endl;
 
   if(get_state("ACTION_STATE") == "DYING") return;
   if(get_actual_animation()->is_finished){

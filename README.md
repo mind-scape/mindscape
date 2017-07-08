@@ -20,22 +20,36 @@ A história acompanha uma menina que encontra-se em coma por um acidente misteri
 * Andar para frente: →  
 * Andar para trás: ← 
 * Pular:  ↑
-* Agachar/defender:  ↓
-* Atacar: Barra de Espaço
+* Atacar: F
+* Pausar: Esq
+* Despausar: Barra de espaço
 
 ### Envolvidos
 
-| Nome | Matrícula |
+| Nome | Ocupação | 
 | :--: | :-----: |
-| Luan Guimarães | 12/0125773 |
-| Lucas Soares | 14/0151257 |
-| Matheus Miranda | 14/0056793 |
-| Victor Navarro | 14/0032932 |
+| Luan Guimarães | Programador |
+| Lucas Soares | Programador |
+| Matheus Miranda | Programador |
+| Victor Navarro | Programador |
+| Bruna Figueirôa | Artista |
+| Maria Monteiro | Artista |
+| Amanda Santos | Artista |
+| Natália Menezes | Artista |
+| Aria Rita | Música |
 
 ### Dependências
 
 As dependências estão listadas pelo nome do pacote. Dessa forma, em distribuições _linux_ baseadas em _Debian_, é necessário apenas rodar "sudo apt-get install nomeDoPacote".
 * libsdl2-dev
+* libsdl2-image-dev
+* libsdl2-ttf-dev
+* libsdl2-mixer-dev
+* make
+* gcc
+* g++
+* CMake (versão 3.1 ou maior)
+
 
 ### Compilando e Executando
 
