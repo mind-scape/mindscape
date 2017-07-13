@@ -32,7 +32,7 @@ void HudGirl::notify(engine::Observable* game_object){
 
 void HudGirl::initialize_animations(){
   engine::Animation* girl_hp = create_animation(
-      "../assets/images/sprites/hud/hud_girl.png",
+      "/opt/mindscape/assets/images/sprites/hud/hud_girl.png",
       1,1,0.9, "RIGHT"
   );
 
@@ -47,7 +47,7 @@ void HudGirl::initialize_animations(){
 engine::Image* HudGirl::create_image(){
   engine::Game& game = engine::Game::get_instance();
   engine::Image* health_bar = new engine::Image(game.get_renderer(),
-  "../assets/images/sprites/sprites_test/health_bar.jpg",
+  "/opt/mindscape/assets/images/sprites/sprites_test/health_bar.jpg",
   true, std::make_pair(74, 64), 70);
 
   health_bar->set_values(

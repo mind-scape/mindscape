@@ -66,20 +66,20 @@ void LittleGirl::initialize_hitboxes(){
 void LittleGirl::initialize_audio_effects(){
   engine::Audio * little_girl_steps = new engine::Audio(
   "steps",
-  "../assets/audios/effects_songs/menina_passos_rapido.wav",
+  "/opt/mindscape/assets/audios/effects_songs/menina_passos_rapido.wav",
   engine::Audio::CHUNK);
   little_girl_steps->set_duration(1);
   little_girl_steps->set_effect_volume(45);
 
   engine::Audio * little_girl_getting_hit = new engine::Audio(
   "hit_me",
-  "../assets/audios/effects_songs/menina_apanhando.wav",
+  "/opt/mindscape/assets/audios/effects_songs/menina_apanhando.wav",
   engine::Audio::CHUNK);
   little_girl_getting_hit->set_duration(0.5);
 
   engine::Audio * sword_song = new engine::Audio(
   "sword_attack",
-  "../assets/audios/effects_songs/espada_fase_1.wav",
+  "/opt/mindscape/assets/audios/effects_songs/espada_fase_1.wav",
   engine::Audio::CHUNK);
   sword_song->set_duration(0.4);
 
@@ -90,66 +90,66 @@ void LittleGirl::initialize_audio_effects(){
 
 void LittleGirl::initialize_animations(){
   engine::Animation* running_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_running_right.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_running_right.png",
       1,9,0.9, "RIGHT"
       );
 
   engine::Animation* running_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_running_left.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_running_left.png",
       1, 9, 0.9, "LEFT"
       );
 
   engine::Animation* idle_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_idle_right.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_idle_right.png",
       1, 10, 1.5, "RIGHT"
       );
 
   engine::Animation* idle_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_idle_left.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_idle_left.png",
       1, 10, 1.5, "LEFT"
       );
 
   engine::Animation* jumping_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_jumping_right.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_jumping_right.png",
       1, 5, 1.5, "RIGHT"
       );
 
   engine::Animation* jumping_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_jumping_left.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_jumping_left.png",
       1, 5, 1.5, "LEFT"
       );
 
   engine::Animation* attacking_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_attacking_right.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_attacking_right.png",
       1, 5, 0.4, "RIGHT"
       );
  // attacking_right_animation->in_loop = false;
 
   engine::Animation* attacking_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_attacking_left.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_attacking_left.png",
       1, 5, 0.4, "LEFT"
       );
  // attacking_left_animation->in_loop = false;
 
   engine::Animation* on_attack_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_on_attack_right.png",
       1, 3, 0.8, "RIGHT"
       );
 
   engine::Animation* on_attack_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_on_attack_left.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_on_attack_left.png",
       1, 3, 0.8, "LEFT"
       );
 
   engine::Animation* dying_left_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_dying_left.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_dying_left.png",
       1, 5, 0.8, "LEFT"
       );
   dying_left_animation->in_loop = false;
   dying_left_animation->is_a_final_animation = true;
 
   engine::Animation* dying_right_animation = create_animation(
-      "../assets/images/sprites/little_girl/little_girl_dying_right.png",
+      "/opt/mindscape/assets/images/sprites/little_girl/little_girl_dying_right.png",
       1, 5, 1.0, "RIGHT"
       );
   dying_right_animation->in_loop = false;

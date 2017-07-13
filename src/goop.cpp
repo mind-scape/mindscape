@@ -29,7 +29,7 @@ Goop::Goop(
 
 void Goop::initialize_animations(){
   engine::Animation* goop_animation = create_animation(
-      "../assets/images/sprites/enemies/clown/clown_goop.png",
+      "/opt/mindscape/assets/images/sprites/enemies/clown/clown_goop.png",
       1, 1, 3.0, "LEFT"
       );
   goop_animation->set_values(
@@ -39,7 +39,7 @@ void Goop::initialize_animations(){
       );
   
   engine::Animation* refuted_goop_animation = create_animation(
-      "../assets/images/sprites/enemies/clown/clown_goop_refuted.png",
+      "/opt/mindscape/assets/images/sprites/enemies/clown/clown_goop_refuted.png",
       1, 1, 3.0, "LEFT"
       );
   refuted_goop_animation->set_values(
@@ -49,7 +49,7 @@ void Goop::initialize_animations(){
       );
   
   engine::Animation* goop_squash_animation = create_animation(
-      "../assets/images/sprites/enemies/clown/goop_squash.png",
+      "/opt/mindscape/assets/images/sprites/enemies/clown/goop_squash.png",
       1, 1, 5.0, "LEFT"
       );
   goop_squash_animation->set_values(

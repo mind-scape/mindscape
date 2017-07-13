@@ -19,7 +19,7 @@ HudFox::HudFox(
 
 void HudFox::initialize_audio_effects(){
   engine::Audio * take_this_hp = new engine::Audio(
-  "heart", "../assets/audios/effects_songs/mindscape_heart.wav", engine::Audio::CHUNK);
+  "heart", "/opt/mindscape/assets/audios/effects_songs/mindscape_heart.wav", engine::Audio::CHUNK);
   take_this_hp->set_duration(1);
 
   add_component(take_this_hp);
@@ -66,27 +66,27 @@ void HudFox::notify(engine::Observable* game_object){
 
 void HudFox::initialize_animations(){
   engine::Animation* fox_zero_star = create_animation(
-      "../assets/images/sprites/hud/hud_fox_0.png",
+      "/opt/mindscape/assets/images/sprites/hud/hud_fox_0.png",
       1,1,0.9, "RIGHT"
       );
 
   engine::Animation* fox_one_star = create_animation(
-      "../assets/images/sprites/hud/hud_fox_1.png",
+      "/opt/mindscape/assets/images/sprites/hud/hud_fox_1.png",
       1,1,0.9, "RIGHT"
       );
 
   engine::Animation* fox_two_star = create_animation(
-      "../assets/images/sprites/hud/hud_fox_2.png",
+      "/opt/mindscape/assets/images/sprites/hud/hud_fox_2.png",
       1,1,0.9, "RIGHT"
       );
 
   engine::Animation* fox_three_star = create_animation(
-      "../assets/images/sprites/hud/hud_fox_3.png",
+      "/opt/mindscape/assets/images/sprites/hud/hud_fox_3.png",
       1,1,0.9, "RIGHT"
       );
 
   engine::Animation* fox_three_star_fading = create_animation(
-      "../assets/images/sprites/hud/hud_fox_3_animation.png",
+      "/opt/mindscape/assets/images/sprites/hud/hud_fox_3_animation.png",
       1,4,1.0, "RIGHT"
       );
 

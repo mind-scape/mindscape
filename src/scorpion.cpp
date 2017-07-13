@@ -26,12 +26,12 @@ Scorpion::Scorpion(
 void Scorpion::initialize_audio_effects(){
   engine::Audio * scorpion_attacking = new engine::Audio(
   "attack",
-  "../assets/audios/effects_songs/ataque_insetos.wav", engine::Audio::CHUNK);
+  "/opt/mindscape/assets/audios/effects_songs/ataque_insetos.wav", engine::Audio::CHUNK);
   scorpion_attacking->set_duration(0.7);
 
   engine::Audio * scorpion_on_attack = new engine::Audio(
   "hit_me",
-  "../assets/audios/effects_songs/inseto_apanhando.wav", engine::Audio::CHUNK);
+  "/opt/mindscape/assets/audios/effects_songs/inseto_apanhando.wav", engine::Audio::CHUNK);
   scorpion_on_attack->set_duration(0.8);
 
   add_component(scorpion_attacking);
@@ -41,54 +41,54 @@ void Scorpion::initialize_audio_effects(){
 //TODO fix below animations names according to others
 void Scorpion::initialize_animations(){
     engine::Animation* walking_left_animation = create_animation(
-      "../assets/images/sprites/enemies/scorpion/scorpion_walking_left.png",
+      "/opt/mindscape/assets/images/sprites/enemies/scorpion/scorpion_walking_left.png",
       1, 5, 0.9, "LEFT"
     );
 
     engine::Animation* walking_right_animation = create_animation(
-      "../assets/images/sprites/enemies/scorpion/scorpion_walking_right.png",
+      "/opt/mindscape/assets/images/sprites/enemies/scorpion/scorpion_walking_right.png",
       1, 5, 0.9, "RIGHT"
     );
 
     engine::Animation* idle_left_animation = create_animation(
-      "../assets/images/sprites/enemies/scorpion/scorpion_idle_left.png",
+      "/opt/mindscape/assets/images/sprites/enemies/scorpion/scorpion_idle_left.png",
       1, 2, 0.9, "LEFT"
     );
 
     engine::Animation* idle_right_animation = create_animation(
-      "../assets/images/sprites/enemies/scorpion/scorpion_idle_right.png",
+      "/opt/mindscape/assets/images/sprites/enemies/scorpion/scorpion_idle_right.png",
       1, 2, 0.9, "RIGHT"
     );
 
     engine::Animation* attacking_left_animation = create_animation(
-      "../assets/images/sprites/enemies/scorpion/scorpion_attacking_left.png",
+      "/opt/mindscape/assets/images/sprites/enemies/scorpion/scorpion_attacking_left.png",
       1, 5, 0.7, "LEFT"
     );
 
     engine::Animation* attacking_right_animation = create_animation(
-      "../assets/images/sprites/enemies/scorpion/scorpion_attacking_right.png",
+      "/opt/mindscape/assets/images/sprites/enemies/scorpion/scorpion_attacking_right.png",
       1, 5, 0.7, "RIGHT"
     );
 
     engine::Animation* on_attack_left_animation = create_animation(
-      "../assets/images/sprites/enemies/scorpion/scorpion_on_attack_left.png",
+      "/opt/mindscape/assets/images/sprites/enemies/scorpion/scorpion_on_attack_left.png",
       1, 2, 0.8, "LEFT"
     );
 
     engine::Animation* on_attack_right_animation = create_animation(
-      "../assets/images/sprites/enemies/scorpion/scorpion_on_attack_right.png",
+      "/opt/mindscape/assets/images/sprites/enemies/scorpion/scorpion_on_attack_right.png",
       1, 2, 0.8, "RIGHT"
     );
 
     engine::Animation* dying_left_animation = create_animation(
-      "../assets/images/sprites/enemies/scorpion/scorpion_dying_left.png",
+      "/opt/mindscape/assets/images/sprites/enemies/scorpion/scorpion_dying_left.png",
       1, 5, 0.8, "LEFT"
     );
     dying_left_animation->is_a_final_animation = true;
     dying_left_animation->in_loop = false;
 
     engine::Animation* dying_right_animation = create_animation(
-      "../assets/images/sprites/enemies/scorpion/scorpion_dying_right.png",
+      "/opt/mindscape/assets/images/sprites/enemies/scorpion/scorpion_dying_right.png",
       1, 5, 0.8, "RIGHT"
     );
     dying_right_animation->is_a_final_animation = true;

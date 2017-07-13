@@ -25,7 +25,7 @@ SelectArrow::SelectArrow(
 
 void SelectArrow::initialize_arrow(){
   engine::Game game = engine::Game::get_instance();
-  engine::Text* sel = new engine::Text(game.get_renderer(), "selector", std::make_pair(0,0), 5, ">", "../assets/fonts/FFF_Tusj.ttf", 35);
+  engine::Text* sel = new engine::Text(game.get_renderer(), "selector", std::make_pair(0,0), 5, ">", "/opt/mindscape/assets/fonts/FFF_Tusj.ttf", 35);
   sel->activate();
   add_component(sel);
   timer->init();

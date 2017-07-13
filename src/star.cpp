@@ -36,7 +36,7 @@ void Star::initialize_hitboxes(){
 void Star::initialize_audio_effects(){
   engine::Audio * got_me_audio = new engine::Audio(
     "got_me",
-    "../assets/audios/effects_songs/pegando_estrela.wav",
+    "/opt/mindscape/assets/audios/effects_songs/pegando_estrela.wav",
     engine::Audio::CHUNK);
   got_me_audio->set_duration(0.5);
   add_component(got_me_audio);
@@ -44,12 +44,12 @@ void Star::initialize_audio_effects(){
 
 void Star::initialize_animations(){
   engine::Animation* star = create_animation(
-    "../assets/images/sprites/items/star/star.png",
+    "/opt/mindscape/assets/images/sprites/items/star/star.png",
     1, 6, 0.9, "LEFT"
   );
 
   engine::Animation* star_fading = create_animation(
-    "../assets/images/sprites/items/star/star_caught.png",
+    "/opt/mindscape/assets/images/sprites/items/star/star_caught.png",
     1, 5, 0.5, "LEFT"
   );
 

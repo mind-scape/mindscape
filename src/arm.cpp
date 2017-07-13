@@ -26,7 +26,7 @@ Arm::Arm(
 
 void Arm::initialize_animations(){
   engine::Animation* right_arm = create_animation(
-      "../assets/images/sprites/enemies/arm/right_arm.png",
+      "/opt/mindscape/assets/images/sprites/enemies/arm/right_arm.png",
       1, 4, 3.0, "RIGHT"
       );
   right_arm->set_values(
@@ -36,7 +36,7 @@ void Arm::initialize_animations(){
       );
   
   engine::Animation* left_arm = create_animation(
-      "../assets/images/sprites/enemies/arm/left_arm.png",
+      "/opt/mindscape/assets/images/sprites/enemies/arm/left_arm.png",
       1, 4, 3.0, "LEFT"
       );
   left_arm->set_values(

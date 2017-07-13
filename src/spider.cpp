@@ -26,13 +26,13 @@ Spider::Spider(
 void Spider::initialize_audio_effects(){
   engine::Audio * spider_attacking = new engine::Audio(
   "attack",
-  "../assets/audios/effects_songs/ataque_insetos.wav",
+  "/opt/mindscape/assets/audios/effects_songs/ataque_insetos.wav",
   engine::Audio::CHUNK);
   spider_attacking->set_duration(0.5);
 
   engine::Audio * spider_on_attack = new engine::Audio(
   "hit_me",
-  "../assets/audios/effects_songs/inseto_apanhando.wav",
+  "/opt/mindscape/assets/audios/effects_songs/inseto_apanhando.wav",
   engine::Audio::CHUNK);
   spider_on_attack->set_duration(0.8);
 
@@ -42,52 +42,52 @@ void Spider::initialize_audio_effects(){
 
 void Spider::initialize_animations(){
     engine::Animation* walking_left_animation = create_animation(
-      "../assets/images/sprites/enemies/spider/spider_walking_left.png",
+      "/opt/mindscape/assets/images/sprites/enemies/spider/spider_walking_left.png",
       1, 4, 0.9, "LEFT"
     );
 
     engine::Animation* walking_right_animation = create_animation(
-      "../assets/images/sprites/enemies/spider/spider_walking_right.png",
+      "/opt/mindscape/assets/images/sprites/enemies/spider/spider_walking_right.png",
       1, 4, 0.9, "RIGHT"
     );
 
     engine::Animation* idle_left_animation = create_animation(
-      "../assets/images/sprites/enemies/spider/spider_idle_left.png",
+      "/opt/mindscape/assets/images/sprites/enemies/spider/spider_idle_left.png",
       1, 2, 0.9, "LEFT"
     );
 
     engine::Animation* idle_right_animation = create_animation(
-      "../assets/images/sprites/enemies/spider/spider_idle_right.png",
+      "/opt/mindscape/assets/images/sprites/enemies/spider/spider_idle_right.png",
       1, 2, 0.9, "RIGHT"
     );
 
     engine::Animation* on_attack_left_animation = create_animation(
-      "../assets/images/sprites/enemies/spider/spider_on_attack_left.png",
+      "/opt/mindscape/assets/images/sprites/enemies/spider/spider_on_attack_left.png",
       1, 2, 0.5, "LEFT"
     );
 
     engine::Animation* on_attack_right_animation = create_animation(
-      "../assets/images/sprites/enemies/spider/spider_on_attack_right.png",
+      "/opt/mindscape/assets/images/sprites/enemies/spider/spider_on_attack_right.png",
       1, 2, 0.5, "RIGHT"
     );
 
     engine::Animation* attacking_left_animation = create_animation(
-      "../assets/images/sprites/enemies/spider/spider_attacking_left.png",
+      "/opt/mindscape/assets/images/sprites/enemies/spider/spider_attacking_left.png",
       1, 4, 0.5, "LEFT"
     );
 
     engine::Animation* attacking_right_animation = create_animation(
-      "../assets/images/sprites/enemies/spider/spider_attacking_right.png",
+      "/opt/mindscape/assets/images/sprites/enemies/spider/spider_attacking_right.png",
       1, 4, 0.5, "RIGHT"
     );
 
     engine::Animation* dying_left_animation = create_animation(
-      "../assets/images/sprites/enemies/spider/spider_dying_left.png",
+      "/opt/mindscape/assets/images/sprites/enemies/spider/spider_dying_left.png",
       1, 2, 0.5, "LEFT"
     );
 
     engine::Animation* dying_right_animation = create_animation(
-      "../assets/images/sprites/enemies/spider/spider_dying_right.png",
+      "/opt/mindscape/assets/images/sprites/enemies/spider/spider_dying_right.png",
       1, 2, 0.5, "RIGHT"
     );
 

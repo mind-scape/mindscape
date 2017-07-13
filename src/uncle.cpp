@@ -26,7 +26,7 @@ void Uncle::initialize_audio_effects(){
 
 void Uncle::initialize_animations(){
   engine::Animation* idle_animation = create_animation(
-      "../assets/images/sprites/enemies/uncle/uncle_idle.png",
+      "/opt/mindscape/assets/images/sprites/enemies/uncle/uncle_idle.png",
       1, 4, 3.0, "LEFT"
       );
   idle_animation->set_values(
@@ -36,7 +36,7 @@ void Uncle::initialize_animations(){
       );
   
   engine::Animation* attacking_animation = create_animation(
-      "../assets/images/sprites/enemies/uncle/uncle_attacking.png",
+      "/opt/mindscape/assets/images/sprites/enemies/uncle/uncle_attacking.png",
       1, 1, 3.0, "LEFT"
       );
   attacking_animation->set_values(

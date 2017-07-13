@@ -30,7 +30,7 @@ void Clown::initialize_audio_effects(){
 
 void Clown::initialize_animations(){
   engine::Animation* idle_animation = create_animation(
-      "../assets/images/sprites/enemies/clown/clown_idle.png",
+      "/opt/mindscape/assets/images/sprites/enemies/clown/clown_idle.png",
       1, 15, 3.0, "LEFT"
       );
   idle_animation->set_values(
@@ -40,7 +40,7 @@ void Clown::initialize_animations(){
       );
 
   engine::Animation* on_attack_animation = create_animation(
-      "../assets/images/sprites/enemies/clown/clown_on_attack.png",
+      "/opt/mindscape/assets/images/sprites/enemies/clown/clown_on_attack.png",
       1, 4, 0.4, "LEFT"
       );
   on_attack_animation->set_values(
@@ -51,7 +51,7 @@ void Clown::initialize_animations(){
   on_attack_animation->in_loop = false;
 
   engine::Animation* dying_animation = create_animation(
-      "../assets/images/sprites/enemies/clown/clown_dying.png",
+      "/opt/mindscape/assets/images/sprites/enemies/clown/clown_dying.png",
       1, 5, 0.9, "LEFT"
       );
   dying_animation->set_values(
@@ -63,7 +63,7 @@ void Clown::initialize_animations(){
   dying_animation->is_a_final_animation = true;
 
   engine::Animation* attacking_animation = create_animation(
-      "../assets/images/sprites/enemies/clown/clown_attacking.png",
+      "/opt/mindscape/assets/images/sprites/enemies/clown/clown_attacking.png",
       1, 6, 1.5, "LEFT"
       );
   attacking_animation->set_values(
@@ -73,7 +73,7 @@ void Clown::initialize_animations(){
       );
 
   engine::Animation* idle_vulnerable_animation = create_animation(
-      "../assets/images/sprites/enemies/clown/clown_vulnerable_idle.png",
+      "/opt/mindscape/assets/images/sprites/enemies/clown/clown_vulnerable_idle.png",
       1, 15, 3.0, "LEFT"
       );
   idle_vulnerable_animation->set_values(

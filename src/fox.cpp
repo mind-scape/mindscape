@@ -69,32 +69,32 @@ void Fox::notify(engine::Observable *game_object){
 
 void Fox::initialize_animations(){
   engine::Animation* running_right_animation = create_animation(
-      "../assets/images/sprites/fox/fox_running_right.png",
+      "/opt/mindscape/assets/images/sprites/fox/fox_running_right.png",
       1,9,0.9, "RIGHT"
       );
 
   engine::Animation* running_left_animation = create_animation(
-      "../assets/images/sprites/fox/fox_running_left.png",
+      "/opt/mindscape/assets/images/sprites/fox/fox_running_left.png",
       1, 9, 0.9, "LEFT"
       );
 
   engine::Animation* idle_right_animation = create_animation(
-      "../assets/images/sprites/fox/fox_idle_right.png",
+      "/opt/mindscape/assets/images/sprites/fox/fox_idle_right.png",
       1, 10, 1.5, "RIGHT"
       );
 
   engine::Animation* idle_left_animation = create_animation(
-      "../assets/images/sprites/fox/fox_idle_left.png",
+      "/opt/mindscape/assets/images/sprites/fox/fox_idle_left.png",
       1, 10, 1.5, "LEFT"
       );
 
   engine::Animation* jumping_right_animation = create_animation(
-      "../assets/images/sprites/fox/fox_jumping_right.png",
+      "/opt/mindscape/assets/images/sprites/fox/fox_jumping_right.png",
       1, 4, 1.5, "RIGHT"
       );
 
   engine::Animation* jumping_left_animation = create_animation(
-      "../assets/images/sprites/fox/fox_jumping_left.png",
+      "/opt/mindscape/assets/images/sprites/fox/fox_jumping_left.png",
       1, 4, 1.5, "LEFT"
       );
 
