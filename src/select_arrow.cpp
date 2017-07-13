@@ -75,21 +75,21 @@ void SelectArrow::on_event(GameEvent game_event){
     case(0):
       set_position(std::make_pair(get_position().first, 175));
       if(event_name == "ENTER"){
-        action->execute("../data/1.level.dat");
+        action->execute("/opt/mindscape/data/1.level.dat");
       }
       break;
     //INSTRUÇÕES
     case(1):
       set_position(std::make_pair(get_position().first, 227));
       if(event_name == "ENTER"){
-        action->execute("../data/2.level.dat");
+        action->execute("/opt/mindscape/data/2.level.dat");
       }
       break;
     //CRÉDITOS
     case(2):
       set_position(std::make_pair(get_position().first, 280));
       if(event_name == "ENTER"){
-        action->execute("../data/credits_scene.dat");
+        action->execute("/opt/mindscape/data/credits_scene.dat");
       }
       break;
     //SAIR

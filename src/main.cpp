@@ -11,7 +11,7 @@ int main(int,char**){
   engine::Game& game = engine::Game::initialize(globals::game_name, globals::window_size);
 
   LevelFactory *level_factory = new LevelFactory();
-  engine::Level* menu = level_factory->fabricate_level("../data/menu.dat");
+  engine::Level* menu = level_factory->fabricate_level("/opt/mindscape/data/menu.dat");
   game.change_scene(menu);
 
   game.run();

@@ -4,7 +4,7 @@ id image_background type 10 belongs_to main_background displ_x 0 displ_y 0 scree
 
 id change_scene_button type 5 x 450 y 275 priority 110
 
-id change_scene_action type 14 belongs_to change_scene_button command 0 param ../data/1.level.dat
+id change_scene_action type 14 belongs_to change_scene_button command 0 param /opt/mindscape/data/1.level.dat
 
 id key_change_scene_button type 18 belongs_to change_scene_button event_name CHANGE_SCENE key 3
 

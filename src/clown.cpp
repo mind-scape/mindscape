@@ -315,7 +315,7 @@ void Clown::die(engine::GameObject *game_object){
   engine::Game* game = &(engine::Game::get_instance());
   level_factory->update_level(
     dynamic_cast<engine::Level *>(game->get_actual_scene()),
-    "../data/win.dat"
+    "/opt/mindscape/data/win.dat"
   );
 
   game->set_state(engine::Game::PAUSED);

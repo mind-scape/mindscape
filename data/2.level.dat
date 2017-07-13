@@ -55,4 +55,4 @@ id music_player type 16 x 0 y 0 priority 1
 
 id loop_level_2 type 15 belongs_to music_player path /opt/mindscape/assets/audios/background_songs/level_2/2fase-1.mp3 audio_type 0
 
-include ../data/play_pause_buttons.dat
+include /opt/mindscape/data/play_pause_buttons.dat

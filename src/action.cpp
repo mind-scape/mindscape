@@ -25,7 +25,7 @@ void Action::execute(std::string param){
       LevelFactory *level_factory = new LevelFactory();
       level_factory->update_level(
         dynamic_cast<engine::Level *>(game->get_actual_scene()),
-        "../data/pause_objects.dat"
+        "/opt/mindscape/data/pause_objects.dat"
       );
     }
     game->set_state(engine::Game::PAUSED);
