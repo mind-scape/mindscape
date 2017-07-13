@@ -1,0 +1,58 @@
+## Objetos vivos e tal
+
+id dark_girl type 19 x 430 y 0 priority 8
+id girl_hud type 11 x 54 y 450 priority 7 follows dark_girl
+id uncle type 20 x 900 y -100 priority 7 follows dark_girl
+id arm_right type 21 x 500 y -100 priority 7
+id arm_left type 21 x 1600 y -100 priority 7
+
+## Backgrounds
+
+id background_0 type 7 x 0 y 0 priority -1
+id tree_image_0 type 10 displ_x 0 displ_y 0 screen_x 8000 screen_y 576 tex_x 8000 tex_y 576 tex_coord_x 0 tex_coord_y 0 belongs_to background_0 path /opt/mindscape/assets/images/cenarios/2-level/background/background_0.jpg priority 1
+
+id background_1 type 7 x 0 y 0 priority 1
+id tree_image_1 type 10 displ_x 0 displ_y 0 screen_x 3072 screen_y 576 tex_x 3072 tex_y 576 tex_coord_x 0 tex_coord_y 0 belongs_to background_1 path /opt/mindscape/assets/images/cenarios/2-level/background/background_1.png priority 1
+
+id background_2 type 7 x 0 y 0 priority 2
+id tree_image_2 type 10 displ_x 0 displ_y 0 screen_x 3072 screen_y 576 tex_x 3072 tex_y 576 tex_coord_x 0 tex_coord_y 0 belongs_to background_2 path /opt/mindscape/assets/images/cenarios/2-level/background/background_2.png priority 2
+
+id background_3 type 7 x 0 y 0 priority 3
+id tree_image_3 type 10 displ_x 0 displ_y 0 screen_x 3072 screen_y 576 tex_x 3072 tex_y 576 tex_coord_x 0 tex_coord_y 0 belongs_to background_3 path /opt/mindscape/assets/images/cenarios/2-level/background/background_3.png priority 2
+
+id background_4 type 7 x 0 y 0 priority 4
+id tree_image_4 type 10 displ_x 0 displ_y 0 screen_x 3072 screen_y 576 tex_x 3072 tex_y 576 tex_coord_x 0 tex_coord_y 0 belongs_to background_4 path /opt/mindscape/assets/images/cenarios/2-level/background/background_4.png priority 2
+
+id background_5 type 7 x 0 y 0 priority 4
+id tree_image_5 type 10 displ_x 0 displ_y 0 screen_x 3450 screen_y 576 tex_x 3072 tex_y 576 tex_coord_x 0 tex_coord_y 0 belongs_to background_5 path /opt/mindscape/assets/images/cenarios/2-level/black_mask.png priority 10
+
+## Floor
+
+id footer0 type 3 x 0 y 442 priority 5
+id hitbox_footer0 type 9 size_x 1024 size_y 50 displ_x 0 displ_y 10 belongs_to footer0
+id image_footer0 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 134 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer0 path /opt/mindscape/assets/images/cenarios/2-level/floor/floor.png priority 5
+
+id footer1 type 3 x 1024 y 442 priority 5
+id hitbox_footer1 type 9 size_x 1024 size_y 50 displ_x 0 displ_y 10 belongs_to footer1
+id image_footer1 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 134 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer1 path /opt/mindscape/assets/images/cenarios/2-level/floor/floor.png priority 5
+
+id footer2 type 3 x 2048 y 442 priority 5
+id hitbox_footer2 type 9 size_x 1024 size_y 50 displ_x 0 displ_y 10 belongs_to footer2
+id image_footer2 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 134 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer2 path /opt/mindscape/assets/images/cenarios/2-level/floor/floor.png priority 5
+
+id footer3 type 3 x 3072 y 442 priority 5
+id hitbox_footer3 type 9 size_x 1024 size_y 50 displ_x 0 displ_y 10 belongs_to footer3
+id image_footer3 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 134 tex_x 1024 tex_y 170 tex_coord_x 0 tex_coord_y 0 belongs_to footer3 path /opt/mindscape/assets/images/cenarios/2-level/floor/floor.png priority 5
+
+## Limiter
+
+id limiter type 3 x 3000 y 0 priority -2
+id limiter_hitbox type 9 size_x 210 size_y 30 displ_x 6000 displ_y 350 belongs_to limiter
+
+## Music
+
+id music_player type 16 x 0 y 0 priority 1
+
+id loop_level_2 type 15 belongs_to music_player path /opt/mindscape/assets/audios/background_songs/level_2/2fase-1.mp3 audio_type 0
+
+include /opt/mindscape/data/play_pause_buttons.dat

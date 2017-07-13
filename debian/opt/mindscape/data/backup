@@ -1,0 +1,47 @@
+id little_girl type 0 x 430 y 0 priority 50
+
+id girl_hud type 11 x 54 y 450 priority 55 follows little_girl
+
+id scorpion type 1 x 800 y 0 priority 40 follows little_girl
+
+id fox type 4 x 500 y 0 priority 50 follows little_girl
+
+id fox_hud type 12 x 800 y 465 priority 60 follows fox
+
+id spider type 2 x 100 y 0 priority 41 follows little_girl
+
+id platform0 type 3 x 800 y 200 priority 30
+
+id hitbox_platform0 type 9 size_x 400 size_y 30 displ_x 40 displ_y 70 belongs_to platform0
+
+id image_platform0 type 10 displ_x 0 displ_y 0 screen_x 507 screen_y 256 tex_x 507 tex_y 256 tex_coord_x 0 tex_coord_y 0 belongs_to platform0 path /opt/mindscape/assets/images/scenes/test_scene/plataforma.png priority 1
+
+id footer0 type 3 x 0 y 0 priority 5
+
+id hitbox_footer0 type 9 size_x 10000 size_y 200 displ_x 0 displ_y 530 belongs_to footer0
+
+id image_footer0 type 10 displ_x 0 displ_y 0 screen_x 1024 screen_y 576 tex_x 1024 tex_y 576 tex_coord_x 0 tex_coord_y 0 belongs_to footer0 path /opt/mindscape/assets/images/scenes/test_scene/4.png priority 1
+
+id background0 type 7 x 0 y 0 priority 1
+
+id image_background0 type 10 belongs_to background0 displ_x 0 displ_y 0 screen_x 1024 screen_y 576 tex_x 1024 tex_y 576 tex_coord_x 0 tex_coord_y 0 path /opt/mindscape/assets/images/scenes/test_scene/1.png priority 1
+
+id background1 type 7 x 0 y 0 priority 2
+
+id image_background1 type 10 belongs_to background1 displ_x 0 displ_y 0 screen_x 1024 screen_y 576 tex_x 1024 tex_y 576 tex_coord_x 0 tex_coord_y 0 path /opt/mindscape/assets/images/scenes/test_scene/2.png priority 1
+
+id main_background type 7 x 0 y 0 priority 3
+
+id image_main_background type 10 belongs_to main_background displ_x 0 displ_y 0 screen_x 1024 screen_y 576 tex_x 1024 tex_y 576 tex_coord_x 0 tex_coord_y 0 path /opt/mindscape/assets/images/scenes/test_scene/3.png priority 1
+
+id star0 type 8 x 700 y 520 priority 20
+
+id star1 type 8 x 750 y 520 priority 20
+
+id star2 type 8 x 800 y 520 priority 20
+
+id star3 type 8 x 850 y 520 priority 20
+
+id star4 type 8 x 900 y 520 priority 20
+
+id star5 type 8 x 950 y 520 priority 20

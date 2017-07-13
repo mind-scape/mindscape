@@ -1,0 +1,11 @@
+id main_background type 7 x 0 y 0 priority 100
+
+id win type 13 text Ganhou! font_path /opt/mindscape/assets/fonts/FFF_Tusj.ttf font_size 90 displ_x 355 displ_y 220 belongs_to main_background priority 1
+id press type 13 text Aperte font_path /opt/mindscape/assets/fonts/FFF_Tusj.ttf font_size 90 displ_x 180 displ_y 320 belongs_to main_background priority 1
+id enter type 13 text Enter! font_path /opt/mindscape/assets/fonts/FFF_Tusj.ttf font_size 90 displ_x 580 displ_y 320 belongs_to main_background priority 1
+
+id change_scene_button type 5 x 450 y 275 priority 110
+
+id change_scene_action type 14 belongs_to change_scene_button command 0 param /opt/mindscape/data/2.level.dat
+
+id key_change_scene_button type 18 belongs_to change_scene_button event_name CHANGE_SCENE key 3

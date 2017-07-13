@@ -3,6 +3,10 @@
 using namespace engine;
 
 void Level::load(){
+  for(int i  = 0;i < 100;++i){
+    std::cout << "O numero de objetos foi entaooo " << objects.size() << std::endl;
+  }
+
   for(auto game_object : objects){
     std::cout << "Loading " << game_object->name << std::endl;
     game_object->load();

@@ -1,0 +1,6 @@
+# Camada da little_girl
+
+## Backgrounds
+
+id main_background type 7 x 0 y 0 priority 1
+id image_background type 10 belongs_to main_background displ_x 0 displ_y 0 screen_x 1024 screen_y 576 tex_x 1024 tex_y 576 tex_coord_x 0 tex_coord_y 0 path /opt/mindscape/assets/images/scenes/main_menu/instructions_screen.png priority 1

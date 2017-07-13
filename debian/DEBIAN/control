@@ -1,0 +1,8 @@
+Package: mindscape
+Version: 1.0-0
+Section: base
+Priority: optional
+Architecture: amd64
+Dependencie: libsdl2-2.0-0, libsdl2-image-2.0-0, libsdl2-ttf-2.0-0, libsdl2-mixer-2.0-0
+Maintainer: Victor Navarro, Matheus Miranda, Luan Guimarães e Lucas Souza
+Description: Adventure game developed on IJE. 
