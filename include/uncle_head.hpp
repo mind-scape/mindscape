@@ -1,5 +1,5 @@
-#ifndef UNCLE_H
-#define UNCLE_H
+#ifndef UNCLE_HEAD_H
+#define UNCLE_HEAD_H
 
 #include "../engine/include/game_object.hpp"
 #include "../engine/include/keyboard_event.hpp"
@@ -9,28 +9,23 @@
 #include "../engine/include/observable.hpp"
 #include "../engine/include/animation.hpp"
 #include "enemy.hpp"
-#include "arm.hpp"
-#include "uncle_head.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
-#include <map>
 
 namespace mindscape {
-  class Uncle : public Enemy {
+  class UncleHead : public Enemy {
     private:
-      void initialize_boss_parts();
+
       void initialize_state_map();
       void initialize_hitboxes();
       void initialize_animations();
+      void initialize_as_physicable();
       void initialize_audio_effects();
-      void on_attack(engine::GameObject *);
-      void attack(engine::GameObject*);
-      void basic_attack();
-      void serial_attack();
-      void on_attack();
-      void die(engine::GameObject*);
-      GameObject* create_goop();
+//      void on_attack(engine::GameObject *);
+//      void attack();
+//      void die(engine::GameObject*);
+      bool same_nivel = false;
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
@@ -38,18 +33,16 @@ namespace mindscape {
         double duration,
         std::string direction
       );
-      std::vector<engine::GameObject*> clown_goops;
-      GameObject* right_arm; 
-      GameObject* left_arm;
 
     public:
-      Uncle(
+      UncleHead(
         std::string name,
         std::pair<int, int> position,
         int priority
       );
-      ~Uncle(){};
+      ~UncleHead(){};
 
+      void move(engine::GameObject *);
       void on_event(GameEvent);
       void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
       void notify(engine::Observable *);

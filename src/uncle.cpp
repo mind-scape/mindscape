@@ -15,71 +15,23 @@ Uncle::Uncle(
     priority,
     100
   ){
-    initialize_state_map();
-    initialize_hitboxes();
-    initialize_animations();
-    initialize_audio_effects();
+    initialize_boss_parts();
+    //initialize_state_map();
+    //initialize_hitboxes();
+    //initialize_animations();
+    //initialize_audio_effects();
 };
+
+void Uncle::initialize_boss_parts(){
+  Enemy *head = new UncleHead("head",std::make_pair(900,-100),7);
+
+  set_game_object_part("head",head);
+}
 
 void Uncle::initialize_audio_effects(){
 }
 
 void Uncle::initialize_animations(){
-  engine::Animation* idle_animation = create_animation(
-      "../assets/images/sprites/enemies/uncle/uncle_idle.png",
-      1, 4, 3.0, "LEFT"
-      );
-  idle_animation->set_values(
-      std::make_pair(665, 484),
-      std::make_pair(665, 484),
-      std::make_pair(0, 0)
-      );
-  
-  engine::Animation* attacking_animation = create_animation(
-      "../assets/images/sprites/enemies/uncle/uncle_attacking.png",
-      1, 1, 3.0, "LEFT"
-      );
-  attacking_animation->set_values(
-      std::make_pair(719, 523),
-      std::make_pair(719, 523),
-      std::make_pair(0, 0)
-      );
-  attacking_animation->in_loop = false;
-
-  add_animation("idle_animation",idle_animation);
-  add_animation("attacking_animation",attacking_animation);
-  idle_animation->activate();
-  set_actual_animation(idle_animation);
-}
-
-engine::Animation* Uncle::create_animation(
-  std::string path,
-  int sprite_lines,
-  int sprite_columns,
-  double duration,
-  std::string direction){
-
-  engine::Game& game = engine::Game::get_instance();
-  engine::Animation* animation = new engine::Animation(
-    game.get_renderer(),
-    path,                 // image path
-    false,                // is_active
-    std::make_pair(0, 0), // displacement
-    1,                    // priority
-    sprite_lines,         // sprite_lines
-    sprite_columns,       // sprite_columns
-    duration,             // duration
-    true,                 // in_loop
-    direction             // direction
-  );
-
-  animation->set_values(
-    std::make_pair(320, 320),
-    std::make_pair(320, 320),
-    std::make_pair(0, 0)
-  );
-
-  return animation;
 }
 
 void Uncle::initialize_hitboxes(){

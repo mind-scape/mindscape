@@ -35,6 +35,7 @@ namespace engine {
       Animation* actual_animation = NULL;
       bool active;
       std::list<Observer *> observers;
+      std::map<std::string, GameObject*> game_object_parts; 
 
       void run_collisions(GameObject *);
 
@@ -115,6 +116,8 @@ namespace engine {
       void detach_observer(Observer *);
       void notify_observers();
       virtual void notify(Observable *){};
+      void set_game_object_part(std::string,GameObject*);
+      std::map<std::string, GameObject*> get_game_object_parts(); 
   };
 }
 

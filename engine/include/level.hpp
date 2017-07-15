@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include "scene.hpp"
-#include "../../include/clown.hpp"
+#include "../../include/uncle.hpp"
 
 namespace engine {
 
