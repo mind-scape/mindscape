@@ -270,11 +270,3 @@ void GameObject::free_music(std::string song_name){
   Audio *song = get_audio_by_name(song_name);
   song->free();
 };
-
-void GameObject::set_game_object_part(std::string game_object_part_name, GameObject* game_object_part_reference){
-  game_object_parts[game_object_part_name] = game_object_part_reference;
-}
-
-std::map<std::string,GameObject*> GameObject::get_game_object_parts(){
-  return game_object_parts;
-}

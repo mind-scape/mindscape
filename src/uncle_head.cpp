@@ -15,7 +15,6 @@ UncleHead::UncleHead(
     100
   ){
     initialize_state_map();
-//    initialize_hitboxes();
     initialize_animations();
     initialize_audio_effects();
 };

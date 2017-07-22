@@ -8,6 +8,7 @@
 #include "../engine/include/hitbox.hpp"
 #include "../engine/include/observable.hpp"
 #include "../engine/include/animation.hpp"
+#include "boss.hpp"
 #include "enemy.hpp"
 #include "arm.hpp"
 #include "uncle_head.hpp"
@@ -17,7 +18,7 @@
 #include <map>
 
 namespace mindscape {
-  class Uncle : public Enemy {
+  class Uncle : public Boss {
     private:
       void initialize_boss_parts();
       void initialize_state_map();
@@ -30,7 +31,6 @@ namespace mindscape {
       void serial_attack();
       void on_attack();
       void die(engine::GameObject*);
-      GameObject* create_goop();
       engine::Animation *create_animation(
         std::string path,
         int sprite_lines,
@@ -38,9 +38,7 @@ namespace mindscape {
         double duration,
         std::string direction
       );
-      std::vector<engine::GameObject*> clown_goops;
-      GameObject* right_arm; 
-      GameObject* left_arm;
+      bool instantiate_parts = true;
 
     public:
       Uncle(

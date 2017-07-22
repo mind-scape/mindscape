@@ -9,13 +9,12 @@ Uncle::Uncle(
   std::string name,
   std::pair<int, int> position,
   int priority)
-  :Enemy(
+  :Boss(
     name,
     position,
     priority,
     100
   ){
-    initialize_boss_parts();
     //initialize_state_map();
     //initialize_hitboxes();
     //initialize_animations();
@@ -23,9 +22,13 @@ Uncle::Uncle(
 };
 
 void Uncle::initialize_boss_parts(){
-  Enemy *head = new UncleHead("head",std::make_pair(900,-100),7);
+  instantiate_parts = false;
 
-  set_game_object_part("head",head);
+  Enemy *head = new UncleHead("head",std::make_pair(900,-100),7);
+  engine::Game::get_instance().get_actual_scene()->add_object(head);
+  engine::Game::get_instance().get_actual_scene()->activate_game_object(head);
+  head->load();
+  set_boss_part("head",head);
 }
 
 void Uncle::initialize_audio_effects(){
@@ -52,6 +55,7 @@ void Uncle::initialize_state_map(){
 }
 
 void Uncle::on_event(GameEvent game_event){
+
   std::string event_name = game_event.game_event_name;
 
   if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level){
@@ -62,6 +66,8 @@ void Uncle::on_event(GameEvent game_event){
 }
 
 void Uncle::notify(engine::Observable *game_object){
+  if(instantiate_parts) initialize_boss_parts();
+
   LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
   if(little_girl){
     attack(little_girl);

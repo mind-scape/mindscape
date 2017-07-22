@@ -15,12 +15,12 @@ namespace engine {
       void run_collisions(void);
       void update_game_objects_states();
 
-    protected:
-      std::vector<GameObject*> objects;
-
     public:
       Scene(){};
       ~Scene(){};
+
+      //TODO change objects permission to private and create get_objects method      
+      std::vector<GameObject*> objects;
 
       void add_object(GameObject* object);
       GameObject *get_object_by_name(std::string);
