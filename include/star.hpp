@@ -15,27 +15,27 @@
 #include <string>
 
 namespace mindscape {
-  class Star : public engine::GameObject {
-    private:
-      void initialize_hitboxes();
-      void initialize_animations();
-      void initialize_audio_effects();
-      engine::Animation* create_animation(
-        std::string path,
-        int sprite_lines,
-        int sprite_columns,
-        double duration,
-        std::string direction
-      );
+	class Star : public engine::GameObject {
+	private:
+		void initialize_hitboxes();
+		void initialize_animations();
+		void initialize_audio_effects();
+		engine::Animation* create_animation(
+				std::string path,
+				int sprite_lines,
+				int sprite_columns,
+				double duration,
+				std::string direction
+		);
 
-    public:
-      Star(std::string name, std::pair<int, int> position, int priority);
-      ~Star(){};
+	public:
+		Star(std::string name, std::pair<int, int> position, int priority);
+		~Star(){};
 
-      void on_event(GameEvent game_event);
-      void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
-      void they_got_me();
-  };
+		void on_event(GameEvent game_event);
+		void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+		void they_got_me();
+	};
 
 }
 
