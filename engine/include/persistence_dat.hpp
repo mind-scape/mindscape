@@ -6,18 +6,18 @@
 #include "unordered_map"
 
 namespace engine{
-  class PersistenceDat : public Persistence {
-    private:
-      PersistenceDat(){};
-      static PersistenceDat *instance;
+    class PersistenceDat : public Persistence {
+        private:
+            PersistenceDat(){};
+            static PersistenceDat *instance;
 
-    public:
-      static PersistenceDat *get_instance();
-      ~PersistenceDat(){};
+        public:
+            static PersistenceDat *get_instance();
+            ~PersistenceDat(){};
 
-      void operator=(PersistenceDat const&) = delete;
-      PersistenceMap * load (std::string);
-      bool dump (std::string, PersistenceMap *);
-  };
+            void operator = (PersistenceDat const&) = delete;
+            PersistenceMap * load (std::string);
+            bool dump (std::string, PersistenceMap *);
+    };
 }
 #endif
