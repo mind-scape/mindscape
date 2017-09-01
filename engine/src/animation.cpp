@@ -55,8 +55,8 @@ void Animation::draw(int x, int y) {
 	actual_sprite = (playing_duration_of_animation / time_of_sprite) + first_sprite;
 	actual_line = 0;
 	actual_column = abs(actual_sprite % sprite_columns);
-	coordinates_on_texture.first = sprites_order[actual_column] * dimension_on_texture.first;
-	coordinates_on_texture.second = actual_line * dimension_on_texture.second;
+	coordinatesOnTexture.first = sprites_order[actual_column] * dimensionOnTexture.first;
+	coordinatesOnTexture.second = actual_line * dimensionOnTexture.second;
 
 	Image::draw(x, y);
 }

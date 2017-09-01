@@ -321,9 +321,9 @@ void LittleGirl::jump(std::string actual_x_state){
         jumping_animation_count += 1;
         if (jumping_animation_count < 26){
             if (jumping_animation_count % 5 == 0){
-                actual_animation->coordinates_on_texture.first += 192;
-                if (actual_animation->coordinates_on_texture.first == 960){
-                    actual_animation->coordinates_on_texture.first = 0;
+                actual_animation->coordinatesOnTexture.first += 192;
+                if (actual_animation->coordinatesOnTexture.first == 960){
+                    actual_animation->coordinatesOnTexture.first = 0;
                 }
             }
         }
@@ -336,10 +336,10 @@ void LittleGirl::jump(std::string actual_x_state){
 void LittleGirl::move_right(std::string actual_x_state,std::string actual_y_state){
     engine::Animation* actual_animation = get_actual_animation();
 
-    actual_animation->coordinates_on_texture.first += 192;
+    actual_animation->coordinatesOnTexture.first += 192;
 
-    if (actual_animation->coordinates_on_texture.first >= 1728){
-        actual_animation->coordinates_on_texture.first = 0;
+    if (actual_animation->coordinatesOnTexture.first >= 1728){
+        actual_animation->coordinatesOnTexture.first = 0;
     }
 
     states.set_state("X_STATE","LOOKING_RIGHT");
@@ -357,10 +357,10 @@ void LittleGirl::move_right(std::string actual_x_state,std::string actual_y_stat
 void LittleGirl::move_left(std::string actual_x_state,std::string actual_y_state){
     engine::Animation* actual_animation = get_actual_animation();
 
-    actual_animation->coordinates_on_texture.first -= 192;
+    actual_animation->coordinatesOnTexture.first -= 192;
 
-    if (actual_animation->coordinates_on_texture.first <= 0){
-        actual_animation->coordinates_on_texture.first = 1536;
+    if (actual_animation->coordinatesOnTexture.first <= 0){
+        actual_animation->coordinatesOnTexture.first = 1536;
     }
 
     states.set_state("X_STATE","LOOKING_LEFT");
