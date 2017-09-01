@@ -4,6 +4,7 @@
 using namespace engine;
 
 bool Image::load() {
+
     free();
 
     SDL_Texture* new_texture = NULL;
@@ -69,4 +70,5 @@ int Image::get_width() {
 
 int Image::get_height() {
     return dimension_on_screen.second;
+
 }
