@@ -3,5 +3,11 @@ language: cpp
 compiler:
         - g++
 
+before_install:
+        - sudo apt -qq update
+        - sudo apt install libegl1-mesa-dev libgles2-mesa-dev
+        - sudo apt install libsdl2-dev libsdl2-ttf-dev
+        - sudo apt install libsdl2-image-dev libsdl2-mixer-dev
+
 script:
-        - ./control.sh all
+        - ./control.sh build && ./control.sh make
