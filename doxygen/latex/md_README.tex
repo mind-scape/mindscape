@@ -1,0 +1,80 @@
+\subsubsection*{Gênero}
+
+Suspense.
+
+\subsubsection*{Descrição}
+
+Mind\+Scape é um jogo plataforma com elementos de terror e suspense. Como o jogo se situa na mente da protagonista, há monstros surreais que são criados com base em seus medos.
+
+Além disso, o jogo trará a arte como elemento de história do jogo. Nas fases iniciais, haverá a presença de muitas cores que eventualmente vão desbotando e ficando preto e branco, para demonstrar a ciência da menina de sua própria situação.
+
+\subsubsection*{História}
+
+A história acompanha uma menina que encontra-\/se em coma por um acidente misterioso. Ela acorda em sua mente onde deverá enfrentar seus medos para que possa acordar antes que seja tarde demais.
+
+\subsubsection*{Instruções}
+
+
+\begin{DoxyItemize}
+\item Andar para frente\+: →
+\item Andar para trás\+: ←
+\item Pular\+: ↑
+\item Atacar\+: F
+\item Pausar\+: Esq
+\item Despausar\+: Barra de espaço
+\end{DoxyItemize}
+
+\subsubsection*{Envolvidos}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\PBS\centering {\bf Nome }&\PBS\centering {\bf Ocupação  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\PBS\centering {\bf Nome }&\PBS\centering {\bf Ocupação  }\\\cline{1-2}
+\endhead
+\PBS\centering Luan Guimarães &\PBS\centering Programador \\\cline{1-2}
+\PBS\centering Lucas Soares &\PBS\centering Programador \\\cline{1-2}
+\PBS\centering Matheus Miranda &\PBS\centering Programador \\\cline{1-2}
+\PBS\centering Victor Navarro &\PBS\centering Programador \\\cline{1-2}
+\PBS\centering Bruna Figueirôa &\PBS\centering Artista \\\cline{1-2}
+\PBS\centering Maria Monteiro &\PBS\centering Artista \\\cline{1-2}
+\PBS\centering Amanda Santos &\PBS\centering Artista \\\cline{1-2}
+\PBS\centering Natália Menezes &\PBS\centering Artista \\\cline{1-2}
+\PBS\centering Aria Rita &\PBS\centering Música \\\cline{1-2}
+\end{longtabu}
+\subsubsection*{Dependências}
+
+As dependências estão listadas pelo nome do pacote. Dessa forma, em distribuições {\itshape linux} baseadas em {\itshape Debian}, é necessário apenas rodar \char`\"{}sudo apt-\/get install nome\+Do\+Pacote\char`\"{}.
+\begin{DoxyItemize}
+\item libsdl2-\/dev
+\item libsdl2-\/image-\/dev
+\item libsdl2-\/ttf-\/dev
+\item libsdl2-\/mixer-\/dev
+\item make
+\item gcc
+\item g++
+\item C\+Make (versão 3.\+1 ou maior)
+\end{DoxyItemize}
+
+\subsubsection*{Compilando e Executando}
+
+Após clonar o repositório, entre na pasta Mind\+Scape. Nesse diretório, há um {\itshape script} sh responsável pela interação com o C\+Make e, portanto, com a compilação e execução. Dentro da pasta, os comandos e suas funções são\+:
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\PBS\centering {\bf Comando }&\PBS\centering {\bf Efeito  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\PBS\centering {\bf Comando }&\PBS\centering {\bf Efeito  }\\\cline{1-2}
+\endhead
+\PBS\centering {\ttfamily ./control.sh build} &\PBS\centering Gera os novos {\itshape Makefiles} \\\cline{1-2}
+\PBS\centering {\ttfamily ./control.sh make} &\PBS\centering Usa os {\itshape Makefiles} gerados para compilar o jogo \\\cline{1-2}
+\PBS\centering {\ttfamily ./control.sh run} &\PBS\centering Executa o jogo \\\cline{1-2}
+\end{longtabu}
