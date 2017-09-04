@@ -15,33 +15,28 @@
 #include <string>
 
 namespace mindscape {
-  class Arm : public Enemy {
-    private:
+    class Arm : public Enemy {
+        private:
+            void initialize_state_map();
+            void initialize_hitboxes();
+            void initialize_animations();
+            void initialize_as_physicable();
 
-      void initialize_state_map();
-      void initialize_hitboxes();
-      void initialize_animations();
-      void initialize_as_physicable();
-      engine::Animation *create_animation(
-        std::string path,
-        int sprite_lines,
-        int sprite_columns,
-        double duration,
-        std::string direction
-      );
+            engine::Animation *create_animation(std::string path,
+              int sprite_lines, int sprite_columns, double duration,
+              std::string direction);
 
-    public:
-      Arm(
-        std::string name,
-        std::pair<int, int> position,
-        int priority
-      );
-      ~Arm(){};
+        public:
+            Arm(std::string name, std::pair<int, int> position, int priority);
 
-      void on_event(GameEvent);
-      void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
-  };
+            ~Arm() {
 
+            };
+
+            void on_event(GameEvent);
+            void on_collision(engine::GameObject*, engine::Hitbox*,
+               engine::Hitbox*);
+    };
 }
 
 #endif

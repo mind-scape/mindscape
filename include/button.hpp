@@ -1,5 +1,3 @@
-//TODO discover how overwrite static attribute
-
 #ifndef BUTTON_H
 #define BUTTON_H
 
@@ -14,28 +12,28 @@
 #include <unordered_map>
 
 namespace mindscape {
-  class Button : public engine::GameObject {
-    private:
-      Action *action;
-      std::string param;
+    class Button : public engine::GameObject {
+        private:
+            Action *action;
+            std::string param;
       
-    public:
-      Button(
-        std::string p_name,
-        std::pair<int, int> position,
-        int priority)
-        :engine::GameObject(
-          p_name,
-          position,
-          priority,
-          {}
-      ){};
+        public:
+            Button( std::string p_name,
+                    std::pair<int, int> position,
+                    int priority)
+                
+                    :engine::GameObject(
+                    p_name,
+                    position,
+                    priority,
+                    {}
+                    ){};
 
-      ~Button(){};
+            ~Button() {};
       
-      void set_action(Action *, std::string param);
-      void on_event(GameEvent game_event);
-  };
+            void set_action(Action *, std::string param);
+            void on_event(GameEvent game_event);
+    };
 }
 
 #endif
