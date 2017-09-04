@@ -16,8 +16,8 @@ namespace engine {
             std::string image_path;
 
             std::pair<int, int> dimension_on_screen;
-            std::pair<int, int> dimension_on_texture;
-            std::pair<int, int> coordinates_on_texture;
+            std::pair<int, int> dimensionOnTexture;
+            std::pair<int, int> coordinatesOnTexture;
 
             Image(SDL_Renderer* p_renderer, std::string path, bool is_active,
             std::pair<int, int> displacement, int priority
@@ -34,8 +34,8 @@ namespace engine {
 
             void set_values(
                 std::pair<int, int> dimension_on_screen,
-                std::pair<int, int> dimension_on_texture,
-                std::pair<int, int> coordinates_on_texture
+                std::pair<int, int> dimensionOnTexture,
+                std::pair<int, int> coordinatesOnTexture
             );
 
             bool load();

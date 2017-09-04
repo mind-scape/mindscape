@@ -42,10 +42,10 @@ void Image::free() {
 }
 
 void Image::draw(int x, int y) {
-    SDL_Rect ret = {coordinates_on_texture.first,
-    coordinates_on_texture.second,
-    dimension_on_texture.first, 
-    dimension_on_texture.second};
+    SDL_Rect ret = {coordinatesOnTexture.first,
+    coordinatesOnTexture.second,
+    dimensionOnTexture.first, 
+    dimensionOnTexture.second};
     
     // This render_quad tells where the image will appear in the screen
     SDL_Rect render_quad = {x+get_displacement().first,
@@ -60,8 +60,8 @@ void Image::set_values(std::pair<int, int> _dimension_on_screen,
     std::pair<int, int> _coordinates_on_texture) {
     
     dimension_on_screen = _dimension_on_screen;
-    dimension_on_texture = _dimension_on_texture;
-    coordinates_on_texture = _coordinates_on_texture;
+    dimensionOnTexture = _dimension_on_texture;
+    coordinatesOnTexture = _coordinates_on_texture;
 }
 
 int Image::get_width() {
