@@ -1,0 +1,28 @@
+digraph "include/uncle.hpp"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="include/uncle.hpp",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="include/game_object\l_factory.hpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game__object__factory_8hpp.html"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="include/level_factory.hpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$level__factory_8hpp.html"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="src/action.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$action_8cpp.html"];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="src/clown.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$clown_8cpp.html"];
+  Node3 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="src/dark_girl.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dark__girl_8cpp.html"];
+  Node3 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="src/level_factory.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$level__factory_8cpp.html"];
+  Node3 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="src/little_girl.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$little__girl_8cpp.html"];
+  Node3 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="src/main.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8cpp.html"];
+  Node3 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="src/select_arrow.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$select__arrow_8cpp.html"];
+  Node2 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="src/game_object_factory.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game__object__factory_8cpp.html"];
+  Node1 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="src/uncle.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$uncle_8cpp.html"];
+}

@@ -1,0 +1,29 @@
+\hypertarget{class_game_event}{}\section{Game\+Event Class Reference}
+\label{class_game_event}\index{Game\+Event@{Game\+Event}}
+
+
+Collaboration diagram for Game\+Event\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Game\+Event} (std\+::string p\+\_\+solver, std\+::string p\+\_\+game\+\_\+event\+\_\+name, engine\+::\+Keyboard\+Event\+::\+State p\+\_\+state)\hypertarget{class_game_event_a78d129d45a41645717dcc3128b873280}{}\label{class_game_event_a78d129d45a41645717dcc3128b873280}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string {\bfseries solver}\hypertarget{class_game_event_ae7cc1acbf19673745aa7322ae5d09db2}{}\label{class_game_event_ae7cc1acbf19673745aa7322ae5d09db2}
+
+\item 
+std\+::string {\bfseries game\+\_\+event\+\_\+name}\hypertarget{class_game_event_a2a59611f44eeb8b4e83776ba1e76527e}{}\label{class_game_event_a2a59611f44eeb8b4e83776ba1e76527e}
+
+\item 
+engine\+::\+Keyboard\+Event\+::\+State {\bfseries state}\hypertarget{class_game_event_a119d82687094ee388efecd19f8f7043a}{}\label{class_game_event_a119d82687094ee388efecd19f8f7043a}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/game\+\_\+event.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,193 @@
+\hypertarget{classengine_1_1_game_object}{}\section{engine\+:\+:Game\+Object Class Reference}
+\label{classengine_1_1_game_object}\index{engine\+::\+Game\+Object@{engine\+::\+Game\+Object}}
+
+
+Inheritance diagram for engine\+:\+:Game\+Object\+:
+% FIG 0
+
+
+Collaboration diagram for engine\+:\+:Game\+Object\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Game\+Object} (std\+::string p\+\_\+name, std\+::pair$<$ float, float $>$ p\+\_\+position, int p\+\_\+priority, std\+::map$<$ Keyboard\+Event\+::\+Key, std\+::string $>$ p\+\_\+translations, \hyperlink{classengine_1_1_state_map}{State\+Map} p\+\_\+states=\hyperlink{classengine_1_1_state_map}{State\+Map}())\hypertarget{classengine_1_1_game_object_a59a216d31883f3acdc8f53b2f316aaa3}{}\label{classengine_1_1_game_object_a59a216d31883f3acdc8f53b2f316aaa3}
+
+\item 
+bool {\bfseries load} ()\hypertarget{classengine_1_1_game_object_ab6289ed26a76a17506ffb26869904844}{}\label{classengine_1_1_game_object_ab6289ed26a76a17506ffb26869904844}
+
+\item 
+void {\bfseries free} ()\hypertarget{classengine_1_1_game_object_ab4ab356f4d4499ac1edac37f9932056c}{}\label{classengine_1_1_game_object_ab4ab356f4d4499ac1edac37f9932056c}
+
+\item 
+void {\bfseries draw} ()\hypertarget{classengine_1_1_game_object_abb64143e72358beb808db22182517802}{}\label{classengine_1_1_game_object_abb64143e72358beb808db22182517802}
+
+\item 
+void {\bfseries add\+\_\+component} (\hyperlink{classengine_1_1_component}{Component} $\ast$)\hypertarget{classengine_1_1_game_object_a22d54d2fd7ef478eda303b975c760b0e}{}\label{classengine_1_1_game_object_a22d54d2fd7ef478eda303b975c760b0e}
+
+\item 
+void {\bfseries add\+\_\+animation} (std\+::string, \hyperlink{classengine_1_1_animation}{Animation} $\ast$)\hypertarget{classengine_1_1_game_object_ab2d993b4a7670e2ed3ffb5d3f681d5ec}{}\label{classengine_1_1_game_object_ab2d993b4a7670e2ed3ffb5d3f681d5ec}
+
+\item 
+bool {\bfseries equals} (\hyperlink{classengine_1_1_game_object}{Game\+Object} $\ast$)\hypertarget{classengine_1_1_game_object_a7bceaa3f9faed76a25dc11c9fb3a9b16}{}\label{classengine_1_1_game_object_a7bceaa3f9faed76a25dc11c9fb3a9b16}
+
+\item 
+void {\bfseries collide} (\hyperlink{classengine_1_1_game_object}{Game\+Object} $\ast$)\hypertarget{classengine_1_1_game_object_a869a76802055d23b7604e48b584177f1}{}\label{classengine_1_1_game_object_a869a76802055d23b7604e48b584177f1}
+
+\item 
+\hyperlink{classengine_1_1_audio}{Audio} $\ast$ {\bfseries get\+\_\+audio\+\_\+by\+\_\+name} (std\+::string)\hypertarget{classengine_1_1_game_object_a8f0543e762ba71c9e094e791ce4bc065}{}\label{classengine_1_1_game_object_a8f0543e762ba71c9e094e791ce4bc065}
+
+\item 
+void {\bfseries play\+\_\+song} (std\+::string)\hypertarget{classengine_1_1_game_object_a1f41bb02b31ce7f828bc8ef4963d3aed}{}\label{classengine_1_1_game_object_a1f41bb02b31ce7f828bc8ef4963d3aed}
+
+\item 
+void {\bfseries stop\+\_\+song} (std\+::string)\hypertarget{classengine_1_1_game_object_a162ddcb22b60dd7d6c3c6108751fd835}{}\label{classengine_1_1_game_object_a162ddcb22b60dd7d6c3c6108751fd835}
+
+\item 
+void {\bfseries set\+\_\+repetitions} (std\+::string, int repet)\hypertarget{classengine_1_1_game_object_ab00ac1e7a2d01677797680a1d81681f0}{}\label{classengine_1_1_game_object_ab00ac1e7a2d01677797680a1d81681f0}
+
+\item 
+void {\bfseries set\+\_\+music\+\_\+volume} (std\+::string, int vol)\hypertarget{classengine_1_1_game_object_a41ac469cb05369b5c25cbbf60df6638d}{}\label{classengine_1_1_game_object_a41ac469cb05369b5c25cbbf60df6638d}
+
+\item 
+void {\bfseries free\+\_\+music} (std\+::string)\hypertarget{classengine_1_1_game_object_a1ce845a44c4ded5a8da397e00ea15e2c}{}\label{classengine_1_1_game_object_a1ce845a44c4ded5a8da397e00ea15e2c}
+
+\item 
+std\+::pair$<$ float, float $>$ {\bfseries get\+\_\+position} ()\hypertarget{classengine_1_1_game_object_a1b45a9a78d9d24bda7380a15645362f2}{}\label{classengine_1_1_game_object_a1b45a9a78d9d24bda7380a15645362f2}
+
+\item 
+float {\bfseries get\+\_\+position\+\_\+x} ()\hypertarget{classengine_1_1_game_object_a8897eb01abcb75b803977bd112586ca5}{}\label{classengine_1_1_game_object_a8897eb01abcb75b803977bd112586ca5}
+
+\item 
+float {\bfseries get\+\_\+position\+\_\+y} ()\hypertarget{classengine_1_1_game_object_aebb20a31340dd04aae07079ddb63528d}{}\label{classengine_1_1_game_object_aebb20a31340dd04aae07079ddb63528d}
+
+\item 
+void {\bfseries set\+\_\+position} (std\+::pair$<$ float, float $>$)\hypertarget{classengine_1_1_game_object_ada8fe8ebffd004fc9c37d3ea19b449ba}{}\label{classengine_1_1_game_object_ada8fe8ebffd004fc9c37d3ea19b449ba}
+
+\item 
+void {\bfseries set\+\_\+position\+\_\+x} (float)\hypertarget{classengine_1_1_game_object_acdb36a1aa18d98dc0d1d779b869c8e01}{}\label{classengine_1_1_game_object_acdb36a1aa18d98dc0d1d779b869c8e01}
+
+\item 
+void {\bfseries set\+\_\+position\+\_\+y} (float)\hypertarget{classengine_1_1_game_object_af11340a490fa5df068c73dbd4b788b9c}{}\label{classengine_1_1_game_object_af11340a490fa5df068c73dbd4b788b9c}
+
+\item 
+std\+::pair$<$ float, float $>$ {\bfseries get\+\_\+speed} ()\hypertarget{classengine_1_1_game_object_a62df587f097d4d7890a24687cc7ae2ab}{}\label{classengine_1_1_game_object_a62df587f097d4d7890a24687cc7ae2ab}
+
+\item 
+float {\bfseries get\+\_\+speed\+\_\+x} ()\hypertarget{classengine_1_1_game_object_a3efe26ba32b16b65ec2b46e0bc6f8bbc}{}\label{classengine_1_1_game_object_a3efe26ba32b16b65ec2b46e0bc6f8bbc}
+
+\item 
+float {\bfseries get\+\_\+speed\+\_\+y} ()\hypertarget{classengine_1_1_game_object_abaacf952522ecc92a47498eca2bac437}{}\label{classengine_1_1_game_object_abaacf952522ecc92a47498eca2bac437}
+
+\item 
+void {\bfseries set\+\_\+speed} (std\+::pair$<$ float, float $>$)\hypertarget{classengine_1_1_game_object_a2485b78a86a188c489382180ae8c0f84}{}\label{classengine_1_1_game_object_a2485b78a86a188c489382180ae8c0f84}
+
+\item 
+void {\bfseries set\+\_\+speed\+\_\+x} (float)\hypertarget{classengine_1_1_game_object_acec07e80e5a5b83185a2c84d74393bfd}{}\label{classengine_1_1_game_object_acec07e80e5a5b83185a2c84d74393bfd}
+
+\item 
+void {\bfseries set\+\_\+speed\+\_\+y} (float)\hypertarget{classengine_1_1_game_object_a62ba05459de448237e6de79eb9cb1557}{}\label{classengine_1_1_game_object_a62ba05459de448237e6de79eb9cb1557}
+
+\item 
+void {\bfseries activate} ()\hypertarget{classengine_1_1_game_object_a1b0eacb99cbbb27e87e12ec54d36a9d7}{}\label{classengine_1_1_game_object_a1b0eacb99cbbb27e87e12ec54d36a9d7}
+
+\item 
+void {\bfseries deactivate} ()\hypertarget{classengine_1_1_game_object_a07959eddddd69a9eee5e1dd3842c193c}{}\label{classengine_1_1_game_object_a07959eddddd69a9eee5e1dd3842c193c}
+
+\item 
+void {\bfseries deactivate\+\_\+components} ()\hypertarget{classengine_1_1_game_object_a53ecb7384b8fcfe8b0d887603070d8b1}{}\label{classengine_1_1_game_object_a53ecb7384b8fcfe8b0d887603070d8b1}
+
+\item 
+bool {\bfseries is\+\_\+active} ()\hypertarget{classengine_1_1_game_object_aac0171415e6af36c39c61288a704c613}{}\label{classengine_1_1_game_object_aac0171415e6af36c39c61288a704c613}
+
+\item 
+std\+::string {\bfseries get\+\_\+state} (std\+::string)\hypertarget{classengine_1_1_game_object_acd2c3f8e4ef6a0116108fbb59e9241f1}{}\label{classengine_1_1_game_object_acd2c3f8e4ef6a0116108fbb59e9241f1}
+
+\item 
+std\+::vector$<$ \hyperlink{classengine_1_1_hitbox}{Hitbox} $\ast$ $>$ {\bfseries get\+\_\+hitboxes} ()\hypertarget{classengine_1_1_game_object_aea5d44c3ed89d21e808a95287a933612}{}\label{classengine_1_1_game_object_aea5d44c3ed89d21e808a95287a933612}
+
+\item 
+void {\bfseries create\+\_\+hitbox} (std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$)\hypertarget{classengine_1_1_game_object_a6c1e7f2de3b512452a44fc908dc03f33}{}\label{classengine_1_1_game_object_a6c1e7f2de3b512452a44fc908dc03f33}
+
+\item 
+virtual void {\bfseries on\+\_\+event} (\hyperlink{class_game_event}{Game\+Event})\hypertarget{classengine_1_1_game_object_a01a503c00127facdd2416b93475cb275}{}\label{classengine_1_1_game_object_a01a503c00127facdd2416b93475cb275}
+
+\item 
+void {\bfseries update\+\_\+hitboxes} ()\hypertarget{classengine_1_1_game_object_a2980a8e0a6828ddc05756fdb9f4d78b7}{}\label{classengine_1_1_game_object_a2980a8e0a6828ddc05756fdb9f4d78b7}
+
+\item 
+virtual void {\bfseries update\+\_\+state} ()\hypertarget{classengine_1_1_game_object_a3ff8e4baff0f6e2713bf57b85ba1050a}{}\label{classengine_1_1_game_object_a3ff8e4baff0f6e2713bf57b85ba1050a}
+
+\item 
+void {\bfseries set\+\_\+actual\+\_\+animation} (\hyperlink{classengine_1_1_animation}{Animation} $\ast$)\hypertarget{classengine_1_1_game_object_a281a58cba74b80155bc8d54f727f5c2f}{}\label{classengine_1_1_game_object_a281a58cba74b80155bc8d54f727f5c2f}
+
+\item 
+\hyperlink{classengine_1_1_animation}{Animation} $\ast$ {\bfseries get\+\_\+actual\+\_\+animation} ()\hypertarget{classengine_1_1_game_object_ae2136ffcfe9a9e0d44ca20890cbfd77e}{}\label{classengine_1_1_game_object_ae2136ffcfe9a9e0d44ca20890cbfd77e}
+
+\item 
+void {\bfseries attach\+\_\+observer} (\hyperlink{classengine_1_1_observer}{Observer} $\ast$)\hypertarget{classengine_1_1_game_object_a3b266846fd1c038dd0e567848060a7c3}{}\label{classengine_1_1_game_object_a3b266846fd1c038dd0e567848060a7c3}
+
+\item 
+void {\bfseries detach\+\_\+observer} (\hyperlink{classengine_1_1_observer}{Observer} $\ast$)\hypertarget{classengine_1_1_game_object_a8cc6e4a6e7723ee74bbc35228d82b640}{}\label{classengine_1_1_game_object_a8cc6e4a6e7723ee74bbc35228d82b640}
+
+\item 
+void {\bfseries notify\+\_\+observers} ()\hypertarget{classengine_1_1_game_object_a0c671e93cdf2b6ba8fbe22da0be51cc2}{}\label{classengine_1_1_game_object_a0c671e93cdf2b6ba8fbe22da0be51cc2}
+
+\item 
+virtual void {\bfseries notify} (\hyperlink{classengine_1_1_observable}{Observable} $\ast$)\hypertarget{classengine_1_1_game_object_aa1ccfdc0753b18902be80c2866c543a0}{}\label{classengine_1_1_game_object_aa1ccfdc0753b18902be80c2866c543a0}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string {\bfseries name}\hypertarget{classengine_1_1_game_object_a1f104f7af4f351e6d3278319762c9fe5}{}\label{classengine_1_1_game_object_a1f104f7af4f351e6d3278319762c9fe5}
+
+\item 
+int {\bfseries priority}\hypertarget{classengine_1_1_game_object_a159ecaca30229e302793b11a75bd13c2}{}\label{classengine_1_1_game_object_a159ecaca30229e302793b11a75bd13c2}
+
+\item 
+bool {\bfseries collidable}\hypertarget{classengine_1_1_game_object_a1044128797889af9aee10599b09174ed}{}\label{classengine_1_1_game_object_a1044128797889af9aee10599b09174ed}
+
+\item 
+std\+::vector$<$ \hyperlink{classengine_1_1_component}{Component} $\ast$ $>$ {\bfseries audios}\hypertarget{classengine_1_1_game_object_a1466e1d3fa4d30de06df15791d15cbc7}{}\label{classengine_1_1_game_object_a1466e1d3fa4d30de06df15791d15cbc7}
+
+\item 
+std\+::vector$<$ \hyperlink{classengine_1_1_component}{Component} $\ast$ $>$ {\bfseries images}\hypertarget{classengine_1_1_game_object_af79b2f893d53454481d085825e4898c8}{}\label{classengine_1_1_game_object_af79b2f893d53454481d085825e4898c8}
+
+\item 
+std\+::vector$<$ \hyperlink{classengine_1_1_component}{Component} $\ast$ $>$ {\bfseries texts}\hypertarget{classengine_1_1_game_object_aaff0b5ab01495a8f4cb806eb39300534}{}\label{classengine_1_1_game_object_aaff0b5ab01495a8f4cb806eb39300534}
+
+\item 
+std\+::map$<$ std\+::string, \hyperlink{classengine_1_1_animation}{Animation} $\ast$ $>$ {\bfseries animations}\hypertarget{classengine_1_1_game_object_a5cb70de44e18b89e4d298de907f1668a}{}\label{classengine_1_1_game_object_a5cb70de44e18b89e4d298de907f1668a}
+
+\item 
+std\+::map$<$ Keyboard\+Event\+::\+Key, std\+::string $>$ {\bfseries translations}\hypertarget{classengine_1_1_game_object_a6ac31651c772a941b08c4ce6f89c3bbc}{}\label{classengine_1_1_game_object_a6ac31651c772a941b08c4ce6f89c3bbc}
+
+\item 
+std\+::string {\bfseries state}\hypertarget{classengine_1_1_game_object_a485c6dde0f7daed4ce480d577e621f87}{}\label{classengine_1_1_game_object_a485c6dde0f7daed4ce480d577e621f87}
+
+\item 
+std\+::string {\bfseries game\+\_\+object\+\_\+direction}\hypertarget{classengine_1_1_game_object_a44e5d9209f5ff0f19d83f7d221037632}{}\label{classengine_1_1_game_object_a44e5d9209f5ff0f19d83f7d221037632}
+
+\item 
+\hyperlink{classengine_1_1_state_map}{State\+Map} {\bfseries states}\hypertarget{classengine_1_1_game_object_a109beba63a929e3be8c4c958591cd1a9}{}\label{classengine_1_1_game_object_a109beba63a929e3be8c4c958591cd1a9}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static bool {\bfseries on\+\_\+limit\+\_\+of\+\_\+level}\hypertarget{classengine_1_1_game_object_aea78ad4cdb280a61b050b89a280af7bd}{}\label{classengine_1_1_game_object_aea78ad4cdb280a61b050b89a280af7bd}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries on\+\_\+collision} (\hyperlink{classengine_1_1_game_object}{Game\+Object} $\ast$, \hyperlink{classengine_1_1_hitbox}{Hitbox} $\ast$, \hyperlink{classengine_1_1_hitbox}{Hitbox} $\ast$)\hypertarget{classengine_1_1_game_object_a0bf122fe605b95a4b156e28252a167ee}{}\label{classengine_1_1_game_object_a0bf122fe605b95a4b156e28252a167ee}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/include/game\+\_\+object.\+hpp\item 
+engine/src/game\+\_\+object.\+cpp\end{DoxyCompactItemize}

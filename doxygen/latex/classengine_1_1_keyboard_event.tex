@@ -1,0 +1,173 @@
+\hypertarget{classengine_1_1_keyboard_event}{}\section{engine\+:\+:Keyboard\+Event Class Reference}
+\label{classengine_1_1_keyboard_event}\index{engine\+::\+Keyboard\+Event@{engine\+::\+Keyboard\+Event}}
+
+
+Inheritance diagram for engine\+:\+:Keyboard\+Event\+:
+% FIG 0
+
+
+Collaboration diagram for engine\+:\+:Keyboard\+Event\+:
+% FIG 1
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries State} \{ {\bfseries P\+R\+E\+S\+S\+ED}, 
+{\bfseries R\+E\+L\+E\+A\+S\+ED}
+ \}\hypertarget{classengine_1_1_keyboard_event_a18429e01d5cb4f456f24834b3138be9f}{}\label{classengine_1_1_keyboard_event_a18429e01d5cb4f456f24834b3138be9f}
+
+\item 
+enum {\bfseries Key} \{ \\*
+{\bfseries B\+A\+C\+K\+S\+P\+A\+CE}, 
+{\bfseries T\+AB}, 
+{\bfseries C\+L\+E\+AR}, 
+{\bfseries R\+E\+T\+U\+RN}, 
+\\*
+{\bfseries P\+A\+U\+SE}, 
+{\bfseries E\+S\+C\+A\+PE}, 
+{\bfseries S\+P\+A\+CE}, 
+{\bfseries E\+X\+C\+L\+A\+IM}, 
+\\*
+{\bfseries D\+O\+U\+B\+L\+E\+\_\+\+Q\+U\+O\+TE}, 
+{\bfseries H\+A\+SH}, 
+{\bfseries D\+O\+L\+L\+AR}, 
+{\bfseries A\+M\+P\+E\+R\+S\+A\+ND}, 
+\\*
+{\bfseries Q\+U\+O\+TE}, 
+{\bfseries L\+E\+F\+T\+\_\+\+P\+A\+R\+E\+N\+T\+E\+S\+IS}, 
+{\bfseries R\+I\+G\+H\+T\+\_\+\+P\+A\+R\+E\+N\+T\+E\+S\+IS}, 
+{\bfseries A\+S\+T\+E\+R\+I\+SK}, 
+\\*
+{\bfseries P\+L\+US}, 
+{\bfseries C\+O\+M\+MA}, 
+{\bfseries M\+I\+N\+US}, 
+{\bfseries P\+E\+R\+I\+OD}, 
+\\*
+{\bfseries S\+L\+A\+SH}, 
+{\bfseries Z\+E\+RO}, 
+{\bfseries O\+NE}, 
+{\bfseries T\+WO}, 
+\\*
+{\bfseries T\+H\+R\+EE}, 
+{\bfseries F\+O\+UR}, 
+{\bfseries F\+I\+VE}, 
+{\bfseries S\+IX}, 
+\\*
+{\bfseries S\+E\+V\+EN}, 
+{\bfseries E\+I\+G\+HT}, 
+{\bfseries N\+I\+NE}, 
+{\bfseries C\+O\+L\+ON}, 
+\\*
+{\bfseries S\+E\+M\+I\+C\+O\+L\+ON}, 
+{\bfseries L\+E\+SS}, 
+{\bfseries E\+Q\+U\+A\+LS}, 
+{\bfseries G\+R\+E\+A\+T\+ER}, 
+\\*
+{\bfseries Q\+U\+E\+S\+T\+I\+ON}, 
+{\bfseries AT}, 
+{\bfseries L\+E\+F\+T\+\_\+\+B\+R\+A\+C\+K\+ET}, 
+{\bfseries B\+A\+C\+K\+S\+L\+A\+SH}, 
+\\*
+{\bfseries R\+I\+G\+H\+T\+\_\+\+B\+R\+A\+C\+K\+ET}, 
+{\bfseries C\+A\+R\+ET}, 
+{\bfseries U\+N\+D\+E\+R\+S\+C\+O\+RE}, 
+{\bfseries B\+A\+C\+K\+Q\+U\+O\+TE}, 
+\\*
+{\bfseries D\+E\+L\+E\+TE}, 
+{\bfseries A}, 
+{\bfseries B}, 
+{\bfseries C}, 
+\\*
+{\bfseries D}, 
+{\bfseries E}, 
+{\bfseries F}, 
+{\bfseries G}, 
+\\*
+{\bfseries H}, 
+{\bfseries I}, 
+{\bfseries J}, 
+{\bfseries K}, 
+\\*
+{\bfseries L}, 
+{\bfseries M}, 
+{\bfseries N}, 
+{\bfseries O}, 
+\\*
+{\bfseries P}, 
+{\bfseries Q}, 
+{\bfseries R}, 
+{\bfseries S}, 
+\\*
+{\bfseries T}, 
+{\bfseries U}, 
+{\bfseries V}, 
+{\bfseries W}, 
+\\*
+{\bfseries X}, 
+{\bfseries Y}, 
+{\bfseries Z}, 
+{\bfseries L\+E\+FT}, 
+\\*
+{\bfseries R\+I\+G\+HT}, 
+{\bfseries UP}, 
+{\bfseries D\+O\+WN}, 
+{\bfseries F1}, 
+\\*
+{\bfseries F2}, 
+{\bfseries F3}, 
+{\bfseries F4}, 
+{\bfseries F5}, 
+\\*
+{\bfseries F6}, 
+{\bfseries F7}, 
+{\bfseries F8}, 
+{\bfseries F9}, 
+\\*
+{\bfseries F10}, 
+{\bfseries F11}, 
+{\bfseries F12}
+ \}\hypertarget{classengine_1_1_keyboard_event_a75d7913d3ebc66406d7858a359480ad7}{}\label{classengine_1_1_keyboard_event_a75d7913d3ebc66406d7858a359480ad7}
+
+\item 
+enum {\bfseries Modifier} \{ \\*
+{\bfseries N\+O\+NE}, 
+{\bfseries S\+H\+I\+FT}, 
+{\bfseries C\+O\+N\+T\+R\+OL}, 
+{\bfseries A\+LT}, 
+\\*
+{\bfseries C\+A\+PS}
+ \}\hypertarget{classengine_1_1_keyboard_event_a96b87eae3717dc1d8bf302acde1049cb}{}\label{classengine_1_1_keyboard_event_a96b87eae3717dc1d8bf302acde1049cb}
+
+\item 
+typedef std\+::map$<$ unsigned, Key $>$ {\bfseries Key\+Map}\hypertarget{classengine_1_1_keyboard_event_afa136a3ea505fcfd3b7108cc3f7f572d}{}\label{classengine_1_1_keyboard_event_afa136a3ea505fcfd3b7108cc3f7f572d}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Keyboard\+Event} (unsigned timestamp, State key\+\_\+state, unsigned pressed\+\_\+key, bool p\+\_\+was\+\_\+repeated=false)\hypertarget{classengine_1_1_keyboard_event_a8bd39cffab6759c8f69dc97c1507e665}{}\label{classengine_1_1_keyboard_event_a8bd39cffab6759c8f69dc97c1507e665}
+
+\item 
+State {\bfseries state} () const \hypertarget{classengine_1_1_keyboard_event_adc94f8b7cb6434673f83d20cda27b105}{}\label{classengine_1_1_keyboard_event_adc94f8b7cb6434673f83d20cda27b105}
+
+\item 
+Key {\bfseries key} () const \hypertarget{classengine_1_1_keyboard_event_a1f6416f842f83dcc165e3aa4015d4da5}{}\label{classengine_1_1_keyboard_event_a1f6416f842f83dcc165e3aa4015d4da5}
+
+\item 
+Modifier {\bfseries modifier} () const \hypertarget{classengine_1_1_keyboard_event_aa9ce70b5b6abbb13665ed408c4e1e626}{}\label{classengine_1_1_keyboard_event_aa9ce70b5b6abbb13665ed408c4e1e626}
+
+\item 
+bool {\bfseries repeated} () const \hypertarget{classengine_1_1_keyboard_event_a4a9123104496071d5d1c1664bc0a7036}{}\label{classengine_1_1_keyboard_event_a4a9123104496071d5d1c1664bc0a7036}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static Key\+Map {\bfseries keymap}\hypertarget{classengine_1_1_keyboard_event_a6e1cc1c7a3de88bd17d143001ef6bc7b}{}\label{classengine_1_1_keyboard_event_a6e1cc1c7a3de88bd17d143001ef6bc7b}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/include/keyboard\+\_\+event.\+hpp\item 
+engine/src/keyboard\+\_\+event.\+cpp\end{DoxyCompactItemize}

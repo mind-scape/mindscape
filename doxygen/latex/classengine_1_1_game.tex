@@ -1,0 +1,71 @@
+\hypertarget{classengine_1_1_game}{}\section{engine\+:\+:Game Class Reference}
+\label{classengine_1_1_game}\index{engine\+::\+Game@{engine\+::\+Game}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries State} \{ {\bfseries R\+U\+N\+N\+I\+NG}, 
+{\bfseries P\+A\+U\+S\+ED}, 
+{\bfseries Q\+U\+IT}
+ \}\hypertarget{classengine_1_1_game_a4929fccb048ef64bc376c3950c4098e7}{}\label{classengine_1_1_game_a4929fccb048ef64bc376c3950c4098e7}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries run} ()\hypertarget{classengine_1_1_game_a1ab78f5ed0d5ea879157357cf2fb2afa}{}\label{classengine_1_1_game_a1ab78f5ed0d5ea879157357cf2fb2afa}
+
+\item 
+void {\bfseries close} ()\hypertarget{classengine_1_1_game_ad5133caa8447aadf71d6ba6c20d552bd}{}\label{classengine_1_1_game_ad5133caa8447aadf71d6ba6c20d552bd}
+
+\item 
+void {\bfseries load\+\_\+media} ()\hypertarget{classengine_1_1_game_a9d568f24b1fc461968892659f64a53ca}{}\label{classengine_1_1_game_a9d568f24b1fc461968892659f64a53ca}
+
+\item 
+bool {\bfseries is\+\_\+media\+\_\+loaded} ()\hypertarget{classengine_1_1_game_a1c0e0ff94cfbe6f74cfff0633628ae95}{}\label{classengine_1_1_game_a1c0e0ff94cfbe6f74cfff0633628ae95}
+
+\item 
+void {\bfseries change\+\_\+scene} (\hyperlink{classengine_1_1_scene}{Scene} $\ast$)\hypertarget{classengine_1_1_game_a241b7b4944e35a4a1fe5435107fbaf65}{}\label{classengine_1_1_game_a241b7b4944e35a4a1fe5435107fbaf65}
+
+\item 
+void {\bfseries set\+\_\+game\+\_\+background\+\_\+color} (int R, int G, int B, int A)\hypertarget{classengine_1_1_game_a355c2dcd99a84c813fc89b8d01c3d72b}{}\label{classengine_1_1_game_a355c2dcd99a84c813fc89b8d01c3d72b}
+
+\item 
+void {\bfseries set\+\_\+name} (std\+::string)\hypertarget{classengine_1_1_game_a7dd41abdb2a4d0c72f328e1035b2cd06}{}\label{classengine_1_1_game_a7dd41abdb2a4d0c72f328e1035b2cd06}
+
+\item 
+void {\bfseries set\+\_\+window\+\_\+dimensions} (std\+::pair$<$ int, int $>$)\hypertarget{classengine_1_1_game_ac3dff191e050d6da33c1846ac5590c09}{}\label{classengine_1_1_game_ac3dff191e050d6da33c1846ac5590c09}
+
+\item 
+std\+::pair$<$ int, int $>$ {\bfseries get\+\_\+window\+\_\+dimensions} ()\hypertarget{classengine_1_1_game_a212e95896eb7a9685106e410a2d9b90d}{}\label{classengine_1_1_game_a212e95896eb7a9685106e410a2d9b90d}
+
+\item 
+void {\bfseries set\+\_\+state} (State)\hypertarget{classengine_1_1_game_ad595dcad24a708d07939f050c02048ba}{}\label{classengine_1_1_game_ad595dcad24a708d07939f050c02048ba}
+
+\item 
+std\+::string {\bfseries get\+\_\+name} ()\hypertarget{classengine_1_1_game_a66f7b739325c22c7f782a947c83ceb7e}{}\label{classengine_1_1_game_a66f7b739325c22c7f782a947c83ceb7e}
+
+\item 
+State {\bfseries get\+\_\+state} ()\hypertarget{classengine_1_1_game_a3f1612365d0fa381d548294547efd105}{}\label{classengine_1_1_game_a3f1612365d0fa381d548294547efd105}
+
+\item 
+S\+D\+L\+\_\+\+Renderer $\ast$ {\bfseries get\+\_\+renderer} ()\hypertarget{classengine_1_1_game_a33c49c9cc938553b2458416c2ec2df5f}{}\label{classengine_1_1_game_a33c49c9cc938553b2458416c2ec2df5f}
+
+\item 
+\hyperlink{classengine_1_1_scene}{Scene} $\ast$ {\bfseries get\+\_\+actual\+\_\+scene} ()\hypertarget{classengine_1_1_game_ab8cb027a9a2b23ed81522b969c7b881c}{}\label{classengine_1_1_game_ab8cb027a9a2b23ed81522b969c7b881c}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classengine_1_1_game}{Game} \& {\bfseries get\+\_\+instance} ()\hypertarget{classengine_1_1_game_a540dd8cd1cc25d3918d852f5dc490644}{}\label{classengine_1_1_game_a540dd8cd1cc25d3918d852f5dc490644}
+
+\item 
+static \hyperlink{classengine_1_1_game}{Game} \& {\bfseries initialize} (std\+::string, std\+::pair$<$ int, int $>$)\hypertarget{classengine_1_1_game_ad776281b7ef3dee78dba15deec2ffcf0}{}\label{classengine_1_1_game_ad776281b7ef3dee78dba15deec2ffcf0}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/include/game.\+hpp\item 
+engine/src/game.\+cpp\end{DoxyCompactItemize}
