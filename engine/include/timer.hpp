@@ -6,8 +6,8 @@
 namespace engine{
 
     class Timer{
-    public:
-
+        public:
+            
         bool is_running;
         int initial_time;
         int time_interval;
