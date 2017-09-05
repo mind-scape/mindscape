@@ -7,6 +7,7 @@ using namespace engine;
 bool Animation::load() {
 	time_of_sprite = (int) std::ceil(double(duration_of_animation) / double(total_sprites));
 
+
 	aux_time = 0;
 
 	Image::load();
@@ -14,13 +15,13 @@ bool Animation::load() {
 	if (in_loop) {
 		time->init_timer();
 	}
-
+  
 	return true;
 }
 
 void Animation::activate() {
 	Component::activate();
-
+  
 	if (!in_loop) {
 		time->init_timer();
 	}
@@ -51,6 +52,7 @@ void Animation::draw(int x, int y) {
 	if (time_of_sprite == 0.0) {
 		time_of_sprite = 1.0;
 	}
+
 
 	actual_sprite = (playing_duration_of_animation / time_of_sprite) + first_sprite;
 	actual_line = 0;
