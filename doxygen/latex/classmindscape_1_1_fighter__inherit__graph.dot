@@ -1,0 +1,27 @@
+digraph "mindscape::Fighter"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="mindscape::Fighter",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="mindscape::DarkGirl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmindscape_1_1_dark_girl.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="mindscape::Enemy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmindscape_1_1_enemy.html"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="mindscape::Arm",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmindscape_1_1_arm.html"];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="mindscape::Boss",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmindscape_1_1_boss.html"];
+  Node3 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="mindscape::Clown",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmindscape_1_1_clown.html"];
+  Node3 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="mindscape::Goop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmindscape_1_1_goop.html"];
+  Node3 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="mindscape::Scorpion",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmindscape_1_1_scorpion.html"];
+  Node3 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="mindscape::Spider",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmindscape_1_1_spider.html"];
+  Node3 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="mindscape::Uncle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmindscape_1_1_uncle.html"];
+  Node1 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="mindscape::LittleGirl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmindscape_1_1_little_girl.html"];
+}

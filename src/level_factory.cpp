@@ -43,20 +43,20 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(engine::Level *level
         std::pair<int, int> displacement;
         std::pair<int, int> dimensions_on_screen;
         std::pair<int, int> dimensions_on_texture;
-        std::pair<int, int> coordinates_on_texture;
+        std::pair<int, int> coordinatesOnTexture;
         displacement.first = std::stoi(object["displ_x"]);
         displacement.second = std::stoi(object["displ_y"]);
         dimensions_on_screen.first = std::stoi(object["screen_x"]);
         dimensions_on_screen.second = std::stoi(object["screen_y"]);
         dimensions_on_texture.first = std::stoi(object["tex_x"]);
         dimensions_on_texture.second = std::stoi(object["tex_y"]);
-        coordinates_on_texture.first = std::stoi(object["tex_coord_x"]);
-        coordinates_on_texture.second = std::stoi(object["tex_coord_y"]);
+        coordinatesOnTexture.first = std::stoi(object["tex_coord_x"]);
+        coordinatesOnTexture.second = std::stoi(object["tex_coord_y"]);
 
         mindscape_factory.fabricate_image(
           level->get_object_by_name(object["belongs_to"]),
           object["path"], displacement, priority, dimensions_on_screen,
-          dimensions_on_texture, coordinates_on_texture);
+          dimensions_on_texture, coordinatesOnTexture);
 
       }else if(type == Opts::TEXT){
         int priority = std::stoi(object["priority"]);
