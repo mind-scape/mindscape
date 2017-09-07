@@ -1,3 +1,13 @@
+/**
+ * @file animation.hpp
+ * @brief Purpose: Contains classes to animation methods' management.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
+
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
@@ -10,7 +20,19 @@
 #include "timer.hpp"
 
 namespace engine{
+
+  /**
+  * @brief A Game Object class.
+  *
+  * Creates a new object into a game.
+  */
   class GameObject;
+
+  /**
+  * @brief A Animation class.
+  *
+  * Creates and describe a new animation into a game.
+  */
   class Animation : public Image{
 
   private:
