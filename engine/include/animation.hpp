@@ -21,11 +21,6 @@
 
 namespace engine{
 
-  /**
-  * @brief A Game Object class.
-  *
-  * Creates a new object into a game.
-  */
   class GameObject;
 
   /**
