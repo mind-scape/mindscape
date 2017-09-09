@@ -1,3 +1,13 @@
+/**
+ * @file keyboard_event.cpp
+ * @brief Purpose: Contains methods to game class' management.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
+
 #include "keyboard_event.hpp"
 
 using namespace engine;
@@ -79,24 +89,3 @@ KeyboardEvent::KeyMap KeyboardEvent::keymap = {
     { SDL_SCANCODE_F11, KeyboardEvent::F11 },
     { SDL_SCANCODE_F12, KeyboardEvent::F12 },
 };
-
-/*
-Modifier KeyboardEvent::key_modifier(Uint16 modifier){
-  switch (modifier){
-    case KMOD_CAPS:
-      return KeyboardEvent::CAPS;
-
-    case KMOD_SHIFT:
-      return KeyboardEvent::SHIFT;
-
-    case KMOD_ALT:
-      return KeyboardEvent::ALT;
-
-    case KMOD_CTRL:
-      return KeyboardEvent::CONTROL;
-
-    default:
-      return KeyboardEvent::NONE;
-  }
-}
-*/
