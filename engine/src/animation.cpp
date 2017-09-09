@@ -1,12 +1,12 @@
 /**
-* @file animation.cpp
-* @brief Purpose: Contains methods creating game animations.
-*
-* MIT License
-* Copyright (c) 2017 MindScape
-*
-* https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
-*/
+ * @file animation.cpp
+ * @brief Purpose: Contains methods creating game animations.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
 
 #include <cmath>
 #include "../include/animation.hpp"
@@ -15,13 +15,13 @@
 using namespace engine;
 
 /**
-* @brief Load the animation and its duration.
-*
-*	This method was implemented to load the animation time based on the duration
-* of animation and total of sprites that the animation has.
-*
-* @return The return is true if the animation was successfully created.
-*/
+ * @brief Load the animation and its duration.
+ *
+ *	This method was implemented to load the animation time based on the duration
+ * of animation and total of sprites that the animation has.
+ *
+ * @return The return is true if the animation was successfully created.
+ */
 bool Animation::load(){
 		time_of_sprite =
 		 (int) std::ceil(double(duration_of_animation) / double(total_sprites));
@@ -38,12 +38,12 @@ bool Animation::load(){
 }
 
 /**
-* @brief Active the animation.
-*
-* This method active the animation into the game.
-*
-* @return void.
-*/
+ * @brief Active the animation.
+ *
+ * This method active the animation into the game.
+ *
+ * @return void.
+ */
 void Animation::activate(){
 		Component::activate();
 
@@ -53,15 +53,15 @@ void Animation::activate(){
 }
 
 /**
-* @brief Draws the animation on the screen based in it duration and type.
-*
-* The method draws the animation based in it time that it started and differs
-* the type of the animation that should will be showed.  
-*
-* @params x X axis that animation will be loaded.
-* @params y Y axis that animation will be loaded.
-* @return void.
-*/
+ * @brief Draws the animation on the screen based in it duration and type.
+ *
+ * The method draws the animation based in it time that it started and differs
+ * the type of the animation that should will be showed.
+ *
+ * @params x X axis that animation will be loaded.
+ * @params y Y axis that animation will be loaded.
+ * @return void.
+ */
 void Animation::draw(int x, int y){
 		is_finished = false;
 		playing_duration_of_animation += time->get_elapsed_time() - aux_time;
@@ -104,14 +104,14 @@ void Animation::draw(int x, int y){
 }
 
 /**
-* @brief Set the sprites order based in its direction.
-*
-* Depending on the direction of the animation, the sprites should be loaded differently
-*
-* @params total_sprites Quantity of sprites that will be loaded.
-* @params direction Direction of sprites to know the order
-* @return void.
-*/
+ * @brief Set the sprites order based in its direction.
+ *
+ * Depending on the direction of the animation, the sprites should be loaded differently
+ *
+ * @params total_sprites Quantity of sprites that will be loaded.
+ * @params direction Direction of sprites to know the order
+ * @return void.
+ */
 void Animation::set_sprites_order(int total_sprites, std::string direction) {
 		if (direction == "LEFT") {
 				int reverse_index = total_sprites - 1;
@@ -130,11 +130,11 @@ void Animation::set_sprites_order(int total_sprites, std::string direction) {
 }
 
 /**
-* @brief Creates and set a new game object.
-*
-* @params obj The object that will be created.
-* @return void.
-*/
+ * @brief Creates and set a new game object.
+ *
+ * @params obj The object that will be created.
+ * @return void.
+ */
 void Animation::set_game_object(GameObject *obj) {
 		game_object = obj;
 }

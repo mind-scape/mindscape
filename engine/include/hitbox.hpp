@@ -1,13 +1,12 @@
 /**
-* @file hitbox.hpp
-* @brief Purpose: Contains classes to define methods management of the hitboxes.
-*
-* MIT License
-* Copyright (c) 2017 MindScape
-*
-* https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
-*/
-
+ * @file hitbox.hpp
+ * @brief Purpose: Contains classes to define methods management of the hitboxes.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
 
 #ifndef HITBOX_H
 #define HITBOX_H
@@ -21,59 +20,57 @@
 namespace engine {
 
     /**
-    * @brief A Hitbox class.
-    *
-    * The class hitbox has atributtes and methods for all types of hitboxes.
-    * That need information about width, height, coordinates, displacement and
-    * others.
-    */
+     * @brief A Hitbox class.
+     *
+     * The class hitbox has atributtes and methods for all types of hitboxes.
+     * That need information about width, height, coordinates, displacement and
+     * others.
+     */
     class Hitbox : public Component {
         private:
-        SDL_Rect hitbox;
-        bool draw_hitbox;
-        SDL_Texture* texture;
-        SDL_Renderer* renderer;
+            SDL_Rect hitbox;
+            bool draw_hitbox;
+            SDL_Texture* texture;
+            SDL_Renderer* renderer;
 
-    public:
-        Hitbox(
-            std::string name,
-            std::pair<int, int> go_coordinates,
-            std::pair<int, int> displacement,
-            std::pair<int, int> dimensions,
-            SDL_Renderer* p_render,
-            bool active = true,
-            int priority = 5
-        )
+        public:
+            Hitbox(
+                std::string name,
+                std::pair<int, int> go_coordinates,
+                std::pair<int, int> displacement,
+                std::pair<int, int> dimensions,
+                SDL_Renderer* p_render,
+                bool active = true,
+                int priority = 5)
 
-        :hitbox({go_coordinates.first + displacement.first,
-            go_coordinates.second + displacement.second,
-            dimensions.first, dimensions.second}),
-            draw_hitbox(true),
-            renderer(p_render),
-            Component(name, displacement, active, priority
-        ){
-        };
+            :hitbox({go_coordinates.first + displacement.first,
+                go_coordinates.second + displacement.second, dimensions.first,
+                dimensions.second}), draw_hitbox(true), renderer(p_render),
+                Component(name, displacement, active, priority){
 
-        ~Hitbox() {
-        };
+            };
 
-        std::pair<int, int> get_dimensions();
+            ~Hitbox() {
 
-        void set_dimensions(std::pair<int, int>);
+            };
 
-        bool collides_with(Hitbox*);
+            std::pair<int, int> get_dimensions();
 
-        void set_displacement(std::pair<int, int>, std::pair<int, int>);
+            void set_dimensions(std::pair<int, int>);
 
-        std::pair<int, int> get_coordinates();
+            bool collides_with(Hitbox*);
 
-        void update(std::pair<int, int>);
+            void set_displacement(std::pair<int, int>, std::pair<int, int>);
 
-        void draw();
+            std::pair<int, int> get_coordinates();
 
-        void initialize();
+            void update(std::pair<int, int>);
 
-        bool wanna_draw_hitbox();
+            void draw();
+
+            void initialize();
+
+            bool wanna_draw_hitbox();
     };
 }
 
