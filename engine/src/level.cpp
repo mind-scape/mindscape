@@ -1,7 +1,24 @@
+/**
+ * @file level.cpp
+ *
+ * @brief Purpose: Contains methods to level management
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ *
+ */
 #include "level.hpp"
 
 using namespace engine;
 
+/**
+ * @brief Load the new level
+ *
+ * Initializes the game level
+ *
+ */
 void Level::load() {
     for(auto game_object : objects) {
         std::cout << "Loading " << game_object->name << std::endl;
@@ -14,6 +31,12 @@ void Level::load() {
     }
 }
 
+/**
+ * @brief Free method
+ *
+ * free the memory used to allocate the game objects
+ *
+ */
 void Level::free() {
     for(auto game_object : objects) {
         std::cout << "Freeing" << game_object->name << std::endl;
@@ -24,6 +47,12 @@ void Level::free() {
     EventHandler::listeners.clear();
 }
 
+/**
+ * @brief Draw Method
+ *
+ * Draw the game objects
+ *
+ */
 void Level::draw() {
     for(auto game_object : objects) {
         if(game_object->is_active()) {
