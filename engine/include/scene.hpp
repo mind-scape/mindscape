@@ -1,3 +1,12 @@
+/**
+* @file scene.hpp
+* @brief Purpose: Contains the Scene class declaration.
+*
+* MIT License
+* Copyright (c) 2017 MindScape
+*
+* https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+*/
 #ifndef SCENE_H
 #define SCENE_H
 
@@ -10,6 +19,12 @@
 #include "event_handler.hpp"
 
 namespace engine {
+    /**
+    * @brief A Scene class.
+    *
+    * A class responsible to ensure scene handling.
+    *
+    */
     class Scene {
         private:
             void run_collisions(void);
