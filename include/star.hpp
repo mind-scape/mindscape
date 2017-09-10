@@ -1,3 +1,13 @@
+/**
+ * @file star.hpp
+ * @brief Purpose: Contains the attributes and methods for Star class.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
+
 #ifndef STAR_H
 #define STAR_H
 
@@ -15,6 +25,11 @@
 #include <string>
 
 namespace mindscape {
+	/**
+	 * @brief Class for stars
+	 *
+	 * Inherited grom game object, contains all overrides needed for the stars
+	 */
 	class Star : public engine::GameObject {
 	private:
 		void initialize_hitboxes();

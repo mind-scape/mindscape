@@ -1,8 +1,29 @@
+/**
+ * @file star.hpp
+ * @brief Purpose: Contains the methods for Star class.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
+
 #include "../include/star.hpp"
 #include "fox.hpp"
 
 using namespace mindscape;
 
+/**
+ * @brief Constructor for Star class
+ *
+ * Initialize everuthing needed for running properly.
+ *
+ * @param name GameObject name.
+ * @param position Pair of integers representing x and y position.
+ * @param priority Integer representing priority on rendering.
+ *
+ * @return void
+ */
 Star::Star(
 		std::string name,
 		std::pair<int, int> position,
@@ -21,6 +42,11 @@ Star::Star(
 	initialize_audio_effects();
 };
 
+/**
+ * @brief Initialize hitboxes
+ *
+ * @return void
+ */
 void Star::initialize_hitboxes() {
 	engine::Game& game = engine::Game::get_instance();
 	engine::Hitbox* star_hitbox = new engine::Hitbox(
@@ -33,6 +59,11 @@ void Star::initialize_hitboxes() {
 	add_component(star_hitbox);
 }
 
+/**
+ * @brief Initialize audio effects
+ *
+ * @return void
+ */
 void Star::initialize_audio_effects() {
 	engine::Audio * got_me_audio = new engine::Audio(
 			"got_me",
@@ -42,6 +73,11 @@ void Star::initialize_audio_effects() {
 	add_component(got_me_audio);
 }
 
+/**
+ * @brief Initialize animations
+ *
+ * @return void
+ */
 void Star::initialize_animations() {
 	engine::Animation* star = create_animation(
 			"../assets/images/sprites/items/star/star.png",
@@ -62,6 +98,19 @@ void Star::initialize_animations() {
 	set_actual_animation(star);
 }
 
+/**
+ * @brief Create an animation for the object
+ *
+ * Creates and return an animation for this specific object
+ *
+ * @param path File path to the sprite sheet.
+ * @param sprite_lines Number of lines in the sprite sheet.
+ * @param sprite_columns Number of columns in the sprite sheet.
+ * @param duration Time duration of the animation.
+ * @param direction Direction of the animation (left or right).
+ *
+ * @return The animation created.
+ */
 engine::Animation* Star::create_animation(std::string path,
 										  int sprite_lines,
 										  int sprite_columns,
@@ -91,6 +140,15 @@ engine::Animation* Star::create_animation(std::string path,
 	return animation;
 }
 
+/**
+ * @brief Event processos
+ *
+ * This method processes GameEvents received and act according to the expected.
+ *
+ * @param game_event The event to be processed.
+ *
+ * @return void
+ */
 void Star::on_event(GameEvent game_event) {
 	std::string event_name = game_event.game_event_name;
 
@@ -105,6 +163,15 @@ void Star::on_event(GameEvent game_event) {
 	}
 }
 
+/**
+ * @brief Event triggered when collision happens
+ *
+ * @param other The other game object which hits this one.
+ * @param p_my_hitbox The hitbox which collision happened.
+ * @param p_other_hitbox The other object hitbox which the collision happened.
+ *
+ * @return void
+ */
 void Star::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox,
 						engine::Hitbox* p_other_hitbox) {
 	//Nothing
