@@ -1,3 +1,12 @@
+/**
+* @file button.hpp
+* @brief Purpose: Contains the Button class declaration.
+*
+* MIT License
+* Copyright (c) 2017 MindScape
+*
+* https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+*/
 #ifndef BUTTON_H
 #define BUTTON_H
 
@@ -12,6 +21,12 @@
 #include <unordered_map>
 
 namespace mindscape {
+    /**
+    * @brief A Button class.
+    *
+    * A class responsible to ensure button handling.
+    *
+    */
     class Button : public engine::GameObject {
         private:
             Action *action;
