@@ -1,3 +1,12 @@
+/**
+* @file background.hpp
+* @brief Purpose: Contains the Background class declaration.
+*
+* MIT License
+* Copyright (c) 2017 MindScape
+*
+* https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+*/
 //TODO discover how overwrite static attribute
 
 #ifndef BACKGROUND_H
@@ -13,7 +22,12 @@
 #include <unordered_map>
 
 namespace mindscape {
-  
+    /**
+    * @brief A Background class.
+    *
+    * A class responsible to ensure background handling.
+    *
+    */
     class Background : public engine::GameObject {
         private:
             int paralax = 0;
