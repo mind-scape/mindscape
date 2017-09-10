@@ -1,3 +1,13 @@
+/**
+ * @file game.hpp
+ * @brief Purpose: Contains classes to define methods management of the game.cpp.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
+
 #ifndef GAME_H
 #define GAME_H
 
@@ -17,8 +27,17 @@ namespace engine {
     class Scene;
     class EventHandler;
 
+    /**
+     * @brief A Hitbox class.
+     *
+     * This class is a model that contains all the specification
+     * of components that can be added to game objects.
+     * This class is a model that contains all specifications of the game.
+     * What is necessary to load, pause and quit the game.
+     * All of attributes is too important to start the game, renderer, and resize the window.
+     */
     class Game {
-    
+
     public:
         typedef enum {
             RUNNING, PAUSED, QUIT

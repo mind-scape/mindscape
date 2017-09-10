@@ -58,8 +58,8 @@ void Animation::activate(){
  * The method draws the animation based in it time that it started and differs
  * the type of the animation that should will be showed.
  *
- * @params x X axis that animation will be loaded.
- * @params y Y axis that animation will be loaded.
+ * @param x X axis that animation will be loaded.
+ * @param y Y axis that animation will be loaded.
  * @return void.
  */
 void Animation::draw(int x, int y){
@@ -108,8 +108,8 @@ void Animation::draw(int x, int y){
  *
  * Depending on the direction of the animation, the sprites should be loaded differently
  *
- * @params total_sprites Quantity of sprites that will be loaded.
- * @params direction Direction of sprites to know the order
+ * @param total_sprites Quantity of sprites that will be loaded.
+ * @param direction Direction of sprites to know the order
  * @return void.
  */
 void Animation::set_sprites_order(int total_sprites, std::string direction) {
@@ -132,7 +132,7 @@ void Animation::set_sprites_order(int total_sprites, std::string direction) {
 /**
  * @brief Creates and set a new game object.
  *
- * @params obj The object that will be created.
+ * @param obj The object that will be created.
  * @return void.
  */
 void Animation::set_game_object(GameObject *obj) {

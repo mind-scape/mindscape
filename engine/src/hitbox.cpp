@@ -26,7 +26,7 @@ std::pair<int, int> Hitbox::get_dimensions() {
 /**
  * @brief This method set the width and height of the hitbox.
  *
- * @params p_dimensions is it the pointer that sets the dimensions of hitbox.
+ * @param p_dimensions is it the pointer that sets the dimensions of hitbox.
  * @return void.
  */
 void Hitbox::set_dimensions(std::pair<int, int> p_dimensions) {
@@ -40,8 +40,8 @@ void Hitbox::set_dimensions(std::pair<int, int> p_dimensions) {
  * this method calculate the new coordinate of the hitbox based in the its
  * coordinate plus its coordinate of the movement.
  *
- * @params go_coordinates coordinate that the hitbox will go.
- * @params p_displacement coordinate that the hitbox is.
+ * @param go_coordinates coordinate that the hitbox will go.
+ * @param p_displacement coordinate that the hitbox is.
  * @return void.
  */
 void Hitbox::set_displacement(std::pair<int, int> go_coordinates,
@@ -59,7 +59,7 @@ void Hitbox::set_displacement(std::pair<int, int> go_coordinates,
  * this method updates the coordinate of the hitbox based in the its
  * coordinate plus its coordinate of the movement.
  *
- * @params go_coordinates coordinate that the hitbox will go.
+ * @param go_coordinates coordinate that the hitbox will go.
  * @return void.
  */
 void Hitbox::update(std::pair<int, int> go_coordinates) {
@@ -82,7 +82,7 @@ std::pair<int, int> Hitbox::get_coordinates() {
  * this method defines the collision with two hitbox,
  * based in its coordinates and dimensions
  *
- * @params other_hitbox A hitbox object to identify collision between them.
+ * @param other_hitbox A hitbox object to identify collision between them.
  * @return returns true if the collision was identify.
  */
 bool Hitbox::collides_with(Hitbox* other_hitbox) {
@@ -143,7 +143,7 @@ bool Hitbox::collides_with(Hitbox* other_hitbox) {
 /**
  * @brief Load and show the hitbox on the screen.
  *
- *  this method load an image and initialize as a hitbox.
+ * this method load an image and initialize as a hitbox.
  *
  * @return void.
  */
