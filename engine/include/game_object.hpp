@@ -1,3 +1,15 @@
+/** 
+ * @file game_object.hpp
+ * @brief Contains methods to game_object class' management. This methods can control the entire 
+ * game object, setting the components, free them, loading and playing audio, animations, components, 
+ * setting and displaying hitboxes, detecting and notifing collission with other game objects. 
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
+
 //TODO trocar os vectors de componentes para unordered maps
 //TODO acabar com o primeiro construtor e definir hit box como um componente
 //TODO colocar todos os estados para usar o SATE MAP
@@ -26,7 +38,16 @@
 #include "../../include/game_event.hpp"
 
 namespace engine {
+
     class Animation;
+
+    /** 
+     * @brief A Game class.
+     * 
+     * This class can control all the components of the game object.
+     * @warning Limitations: The number of game object in game is limited to the pc memory. All game object after being
+     * used needs to be free.
+     */
     class GameObject : public Observer, public Observable {
         private:
             std::pair<float, float> speed;
