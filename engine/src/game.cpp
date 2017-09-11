@@ -21,7 +21,7 @@ Game* Game::instance = NULL;
 /**
  * @brief shows which function has an error and exits.
  *
- * @params function that has an error.
+ * @param function that has an error.
  * @return void.
  */
 void throw_error(const char* function) {
@@ -50,8 +50,8 @@ Game& Game::get_instance() {
 /**
  * @brief Initializes an instance if one does not exist.
  *
- * @params p_name name of the game.
- * @params p_dimensions dimensions of the window.
+ * @param p_name name of the game.
+ * @param p_dimensions dimensions of the window.
  * @return Returns an instance created.
  */
 Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions) {
@@ -176,8 +176,8 @@ void Game::run() {
 /**
  * @brief Sets the name and the dimensions of the window.
  *
- * @params p_name the name of the game.
- * @params p_dimensions this params refers to a dimension os the window.
+ * @param p_name the name of the game.
+ * @param p_dimensions this params refers to a dimension os the window.
  * @return void.
  */
 void Game::set_information(std::string p_name,std::pair<int,int> p_dimensions) {
@@ -191,7 +191,7 @@ void Game::set_information(std::string p_name,std::pair<int,int> p_dimensions) {
  * Changes the scene based in its level and in its actual scene.
  * Loads the media based in this.
  *
- * @params level pointer to know which scene will be loaded.
+ * @param level pointer to know which scene will be loaded.
  * @return void.
  */
 void Game::change_scene(Scene *level) {

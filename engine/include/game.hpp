@@ -30,8 +30,6 @@ namespace engine {
     /**
      * @brief A Hitbox class.
      *
-     * This class is a model that contains all the specification
-     * of components that can be added to game objects.
      * This class is a model that contains all specifications of the game.
      * What is necessary to load, pause and quit the game.
      * All of attributes is too important to start the game, renderer, and resize the window.
