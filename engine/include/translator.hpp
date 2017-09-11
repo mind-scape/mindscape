@@ -1,4 +1,4 @@
-]/**
+/**
  * @file translator.hpp
  * @brief Purpose: Contains methods to Translator's management.
  *
