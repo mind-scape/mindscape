@@ -1,3 +1,13 @@
+/** 
+ * @file component.hpp
+ * @brief Contains methods to component class' management. This methods can control the entire 
+ * component object, naming the component, setting the priority, verifing activation and displacing. 
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
+
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
@@ -6,6 +16,12 @@
 
 namespace engine{
 
+	/** 
+     * @brief A Component class.
+     * 
+     * This class is a model that contains all the specification of components that can be added to game objects.
+     * @warning Limitations: All components after being used needs to be free.
+     */
 	class Component{
 	private:
 		std::string name;
