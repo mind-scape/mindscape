@@ -52,6 +52,13 @@ engine::GameObject* GameObjectFactory::fabricate(
             case(GameObjectFactory::CLOWN):
                 return fabricate_clown(name, coordinates, priority);
             case(GameObjectFactory::DARK_GIRL):
+                return fabricate_dark_girl(name, coordinates, priority);
+            case(GameObjectFactory::UNCLE):
+                return fabricate_uncle(name, coordinates, priority);
+            case(GameObjectFactory::ARM):
+                return fabricate_arm(name, coordinates, priority);
+            default:
+                return NULL;
     }
 }
 /**
