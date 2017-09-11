@@ -1,3 +1,12 @@
+/**
+* @file boss.hpp
+* @brief Purpose: Contains the Boss class declaration.
+*
+* MIT License
+* Copyright (c) 2017 MindScape
+*
+* https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+*/
 #ifndef BOSS_H
 #define BOSS_H
 
@@ -11,7 +20,12 @@
 #include <map>
 
 namespace mindscape {
-
+    /**
+    * @brief A Boss class.
+    *
+    * A class responsible to ensure boss handling.
+    *
+    */
     class Boss : public Enemy {
         private:
             std::map<std::string, Enemy*> boss_parts;

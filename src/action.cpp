@@ -1,3 +1,12 @@
+/**
+* @file action.cpp
+* @brief Purpose: contains a method to ensure game executing.
+*
+* MIT License
+* Copyright (c) 2017 MindScape
+*
+* https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+*/
 #include "action.hpp"
 #include "../engine/include/game.hpp"
 #include "../engine/include/level.hpp"
@@ -5,7 +14,14 @@
 #include <iostream>
 
 using namespace mindscape;
-
+/**
+* @brief Handles the level execution
+*
+* The level execution presents more that one state and they must be handled
+*
+* @param std::string containing the level name
+* @return void.
+*/
 void Action::execute(std::string param) {
 	engine::Game *game = &(engine::Game::get_instance());
 	
