@@ -11,7 +11,7 @@ Audio::Audio(
     AudioType m_type,
     int repeat,
     int chanel)
-    
+
     :audio_path(path),
     m_audio_type(m_type),
     audio_repeat(repeat),
@@ -22,24 +22,24 @@ Audio::Audio(
 
 bool Audio::load() {
     timer->init();
-  
+
     if (m_audio_type == MUSIC) {
         audio_music = Mix_LoadMUS(audio_path.c_str());
-        
+
         if (!audio_music) {
             printf("\nAudio error %s\n", Mix_GetError());
             exit(1);
-            
+
             return false;
         }
     }
     else if (m_audio_type == CHUNK) {
         audio_chunk = Mix_LoadWAV(audio_path.c_str());
-        
+
         if (!audio_chunk) {
             printf("\nAudio error %s\n", Mix_GetError());
             exit(1);
-            
+
             return false;
         }
     }
@@ -72,7 +72,7 @@ void Audio::play_effect() {
             time = 0;
         }
 
-        if (!playing) { 
+        if (!playing) {
             time = 0;
             playing = true;
 
@@ -138,7 +138,7 @@ void Audio::stop_effect() {
 void Audio::set_effect_volume(int _volume) {
     if (_volume > -1 && volume < 129) {
         volume = _volume;
-    } 
+    }
     else {
         printf("\nThe volume must be between 0 and 128");
     }
@@ -148,7 +148,7 @@ void Audio::set_music_volume(int _volume) {
     if (audio_music != NULL) {
         if (_volume > -1 && volume < 129) {
             Mix_VolumeMusic(_volume);
-        } 
+        }
         else {
             printf("\nThe volume must be between 0 and 128");
         }
