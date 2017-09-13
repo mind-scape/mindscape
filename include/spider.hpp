@@ -73,6 +73,7 @@ namespace mindscape {
             );
             void notify(engine::Observable *);
     };
+
 }
 
 #endif

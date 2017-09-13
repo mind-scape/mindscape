@@ -120,7 +120,7 @@ void Scorpion::initialize_animations() {
         "../assets/images/sprites/enemies/scorpion/scorpion_dying_left.png",
         1, 5, 0.8, "LEFT"
     );
-    
+
     dying_left_animation->is_a_final_animation = true;
     dying_left_animation->in_loop = false;
 
@@ -164,8 +164,8 @@ engine::Animation* Scorpion::create_animation(
     int sprite_lines,
     int sprite_columns,
     double duration,
-    std::string direction) {
 
+    std::string direction){
         engine::Game& game = engine::Game::get_instance();
         engine::Animation* animation = new engine::Animation(
             game.get_renderer(),
@@ -185,7 +185,7 @@ engine::Animation* Scorpion::create_animation(
             std::make_pair(320, 320),
             std::make_pair(0, 0)
         );
-
+  
     return animation;
 }
 
@@ -228,7 +228,7 @@ void Scorpion::initialize_hitboxes() {
         std::make_pair(283,10),
         game.get_renderer()
     );
-
+  
     add_component(scorpion_attack);
     add_component(scorpion_hitbox);
 }

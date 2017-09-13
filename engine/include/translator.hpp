@@ -30,7 +30,7 @@ namespace engine {
   	class Translator {
     	Translator();
     	~Translator();
-
+      
     	public:
       		static std::list<GameEvent> 
       			keyboard_events_to_game_events(std::list<KeyboardEvent>);
@@ -40,4 +40,3 @@ namespace engine {
 }
 
 #endif
-
