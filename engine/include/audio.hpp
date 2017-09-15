@@ -1,3 +1,13 @@
+/**
+ * @file audio.hpp
+ * @brief Purpose: Contains attributes and methods for audio class.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
+
 #ifndef AUDIO_H
 #define AUDIO_H
 
@@ -7,6 +17,13 @@
 #include <string>
 
 namespace engine {
+
+    /**
+     * @brief A audio class.
+     *
+     * This class is a model that contains all specifications of the audio.
+     * The audio it is divided in music and chunk. That is used in different situations.
+     */
     class Audio: public Component {
         public:
             typedef enum {
