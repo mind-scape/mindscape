@@ -57,7 +57,8 @@ Fox::Fox(
 void Fox::initialize_hitboxes() {
     engine::Game& game = engine::Game::get_instance();
     
-    engine::Hitbox* fox_hitbox = new engine::Hitbox(
+    engine::Hitbox* fox_hitbox = nullptr;
+    fox_hitbox = new engine::Hitbox(
         "fox_hitbox",
         this->get_position(),
         std::make_pair(0, 110),
@@ -90,7 +91,8 @@ void Fox::initialize_state_map() {
  * @return void.
  */
 void Fox::notify(engine::Observable *game_object) {
-    LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
+    LittleGirl* little_girl = nullptr;
+    little_girl = dynamic_cast<LittleGirl *>(game_object);
     
     if(little_girl) {
     
@@ -129,47 +131,51 @@ void Fox::notify(engine::Observable *game_object) {
  * @return void.
  */
 void Fox::initialize_animations() {
-    engine::Animation* running_right_animation = create_animation(
+
+    engine::Animation* running_right_animation = nullptr;
+    running_right_animation = create_animation(
         "../assets/images/sprites/fox/fox_running_right.png",
         1, 9, 0.9, "RIGHT"
     );
+    add_animation("running_right_animation", running_right_animation);
 
-    engine::Animation* running_left_animation = create_animation(
+    engine::Animation* running_left_animation = nullptr;
+    running_left_animation = create_animation(
         "../assets/images/sprites/fox/fox_running_left.png",
         1, 9, 0.9, "LEFT"
     );
+    add_animation("running_left_animation", running_left_animation);
 
-    engine::Animation* idle_right_animation = create_animation(
+    engine::Animation* idle_right_animation = nullptr;
+    idle_right_animation = create_animation(
       "../assets/images/sprites/fox/fox_idle_right.png",
         1, 10, 1.5, "RIGHT"
     );
+    add_animation("idle_right_animation", idle_right_animation);
+    idle_right_animation->activate();
+    set_actual_animation(idle_right_animation);
 
-    engine::Animation* idle_left_animation = create_animation(
+    engine::Animation* idle_left_animation = nullptr;
+    idle_left_animation = create_animation(
         "../assets/images/sprites/fox/fox_idle_left.png",
         1, 10, 1.5, "LEFT"
     );
+    add_animation("idle_left_animation", idle_left_animation);
 
-    engine::Animation* jumping_right_animation = create_animation(
+    engine::Animation* jumping_right_animation = nullptr;
+    jumping_right_animation = create_animation(
         "../assets/images/sprites/fox/fox_jumping_right.png",
         1, 4, 1.5, "RIGHT"
     );
+    add_animation("jumping_right_animation", jumping_right_animation);
 
-    engine::Animation* jumping_left_animation = create_animation(
+    engine::Animation* jumping_left_animation = nullptr;
+    jumping_left_animation = create_animation(
         "../assets/images/sprites/fox/fox_jumping_left.png",
         1, 4, 1.5, "LEFT"
     );
-
-    add_animation("running_right_animation", running_right_animation);
-    add_animation("running_left_animation", running_left_animation);
-    
-    add_animation("idle_right_animation", idle_right_animation);
-    add_animation("idle_left_animation", idle_left_animation);
-    
-    add_animation("jumping_right_animation", jumping_right_animation);
     add_animation("jumping_left_animation", jumping_left_animation);
     
-    idle_right_animation->activate();
-    set_actual_animation(idle_right_animation);
 }
 
 /**
@@ -194,7 +200,9 @@ engine::Animation* Fox::create_animation(
     std::string direction) {
 
     engine::Game& game = engine::Game::get_instance();
-    engine::Animation* animation = new engine::Animation(
+    engine::Animation* animation = nullptr;
+
+    animation = new engine::Animation(
         game.get_renderer(),
         image_path, 
         // is_active      
@@ -228,7 +236,8 @@ engine::Animation* Fox::create_animation(
  * @return void.
  */
 void Fox::initialize_as_physicable() {
-    engine::Physics *physics = engine::Physics::get_instance();
+    engine::Physics *physics = nullptr;
+    physics = engine::Physics::get_instance();
     physics->add_physicable(this);
     collidable = true;
 }
@@ -244,10 +253,15 @@ void Fox::initialize_as_physicable() {
 void Fox::on_event(GameEvent game_event) {
     std::string event_name = game_event.game_event_name;
 
-    engine::Animation* actual_animation = get_actual_animation();
-    std::string actual_x_state = states.get_state("X_STATE");
-    std::string actual_y_state = states.get_state("Y_STATE");
-    std::string actual_action_state = states.get_state("ACTION_STATE");
+    engine::Animation* actual_animation = nullptr;
+    actual_animation = get_actual_animation();
+    
+    std::string actual_x_state = NULL;
+    std::string actual_y_state = NULL;
+    std::string actual_action_state = NULL;
+    actual_x_state = states.get_state("X_STATE");
+    actual_y_state = states.get_state("Y_STATE");
+    actual_action_state = states.get_state("ACTION_STATE");
 
     if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level && 
         actual_action_state == "NORMAL") {
@@ -272,10 +286,13 @@ void Fox::on_event(GameEvent game_event) {
  * @return void.
  */
 void Fox::move(engine::GameObject* girl) {
-    float fox_position = get_position_x();
-    float girl_position = girl->get_position_x();
-    int distance_from_girl;
+    
+    float fox_position = 0;
+    float girl_position = 0;
+    int distance_from_girl = 0;
 
+    fox_position = get_position_x();
+    girl_position = girl->get_position_x();
     states.set_state("Y_STATE", "ON_GROUND");
     
     if(fox_position > girl_position) {
@@ -367,16 +384,24 @@ void Fox::jump(engine::GameObject *little_girl) {
  */
 void Fox::follow_jump(engine::GameObject *little_girl) {
     
-    engine::Physics *physics = engine::Physics::get_instance();
+    engine::Physics *physics = nullptr;
+    physics = engine::Physics::get_instance();
     
-    float gravity = physics->get_gravity();
-    float final_y = little_girl->get_position_y() + 70;
-    float final_x = 500; //little_girl->get_position_x();
-    float throw_speed_x = is_on_the_right(little_girl) ? 15 : -15;
-
-    float jump_time = calculate_jump_time(final_x, throw_speed_x);
-    float throw_speed_y = calculate_vy_jump(final_y, gravity, jump_time);
     
+    float final_x = 0; //little_girl->get_position_x();
+    float throw_speed_x = 0;
+    float jump_time = 0;
+    float gravity = 0;
+    float final_y = 0;
+    float throw_speed_y = 0;
+   
+    final_x = 500;
+    throw_speed_x = is_on_the_right(little_girl) ? 15 : -15;
+    jump_time = calculate_jump_time(final_x, throw_speed_x);
+    gravity = physics->get_gravity();
+    final_y = little_girl->get_position_y() + 70;
+    
+    throw_speed_y = calculate_vy_jump(final_y, gravity, jump_time);
     throw_speed_x = calculate_vx_jump(final_x, jump_time);
 
     set_speed_y(throw_speed_y < -30? -20 : throw_speed_y);
@@ -407,10 +432,12 @@ bool Fox::is_on_the_right(engine::GameObject *target) {
  * @return float Final velocity in axis y.
  */
 float Fox::calculate_vy_jump(float final_y, float gravity, float jump_time) {
-    float initial_y = (float) get_position_y();
-    float throw_speed_y;
-    float delta_y = final_y - initial_y;
-
+    float initial_y = 0; 
+    float delta_y =  0; 
+    float throw_speed_y = 0;
+    
+    initial_y = (float) get_position_y();
+    delta_y = final_y - initial_y;
     throw_speed_y = (delta_y/jump_time) - (gravity * jump_time/2);
     return throw_speed_y;
 }
@@ -425,10 +452,12 @@ float Fox::calculate_vy_jump(float final_y, float gravity, float jump_time) {
  * @return float Final velocity in axis x.
  */
 float Fox::calculate_vx_jump(float final_x, float jump_time) {
-    float initial_x = (float) get_position_x();
-    float throw_speed_x;
-    float delta_x = final_x - initial_x;
+    float initial_x = 0;
+    float delta_x = 0; 
+    float throw_speed_x = 0;
     
+    initial_x = (float) get_position_x();
+    delta_x = final_x - initial_x;
     throw_speed_x = std::floor(delta_x/jump_time);
     return throw_speed_x;
 }
@@ -443,10 +472,12 @@ float Fox::calculate_vx_jump(float final_x, float jump_time) {
  * @return float Time for the fox to jump.
  */
 float Fox::calculate_jump_time(float final_x, float speed_x) {
-    float jump_time;
-    float initial_x = (float) get_position_x();
-    float delta_x = final_x - initial_x;
+    float initial_x = 0;
+    float delta_x = 0;
+    float jump_time = 0;
     
+    initial_x = (float) get_position_x();
+    delta_x = final_x - initial_x;
     jump_time = delta_x/speed_x;
     return jump_time;
 }
@@ -460,10 +491,13 @@ float Fox::calculate_jump_time(float final_x, float speed_x) {
  * @return void.
  */
 void Fox::update_state() {
-    std::string actual_x_state = get_state("X_STATE");
+
 
     if(get_speed_x() == 0.0 && get_speed_y() == 0.0) {
     
+        std::string actual_x_state = NULL;
+        actual_x_state = get_state("X_STATE");
+
         if(actual_x_state == "LOOKING_RIGHT") {
             set_actual_animation(animations["idle_right_animation"]);
         }
@@ -495,12 +529,17 @@ void Fox::update_state() {
 void Fox::on_collision(engine::GameObject* other, 
     engine::Hitbox* p_my_hitbox, engine::Hitbox* p_other_hitbox) {
     
-    Platform* platform = dynamic_cast<Platform *>(other);
-    Star* star = dynamic_cast<Star *>(other);
-    engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-    engine::Hitbox* other_hitbox = 
-        dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+    Platform* platform = nullptr;
+    engine::Hitbox* my_hitbox = nullptr; 
+    Star* star = nullptr; 
+    engine::Hitbox* other_hitbox = nullptr;
 
+
+    platform = dynamic_cast<Platform *>(other);
+    other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+    star = dynamic_cast<Star *>(other);
+    my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+    
     if(get_speed_y() >= 0 && platform) {
         set_speed_y(0.0);
         set_position_y(other_hitbox->get_coordinates().second - 110);
