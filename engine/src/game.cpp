@@ -223,8 +223,6 @@ void Game::set_game_background_color(int R, int G, int B, int A) {
     game_background_color = Color(R, G, B, A);
 }
 
-@param string containing the component name to be set.
-
 /**
  * @brief This Routine set the name of the game.
  *
