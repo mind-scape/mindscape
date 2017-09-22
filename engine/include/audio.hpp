@@ -1,3 +1,13 @@
+/**
+ * @file audio.hpp
+ * @brief Purpose: Contains attributes and methods for audio class.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
+
 #ifndef AUDIO_H
 #define AUDIO_H
 
@@ -6,53 +16,66 @@
 #include "time.hpp"
 #include <string>
 
-namespace engine{
-  class Audio: public Component{
-    public:
-      typedef enum {
-        MUSIC, CHUNK
-      } AudioType;
+namespace engine {
 
-    private:
-      std::string audio_path;
-      AudioType m_audio_type;
-      int audio_repeat = 0;
-      int audio_chanel;
-      bool playing = false;
-      int volume = 50;
+    /**
+     * @brief A audio class.
+     *
+     * This class is a model that contains all specifications of the audio.
+     * The audio it is divided in music and chunk. That is used in different situations.
+     */
+    class Audio: public Component {
+        public:
+            typedef enum {
+                MUSIC, CHUNK
 
-      Time * timer;
-      float time=0;
-      float aux_time=0;
-      float effect_duration=0;
+        } AudioType;
 
-      Mix_Music *audio_music;
-      Mix_Chunk *audio_chunk;
+        private:
+            std::string audio_path;
+            AudioType m_audio_type;
+            int audio_repeat = 0;
+            int audio_chanel;
+            bool playing = false;
+            int volume = 50;
 
-      int audio_cont = 0;
+            Time * timer;
+            float time=0;
+            float aux_time=0;
+            float effect_duration=0;
 
-    public:
-      Audio(
-        std::string p_name,
-        std::string path,
-        AudioType m_type,
-        int repeat = 0,
-        int chanel = -1);
+            Mix_Music *audio_music;
+            Mix_Chunk *audio_chunk;
 
-      ~Audio(){}
+            int audio_cont = 0;
 
-      bool load();
-      void free();
-      void set_repetitions(int repeat);
-      void set_duration(float duration);
-      void play_effect();
-      void play_music_type();
-      void draw(int x, int y);
-      void pause_music();
-      void stop_effect();
-      void set_effect_volume(int _volume);
-      void set_music_volume(int _volume);
-  };
+        public:
+            Audio(
+                std::string p_name,
+                std::string path,
+                AudioType m_type,
+                int repeat = 0,
+                int chanel = -1);
+
+            ~Audio() {}
+
+            bool load();
+            void free();
+
+            void play_effect();
+            void play_music_type();
+            void draw(int x, int y);
+
+            void pause_music();
+            void stop_effect();
+
+            void set_repetitions(int repeat);
+            void set_duration(float duration);
+            void set_effect_volume(int _volume);
+            void set_music_volume(int _volume);
+
+    };
+
 }
 
 #endif
