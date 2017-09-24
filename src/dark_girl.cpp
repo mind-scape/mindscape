@@ -395,7 +395,7 @@ void DarkGirl::on_collision(engine::GameObject* other,
  */
 void DarkGirl::die(engine::GameObject *game_object) {
 
-    std::string actual_x_state = NULL;
+    std::string actual_x_state = "";
     actual_x_state = get_state("X_STATE");
 
     if(actual_x_state == "LOOKING_LEFT") {
@@ -422,18 +422,18 @@ void DarkGirl::die(engine::GameObject *game_object) {
  */
 void DarkGirl::on_event(GameEvent game_event) {
 
-    std::string event_name = NULL;
+    std::string event_name = "";
     event_name = game_event.game_event_name;
 
     engine::Animation* actual_animation = nullptr;
     actual_animation = get_actual_animation();
 
-    std::string actual_x_state = NULL;
+    std::string actual_x_state = "";
     actual_x_state = states.get_state("X_STATE");
-    std::string actual_y_state = NULL;
+    std::string actual_y_state = "";
     actual_y_state = states.get_state("Y_STATE");
 
-    std::string actual_action_state = NULL;
+    std::string actual_action_state = "";
     actual_action_state = states.get_state("ACTION_STATE");
 
     if(event_name == "JUMP" && actual_y_state == "ON_GROUND") {
@@ -577,7 +577,7 @@ void DarkGirl::move_left(std::string actual_x_state,
  */
 void DarkGirl::attack() {
 
-    std::string actual_x_state = NULL;
+    std::string actual_x_state = "";
     actual_x_state = states.get_state("X_STATE");
     states.set_state("ACTION_STATE", "ATTACKING");
 
@@ -605,7 +605,7 @@ void DarkGirl::attack() {
  */
 void DarkGirl::on_attack(GameObject *game_object) {
 
-    std::string actual_x_state = NULL;
+    std::string actual_x_state = "";
     actual_x_state = states.get_state("X_STATE");
     states.set_state("ACTION_STATE", "ON_ATTACK");
 
@@ -631,9 +631,9 @@ void DarkGirl::update_state() {
     engine::Animation* actual_animation = nullptr;
     actual_animation = get_actual_animation();
 
-    std::string actual_x_state = NULL;
+    std::string actual_x_state = "";
     actual_x_state = states.get_state("X_STATE");
-    std::string actual_y_state = NULL;
+    std::string actual_y_state = "";
     actual_y_state = states.get_state("Y_STATE");
 
     std::string actual_action_state = states.get_state("ACTION_STATE");

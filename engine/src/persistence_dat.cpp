@@ -50,7 +50,7 @@ PersistenceMap * PersistenceDat::load(std::string p_path){
 
 	std::stack<std::string> paths;
 	paths.push(p_path);
-	std::string line;
+	std::string line = "";
 
 	while(!paths.empty()){
 		std::string path = paths.top();
