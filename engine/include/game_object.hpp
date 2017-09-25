@@ -50,11 +50,11 @@ namespace engine {
      */
     class GameObject : public Observer, public Observable {
         private:
-            std::pair<float, float> speed;
-            std::pair<float, float> position;
+            std::pair<float, float> speed = std::make_pair(0.0, 0.0);
+            std::pair<float, float> position = std::make_pair(0.0, 0.0);
             std::vector<Hitbox *> hitboxes;
             Animation* actual_animation = NULL;
-            bool active;
+            bool active = true;
             std::list<Observer *> observers;
 
             void run_collisions(GameObject *);
