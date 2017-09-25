@@ -24,10 +24,10 @@ namespace engine{
      */
 	class Component{
 	private:
-		std::string name;
-		std::pair<int, int> displacement;
-		bool active;
-		int priority;
+		std::string name = "";
+		std::pair<int, int> displacement = std::make_pair(0,0);
+		bool active = true;
+		int priority = 0;
 
 	public:
 		Component(){};
