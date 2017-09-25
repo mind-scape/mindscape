@@ -61,8 +61,8 @@ namespace mindscape {
             );
         
             std::vector<engine::GameObject*> clown_goops;
-            GameObject* right_arm; 
-            GameObject* left_arm;
+            GameObject* right_arm = nullptr; 
+            GameObject* left_arm = nullptr;
 
         public:
             Uncle(
