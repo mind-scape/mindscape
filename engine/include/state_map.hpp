@@ -24,7 +24,7 @@ namespace engine {
 
   	class StateMap {
     	private:
-      		std::unordered_map<std::string, std::string> states;
+      		std::unordered_map<std::string, std::string> states = {{}};
 
     	public:
      		StateMap(std::unordered_map<std::string, std::string> p_states = 
