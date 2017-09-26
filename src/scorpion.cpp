@@ -51,16 +51,22 @@ Scorpion::Scorpion(
  */
 
 void Scorpion::initialize_audio_effects() {
-    engine::Audio * scorpion_attacking = new engine::Audio(
+    engine::Audio * scorpion_attacking = nullptr;
+
+    scorpion_attacking = new engine::Audio(
         "attack",
         "../assets/audios/effects_songs/ataque_insetos.wav", 
         engine::Audio::CHUNK);
+
     scorpion_attacking->set_duration(0.7);
 
-    engine::Audio * scorpion_on_attack = new engine::Audio(
+    engine::Audio * scorpion_on_attack = nullptr;
+
+    scorpion_on_attack = new engine::Audio(
         "hit_me",
         "../assets/audios/effects_songs/inseto_apanhando.wav", 
         engine::Audio::CHUNK);
+
     scorpion_on_attack->set_duration(0.8);
 
     add_component(scorpion_attacking);
@@ -76,47 +82,65 @@ void Scorpion::initialize_audio_effects() {
  */
 
 void Scorpion::initialize_animations() {
-    engine::Animation* walking_left_animation = create_animation(
+    engine::Animation* walking_left_animation = nullptr;
+
+    walking_left_animation = create_animation(
         "../assets/images/sprites/enemies/scorpion/scorpion_walking_left.png",
         1, 5, 0.9, "LEFT"
     );
 
-    engine::Animation* walking_right_animation = create_animation(
+    engine::Animation* walking_right_animation = nullptr;
+
+    walking_right_animation = create_animation(
         "../assets/images/sprites/enemies/scorpion/scorpion_walking_right.png",
         1, 5, 0.9, "RIGHT"
     );
 
-    engine::Animation* idle_left_animation = create_animation(
+    engine::Animation* idle_left_animation = nullptr;
+
+    idle_left_animation = create_animation(
         "../assets/images/sprites/enemies/scorpion/scorpion_idle_left.png",
         1, 2, 0.9, "LEFT"
     );
 
-    engine::Animation* idle_right_animation = create_animation(
+    engine::Animation* idle_right_animation = nullptr;
+
+    idle_right_animation = create_animation(
         "../assets/images/sprites/enemies/scorpion/scorpion_idle_right.png",
         1, 2, 0.9, "RIGHT"
     );
 
-    engine::Animation* attacking_left_animation = create_animation(
+    engine::Animation* attacking_left_animation = nullptr;
+
+    attacking_left_animation = create_animation(
         "../assets/images/sprites/enemies/scorpion/scorpion_attacking_left.png",
         1, 5, 0.7, "LEFT"
     );
 
-    engine::Animation* attacking_right_animation = create_animation(
+    engine::Animation* attacking_right_animation = nullptr;
+
+    attacking_right_animation = create_animation(
         "../assets/images/sprites/enemies/scorpion/scorpion_attacking_right.png",
         1, 5, 0.7, "RIGHT"
     );
 
-    engine::Animation* on_attack_left_animation = create_animation(
+    engine::Animation* on_attack_left_animation = nullptr;
+
+    on_attack_left_animation = create_animation(
         "../assets/images/sprites/enemies/scorpion/scorpion_on_attack_left.png",
         1, 2, 0.8, "LEFT"
     );
 
-    engine::Animation* on_attack_right_animation = create_animation(
+    engine::Animation* on_attack_right_animation = nullptr;
+
+    on_attack_right_animation = create_animation(
         "../assets/images/sprites/enemies/scorpion/scorpion_on_attack_right.png",
         1, 2, 0.8, "RIGHT"
     );
 
-    engine::Animation* dying_left_animation = create_animation(
+    engine::Animation* dying_left_animation = nullptr;
+
+    dying_left_animation = create_animation(
         "../assets/images/sprites/enemies/scorpion/scorpion_dying_left.png",
         1, 5, 0.8, "LEFT"
     );
@@ -164,10 +188,12 @@ engine::Animation* Scorpion::create_animation(
     int sprite_lines,
     int sprite_columns,
     double duration,
-
     std::string direction){
+
         engine::Game& game = engine::Game::get_instance();
-        engine::Animation* animation = new engine::Animation(
+
+        engine::Animation* animation = nullptr;
+        animation = new engine::Animation(
             game.get_renderer(),
             path,
             false,
@@ -198,7 +224,8 @@ engine::Animation* Scorpion::create_animation(
  */
 
 void Scorpion::initialize_as_physicable() {
-    engine::Physics *physics = engine::Physics::get_instance();
+    engine::Physics *physics = nullptr;
+    physics = engine::Physics::get_instance();
     physics->add_physicable(this);
     collidable = true;
 }
@@ -213,7 +240,9 @@ void Scorpion::initialize_as_physicable() {
 
 void Scorpion::initialize_hitboxes() {
     engine::Game& game = engine::Game::get_instance();
-    engine::Hitbox* scorpion_hitbox = new engine::Hitbox(
+
+    engine::Hitbox* scorpion_hitbox = nullptr;
+    scorpion_hitbox = new engine::Hitbox(
         "scorpion_hitbox",
         this->get_position(),
         std::make_pair(40, 312),
@@ -221,7 +250,8 @@ void Scorpion::initialize_hitboxes() {
         game.get_renderer()
     );
 
-    engine::Hitbox* scorpion_attack = new engine::Hitbox(
+    engine::Hitbox* scorpion_attack = nullptr;
+    scorpion_attack = new engine::Hitbox(
         "scorpion_attack",
         this->get_position(),
         std::make_pair(5, 200),
@@ -242,7 +272,7 @@ void Scorpion::initialize_hitboxes() {
  */
 
 void Scorpion::initialize_state_map() {
-    states.set_state("ACTION_STATE","NORMAL");
+    states.set_state("ACTION_STATE", "NORMAL");
 }
 
 /**
@@ -255,13 +285,17 @@ void Scorpion::initialize_state_map() {
  */
 
 void Scorpion::on_event(GameEvent game_event) {
-    std::string event_name = game_event.game_event_name;
+    std::string event_name = "";
+    event_name = game_event.game_event_name;
+    int actual_position = 0;
 
     if (event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level) {
-        set_position_x(get_position_x() + 10);
+        actual_position = get_position_x();
+        set_position_x(actual_position + 10);
     }
     else if (event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level) {
-        set_position_x(get_position_x() - 10);
+        actual_position = get_position_x();
+        set_position_x(actual_position - 10);
     }
 }
 
@@ -276,7 +310,8 @@ void Scorpion::on_event(GameEvent game_event) {
  */
 
 void Scorpion::notify(engine::Observable *game_object) {
-    LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
+    LittleGirl* little_girl = nullptr; 
+    little_girl = dynamic_cast<LittleGirl *>(game_object);
     
     if (little_girl) {
         move(little_girl);
@@ -294,7 +329,8 @@ void Scorpion::notify(engine::Observable *game_object) {
 
 void Scorpion::attack() {
     states.set_state("ACTION_STATE","ATTACKING");
-    std::string actual_x_state = get_state("X_STATE");
+    std::string actual_x_state = "";
+    actual_x_state = get_state("X_STATE");
   
     if (actual_x_state == "LOOKING_LEFT") {
         set_actual_animation(animations["attacking_left_animation"]);
@@ -318,7 +354,8 @@ void Scorpion::attack() {
 void Scorpion::on_attack(GameObject *game_object) {
     states.set_state("ACTION_STATE","ON_ATTACK");
 
-    std::string actual_x_state = get_state("X_STATE");
+    std::string actual_x_state = "";
+    actual_x_state = get_state("X_STATE");
     hit(game_object, 15);
 
     if (is_alive()) {
@@ -342,7 +379,8 @@ void Scorpion::on_attack(GameObject *game_object) {
  */
 
 void Scorpion::die(engine::GameObject *game_object) {
-    std::string actual_x_state = get_state("X_STATE");
+    std::string actual_x_state = "";
+    actual_x_state = get_state("X_STATE");
   
     if (actual_x_state == "LOOKING_LEFT") {
         states.set_state("ACTION_STATE", "DYING");
@@ -365,11 +403,17 @@ void Scorpion::die(engine::GameObject *game_object) {
  */
 
 void Scorpion::move(engine::GameObject* girl) {
-    float scorpion_position = get_position_x();
-    float girl_position = girl->get_position_x();
+    float scorpion_position = 0;
+    scorpion_position = get_position_x();
 
-    float scorpion_position_y = get_position_y();
-    float girl_position_y = girl->get_position_y();
+    float girl_position = 0;
+    girl_position  = girl->get_position_x();
+
+    float scorpion_position_y = 0;
+    scorpion_position_y = get_position_y();
+
+    float girl_position_y = 0;
+    girl_position_y = girl->get_position_y();
 
   //132 is the diference of girl position_y and scorpion position_y
     if (scorpion_position_y + 132 == girl_position_y) {
@@ -378,10 +422,6 @@ void Scorpion::move(engine::GameObject* girl) {
     else {
         same_nivel = false;
     }
-
-    int distance_from_girl;
-
-    std::string actual_x_state;
 
     if (get_state("ACTION_STATE") == "DYING") {
         return;
@@ -395,7 +435,8 @@ void Scorpion::move(engine::GameObject* girl) {
         return;
     }
 
-    //little_girl on left
+    int distance_from_girl = 0;
+
     if (scorpion_position > girl_position) {
         states.set_state("X_STATE","LOOKING_LEFT");
         distance_from_girl = scorpion_position - girl_position;
@@ -416,7 +457,6 @@ void Scorpion::move(engine::GameObject* girl) {
                 }
             }
         }
-  //little_girl on right
     }
     else {
         states.set_state("X_STATE","LOOKING_RIGHT");
@@ -456,10 +496,18 @@ void Scorpion::on_collision(
     engine::Hitbox* p_my_hitbox, 
     engine::Hitbox* p_other_hitbox) {
 
-    Platform* platform = dynamic_cast<Platform *>(other);
-    LittleGirl* little_girl = dynamic_cast<LittleGirl *>(other);
-    engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-    engine::Hitbox* other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+    Platform* platform = nullptr;
+    platform = dynamic_cast<Platform *>(other);
+
+    LittleGirl* little_girl = nullptr;
+    little_girl = dynamic_cast<LittleGirl *>(other);
+
+    engine::Hitbox* my_hitbox = nullptr;
+    my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
+    engine::Hitbox* other_hitbox = nullptr;
+    other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+
 
     if (get_speed_y() >= 0 
         && platform 
