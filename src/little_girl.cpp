@@ -102,21 +102,20 @@ void LittleGirl::initialize_audio_effects() {
 			engine::Audio::CHUNK);
 	little_girl_steps->set_duration(1);
 	little_girl_steps->set_effect_volume(45);
-	
+	add_component(little_girl_steps);
+
 	engine::Audio *little_girl_getting_hit = new engine::Audio(
 			"hit_me",
 			"../assets/audios/effects_songs/menina_apanhando.wav",
 			engine::Audio::CHUNK);
 	little_girl_getting_hit->set_duration(0.5);
-	
+	add_component(little_girl_getting_hit);
+
 	engine::Audio *sword_song = new engine::Audio(
 			"sword_attack",
 			"../assets/audios/effects_songs/espada_fase_1.wav",
 			engine::Audio::CHUNK);
 	sword_song->set_duration(0.4);
-	
-	add_component(little_girl_steps);
-	add_component(little_girl_getting_hit);
 	add_component(sword_song);
 }
 
@@ -130,81 +129,79 @@ void LittleGirl::initialize_animations() {
 			"../assets/images/sprites/little_girl/little_girl_running_right.png",
 			1, 9, 0.9, "RIGHT"
 	);
-	
+	add_animation("running_right_animation", running_right_animation);
+
 	engine::Animation *running_left_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_running_left.png",
 			1, 9, 0.9, "LEFT"
 	);
-	
+	add_animation("running_left_animation", running_left_animation);
+
 	engine::Animation *idle_right_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_idle_right.png",
 			1, 10, 1.5, "RIGHT"
 	);
-	
+	add_animation("idle_right_animation", idle_right_animation);
+
 	engine::Animation *idle_left_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_idle_left.png",
 			1, 10, 1.5, "LEFT"
 	);
-	
+	add_animation("idle_left_animation", idle_left_animation);
+
 	engine::Animation *jumping_right_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_jumping_right.png",
 			1, 5, 1.5, "RIGHT"
 	);
-	
+	add_animation("jumping_right_animation", jumping_right_animation);
+
 	engine::Animation *jumping_left_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_jumping_left.png",
 			1, 5, 1.5, "LEFT"
 	);
-	
+	add_animation("jumping_left_animation", jumping_left_animation);
+
 	engine::Animation *attacking_right_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_attacking_right.png",
 			1, 5, 0.4, "RIGHT"
 	);
-	// attacking_right_animation->in_loop = false;
-	
+	add_animation("attacking_right_animation", attacking_right_animation);
+
 	engine::Animation *attacking_left_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_attacking_left.png",
 			1, 5, 0.4, "LEFT"
 	);
-	// attacking_left_animation->in_loop = false;
-	
+	add_animation("attacking_left_animation", attacking_left_animation);
+
 	engine::Animation *on_attack_right_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
 			1, 3, 0.8, "RIGHT"
 	);
-	
+	add_animation("on_attack_right_animation", on_attack_right_animation);
+
 	engine::Animation *on_attack_left_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_on_attack_left.png",
 			1, 3, 0.8, "LEFT"
 	);
-	
+	add_animation("on_attack_left_animation", on_attack_left_animation);
+
+
 	engine::Animation *dying_left_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_dying_left.png",
 			1, 5, 0.8, "LEFT"
 	);
+	add_animation("dying_left_animation", dying_left_animation);
 	dying_left_animation->in_loop = false;
 	dying_left_animation->is_a_final_animation = true;
-	
+
 	engine::Animation *dying_right_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_dying_right.png",
 			1, 5, 1.0, "RIGHT"
 	);
-	
 	dying_right_animation->in_loop = false;
 	dying_right_animation->is_a_final_animation = true;
-	
 	add_animation("dying_right_animation", dying_right_animation);
-	add_animation("dying_left_animation", dying_left_animation);
-	add_animation("running_right_animation", running_right_animation);
-	add_animation("running_left_animation", running_left_animation);
-	add_animation("idle_right_animation", idle_right_animation);
-	add_animation("idle_left_animation", idle_left_animation);
-	add_animation("jumping_right_animation", jumping_right_animation);
-	add_animation("jumping_left_animation", jumping_left_animation);
-	add_animation("attacking_right_animation", attacking_right_animation);
-	add_animation("attacking_left_animation", attacking_left_animation);
-	add_animation("on_attack_right_animation", on_attack_right_animation);
-	add_animation("on_attack_left_animation", on_attack_left_animation);
+
 	idle_right_animation->activate();
 	set_actual_animation(idle_right_animation);
 }
@@ -362,8 +359,6 @@ void LittleGirl::die(engine::GameObject *game_object) {
  */
 void LittleGirl::on_event(GameEvent game_event) {
 	std::string event_name = game_event.game_event_name;
-	
-	engine::Animation *actual_animation = get_actual_animation();
 	std::string actual_x_state = states.get_state("X_STATE");
 	std::string actual_y_state = states.get_state("Y_STATE");
 	std::string actual_action_state = states.get_state("ACTION_STATE");
@@ -402,8 +397,8 @@ void LittleGirl::jump(std::string actual_x_state) {
 		}
 		
 		engine::Animation *actual_animation = get_actual_animation();
-		
 		jumping_animation_count += 1;
+
 		if (jumping_animation_count < 26) {
 			if (jumping_animation_count % 5 == 0) {
 				actual_animation->coordinatesOnTexture.first += 192;
@@ -429,7 +424,6 @@ void LittleGirl::jump(std::string actual_x_state) {
  */
 void LittleGirl::move_right(std::string actual_x_state, std::string actual_y_state) {
 	engine::Animation *actual_animation = get_actual_animation();
-	
 	actual_animation->coordinatesOnTexture.first += 192;
 	
 	if (actual_animation->coordinatesOnTexture.first >= 1728) {
@@ -460,7 +454,6 @@ void LittleGirl::move_right(std::string actual_x_state, std::string actual_y_sta
  */
 void LittleGirl::move_left(std::string actual_x_state, std::string actual_y_state) {
 	engine::Animation *actual_animation = get_actual_animation();
-	
 	actual_animation->coordinatesOnTexture.first -= 192;
 	
 	if (actual_animation->coordinatesOnTexture.first <= 0) {
@@ -527,14 +520,13 @@ void LittleGirl::on_attack(GameObject *game_object) {
  * @return void
  */
 void LittleGirl::update_state() {
-	engine::Animation *actual_animation = get_actual_animation();
-	std::string actual_x_state = states.get_state("X_STATE");
-	std::string actual_y_state = states.get_state("Y_STATE");
-	std::string actual_action_state = states.get_state("ACTION_STATE");
-	
 	if (get_position_y() >= 576) {
 		die(NULL);
 	}
+
+	std::string actual_y_state = states.get_state("Y_STATE");
+	std::string actual_action_state = states.get_state("ACTION_STATE");
+	std::string actual_x_state = states.get_state("X_STATE");
 	
 	if (actual_action_state == "ATTACKING" || actual_action_state == "ON_ATTACK") {
 		if (get_actual_animation()->is_finished) {
