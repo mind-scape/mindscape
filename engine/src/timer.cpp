@@ -50,11 +50,13 @@ void Timer::stop_timer() {
  */
 
 int Timer::get_total_time() {
+    int final_time = SDL_GetTicks();
+
     if (!is_running) {
         return 0;
     } 
     else {
-        return SDL_GetTicks() - initial_time;
+        return final_time - initial_time;
     }
 }
 
@@ -67,11 +69,13 @@ int Timer::get_total_time() {
  */
 
 int Timer::get_elapsed_time() {
+    int total_time = SDL_GetTicks();
+
     if (!is_running) {
         return 0;
     } 
     else {
-        return SDL_GetTicks() - time_interval;
+        return total_time - time_interval;
     }
 }
 
@@ -85,6 +89,8 @@ int Timer::get_elapsed_time() {
  */
 
 void Timer::set_interval() {
+    time_interval = 0;
+
     if (!is_running) {
         printf("Cannot set interval while timer is stopped.");
     } 
