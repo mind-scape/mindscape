@@ -24,9 +24,9 @@ namespace engine {
     class Timer {
         public:
 
-            bool is_running;
-            int initial_time;
-            int time_interval;
+            bool is_running = false;
+            int initial_time = 0;
+            int time_interval = 0;
 
             Timer()
                 : is_running(false),
