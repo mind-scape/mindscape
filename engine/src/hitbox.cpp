@@ -86,37 +86,35 @@ std::pair<int, int> Hitbox::get_coordinates() {
  * @return returns true if the collision was identify.
  */
 bool Hitbox::collides_with(Hitbox* other_hitbox) {
-    std::pair<int, int> other_hitbox_dimensions;
-    std::pair<int, int> other_hitbox_coordinates;
 
-    int left_a;
-    int left_b;
-
-    int right_a;
-    int right_b;
-
-    int top_a;
-    int top_b;
-
-    int bottom_a;
-    int bottom_b;
+    int left_a = 0;
+    int right_a = 0;
+    int top_a = 0;
+    int bottom_a = 0;
 
     left_a = hitbox.x;
     right_a = hitbox.x + hitbox.w;
     top_a = hitbox.y;
     bottom_a = hitbox.y + hitbox.h;
 
+    std::pair<int, int> other_hitbox_dimensions (0, 0);
+    std::pair<int, int> other_hitbox_coordinates (0, 0);
+
     other_hitbox_coordinates = other_hitbox->get_coordinates();
     other_hitbox_dimensions = other_hitbox->get_dimensions();
 
-    // x coordinate and width's dimension, respectively
+    int left_b = 0;
+    int right_b = 0;
 
+    // x coordinate and width's dimension, respectively
     left_b = other_hitbox_coordinates.first;
     right_b = other_hitbox_coordinates.first +
             other_hitbox_dimensions.first;
 
-    // y coordinate and height's dimension, respectively
+    int top_b = 0;
+    int bottom_b = 0;
 
+    // y coordinate and height's dimension, respectively
     top_b = other_hitbox_coordinates.second;
     bottom_b = other_hitbox_coordinates.second +
              other_hitbox_dimensions.second;
@@ -148,10 +146,12 @@ bool Hitbox::collides_with(Hitbox* other_hitbox) {
  * @return void.
  */
 void Hitbox::initialize() {
-    SDL_Texture* new_texture = NULL;
 
-    SDL_Surface* loaded_surface =
-        IMG_Load("../assets/images/scenes/test_scene/Fundo-Vermelho.jpg");
+    SDL_Surface* loaded_surface = nullptr;
+    loaded_surface =
+     IMG_Load("../assets/images/scenes/test_scene/Fundo-Vermelho.jpg");
+
+    SDL_Texture* new_texture = nullptr;
 
     if (loaded_surface != NULL) {
         new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
@@ -176,10 +176,12 @@ void Hitbox::initialize() {
  * @return void.
  */
 void Hitbox::draw() {
-    SDL_Rect ret = {0, 0, hitbox.w, hitbox.h};
+    SDL_Rect ret = {0, 0, 0, 0};
+    ret = {0, 0, hitbox.w, hitbox.h};
 
     // This render_quad tells where the image will appear in the screen
-    SDL_Rect render_quad = {hitbox.x, hitbox.y, hitbox.w, hitbox.h};
+    SDL_Rect render_quad = {0, 0, 0, 0};
+    render_quad = {hitbox.x, hitbox.y, hitbox.w, hitbox.h};
 
     SDL_RenderCopy(renderer, texture, &ret, &render_quad);
 }

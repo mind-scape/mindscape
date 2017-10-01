@@ -114,7 +114,8 @@ void Animation::draw(int x, int y){
  */
 void Animation::set_sprites_order(int total_sprites, std::string direction) {
 		if (direction == "LEFT") {
-				int reverse_index = total_sprites - 1;
+				int reverse_index = 0;
+				reverse_index = total_sprites - 1;
 
 				for (int i = 0; i < total_sprites; ++i) {
 						sprites_order[i] = reverse_index;

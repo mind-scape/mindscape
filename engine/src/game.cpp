@@ -16,12 +16,12 @@
 
 using namespace engine;
 
-Game* Game::instance = NULL;
+Game* Game::instance = nullptr;
 
 /**
  * @brief shows which function has an error and exits.
  *
- * @param function that has an error.
+ * @params function that has an error.
  * @return void.
  */
 void throw_error(const char* function) {
@@ -50,8 +50,8 @@ Game& Game::get_instance() {
 /**
  * @brief Initializes an instance if one does not exist.
  *
- * @param p_name name of the game.
- * @param p_dimensions dimensions of the window.
+ * @params p_name name of the game.
+ * @params p_dimensions dimensions of the window.
  * @return Returns an instance created.
  */
 Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions) {
@@ -73,18 +73,20 @@ Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions) {
  * @return void.
  */
 void Game::init() {
-    int img_flags = IMG_INIT_PNG;
 
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
         throw_error("SDL_Init");
     }
+
+    int img_flags = 0;
+    img_flags = IMG_INIT_PNG;
 
     if (!(IMG_Init(IMG_INIT_PNG) & img_flags)) {
         throw_error("IMG_Init");
     }
 
     if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 512 ) < 0 ) {
-        printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+        printf("SDL_mixer could not initialize! SDL_mixer Error:%s\n", Mix_GetError());
     }
 
     if (TTF_Init() == -1) {
@@ -99,7 +101,8 @@ void Game::init() {
     throw_error("SDL_CreateWindow");
     }
 
-    renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED
+       | SDL_RENDERER_PRESENTVSYNC);
 
     if (!renderer) {
         throw_error("SDL_CreateRenderer");
@@ -126,6 +129,7 @@ void Game::load_media() {
 void Game::close() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+
     renderer = NULL;
     window = NULL;
 
@@ -142,14 +146,14 @@ bool Game::is_media_loaded() {
     return loaded_media;
 }
 
-/////////////////////////////////////////////
 void Game::run() {
     state = RUNNING;
 
     if (is_media_loaded()) {
-
         SDL_Event e;
+
         EventHandler event_handler = EventHandler();
+
         Time::init();
 
         while (state != QUIT) {
@@ -166,18 +170,19 @@ void Game::run() {
             SDL_RenderPresent(renderer);
         }
     }
+
     else {
         printf("Medias could not be loaded\n");
     }
 
-  close();
+    close();
 }
 
 /**
  * @brief Sets the name and the dimensions of the window.
  *
- * @param p_name the name of the game.
- * @param p_dimensions this params refers to a dimension os the window.
+ * @params p_name the name of the game.
+ * @params p_dimensions this params refers to a dimension os the window.
  * @return void.
  */
 void Game::set_information(std::string p_name,std::pair<int,int> p_dimensions) {
@@ -191,7 +196,7 @@ void Game::set_information(std::string p_name,std::pair<int,int> p_dimensions) {
  * Changes the scene based in its level and in its actual scene.
  * Loads the media based in this.
  *
- * @param level pointer to know which scene will be loaded.
+ * @params level pointer to know which scene will be loaded.
  * @return void.
  */
 void Game::change_scene(Scene *level) {
@@ -300,9 +305,9 @@ SDL_Renderer * Game::get_renderer() {
 /**
  * @brief This method get the current scene of the game.
  *
- * It is important to load the media of the game.
+ * It is important to load the media of the game
  *
- * @return scene that is current of the game.
+ *
  */
 Scene* Game::get_actual_scene() {
     return actual_scene;

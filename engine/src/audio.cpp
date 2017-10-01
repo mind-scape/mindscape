@@ -51,6 +51,7 @@ bool Audio::load() {
             return false;
         }
     }
+
     else if (m_audio_type == CHUNK) {
         audio_chunk = Mix_LoadWAV(audio_path.c_str());
 
@@ -61,12 +62,14 @@ bool Audio::load() {
             return false;
         }
     }
+
     else {
         printf("\nError loading the audio in this path: %s\n",
                 audio_path.c_str());
 
         return false;
     }
+
     activate();
 
     return true;
@@ -139,6 +142,7 @@ void Audio::draw(int x, int y) {
 void Audio::play_music_type() {
     if (audio_music != NULL) {
         is_active();
+
         if (Mix_PlayingMusic() == 0) {
             //Play the music
             Mix_PlayMusic(audio_music, 0 );
@@ -187,6 +191,7 @@ void Audio::set_repetitions(int repeat) {
  * @return void.
  */
 void Audio::set_duration(float duration) {
+    effect_duration = 0;
     effect_duration = duration * 1000;
 }
 
@@ -216,6 +221,7 @@ void Audio::set_effect_volume(int _volume) {
     if (_volume > -1 && volume < 129) {
         volume = _volume;
     }
+
     else {
         printf("\nThe volume must be between 0 and 128");
     }
@@ -235,6 +241,7 @@ void Audio::set_music_volume(int _volume) {
         if (_volume > -1 && volume < 129) {
             Mix_VolumeMusic(_volume);
         }
+
         else {
             printf("\nThe volume must be between 0 and 128");
         }
