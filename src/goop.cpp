@@ -55,7 +55,9 @@ Goop::Goop(
  * @return void.
  */
 void Goop::initialize_animations(){
-    engine::Animation* goop_animation = create_animation(
+    
+    engine::Animation* goop_animation = nullptr;
+    goop_animation = create_animation(
         "../assets/images/sprites/enemies/clown/clown_goop.png",
         1, 1, 3.0, "LEFT"
     );
@@ -65,8 +67,13 @@ void Goop::initialize_animations(){
         std::make_pair(135, 70),
         std::make_pair(0, 0)
     );
+    add_animation("goop_animation",goop_animation);
+    goop_animation->activate();
+    set_actual_animation(goop_animation);
   
-    engine::Animation* refuted_goop_animation = create_animation(
+      
+    engine::Animation* refuted_goop_animation = nullptr;
+    refuted_goop_animation = create_animation(
         "../assets/images/sprites/enemies/clown/clown_goop_refuted.png",
         1, 1, 3.0, "LEFT"
     );
@@ -76,8 +83,10 @@ void Goop::initialize_animations(){
         std::make_pair(135, 70),
         std::make_pair(0, 0)
     );
-  
-    engine::Animation* goop_squash_animation = create_animation(
+    add_animation("refuted_goop_animation",refuted_goop_animation);
+
+    engine::Animation* goop_squash_animation = nullptr;
+    goop_squash_animation = create_animation(
         "../assets/images/sprites/enemies/clown/goop_squash.png",
         1, 1, 5.0, "LEFT"
     );
@@ -86,16 +95,11 @@ void Goop::initialize_animations(){
         std::make_pair(240, 140),
         std::make_pair(240, 140),
         std::make_pair(0, 0)
-    );
-    
+    );    
     goop_squash_animation->in_loop = false;
     goop_squash_animation->is_a_final_animation = true;
-      
-    add_animation("goop_animation",goop_animation);
-    add_animation("refuted_goop_animation",refuted_goop_animation);
     add_animation("goop_squash_animation",goop_squash_animation);
-    goop_animation->activate();
-    set_actual_animation(goop_animation);
+
 }
 
 /**
@@ -120,7 +124,9 @@ engine::Animation* Goop::create_animation(
     std::string direction) {
 
     engine::Game& game = engine::Game::get_instance();
-    engine::Animation* animation = new engine::Animation(
+    
+    engine::Animation* animation = nullptr;
+    animation = new engine::Animation(
         game.get_renderer(),
         path,                 // image path
         false,                // is_active
@@ -150,7 +156,9 @@ engine::Animation* Goop::create_animation(
  * @return void.
  */
 void Goop::initialize_as_physicable() {
-    engine::Physics *physics = engine::Physics::get_instance();
+    
+    engine::Physics *physics = nullptr;
+    physics = engine::Physics::get_instance();
     physics->add_physicable(this);
     collidable = true;
 }
@@ -163,7 +171,8 @@ void Goop::initialize_as_physicable() {
  */
 void Goop::initialize_hitboxes() {
     engine::Game& game = engine::Game::get_instance();
-    engine::Hitbox* goop_hitbox = new engine::Hitbox(
+    engine::Hitbox* goop_hitbox = nullptr;
+    goop_hitbox = new engine::Hitbox(
         "goop_hitbox",
         this->get_position(),
         std::make_pair(10, 45),
@@ -195,9 +204,11 @@ void Goop::initialize_state_map(){
  * @return void.
  */
 void Goop::on_event(GameEvent game_event) {
-    std::string event_name = game_event.game_event_name;
+    std::string event_name = "";
+    event_name = game_event.game_event_name;
 
-    static float speed_x = get_speed_x();
+    static float speed_x = 0;
+    speed_x = get_speed_x();
 
     if(event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level) {
         set_speed_x(speed_x + 5);
@@ -223,10 +234,13 @@ void Goop::on_event(GameEvent game_event) {
 void Goop::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox,
         engine::Hitbox* p_other_hitbox) {
     
-    Platform* platform = dynamic_cast<Platform *>(other);
-    engine::Hitbox* my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-    engine::Hitbox* other_hitbox = 
-        dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+    Platform* platform = nullptr;
+    engine::Hitbox* my_hitbox = nullptr;
+    engine::Hitbox* other_hitbox = nullptr;
+    
+    platform = dynamic_cast<Platform *>(other);
+    my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+    other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
     if(get_speed_y() >= 0 && platform && 
             my_hitbox->get_name() == "goop_hitbox") {

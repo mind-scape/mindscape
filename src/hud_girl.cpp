@@ -50,13 +50,18 @@ HudGirl::HudGirl(
  * @return void.
  */
 void HudGirl::notify(engine::Observable* game_object) {
-    LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
+    LittleGirl* little_girl = nullptr;
+    little_girl = dynamic_cast<LittleGirl *>(game_object);
   
     if(little_girl) {
         
-        engine::Image* bar = dynamic_cast<engine::Image *>(images[0]);
-        float reducer_percentage = little_girl->get_hp()/90.0;
-        int bar_size = reducer_percentage * 180;
+        float reducer_percentage = 0;
+        int bar_size = 0;
+        engine::Image* bar = nullptr;
+        
+        reducer_percentage = little_girl->get_hp()/90.0;
+        bar_size = reducer_percentage * 180;
+        bar = dynamic_cast<engine::Image *>(images[0]);
         
         bar->set_values(
             std::make_pair(bar_size, 10),
@@ -74,14 +79,16 @@ void HudGirl::notify(engine::Observable* game_object) {
  * @return void.
  */
 void HudGirl::initialize_animations() {
-    engine::Animation* girl_hp = create_animation(
+
+    engine::Image* hp = nullptr;
+    hp = create_image();
+    add_component(hp);
+    
+    engine::Animation* girl_hp = nullptr;
+    girl_hp = create_animation(
         "../assets/images/sprites/hud/hud_girl.png",
         1,1,0.9, "RIGHT"
     );
-
-    engine::Image* hp = create_image();
-
-    add_component(hp);
     add_animation("girl_hp", girl_hp);
     girl_hp->activate();
     set_actual_animation(girl_hp);
@@ -97,7 +104,9 @@ void HudGirl::initialize_animations() {
  */
 engine::Image* HudGirl::create_image() {
     engine::Game& game = engine::Game::get_instance();
-    engine::Image* health_bar = new engine::Image(game.get_renderer(),
+    engine::Image* health_bar = nullptr;    
+
+    health_bar = new engine::Image(game.get_renderer(),
     "../assets/images/sprites/sprites_test/health_bar.jpg",
     true, std::make_pair(74, 64), 70);
 
@@ -132,7 +141,8 @@ engine::Animation* HudGirl::create_animation(
     std::string direction) {
 
     engine::Game& game = engine::Game::get_instance();
-    engine::Animation* animation = new engine::Animation(
+    engine::Animation* animation = nullptr;
+    animation = new engine::Animation(
         game.get_renderer(),
         // Hud Girl image path
         path,
