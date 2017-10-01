@@ -73,9 +73,8 @@ engine::GameObject* GameObjectFactory::fabricate(
 */
 engine::GameObject* GameObjectFactory::fabricate_hud_fox(std::string name,
    std::pair<int, int> position, int priority) {
-    engine::GameObject* hud_fox;
+    engine::GameObject* hud_fox = nullptr;
     hud_fox = new HudFox(name, position, priority);
-
     return hud_fox;
 }
 /**
@@ -90,7 +89,7 @@ engine::GameObject* GameObjectFactory::fabricate_hud_fox(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_hud_girl(std::string name,
    std::pair<int, int> position, int priority) {
-    engine::GameObject* hud_girl;
+    engine::GameObject* hud_girl = nullptr;
     hud_girl = new HudGirl(name, position, priority);
 
     return hud_girl;
@@ -107,7 +106,7 @@ engine::GameObject* GameObjectFactory::fabricate_hud_girl(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_button(std::string name,
   std::pair<int, int> position, int priority) {
-    engine::GameObject* button;
+    engine::GameObject* button = nullptr;
     button = new Button(name, position, priority);
 
     return button;
@@ -124,7 +123,7 @@ engine::GameObject* GameObjectFactory::fabricate_button(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_select_arrow(std::string name,
    std::pair<int, int> position, int priority) {
-    engine::GameObject* select_arrow;
+    engine::GameObject* select_arrow = nullptr;
     select_arrow = new SelectArrow(name, position, priority);
 
     return select_arrow;
@@ -141,7 +140,7 @@ engine::GameObject* GameObjectFactory::fabricate_select_arrow(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_fox(std::string name,
    std::pair<int, int> position, int priority) {
-    engine::GameObject* fox;
+    engine::GameObject* fox = nullptr;
     fox = new Fox(name, position, priority);
 
     return fox;
@@ -158,7 +157,7 @@ engine::GameObject* GameObjectFactory::fabricate_fox(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_background(std::string name,
   std::pair<int, int> position, int priority) {
-    Background* background;
+    Background* background = nullptr;
     background = new Background(name, position, priority);
 
     if (name == "main_background") {
@@ -182,7 +181,7 @@ engine::GameObject* GameObjectFactory::fabricate_background(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_platform(std::string name,
   std::pair<int, int> position, int priority) {
-    engine::GameObject* platform;
+    engine::GameObject* platform = nullptr;
     platform = new Platform(name, position, priority);
 
     return platform;
@@ -199,7 +198,7 @@ engine::GameObject* GameObjectFactory::fabricate_platform(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_spider(std::string name,
    std::pair<int, int> position, int priority) {
-    engine::GameObject* spider;
+    engine::GameObject* spider = nullptr;
     spider = new Spider(name, position, priority);
 
     return spider;
@@ -216,7 +215,7 @@ engine::GameObject* GameObjectFactory::fabricate_spider(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_scorpion(std::string name,
   std::pair<int, int> position, int priority) {
-    engine::GameObject* scorpion;
+    engine::GameObject* scorpion = nullptr;
     scorpion = new Scorpion(name, position, priority);
 
     return scorpion;
@@ -233,7 +232,7 @@ engine::GameObject* GameObjectFactory::fabricate_scorpion(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_star(std::string name,
   std::pair<int, int> position, int priority) {
-    engine::GameObject* scorpion;
+    engine::GameObject* scorpion = nullptr;
     scorpion = new Star(name, position, priority);
 
     return scorpion;
@@ -250,7 +249,7 @@ engine::GameObject* GameObjectFactory::fabricate_star(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_little_girl(std::string name,
    std::pair<int, int> position, int priority) {
-     engine::GameObject *little_girl;
+     engine::GameObject *little_girl = nullptr;
      little_girl = new LittleGirl(name , position, priority);
 
      return little_girl;
@@ -332,13 +331,13 @@ void GameObjectFactory::fabricate_text(engine::GameObject *game_object,
 */
 void GameObjectFactory::fabricate_action(engine::GameObject *game_object,
   int p_command, std::string param) {
-    Action::Command command;
+    Action::Command command = static_cast < Action::Command > (0);
     command = static_cast<Action::Command>(p_command);
 
-    Action *action;
+    Action *action = NULL;
     action = new Action(command);
 
-    Button* button;
+    Button* button = NULL;
     button = dynamic_cast<Button *>(game_object);
     button->set_action(action, param);
 }
@@ -354,7 +353,7 @@ void GameObjectFactory::fabricate_action(engine::GameObject *game_object,
 */
 void GameObjectFactory::fabricate_translation(engine::GameObject *game_object,
    int p_key, std::string event_name) {
-     engine::KeyboardEvent::Key key;
+     engine::KeyboardEvent::Key key = static_cast < engine::KeyboardEvent::Key > (0);
      key = static_cast < engine::KeyboardEvent::Key > (p_key);
 
      game_object->translations[key] = event_name;
@@ -372,10 +371,10 @@ void GameObjectFactory::fabricate_translation(engine::GameObject *game_object,
 */
 void GameObjectFactory::fabricate_audio(engine::GameObject *game_object,
   std::string name, std::string path, int p_audio_type) {
-    engine::Audio::AudioType audio_type;
-    audio_type = static_cast<engine::Audio::AudioType>(p_audio_type);
+    engine::Audio::AudioType audio_type = static_cast < engine::Audio::AudioType > (0);
+    audio_type = static_cast < engine::Audio::AudioType > (p_audio_type);
 
-    engine::Audio *audio;
+    engine::Audio *audio = nullptr;
     audio = new engine::Audio(name, path, audio_type);
 
     game_object->add_component(audio);
@@ -392,7 +391,7 @@ void GameObjectFactory::fabricate_audio(engine::GameObject *game_object,
 */
 engine::GameObject* GameObjectFactory::fabricate_music_player(
   std::string name, std::pair<int, int> position, int priority){
-    engine::GameObject *music_player;
+    engine::GameObject *music_player = nullptr;
     music_player = new MusicPlayer(name , position, priority);
 
     return music_player;
@@ -409,7 +408,7 @@ engine::GameObject* GameObjectFactory::fabricate_music_player(
 */
 engine::GameObject* GameObjectFactory::fabricate_clown(std::string name,
   std::pair<int, int> position, int priority) {
-    engine::GameObject* clown;
+    engine::GameObject* clown = nullptr;
     clown = new Clown(name , position, priority);
 
     return clown;
@@ -426,7 +425,7 @@ engine::GameObject* GameObjectFactory::fabricate_clown(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_dark_girl(std::string name,
   std::pair<int, int> position, int priority) {
-    engine::GameObject* dark_girl;
+    engine::GameObject* dark_girl = nullptr;
     dark_girl = new DarkGirl(name , position, priority);
 
     return dark_girl;
@@ -443,7 +442,7 @@ engine::GameObject* GameObjectFactory::fabricate_dark_girl(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_uncle(std::string name,
    std::pair<int, int> position, int priority) {
-    engine::GameObject* uncle;
+    engine::GameObject* uncle = nullptr;
     uncle = new Uncle(name, position, priority);
 
     return uncle;
@@ -460,7 +459,7 @@ engine::GameObject* GameObjectFactory::fabricate_uncle(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_arm(std::string name,
   std::pair<int, int> position, int priority) {
-    engine::GameObject* arm;
+    engine::GameObject* arm = nullptr;
     arm = new Arm(name , position, priority);
 
     return arm;
