@@ -50,12 +50,12 @@ namespace engine {
      */
     class GameObject : public Observer, public Observable {
         private:
-            std::pair<float, float> speed = std::make_pair(0.0, 0.0);
-            std::pair<float, float> position = std::make_pair(0.0, 0.0);
-            std::vector<Hitbox *> hitboxes;
-            Animation* actual_animation = NULL;
-            bool active = true;
-            std::list<Observer *> observers;
+            std::pair<float, float> speed = std::make_pair(0.0, 0.0);  /**< Pair. Speed to move game object. */
+            std::pair<float, float> position = std::make_pair(0.0, 0.0); /**< Pair. Position to locate game object. */
+            std::vector<Hitbox *> hitboxes; /**< Vector. Hitbox to create the bounds of the game object. */
+            Animation* actual_animation = NULL; /**< Pointer Object Animation. Animation referenced in game object. */
+            bool active = true; /**< Bollean. Game object activation, meaning true if it will be visible or false to invisible. */
+            std::list<Observer *> observers; /**< List. Observers to alocate the components of game object. */
 
             void run_collisions(GameObject *);
 
@@ -65,18 +65,18 @@ namespace engine {
             };
 
         public:
-            static bool on_limit_of_level;
-            std::string name;
-            int priority;
-            bool collidable;
-            std::vector<Component *> audios;
-            std::vector<Component *> images;
-            std::vector<Component *> texts;
-            std::map<std::string, Animation *> animations;
-            std::map<KeyboardEvent::Key, std::string> translations;
-            std::string state;
-            std::string game_object_direction;
-            StateMap states;
+            static bool on_limit_of_level; /**< Bollean. Determs if game object is ina bound compared to others hitboxes */
+            std::string name; /**< String. Name of game object, used as an ID. */
+            int priority; /**< Integer. Priorize game objects in layers. */
+            bool collidable; /**< Bollean. */
+            std::vector<Component *> audios; /**< Vector of Compenents. Contains pointers referencing audio objects to be played. */
+            std::vector<Component *> images; /**< Vector of Compenents. Contains pointers referencing images objects to be shown. */
+            std::vector<Component *> texts; /**< Vector of Compenents. Contains pointers referencing text objects to be shown. */
+            std::map<std::string, Animation *> animations; /**< Map of string and Animation Pointer. Keep all animation of game object. */
+            std::map<KeyboardEvent::Key, std::string> translations; /**< Map of KeyboardEvent and string. Keep all events of translation of game object. */
+            std::string state; /**< String. actual state of game object, passed in constructor and chaged during gameplay. */
+            std::string game_object_direction; 
+            StateMap states; /**< Object StateMap. Reference to map state. */
 
             GameObject() {
 
