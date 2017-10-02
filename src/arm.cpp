@@ -59,21 +59,22 @@ void Arm::initialize_animations() {
 			std::make_pair(405, 542),
 			std::make_pair(0, 0)
 	);
-	
+
+	add_animation("right_arm", right_arm);
+	right_arm->activate();
+
 	engine::Animation *left_arm = create_animation(
 			"../assets/images/sprites/enemies/arm/left_arm.png",
 			1, 4, 3.0, "LEFT"
 	);
-	
+
 	left_arm->set_values(
 			std::make_pair(405, 542),
 			std::make_pair(405, 542),
 			std::make_pair(0, 0)
 	);
-	
-	add_animation("right_arm", right_arm);
+
 	add_animation("left_arm", left_arm);
-	right_arm->activate();
 	set_actual_animation(right_arm);
 }
 
@@ -101,16 +102,12 @@ engine::Animation *Arm::create_animation(
 	engine::Animation *animation = new engine::Animation(
 			game.get_renderer(),
 			image_path,
-			// is_active
 			false,
-			// displacement
 			std::make_pair(0, 0),
-			// priority
 			1,
 			sprite_lines,
 			sprite_columns,
 			duration,
-			// in_loop
 			true,
 			direction
 	);
@@ -156,7 +153,6 @@ void Arm::initialize_hitboxes() {
 	);
 	
 	arm_hitbox->initialize();
-	
 	add_component(arm_hitbox);
 }
 
@@ -186,7 +182,6 @@ void Arm::on_event(GameEvent game_event) {
 		set_position_x(get_position_x() + 10);
 	} else if (event_name == "MOVE_RIGHT" &&
 			   !engine::GameObject::on_limit_of_level) {
-		
 		set_position_x(get_position_x() - 10);
 	}
 }
@@ -203,14 +198,12 @@ void Arm::on_event(GameEvent game_event) {
 void Arm::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
 					   engine::Hitbox *p_other_hitbox) {
 	Platform *platform = dynamic_cast<Platform *>(other);
-	LittleGirl *little_girl = dynamic_cast<LittleGirl *>(other);
 	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
 	engine::Hitbox *other_hitbox =
 			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 	
 	if (get_speed_y() >= 0 && platform
 		&& my_hitbox->get_name() == "arm_hitbox") {
-		
 		set_speed_y(0.0);
 		set_position_y(other_hitbox->get_coordinates().second - 30);
 		states.set_state("Y_STATE", "ON_GROUND");
