@@ -183,11 +183,14 @@ void Arm::on_event(GameEvent game_event) {
 	std::string event_name = game_event.game_event_name;
 	
 	if (event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level) {
-		set_position_x(get_position_x() + 10);
-	} else if (event_name == "MOVE_RIGHT" &&
-			   !engine::GameObject::on_limit_of_level) {
-		
-		set_position_x(get_position_x() - 10);
+	/* If arm is moving left */	
+		set_position_x(get_position_x() + 10); // Moves position 10 pixels to the right
+	} 
+	
+	else if (event_name == "MOVE_RIGHT" &&
+			!engine::GameObject::on_limit_of_level) {
+	/* If arm is moving right */		
+		set_position_x(get_position_x() - 10); // Moves position 10 pixels to the left
 	}
 }
 
@@ -210,7 +213,7 @@ void Arm::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
 	
 	if (get_speed_y() >= 0 && platform
 		&& my_hitbox->get_name() == "arm_hitbox") {
-		
+		/* If arm is not falling */
 		set_speed_y(0.0);
 		set_position_y(other_hitbox->get_coordinates().second - 30);
 		states.set_state("Y_STATE", "ON_GROUND");
