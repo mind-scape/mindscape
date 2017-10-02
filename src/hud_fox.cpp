@@ -70,16 +70,17 @@ void HudFox::notify(engine::Observable* game_object) {
     fox = dynamic_cast<Fox *>(game_object);
 
     if(fox) {
-        
-        bool give_hp = false; 
+    /* If the fox exists */    
+        bool give_hp = false; /*< Boolean. Boolean that defines if hp is being given or not */
         give_hp = fox->get_animation_hud_fading();
         
         engine::Animation* actual = NULL;
         actual = get_actual_animation();
         
         if(actual == animations["three_star_fading"]) {
-            
+        /* If stars are fading */    
             if(actual->is_finished) {
+            /* If stars already faded */
                 give_hp = false;
                 fox->set_star_count(0);
                 set_actual_animation(animations["zero_star"]);
@@ -87,39 +88,40 @@ void HudFox::notify(engine::Observable* game_object) {
         }
 
         else {
-            
-            int count = 0;
+        /* If the animation is not stars fading */  
+            int count = 0; /*< Integer. Number of stars */
             count = fox->get_star_count();
              
             if(count == 0) {
-                
+            /* If there are no stars */
                 if(!(get_actual_animation() == animations["zero_star"])) {
                     set_actual_animation(animations["zero_star"]);
                 }
             }
 
             else if(count == 1) {
-                
+            /* If there is one star */    
                 if(!(get_actual_animation() == animations["one_star"])){
                     set_actual_animation(animations["one_star"]);
                 }
             }
 
             else if(count == 2) {
-                
+            /* If there are two stars */    
                 if(!(get_actual_animation() == animations["two_star"])) {
                     set_actual_animation(animations["two_star"]);
                 }
             }
 
             else if(count == 3 && !give_hp) {
-
+            /* If there are three stars and is not giving hp */
                 if(!(get_actual_animation() == animations["three_star"])) {
                     set_actual_animation(animations["three_star"]);
                 }  
             }
 
             else if(count == 3 && give_hp) {
+            /* If there are three stars and is giving hp */
                 fox->set_animation_hud_fading(false);
                 set_actual_animation(animations["three_star_fading"]);
                 play_song("heart");
