@@ -24,10 +24,10 @@ namespace engine{
      */
 	class Component{
 	private:
-		std::string name = "";
-		std::pair<int, int> displacement = std::make_pair(0,0);
-		bool active = true;
-		int priority = 0;
+		std::string name = ""; /**< String. Name given to component. */
+		std::pair<int, int> displacement = std::make_pair(0,0); /**< Pair of integers. Position to insert component. */
+		bool active = true; /**< Bollean. Status of component. */
+		int priority = 0; /**< Integer. Level of priority, to separete from others components. */
 
 	public:
 		Component(){};

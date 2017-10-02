@@ -32,22 +32,26 @@ namespace engine {
         } AudioType;
 
         private:
-            std::string audio_path;
-            AudioType m_audio_type;
-            int audio_repeat = 0;
-            int audio_chanel;
-            bool playing = false;
-            int volume = 50;
+            std::string audio_path; /**< String. path to folder where the audio is. */
+            AudioType m_audio_type; /**< Object AudioType. type of audio, it can be effect or music. */
+            int audio_repeat = 0; /**< Integer. Store the number of repetitions of a song. */
+            int audio_chanel; /**< Integer. Store witch chanel the audio will be played. */
+            bool playing = false; /**< Boolean. Store the current status of the song. */
+            int volume = 50; /**< Integer. Store the volume, it goes to one scale of 0 to 100. */
 
-            Time * timer;
-            float time=0;
-            float aux_time=0;
-            float effect_duration=0;
+            Time * timer; /**< Object Time. Used to cronometer the time of songs. */
+            float time=0; /**< Float. Set current time of component song. */
+            float aux_time=0; /**< Float. Auxiliary time to store que last time when time was reset. */
+            float effect_duration=0; /**< Float. Duration of component song. */
 
-            Mix_Music *audio_music;
-            Mix_Chunk *audio_chunk;
+            Mix_Music *audio_music; /**< Object Mix_Music. SDL object to randle music. 
+                                    It contains functions to play stop and delete musics...
+                                    Music is an audio with long duration. */
+            Mix_Chunk *audio_chunk; /**< Object Mix_Chunk. SDL object to randle sound effects. 
+                                    It contains functions to play stop and delete effects...
+                                    Sound effects is an audio with short duration. */
 
-            int audio_cont = 0;
+            int audio_cont = 0; /**< Integer. Store the numberm of audio the game contains. */
 
         public:
             Audio(
