@@ -70,17 +70,13 @@ Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions) {
  * @return void.
  */
 void Game::init() {
-<<<<<<< HEAD
-=======
     int img_flags = IMG_INIT_PNG; /**< flags for sdl image lib */
->>>>>>> [COMMENTS] Application in game.hpp and cpp
 
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
         /* if the initialization of the video and audio doesn't works properly */
         throw_error("SDL_Init");
     }
-
-    int img_flags = 0;
+    
     img_flags = IMG_INIT_PNG;
 
     if (!(IMG_Init(IMG_INIT_PNG) & img_flags)) {
@@ -89,12 +85,8 @@ void Game::init() {
     }
 
     if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 512 ) < 0 ) {
-<<<<<<< HEAD
-        printf("SDL_mixer could not initialize! SDL_mixer Error:%s\n", Mix_GetError());
-=======
         /* if the mix audio sdl lib is not working properly */
         printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
->>>>>>> [COMMENTS] Application in game.hpp and cpp
     }
 
     if (TTF_Init() == -1) {
@@ -161,10 +153,7 @@ void Game::run() {
     state = RUNNING;
 
     if (is_media_loaded()) {
-<<<<<<< HEAD
-=======
 		/* if the media is already loaded */
->>>>>>> [COMMENTS] Application in game.hpp and cpp
         SDL_Event e;
 
         EventHandler event_handler = EventHandler();
