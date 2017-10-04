@@ -22,28 +22,28 @@ using namespace engine;
  * @return void
  */
 bool Image::load() {
+    free();
 
-	free();
+    SDL_Texture* new_texture = NULL; /**< sdl texture new texture converted */
+    SDL_Surface* loaded_surface = IMG_Load(image_path.c_str()); /**< surface loaded to be converted */
 
-	SDL_Texture* new_texture = nullptr;
+    if (loaded_surface != NULL) {
+        /* if the loaded surface is null (didnt work properly) */
+        new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
 
-	SDL_Surface* loaded_surface = nullptr;
-	loaded_surface = IMG_Load(image_path.c_str());
+        if (new_texture == NULL) {
+			/* if the texture is null */
+            printf("Unable to create texture from %s! SDL Error: %s\n",
+                   image_path.c_str(), SDL_GetError());
+        }
 
-	if (loaded_surface != nullptr) {
-		new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
-
-		if (new_texture == nullptr) {
-			printf("Unable to create texture from %s! SDL Error: %s\n",
-				   image_path.c_str(), SDL_GetError());
-		}
-
-		SDL_FreeSurface(loaded_surface);
-	}
-	else {
-		printf("Unable to load image %s! Image error: %s\n",
-			   image_path.c_str(), IMG_GetError());
-	}
+        SDL_FreeSurface(loaded_surface);
+    }
+    else {
+		/* if the surface loaded properly */
+        printf("Unable to load image %s! Image error: %s\n",
+               image_path.c_str(), IMG_GetError());
+    }
 
 	texture = nullptr;
 	texture = new_texture;
@@ -58,8 +58,9 @@ bool Image::load() {
  * @return void
  */
 void Image::free() {
-	if (texture != nullptr) {
-		SDL_DestroyTexture(texture);
+    if (texture != NULL) {
+		/* if the texture didnt load properly */
+        SDL_DestroyTexture(texture);
 
 		texture = nullptr;
 
@@ -79,15 +80,15 @@ void Image::free() {
  * @return
  */
 void Image::draw(int x, int y) {
-	SDL_Rect ret = {coordinatesOnTexture.first,
-					coordinatesOnTexture.second,
-					dimensionOnTexture.first,
-					dimensionOnTexture.second};
+    SDL_Rect ret = {coordinatesOnTexture.first,
+                    coordinatesOnTexture.second,
+                    dimensionOnTexture.first,
+                    dimensionOnTexture.second}; /**< rectangle holding the images positions and dimensions */
 
-	// This render_quad tells where the image will appear in the screen
-	SDL_Rect render_quad = {x+get_displacement().first,
-							y+get_displacement().second, this->get_width(),
-							this->get_height()};
+    // This render_quad tells where the image will appear in the screen
+    SDL_Rect render_quad = {x+get_displacement().first,
+                            y+get_displacement().second, this->get_width(),
+                            this->get_height()}; /**< on screen rendering rectangle */
 
 	SDL_RenderCopy(renderer, texture, &ret, &render_quad);
 }
