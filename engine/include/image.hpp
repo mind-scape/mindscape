@@ -24,14 +24,14 @@ namespace engine {
 
     class Image : public Component {
     public:
-        SDL_Texture* texture;
-        SDL_Renderer* renderer;
+        SDL_Texture* texture; /**< texture from type SDL_Texture */
+        SDL_Renderer* renderer; /**< renderer  from type SDL_Renderer */
 
-        std::string image_path;
+        std::string image_path; /**< path of the image */
 
-        std::pair<int, int> dimension_on_screen;
-        std::pair<int, int> dimensionOnTexture;
-        std::pair<int, int> coordinatesOnTexture;
+        std::pair<int, int> dimension_on_screen; /**< pair of x and y on screen dimensions */
+        std::pair<int, int> dimensionOnTexture; /**< pair of dimensions on the texture */
+        std::pair<int, int> coordinatesOnTexture; /**< coordinates on the texture */
 
         Image(SDL_Renderer* p_renderer, std::string path, bool is_active,
               std::pair<int, int> displacement, int priority

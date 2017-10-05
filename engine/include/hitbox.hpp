@@ -28,10 +28,10 @@ namespace engine {
      */
     class Hitbox : public Component {
         private:
-            SDL_Rect hitbox;
-            bool draw_hitbox;
-            SDL_Texture* texture;
-            SDL_Renderer* renderer;
+            SDL_Rect hitbox; /**< SDL_Rect. A rectangle hitbox. */
+            bool draw_hitbox; /**< bool. If the hitbox is drawn. */
+            SDL_Texture* texture; /**< SDL_Texture. A group of pixels. */
+            SDL_Renderer* renderer; /**< SDL_Renderer. Instance of the main SDL_Renderer */
 
         public:
             Hitbox(

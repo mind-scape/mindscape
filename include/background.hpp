@@ -30,13 +30,15 @@ namespace mindscape {
     */
     class Background : public engine::GameObject {
         private:
-            int paralax = 0;
+            int paralax = 0; /**< Integer. Defines the paralax value to create
+                                 visual effect*/
 
         public:
             Background(
-                std::string name,
-                std::pair<int, int> position,
-                int priority
+                std::string name, /**< String. Name of the background file*/
+                std::pair<int, int> position, /**< Pair<int, int>. Position of 
+                                                the background*/
+                int priority /**< Priority of the background .*/
             )
             :engine::GameObject(
                 name, 

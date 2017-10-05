@@ -39,21 +39,20 @@ namespace engine {
     public:
         typedef enum {
             RUNNING, PAUSED, QUIT
-
-        } State;
+        } State; /**< possible game states */
 
     private:
-        static Game* instance;
+        static Game* instance; /**< singleton game instance */
 
-        std::string name;
-        std::pair<int,int> window_dimensions;
-        Color game_background_color = Color(0xAA, 0xAA, 0xAA, 0xAA);
-        State state;
-        SDL_Window* window;
-        SDL_Renderer* renderer;
-        Scene* actual_scene;
+        std::string name; /**< name of the game */
+        std::pair<int,int> window_dimensions; /**< pair of x and y window dimensions */
+        Color game_background_color = Color(0xAA, 0xAA, 0xAA, 0xAA); /**< color of the game background */
+        State state; /**< state of the game of type State */
+        SDL_Window* window; /**< instance of main SDL_Window */
+        SDL_Renderer* renderer; /**< instance of the main SDL_Renderer */
+        Scene* actual_scene; /**< actual scene being displayed on the game */
 
-        bool loaded_media = false;
+        bool loaded_media = false; /**< if the media of the game is loaded */
 
         Game() {};
 

@@ -27,16 +27,16 @@ namespace mindscape {
 	class MusicPlayer : public engine::GameObject {
 	private:
 		int cont = 0;
-		bool test = true;
+		bool test = true; /**< Boolean. Boolean that defines if the test mode is on*/
 
-		engine::Time *timer;
+		engine::Time *timer; /**< engine::Time*. A pointer to a timer*/
 
-		int time = 0;
-		int time_aux = 0;
+		int time = 0; /**< Integer. Integer that keeps track of the time*/
+		int time_aux = 0; /**< Integer. Auxiliar integer to help time tracking*/
 
-		engine::Game *game;
+		engine::Game *game; /**< engine::Game*. Pointer to a game instance*/
 
-		int sub_position_x = 0;
+		int sub_position_x = 0; /**< Integer. X axis position */
 
 	public:
 		/**

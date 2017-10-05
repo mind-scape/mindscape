@@ -22,17 +22,17 @@ using namespace engine;
  * @return void
  */
 bool Image::load() {
-
     free();
 
-    SDL_Texture* new_texture = NULL;
-
-    SDL_Surface* loaded_surface = IMG_Load(image_path.c_str());
+    SDL_Texture* new_texture = NULL; /**< sdl texture new texture converted */
+    SDL_Surface* loaded_surface = IMG_Load(image_path.c_str()); /**< surface loaded to be converted */
 
     if (loaded_surface != NULL) {
+        /* if the loaded surface is null (didnt work properly) */
         new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
 
         if (new_texture == NULL) {
+			/* if the texture is null */
             printf("Unable to create texture from %s! SDL Error: %s\n",
                    image_path.c_str(), SDL_GetError());
         }
@@ -40,12 +40,14 @@ bool Image::load() {
         SDL_FreeSurface(loaded_surface);
     }
     else {
+		/* if the surface loaded properly */
         printf("Unable to load image %s! Image error: %s\n",
                image_path.c_str(), IMG_GetError());
     }
 
-    texture = new_texture;
-    return texture != NULL;
+	texture = nullptr;
+	texture = new_texture;
+	return texture != nullptr;
 }
 
 /**
@@ -57,13 +59,14 @@ bool Image::load() {
  */
 void Image::free() {
     if (texture != NULL) {
+		/* if the texture didnt load properly */
         SDL_DestroyTexture(texture);
 
-        texture = NULL;
+		texture = nullptr;
 
-        dimension_on_screen.first = 0;
-        dimension_on_screen.second = 0;
-    }
+		dimension_on_screen.first = 0;
+		dimension_on_screen.second = 0;
+	}
 }
 
 /**
@@ -80,14 +83,14 @@ void Image::draw(int x, int y) {
     SDL_Rect ret = {coordinatesOnTexture.first,
                     coordinatesOnTexture.second,
                     dimensionOnTexture.first,
-                    dimensionOnTexture.second};
+                    dimensionOnTexture.second}; /**< rectangle holding the images positions and dimensions */
 
     // This render_quad tells where the image will appear in the screen
     SDL_Rect render_quad = {x+get_displacement().first,
                             y+get_displacement().second, this->get_width(),
-                            this->get_height()};
+                            this->get_height()}; /**< on screen rendering rectangle */
 
-    SDL_RenderCopy(renderer, texture, &ret, &render_quad);
+	SDL_RenderCopy(renderer, texture, &ret, &render_quad);
 }
 
 /**
@@ -100,12 +103,12 @@ void Image::draw(int x, int y) {
  * @param _coordinates_on_texture coordinates in axis x,y
  */
 void Image::set_values(std::pair<int, int> _dimension_on_screen,
-                       std::pair<int, int> _dimension_on_texture,
-                       std::pair<int, int> _coordinates_on_texture) {
+					   std::pair<int, int> _dimension_on_texture,
+					   std::pair<int, int> _coordinates_on_texture) {
 
-    dimension_on_screen = _dimension_on_screen;
-    dimensionOnTexture = _dimension_on_texture;
-    coordinatesOnTexture = _coordinates_on_texture;
+	dimension_on_screen = _dimension_on_screen;
+	dimensionOnTexture = _dimension_on_texture;
+	coordinatesOnTexture = _coordinates_on_texture;
 }
 
 /**
@@ -114,7 +117,7 @@ void Image::set_values(std::pair<int, int> _dimension_on_screen,
  * @return width dimension
  */
 int Image::get_width() {
-    return dimension_on_screen.first;
+	return dimension_on_screen.first;
 }
 
 /**
@@ -123,6 +126,6 @@ int Image::get_width() {
  * @return the height dimension
  */
 int Image::get_height() {
-    return dimension_on_screen.second;
+	return dimension_on_screen.second;
 
 }

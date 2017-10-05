@@ -22,10 +22,13 @@ void Background::on_event(GameEvent game_event){
     std::string event_name = game_event.game_event_name;
 
     if (event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level) {
-        set_position_x(get_position_x() + paralax);
+    /* When character is moving left */
+        set_position_x(get_position_x() + paralax); /* Moves background x coordinate to the right */
     }
+
     else if (event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level) {
-        set_position_x(get_position_x() - paralax);
+    /* When character is moving right */
+        set_position_x(get_position_x() - paralax); /* Moves background x coordinate to the left */
     }
 }
 /**
@@ -38,10 +41,12 @@ void Background::on_event(GameEvent game_event){
 */
 void Background::set_paralax(int p_paralax) {
     if (p_paralax > 10 || p_paralax < 0) {
-        paralax = 10;
+    /* If paralax is out of valid range */
+        paralax = 10; /* Sets paralax to a valid value */
     }
+    
     else {
-        paralax = p_paralax;
+        paralax = p_paralax; /* Sets paralax to the given parameter */
     }
 }
 

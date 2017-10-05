@@ -63,7 +63,8 @@ void Clown::initialize_audio_effects() {
  * @return void
  */
 void Clown::initialize_animations() {
-	engine::Animation *idle_animation = create_animation(
+	engine::Animation *idle_animation = nullptr;
+	idle_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_idle.png",
 			1, 15, 3.0, "LEFT"
 	);
@@ -73,8 +74,10 @@ void Clown::initialize_animations() {
 			std::make_pair(448, 448),
 			std::make_pair(0, 0)
 	);
+	add_animation("idle_animation", idle_animation);
 
-	engine::Animation *on_attack_animation = create_animation(
+	engine::Animation *on_attack_animation = nullptr;
+	on_attack_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_on_attack.png",
 			1, 4, 0.4, "LEFT"
 	);
@@ -84,10 +87,11 @@ void Clown::initialize_animations() {
 			std::make_pair(448, 448),
 			std::make_pair(0, 0)
 	);
-
 	on_attack_animation->in_loop = false;
+	add_animation("on_attack_animation", on_attack_animation);
 
-	engine::Animation *dying_animation = create_animation(
+	engine::Animation *dying_animation = nullptr;
+	dying_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_dying.png",
 			1, 5, 0.9, "LEFT"
 	);
@@ -97,12 +101,12 @@ void Clown::initialize_animations() {
 			std::make_pair(448, 448),
 			std::make_pair(0, 0)
 	);
-
 	dying_animation->in_loop = false;
-
 	dying_animation->is_a_final_animation = true;
+	add_animation("dying_animation", dying_animation);
 
-	engine::Animation *attacking_animation = create_animation(
+	engine::Animation *attacking_animation = nullptr;
+	attacking_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_attacking.png",
 			1, 6, 1.5, "LEFT"
 	);
@@ -112,8 +116,10 @@ void Clown::initialize_animations() {
 			std::make_pair(448, 448),
 			std::make_pair(0, 0)
 	);
+	add_animation("attacking_animation", attacking_animation);
 
-	engine::Animation *idle_vulnerable_animation = create_animation(
+	engine::Animation *idle_vulnerable_animation = nullptr;
+	idle_vulnerable_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_vulnerable_idle.png",
 			1, 15, 3.0, "LEFT"
 	);
@@ -123,11 +129,6 @@ void Clown::initialize_animations() {
 			std::make_pair(448, 448),
 			std::make_pair(0, 0)
 	);
-
-	add_animation("idle_animation", idle_animation);
-	add_animation("on_attack_animation", on_attack_animation);
-	add_animation("dying_animation", dying_animation);
-	add_animation("attacking_animation", attacking_animation);
 	add_animation("idle_vulnerable_animation", idle_vulnerable_animation);
 
 	idle_animation->activate();
@@ -156,7 +157,8 @@ engine::Animation *Clown::create_animation(
 		std::string direction) {
 	engine::Game &game = engine::Game::get_instance();
 
-	engine::Animation *animation = new engine::Animation(
+	engine::Animation *animation = nullptr;
+	animation = new engine::Animation(
 			game.get_renderer(),
 			path,                 // image path
 			false,                // is_active
@@ -186,7 +188,8 @@ engine::Animation *Clown::create_animation(
  * @return void
  */
 void Clown::initialize_as_physicable() {
-	engine::Physics *physics = engine::Physics::get_instance();
+	engine::Physics *physics = nullptr;
+	physics = engine::Physics::get_instance();
 	physics->add_physicable(this);
 	collidable = true;
 }
@@ -203,32 +206,35 @@ void Clown::initialize_as_physicable() {
 void Clown::initialize_hitboxes() {
 	engine::Game &game = engine::Game::get_instance();
 
-	engine::Hitbox *foot_hitbox = new engine::Hitbox(
+	engine::Hitbox *foot_hitbox = nullptr;
+	foot_hitbox = new engine::Hitbox(
 			"foot_hitbox",
 			this->get_position(),
 			std::make_pair(160, 380),
 			std::make_pair(180, 20),
 			game.get_renderer()
 	);
+	add_component(foot_hitbox);
 
-	engine::Hitbox *attack_hitbox = new engine::Hitbox(
+	engine::Hitbox *attack_hitbox = nullptr;
+	attack_hitbox = new engine::Hitbox(
 			"attack_hitbox",
 			this->get_position(),
 			std::make_pair(120, 170),
 			std::make_pair(100, 25),
 			game.get_renderer()
 	);
+	add_component(attack_hitbox);
 
-	engine::Hitbox *head_hitbox = new engine::Hitbox(
+
+	engine::Hitbox *head_hitbox = nullptr;
+	head_hitbox = new engine::Hitbox(
 			"head_hitbox",
 			this->get_position(),
 			std::make_pair(120, 90),
 			std::make_pair(110, 110),
 			game.get_renderer()
 	);
-
-	add_component(foot_hitbox);
-	add_component(attack_hitbox);
 	add_component(head_hitbox);
 }
 
@@ -275,7 +281,8 @@ void Clown::on_event(GameEvent game_event) {
  *
  */
 void Clown::notify(engine::Observable *game_object) {
-	LittleGirl *little_girl = dynamic_cast<LittleGirl *>(game_object);
+	LittleGirl *little_girl = nullptr;
+	little_girl = dynamic_cast<LittleGirl *>(game_object);
 
 	if (little_girl) {
 		attack(little_girl);
@@ -320,9 +327,12 @@ void Clown::attack(engine::GameObject *little_girl) {
 		}
 	}
 
-	int clown_position = get_position_x();
-	int little_girl_position = little_girl->get_position_x();
-	int distance_from_girl = clown_position - little_girl_position;
+	int clown_position = 0;
+	clown_position = get_position_x();
+	int little_girl_position = 0;
+	little_girl_position = little_girl->get_position_x();
+	int distance_from_girl = 0;
+	distance_from_girl = clown_position - little_girl_position;
 
 	if (distance_from_girl < 650) {
 		attack_animation_trigger += 1;
@@ -358,7 +368,8 @@ void Clown::attack(engine::GameObject *little_girl) {
 void Clown::basic_attack() {
 	clown_goops.clear();
 
-	engine::GameObject *goop = new Goop("goop", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
+	engine::GameObject *goop = nullptr;
+	goop = new Goop("goop", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop);
 
@@ -380,7 +391,8 @@ void Clown::basic_attack() {
 void Clown::double_attack() {
 	clown_goops.clear();
 
-	engine::GameObject *goop_5 = new Goop("goop_5", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
+	engine::GameObject *goop_5 = nullptr;
+	goop_5 = new Goop("goop_5", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_5);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_5);
 
@@ -390,7 +402,8 @@ void Clown::double_attack() {
 
 	clown_goops.push_back(goop_5);
 
-	engine::GameObject *goop_6 = new Goop("goop_6", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
+	engine::GameObject *goop_6 = nullptr;
+	goop_6 = new Goop("goop_6", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_6);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_6);
 
@@ -415,32 +428,34 @@ void Clown::serial_attack() {
 		clown_goops.clear();
 	}
 
-	engine::GameObject *goop_1 = new Goop("goop_1", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
+	engine::GameObject *goop_1 = nullptr;
+	goop_1 = new Goop("goop_1", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_1);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_1);
 
 	goop_1->load();
 	goop_1->set_speed_x(-20.0);
 	goop_1->set_speed_y(-8.0);
+	clown_goops.push_back(goop_1);
 
-	engine::GameObject *goop_2 = new Goop("goop_2", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
+	engine::GameObject *goop_2 = nullptr;
+	goop_2 = new Goop("goop_2", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_2);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_2);
 
 	goop_2->load();
 	goop_2->set_speed_x(-20.0);
 	goop_2->set_speed_y(-20.0);
+	clown_goops.push_back(goop_2);
 
-	engine::GameObject *goop_3 = new Goop("goop_3", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
+	engine::GameObject *goop_3 = nullptr;
+	goop_3 = new Goop("goop_3", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_3);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_3);
 
 	goop_3->load();
 	goop_3->set_speed_x(-20.0);
 	goop_3->set_speed_y(-25.0);
-
-	clown_goops.push_back(goop_1);
-	clown_goops.push_back(goop_2);
 	clown_goops.push_back(goop_3);
 }
 
@@ -472,7 +487,8 @@ void Clown::on_attack(engine::GameObject *game_object) {
  * @return the goop's game object
  */
 engine::GameObject *Clown::create_goop() {
-	engine::GameObject *goop = new Goop("goop", std::make_pair(885, 420), 60);
+	engine::GameObject *goop = nullptr;
+	goop = new Goop("goop", std::make_pair(885, 420), 60);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop);
 
@@ -492,14 +508,16 @@ engine::GameObject *Clown::create_goop() {
  * @return void
  */
 void Clown::die(engine::GameObject *game_object) {
-	std::string actual_x_state = get_state("X_STATE");
+	std::string actual_x_state = "";
+	actual_x_state = get_state("X_STATE");
 
 	states.set_state("ACTION_STATE", "DYING");
 
 	set_actual_animation(animations["dying_animation"]);
 	//play_song("hit_me");
 
-	LevelFactory *level_factory = new LevelFactory();
+	LevelFactory *level_factory = nullptr;
+	level_factory = new LevelFactory();
 	engine::Game *game = &(engine::Game::get_instance());
 
 	level_factory->update_level(
@@ -522,12 +540,17 @@ void Clown::die(engine::GameObject *game_object) {
  * @return void
  */
 void Clown::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox, engine::Hitbox *p_other_hitbox) {
-	Platform *platform = dynamic_cast<Platform *>(other);
-	LittleGirl *little_girl = dynamic_cast<LittleGirl *>(other);
-	Goop *goop = dynamic_cast<Goop *>(other);
+	Platform *platform = nullptr;
+	platform = dynamic_cast<Platform *>(other);
+    LittleGirl *little_girl = nullptr;
+	little_girl = dynamic_cast<LittleGirl *>(other);
+	Goop *goop = nullptr;
+	goop = dynamic_cast<Goop *>(other);
 
-	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-	engine::Hitbox *other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+	engine::Hitbox *my_hitbox = nullptr;
+	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = nullptr;
+	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
 	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "foot_hitbox") {
 		set_speed_y(0.0);

@@ -61,7 +61,8 @@ void Uncle::initialize_audio_effects() {
  */
 
 void Uncle::initialize_animations() {
-  	engine::Animation* idle_animation = create_animation(
+  	engine::Animation* idle_animation = nullptr;
+    idle_animation = create_animation(
       	"../assets/images/sprites/enemies/uncle/uncle_idle.png",
       	1, 4, 3.0, "LEFT"
     );
@@ -72,7 +73,8 @@ void Uncle::initialize_animations() {
       	std::make_pair(0, 0)
     );
   
-  	engine::Animation* attacking_animation = create_animation(
+  	engine::Animation* attacking_animation = nullptr; 
+    attacking_animation = create_animation(
      	"../assets/images/sprites/enemies/uncle/uncle_attacking.png",
       	1, 1, 3.0, "LEFT"
     );
@@ -112,7 +114,9 @@ engine::Animation* Uncle::create_animation(
   	std::string direction) {
 
   	engine::Game& game = engine::Game::get_instance();
-  	engine::Animation* animation = new engine::Animation(
+  	
+    engine::Animation* animation = nullptr;
+    animation = new engine::Animation(
     	game.get_renderer(),
     	path,
     	false,
@@ -144,7 +148,9 @@ engine::Animation* Uncle::create_animation(
 
 void Uncle::initialize_hitboxes() {
   	engine::Game& game = engine::Game::get_instance();
-  	engine::Hitbox* head_hitbox = new engine::Hitbox(
+  	
+    engine::Hitbox* head_hitbox = nullptr;
+    head_hitbox = new engine::Hitbox(
     	"head_hitbox",
     	this->get_position(),
     	std::make_pair(160, 380),
@@ -177,7 +183,8 @@ void Uncle::initialize_state_map() {
  */
 
 void Uncle::on_event(GameEvent game_event) {
-  	std::string event_name = game_event.game_event_name;
+  	std::string event_name = "";
+    event_name = game_event.game_event_name;
 
   	if (event_name == "MOVE_LEFT" 
   		&& !engine::GameObject::on_limit_of_level) {
@@ -202,8 +209,10 @@ void Uncle::on_event(GameEvent game_event) {
  */
 
 void Uncle::notify(engine::Observable *game_object) {
-  	LittleGirl* little_girl = dynamic_cast<LittleGirl *>(game_object);
-  	if (little_girl) {
+  	LittleGirl* little_girl = nullptr;
+    little_girl = dynamic_cast<LittleGirl *>(game_object);
+  	
+    if (little_girl) {
     	attack(little_girl);
   	}
 }
@@ -219,7 +228,8 @@ void Uncle::notify(engine::Observable *game_object) {
  */
 
 void Uncle::attack(engine::GameObject* little_girl) {
-  	std::string actual_action_state = get_state("ACTION_STATE");
+  	std::string actual_action_state = "";
+    actual_action_state = get_state("ACTION_STATE");
 
   	if (actual_action_state == "DYING") {
   		return;
@@ -278,8 +288,10 @@ void Uncle::on_attack(engine::GameObject *game_object) {
  */
 
 void Uncle::die(engine::GameObject *game_object) {
-  	std::string actual_x_state = get_state("X_STATE");
-  	states.set_state("ACTION_STATE", "DYING");
+  	std::string actual_x_state = ""; 
+    actual_x_state = get_state("X_STATE");
+  	
+    states.set_state("ACTION_STATE", "DYING");
   	set_actual_animation(animations["dying_animation"]);
   	//play_song("hit_me");
 }
@@ -300,14 +312,14 @@ void Uncle::on_collision(
 	engine::Hitbox* p_my_hitbox, 
 	engine::Hitbox* p_other_hitbox) {
   
-  	LittleGirl* little_girl =
-  	 	dynamic_cast<LittleGirl *>(other);
+  	LittleGirl* little_girl = nullptr;
+    little_girl = dynamic_cast<LittleGirl *>(other);
   	
-  	engine::Hitbox* my_hitbox = 
-  		dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+  	engine::Hitbox* my_hitbox = nullptr;
+    my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
 
-  	engine::Hitbox* other_hitbox = 
-  		dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+  	engine::Hitbox* other_hitbox = nullptr;
+    other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
   	if (little_girl 
   		&& little_girl->get_state("ACTION_STATE") == "ATTACKING" 

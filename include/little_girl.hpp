@@ -34,13 +34,24 @@ namespace mindscape {
 	private:
 		static LittleGirl *instance;
 		
-		int running_right_animation_count = 0;
-		int running_left_animation_count = 0;
+		int running_right_animation_count = 0; /**< Integer. Variable to
+		save number of running animations while the Little Girl is looking 
+		right */
+
+		int running_left_animation_count = 0; /**< Integer. Variable to
+		save number of running animations while the Little Girl is looking 
+		left */
 		
-		int jumping_animation_count = 0;
+		int jumping_animation_count = 0; /**< Integer. Variable to
+		save number of jumping animations while the Little Girl is jumping */
 		
-		int attacking_right_animation = 0;
-		int attacking_left_animation = 0;
+		int attacking_right_animation = 0; /**< Integer. Variable to
+		save number of attacking animations while the Little Girl is looking 
+		right */
+
+		int attacking_left_animation = 0; /**< Integer. Variable to
+		save number of attacking animations while the Little Girl is looking 
+		left */
 		
 		void initialize_state_map();
 		void initialize_hitboxes();
