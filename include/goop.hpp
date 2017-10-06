@@ -1,7 +1,7 @@
-/** 
+/**
  * @file goop.hpp
  * @brief Purpose: Contains methods to game class' management.
- * 
+ *
  * MIT License
  * Copyright (c) 2017 MindScape
  *
@@ -25,27 +25,27 @@
 #include <string>
 
 namespace mindscape {
-    
-    /** 
+
+    /**
      * @brief A Goop class.
-     * 
-     * The class Goop has attributes and methods for the goop of the Clow 
+     *
+     * The class Goop has attributes and methods for the goop of the Clow
      * character.
-     */ 
+     */
     class Goop : public Enemy {
         private:
 
-            void initialize_state_map();
-            void initialize_hitboxes();
-            void initialize_animations();
-            void initialize_as_physicable();
+            void initialize_state_map(); /**< void. Goop's state in game's map */
+            void initialize_hitboxes(); /**< void. Initalizes hitbox as goop */
+            void initialize_animations(); /**< void. Initializes goop animations */
+            void initialize_as_physicable(); /**< void. Initializes goop physics */
             engine::Animation *create_animation(
                 std::string path,
                 int sprite_lines,
                 int sprite_columns,
                 double duration,
                 std::string direction
-            );
+            ); /**< Animation. Creates goop animation) */
 
         public:
             Goop(
