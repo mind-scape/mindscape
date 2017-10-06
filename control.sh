@@ -78,7 +78,7 @@ do_build() {
 
 # Enter build and run Cmake
   echo "Running cmake"
-  cd build && cmake ..
+  cd build && cmake .. || exit 1
   cd ..
 }
 
@@ -86,7 +86,7 @@ do_make() {
 # Remove existing bin directory
   echo "Removing build dir"
   rm -rf bin
-  
+
 # Creating build directory
   echo "Creating build file"
   mkdir bin
@@ -94,12 +94,12 @@ do_make() {
 # Running make
   echo "Running make command"
   cd build
-  make
+  make || exit 1
 
 # Move binary files to bin folder
   echo "Moving binary files to bin directory"
   mv mindscape ../bin/
-  
+
   cd ..
 }
 
@@ -168,7 +168,7 @@ generate_debian_package() {
 generate_redhat_package(){
   echo "Generating rpm package for TAG: $TAG"
   echo
-  
+
   do_archive
   cd rpm/
   ./packager.sh
