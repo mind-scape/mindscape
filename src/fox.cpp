@@ -496,7 +496,7 @@ void Fox::update_state() {
 
     if(get_speed_x() == 0.0 && get_speed_y() == 0.0) {
     
-        std::string actual_x_state = NULL;
+        std::string actual_x_state = "";
         actual_x_state = get_state("X_STATE");
 
         if(actual_x_state == "LOOKING_RIGHT") {
