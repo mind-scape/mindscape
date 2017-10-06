@@ -43,7 +43,9 @@ namespace mindscape {
             void on_attack(engine::GameObject *);
             void attack();
             void die(engine::GameObject*);
-            bool same_nivel = false;
+
+            bool same_nivel = false; /**< Boolean. Check if the girl and the scorpion is on the same nivel. */
+
             engine::Animation *create_animation(
                 std::string path,
                 int sprite_lines,
@@ -54,9 +56,9 @@ namespace mindscape {
 
         public:
             Scorpion(
-                std::string name,
-                std::pair<int, int> position,
-                int priority
+                std::string name, /**< String. Scorpion's name. */
+                std::pair<int, int> position, /**< Pair<int, int>. Scorpion's position, using coordinates schema. */
+                int priority /**< Integer. Priority of enemy. */
             );
             ~Scorpion(){};
 
