@@ -33,13 +33,21 @@ namespace mindscape {
     class DarkGirl : public engine::GameObject, public mindscape::Fighter {
     private:
         static DarkGirl* instance;
-        //[FIXME] should be a map or deleted
-        const int INITIALIZE_AS_ZERO = 0;
-        int running_right_animation_count = INITIALIZE_AS_ZERO;
-        int running_left_animation_count = INITIALIZE_AS_ZERO;
-        int jumping_animation_count = INITIALIZE_AS_ZERO;
-        int attacking_right_animation = INITIALIZE_AS_ZERO;
-        int attacking_left_animation = INITIALIZE_AS_ZERO;
+
+        int running_right_animation_count = 0; /**< Interger. Variable to save
+        * number of running animations while the Dark Girl is looking right */
+
+        int running_left_animation_count = 0;/**< Interger. Variable to save
+        * number of running animations while the Dark Girl is looking left */
+
+        int jumping_animation_count = 0;/**< Interger. Variable to save
+        * number of jumping  animations while the Dark Girl is jumping*/
+
+        int attacking_right_animation = 0;/**< Interger. Variable to save
+        * number of attacking animations while the Dark Girl is looking right */
+
+        int attacking_left_animation = 0;/**< Interger. Variable to save
+        * number of attacking animations while the Dark Girl is looking left */
 
         void initialize_state_map();
         void initialize_hitboxes();
