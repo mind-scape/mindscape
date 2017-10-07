@@ -28,10 +28,10 @@ namespace mindscape {
     /**
      * @brief Scorpion enemy class.
      *
-     * This class is responsible to build all Scorpion's structure, inheriting of
-     * Enemy classes.
+     * This class is responsible to build all Scorpion's structure, inheriting
+     * of Enemy classes.
      */
-    
+
     class Scorpion : public Enemy {
         private:
 
@@ -44,7 +44,8 @@ namespace mindscape {
             void attack();
             void die(engine::GameObject*);
 
-            bool same_nivel = false; /**< Boolean. Check if the girl and the scorpion is on the same nivel. */
+            bool same_nivel = false; /**< Boolean.
+            Check if the girl and the scorpion is on the same nivel. */
 
             engine::Animation *create_animation(
                 std::string path,
@@ -57,7 +58,9 @@ namespace mindscape {
         public:
             Scorpion(
                 std::string name, /**< String. Scorpion's name. */
-                std::pair<int, int> position, /**< Pair<int, int>. Scorpion's position, using coordinates schema. */
+                std::pair<int, int> position, /**< Pair<Integer, Integer>.
+                Pair structure that define Scorpion's position,
+                using coordinates schema. */
                 int priority /**< Integer. Priority of enemy. */
             );
             ~Scorpion(){};
@@ -65,8 +68,8 @@ namespace mindscape {
             void move(engine::GameObject *);
             void on_event(GameEvent);
             void on_collision(
-                engine::GameObject*, 
-                engine::Hitbox*, 
+                engine::GameObject*,
+                engine::Hitbox*,
                 engine::Hitbox*
             );
             void notify(engine::Observable *);
