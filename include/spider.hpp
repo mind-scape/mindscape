@@ -30,14 +30,21 @@ namespace mindscape {
      * This class is responsible to build all Spider's structure, inheriting of
      * Enemy classes.
      */
-  
+
     class Spider : public Enemy {
         private:
-            int walking_left_count = 0;
-            int walking_right_count = 0;
-            int attacking_right_count = 0;
-            int attacking_left_count = 0;
-            bool same_nivel = false;
+            int walking_left_count = 0; /**< Integer.
+            Integer counter to walking left action. */
+            int walking_right_count = 0; /**< Integer.
+            Integer counter to walking right action. */
+            int attacking_right_count = 0; /**< Integer.
+            Integer counter to attacking right action. */
+            int attacking_left_count = 0; /**< Integer.
+            Integer counter to attacking left action. */
+
+            bool same_nivel = false; /**< Boolean.
+            Check if the girl and the scorpion is on the same nivel. */
+
             void initialize_state_map();
             void initialize_hitboxes();
             void initialize_animations();
@@ -46,7 +53,7 @@ namespace mindscape {
             void attack();
             void on_attack(engine::GameObject *);
             void die(engine::GameObject*);
-      
+
             engine::Animation *create_animation(
                 std::string path,
                 int sprite_lines,
@@ -67,8 +74,8 @@ namespace mindscape {
             void move(engine::GameObject *);
             void on_event(GameEvent);
             void on_collision(
-                engine::GameObject*, 
-                engine::Hitbox*, 
+                engine::GameObject*,
+                engine::Hitbox*,
                 engine::Hitbox*
             );
             void notify(engine::Observable *);
