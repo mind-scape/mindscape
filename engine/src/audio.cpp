@@ -12,6 +12,7 @@
 #include "game.hpp"
 #include <string>
 #include <iostream>
+#include "../include/log.hpp"
 
 using namespace engine;
 
@@ -47,11 +48,12 @@ bool Audio::load() {
 
         if (!audio_music) {
         /* Verifys if music is not an null object */ 
-            printf("\nAudio error %s\n", Mix_GetError());
+            ERROR(("Audio error %s", Mix_GetError()));
             exit(1);
 
             return false;
         }
+        DEBUG("Music successfully loaded");
     }
     
     else if (m_audio_type == CHUNK) {
@@ -59,18 +61,19 @@ bool Audio::load() {
         audio_chunk = Mix_LoadWAV(audio_path.c_str());
 
         if (!audio_chunk) {
-        /* Verifys if chuck is not an null object */ 
-            printf("\nAudio error %s\n", Mix_GetError());
+        /* Verifys if chuck is not an null object */
+            ERROR(("Audio error %s", Mix_GetError()));
             exit(1);
 
             return false;
         }
+        DEBUG("Chunk successfully loaded");
     }
 
     else {
     /* In case of there is no audio type called MUSIC or CHUCK it will be dispared and hadle the error */ 
-        printf("\nError loading the audio in this path: %s\n",
-                audio_path.c_str());
+        ERROR(("Error loading the audio in this path: %s",
+        audio_path.c_str()));
 
         return false;
     }
@@ -159,11 +162,13 @@ void Audio::play_music_type() {
         if (Mix_PlayingMusic() == 0) {
         /* Verification to know if will play or resume music */ 
             Mix_PlayMusic(audio_music, 0 );
+            DEBUG("Music is being played");
         }
 
         if (Mix_PlayingMusic() == 1) {
         /* Verification to know if will play or resume music */
             Mix_ResumeMusic();
+            DEBUG("Music is being resumed");
         }
     }
 }
@@ -179,6 +184,7 @@ void Audio::pause_music() {
     if (m_audio_type == MUSIC && Mix_PlayingMusic()) {
     /* Case is a music and is playing it, it can be paused here */ 
         Mix_PauseMusic();
+        DEBUG("Music is being paused");
     }
 }
 
@@ -209,6 +215,7 @@ void Audio::set_repetitions(int repeat) {
 void Audio::set_duration(float duration) {
     effect_duration = 0;
     effect_duration = duration * 1000;
+    DEBUG(("Function: %s - effect_duration: %f", __func__, effect_duration));
 }
 
 /**
@@ -222,6 +229,7 @@ void Audio::stop_effect() {
     if (audio_chunk != NULL) {
     /* Validates if chuck is not a null object */
         Mix_VolumeChunk(audio_chunk, 0);
+        DEBUG("Audio effect stopped");
     }
 }
 
@@ -238,10 +246,11 @@ void Audio::set_effect_volume(int _volume) {
     if (_volume > -1 && volume < 129) {
     /* Limits volume to be in a rate of 0 to 128 */
         volume = _volume;
+        DEBUG(("Sound effect volume set to %d", _volume));
     }
 
     else {
-        printf("\nThe volume must be between 0 and 128");
+        ERROR("The volume must be between 0 and 128");
     }
 }
 
@@ -259,10 +268,11 @@ void Audio::set_music_volume(int _volume) {
         if (_volume > -1 && volume < 129) {
         /* Limits volume to be in a rate of 0 to 128 */    
             Mix_VolumeMusic(_volume);
+            DEBUG(("Music volume set to %d", _volume));
         }
 
         else {
-            printf("\nThe volume must be between 0 and 128");
+            ERROR("The volume must be between 0 and 128");
         }
     }
 }
