@@ -8,6 +8,9 @@
 #include <iostream>
 #include <cstdlib>
 
+
+
+
 /* In the release version define NDEBUG macro */
 // #define NDEBUG  // Clears out the DEBUG macro
 // #define NWARN   // Clears out the WARN macro
@@ -59,19 +62,22 @@
  * effect.
  */
 
-#ifndef DEBUG
-    #ifndef NDEBUG
-    #   define DEBUG(...) \
-            std::cerr << "[DEBUG] " << __VA_ARGS__ << std::endl;
-    #else
-    #   define DEBUG(...)
-    #endif
+#ifndef NDEBUG
+#   define DEBUG(...)                                                         \
+        if(true) {                                                       \
+            std::cout << "[DEBUG] " << "File: " << __FILE__ << " Line: "      \
+            << __LINE__                                                       \
+            << " Function: " << __func__ << " " << __VA_ARGS__ << std::endl;  \
+        }                                                                     
+#else
+#   define DEBUG(...)
 #endif
+
 
 /**
  * ASSERT macro tests a condition and if it returns false, stops the program
  *    and prints a message
- * Source:
+ * Source:  
  *   http://stackoverflow.com/questions/3767869/adding-message-to-assert
  **/
 
