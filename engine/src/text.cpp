@@ -9,6 +9,7 @@
  */
 
 #include "../include/text.hpp"
+#include "../include/log.hpp"
 
 using namespace engine;
 
@@ -49,18 +50,19 @@ bool Text::load() {
 	}
 	
 	if (surface == NULL) {
-		printf("\nThe text surface cannot be NULL\n");
+		ERROR("The text surface cannot be NULL");
 		return false;
 	}
 	
 	texture = SDL_CreateTextureFromSurface(renderer, surface);
 	
 	if (!texture) {
-		printf("\nError in the text_texture :%s\n", SDL_GetError());
+		ERROR(("\nError in the text_texture :%s\n", SDL_GetError()));
+
 	}
 	
 	if (texture == NULL) {
-		printf("\n The text_texture cannot be NULL\n");
+		ERROR("The text_texture cannot be NULL");
 		return false;
 	}
 	
@@ -81,6 +83,7 @@ bool Text::load() {
  * @return void
  */
 void Text::free() {
+	DEBUG("Freeing text");
 	SDL_DestroyTexture(texture);
 	texture = NULL;
 	
@@ -97,6 +100,7 @@ void Text::free() {
  * @param y Y position for the text
  */
 void Text::draw(int x, int y) {
+	DEBUG("Drawing text");
 	SDL_Rect renderQuad = {x + get_displacement().first,
 						   y + get_displacement().second,
 						   weigth,
