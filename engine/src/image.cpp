@@ -11,6 +11,7 @@
  */
 #include "image.hpp"
 #include <string>
+#include "log.hpp"
 
 using namespace engine;
 
@@ -22,6 +23,7 @@ using namespace engine;
  * @return void
  */
 bool Image::load() {
+    DEBUG("Loading image");
     free();
 
     SDL_Texture* new_texture = NULL; /**< sdl texture new texture converted */
@@ -30,19 +32,16 @@ bool Image::load() {
     if (loaded_surface != NULL) {
         /* if the loaded surface is null (didnt work properly) */
         new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
-
+    
         if (new_texture == NULL) {
 			/* if the texture is null */
-            printf("Unable to create texture from %s! SDL Error: %s\n",
-                   image_path.c_str(), SDL_GetError());
+            ERROR("Unable to create texture");
         }
-
         SDL_FreeSurface(loaded_surface);
     }
     else {
 		/* if the surface loaded properly */
-        printf("Unable to load image %s! Image error: %s\n",
-               image_path.c_str(), IMG_GetError());
+        ERROR("Unable to load image");
     }
 
 	texture = nullptr;
@@ -58,8 +57,10 @@ bool Image::load() {
  * @return void
  */
 void Image::free() {
+    DEBUG("Trying to free image");
     if (texture != NULL) {
-		/* if the texture didnt load properly */
+        /* if the texture didnt load properly */
+        ERROR("Image could not be freed");
         SDL_DestroyTexture(texture);
 
 		texture = nullptr;
@@ -80,6 +81,7 @@ void Image::free() {
  * @return
  */
 void Image::draw(int x, int y) {
+    DEBUG("Drawing image");
     SDL_Rect ret = {coordinatesOnTexture.first,
                     coordinatesOnTexture.second,
                     dimensionOnTexture.first,
