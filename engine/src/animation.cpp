@@ -9,8 +9,8 @@
  */
 
 #include <cmath>
+#include <include/log.hpp>
 #include "../include/animation.hpp"
-#include "../include/game.hpp"
 
 using namespace engine;
 
@@ -22,19 +22,21 @@ using namespace engine;
  *
  * @return The return is true if the animation was successfully created.
  */
-bool Animation::load(){
-		time_of_sprite =
-		 (int) std::ceil(double(duration_of_animation) / double(total_sprites));
+bool Animation::load() {
+	INFO("Loading animation " + this->get_name());
 
-		aux_time = 0;
-		Image::load();
+	time_of_sprite =
+			(int) std::ceil(double(duration_of_animation) / double(total_sprites));
 
-		if(in_loop) {
+	aux_time = 0;
+	Image::load();
+
+	if(in_loop) {
 		/* In case the game is running */
-			time->init_timer();
-		}
+		time->init_timer();
+	}
 
-		return true;
+	return true;
 }
 
 /**
@@ -44,13 +46,15 @@ bool Animation::load(){
  *
  * @return void.
  */
-void Animation::activate(){
-		Component::activate();
+void Animation::activate() {
+	INFO("Activating " + this->get_name());
 
-		if(!in_loop) {
+	Component::activate();
+
+	if(!in_loop) {
 		/* In case the game is not running */
-			time->init_timer();
-		}
+		time->init_timer();
+	}
 }
 
 /**
@@ -69,42 +73,37 @@ void Animation::draw(int x, int y) {
 	aux_time = time->get_elapsed_time();
 
 	if(playing_duration_of_animation >= duration_of_animation) {
-	/* Animations is running */
+		/* Animations is running */
 		is_finished = true;
 
 		if(in_loop) {
-		/*  Is running animation*/
+			/*  Is running animation*/
 			playing_duration_of_animation =
-			playing_duration_of_animation - duration_of_animation;
-		}
-
-		else {
-		/* Animation has end */
+					playing_duration_of_animation - duration_of_animation;
+		} else {
+			/* Animation has end */
 			if(is_a_final_animation) {
-			/* Final frame of animation */
+				/* Final frame of animation */
 				game_object->deactivate();
-			}
-
-			else {
-			/* Has blocks to run animation */
+			} else {
+				/* Has blocks to run animation */
 				playing_duration_of_animation = duration_of_animation;
 			}
 		}
 	}
 
 	if(time_of_sprite == 0.0) {
-
 		time_of_sprite = 1.0;
 	}
 
 
 	/* Set the animation and sprite bounds and blocks */
 	actual_sprite =
-		(playing_duration_of_animation / time_of_sprite) + first_sprite;
+			(playing_duration_of_animation / time_of_sprite) + first_sprite;
 	actual_line = 0;
 	actual_column = abs(actual_sprite % sprite_columns);
 	coordinatesOnTexture.first =
-		sprites_order[actual_column] * dimensionOnTexture.first;
+			sprites_order[actual_column] * dimensionOnTexture.first;
 	coordinatesOnTexture.second = actual_line * dimensionOnTexture.second;
 
 	/* Show image on screen */
@@ -121,20 +120,20 @@ void Animation::draw(int x, int y) {
  * @return void.
  */
 void Animation::set_sprites_order(int total_sprites, std::string direction) {
+	INFO("Setting sprites order to " + direction + " in " + this->get_name());
+
 	if(direction == "LEFT") {
-	/* Sprite is shown left to right */
+		/* Sprite is shown left to right */
 		int reverse_index = 0;
 		reverse_index = total_sprites - 1;
 
-		for (int i = 0; i < total_sprites; ++i) {
+		for(int i = 0; i < total_sprites; ++i) {
 			sprites_order[i] = reverse_index;
 			reverse_index--;
 		}
-	}
-
-	else if (direction == "RIGHT") {
-	/* Sprite is shown right to left, reversed */
-		for (int j = 0; j < total_sprites; ++j) {
+	} else if(direction == "RIGHT") {
+		/* Sprite is shown right to left, reversed */
+		for(int j = 0; j < total_sprites; ++j) {
 			sprites_order[j] = j;
 		}
 	}
@@ -147,5 +146,6 @@ void Animation::set_sprites_order(int total_sprites, std::string direction) {
  * @return void.
  */
 void Animation::set_game_object(GameObject *obj) {
-		game_object = obj;
+	INFO("Setting " + obj->name + " as owner for " + this->get_name());
+	game_object = obj;
 }
