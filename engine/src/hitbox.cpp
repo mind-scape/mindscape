@@ -11,6 +11,7 @@
 #include <string>
 #include <iostream>
 #include "hitbox.hpp"
+#include <include/log.hpp>
 
 using namespace engine;
 
@@ -30,6 +31,8 @@ std::pair<int, int> Hitbox::get_dimensions() {
  * @return void.
  */
 void Hitbox::set_dimensions(std::pair<int, int> p_dimensions) {
+    INFO("Setting all dimensions of hitboxes!");
+
     /*
      * Is the dimensions of the hitbox. w = width and h = height.
      * All the dimensions are in pixels.
@@ -102,6 +105,7 @@ std::pair<int, int> Hitbox::get_coordinates() {
  * @return returns true if the collision was identify.
  */
 bool Hitbox::collides_with(Hitbox* other_hitbox) {
+    // INFO("Identifies collision with two different hitboxes");
 
     int left_a = 0; /**< int. Coordinate of the hitbox in axis x */
     int right_a = 0; /**< int. Coordinate in axis x and width of the hitbox */
@@ -150,21 +154,29 @@ bool Hitbox::collides_with(Hitbox* other_hitbox) {
              other_hitbox_dimensions.second;
 
     if (bottom_a <= top_b) {
+        // INFO("Collision of bottom_a hitbox with top_b hitbox");
+
         /* If the bottom of the hitbox a collides with the top of hitbox b */
         return false;
     }
 
     if (top_a >= bottom_b) {
+        // INFO("Collision of top_a hitbox with bottom_b hitbox");
+
         /* If the top of the hitbox a collides with the bottom of hitbox b */
         return false;
     }
 
     if (right_a <= left_b) {
+        // INFO("Collision of right_a hitbox with left_b hitbox ");
+
         /* If the right of the hitbox a collides with the left of hitbox b */
         return false;
     }
 
     if (left_a >= right_b) {
+        // INFO("Collision of left_a hitbox with right_b hitbox ");
+
         /* If the left of the hitbox a collides with the right of hitbox b */
         return false;
     }
@@ -180,6 +192,7 @@ bool Hitbox::collides_with(Hitbox* other_hitbox) {
  * @return void.
  */
 void Hitbox::initialize() {
+    INFO("Initializing all hitboxes");
 
     /**<
      * SDL_Surface. Structure that contains a collection of pixels and images of the surface.
@@ -193,21 +206,20 @@ void Hitbox::initialize() {
     if (loaded_surface != NULL) {
         /* if the surface image is loaded  */
 
+        INFO("Surfaces' loaded");
+
         new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
 
         if (new_texture == NULL) {
             /* if the texture is null  */
-
-            printf("Unable to create texture from! SDL Error: %s\n",
-                SDL_GetError());
+            INFO("Unable to create texture from! SDL Error: SDL_GetError()");
         }
 
         SDL_FreeSurface(loaded_surface);
     }
     else {
         /* print if the image surface is not loaded  */
-
-        printf("Unable to load image");
+        INFO("Unable to load image");
     }
 
     texture = new_texture;
@@ -219,6 +231,8 @@ void Hitbox::initialize() {
  * @return void.
  */
 void Hitbox::draw() {
+    INFO("Drawing all hitboxes with their dimensions in rectangular format");
+
     SDL_Rect ret = {0, 0, 0, 0};
     ret = {0, 0, hitbox.w, hitbox.h};
 
@@ -239,5 +253,7 @@ void Hitbox::draw() {
  * @return if return true, all of hitboxes will be showed on the screen.
  */
 bool Hitbox::wanna_draw_hitbox() {
+    // INFO("Using a method to help the developer");
+
     return false;
 }
