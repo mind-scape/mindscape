@@ -11,6 +11,7 @@
 #include "../include/uncle.hpp"
 #include "../include/platform.hpp"
 #include "../include/little_girl.hpp"
+#include "../engine/include/log.hpp"
 #include <stdlib.h>
 
 using namespace mindscape;
