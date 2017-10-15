@@ -54,11 +54,18 @@ namespace mindscape {
                 double duration,
                 std::string direction
         );
-        const int INITIALIZE_AS_ZERO = 0;
-        int goops_counter = INITIALIZE_AS_ZERO;
-        int attack_animation_trigger = INITIALIZE_AS_ZERO;
-        int refuted_goop_hits = INITIALIZE_AS_ZERO;
-        int vulnerable_counter = INITIALIZE_AS_ZERO;
+        int goops_counter = 0; /**<Interger. Variable to count the number
+        * the number of goops */
+
+        int attack_animation_trigger = 0 /**<Interger. Variable to
+        * trigger the animation attack */;
+
+        int refuted_goop_hits = 0; /**<Interger. Variable to count the number of
+        * refuted goops */
+
+        int vulnerable_counter = 0; /**<Interger. Variable to set
+        * clown vunerable or not*/
+
         std::vector<engine::GameObject*> clown_goops;
 
     public:

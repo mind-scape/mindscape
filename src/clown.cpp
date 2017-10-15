@@ -37,6 +37,7 @@ Clown::Clown(
 		priority,
 		100
 ) {
+	/* Initializes all the characteristics for the clown */
 	initialize_state_map();
 	initialize_hitboxes();
 	initialize_animations();
@@ -53,6 +54,7 @@ Clown::Clown(
  *
  */
 void Clown::initialize_audio_effects() {
+	/* Empty method to audio effects of the clown */
 }
 
 /**
@@ -63,6 +65,7 @@ void Clown::initialize_audio_effects() {
  * @return void
  */
 void Clown::initialize_animations() {
+	/* Initializes the clown standing animation */
 	engine::Animation *idle_animation = nullptr;
 	idle_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_idle.png",
@@ -76,6 +79,7 @@ void Clown::initialize_animations() {
 	);
 	add_animation("idle_animation", idle_animation);
 
+	/* Initializes the anitmation when the clown is getting a hit */
 	engine::Animation *on_attack_animation = nullptr;
 	on_attack_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_on_attack.png",
@@ -90,6 +94,7 @@ void Clown::initialize_animations() {
 	on_attack_animation->in_loop = false;
 	add_animation("on_attack_animation", on_attack_animation);
 
+	/* Initializes the animation when the clown is dying */
 	engine::Animation *dying_animation = nullptr;
 	dying_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_dying.png",
@@ -105,6 +110,7 @@ void Clown::initialize_animations() {
 	dying_animation->is_a_final_animation = true;
 	add_animation("dying_animation", dying_animation);
 
+	/* Initializes the animation when clown is attacking */
 	engine::Animation *attacking_animation = nullptr;
 	attacking_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_attacking.png",
@@ -118,6 +124,7 @@ void Clown::initialize_animations() {
 	);
 	add_animation("attacking_animation", attacking_animation);
 
+	/* Initializes the animation when the clown if vunerable to get a hit */
 	engine::Animation *idle_vulnerable_animation = nullptr;
 	idle_vulnerable_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_vulnerable_idle.png",
@@ -150,6 +157,7 @@ void Clown::initialize_animations() {
  * @return animation created
  */
 engine::Animation *Clown::create_animation(
+		/* Creates and initializes the object of the clown  */
 		std::string path,
 		int sprite_lines,
 		int sprite_columns,
@@ -188,6 +196,7 @@ engine::Animation *Clown::create_animation(
  * @return void
  */
 void Clown::initialize_as_physicable() {
+	/* Initializes the clown as a physical object */
 	engine::Physics *physics = nullptr;
 	physics = engine::Physics::get_instance();
 	physics->add_physicable(this);
@@ -204,8 +213,10 @@ void Clown::initialize_as_physicable() {
  *
  */
 void Clown::initialize_hitboxes() {
+	/* Get actual state of the game */
 	engine::Game &game = engine::Game::get_instance();
 
+	/* Creates the foot hitbox for the clown */
 	engine::Hitbox *foot_hitbox = nullptr;
 	foot_hitbox = new engine::Hitbox(
 			"foot_hitbox",
@@ -214,8 +225,10 @@ void Clown::initialize_hitboxes() {
 			std::make_pair(180, 20),
 			game.get_renderer()
 	);
+	/* Add component to the game */
 	add_component(foot_hitbox);
 
+	/* Creates the attack hitbox for the clown */
 	engine::Hitbox *attack_hitbox = nullptr;
 	attack_hitbox = new engine::Hitbox(
 			"attack_hitbox",
@@ -224,9 +237,10 @@ void Clown::initialize_hitboxes() {
 			std::make_pair(100, 25),
 			game.get_renderer()
 	);
+	/* Add component to the game */
 	add_component(attack_hitbox);
 
-
+	/* Creates the head hitbox of the clown */
 	engine::Hitbox *head_hitbox = nullptr;
 	head_hitbox = new engine::Hitbox(
 			"head_hitbox",
@@ -235,6 +249,7 @@ void Clown::initialize_hitboxes() {
 			std::make_pair(110, 110),
 			game.get_renderer()
 	);
+	/* Add component to the game */
 	add_component(head_hitbox);
 }
 
@@ -247,6 +262,7 @@ void Clown::initialize_hitboxes() {
  *
  */
 void Clown::initialize_state_map() {
+	/* Set the initial position and state for the clown on the game */
 	states.set_state("ACTION_STATE", "NORMAL");
 }
 
@@ -260,11 +276,18 @@ void Clown::initialize_state_map() {
  * @return void
  */
 void Clown::on_event(GameEvent game_event) {
-	std::string event_name = game_event.game_event_name;
+	/* Gets the name of the game event */
+	std::string event_name = "";
+	event_name = game_event.game_event_name;
 
+	/* If the event name is move left and the hitboxes are int
+	 the limit set the position on the x axis +10 */
 	if (event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level) {
 		set_position_x(get_position_x() + 10);
 	}
+
+		/* If the event name is move right and the hitboxes are int
+		the limit set the position on the x axis -10 */
 	else if (event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level) {
 		set_position_x(get_position_x() - 10);
 	}
@@ -281,9 +304,12 @@ void Clown::on_event(GameEvent game_event) {
  *
  */
 void Clown::notify(engine::Observable *game_object) {
+
+	/* Gets as observable that tells when the little girl is closer  */
 	LittleGirl *little_girl = nullptr;
 	little_girl = dynamic_cast<LittleGirl *>(game_object);
 
+	/* Notify if the little girl exists, to attack her */
 	if (little_girl) {
 		attack(little_girl);
 	}
@@ -298,61 +324,102 @@ void Clown::notify(engine::Observable *game_object) {
  * @return void
  */
 void Clown::attack(engine::GameObject *little_girl) {
-	std::string actual_action_state = get_state("ACTION_STATE");
 
+	/* Gets the actual action state of the clown  */
+	std::string actual_action_state = "";
+	actual_action_state = get_state("ACTION_STATE");
+
+	/* If the action state of the clown is vunerable */
 	if (actual_action_state == "VULNERABLE") {
+		/* if the actual animation of the clown is finished */
 		if (get_actual_animation()->is_finished) {
 			set_actual_animation(animations["idle_vulnerable_animation"]);
 		}
 		vulnerable_counter++;
 
+		/* if the vunerable counter is higher or equal to 600 */
 		if (vulnerable_counter >= 600) {
 			states.set_state("ACTION_STATE", "NORMAL");
 			set_actual_animation(animations["idle_animation"]);
 			vulnerable_counter = 0;
 		}
+
+			/* Else do nothing */
 		else {
 			return;
 		}
 	}
+	/* if the actual action state of the clown is dying */
 	if (actual_action_state == "DYING") { return; }
 
+	/* if the actual action state of the clown is on attack or attacking */
 	if (actual_action_state == "ON_ATTACK" || actual_action_state == "ATTACKING") {
+		/*if the actual animation of the clown is finished */
 		if (get_actual_animation()->is_finished) {
 			states.set_state("ACTION_STATE", "NORMAL");
 			set_actual_animation(animations["idle_animation"]);
 		}
+
+			/* else do nothing */
 		else {
 			return;
 		}
 	}
 
-	int clown_position = 0;
+
+	int clown_position = 0; /**< Interger. Clown position on the x axis */
+
+	/* Gets the position of the clown on the x axis */
 	clown_position = get_position_x();
-	int little_girl_position = 0;
+
+	int little_girl_position = 0; /**<Interger. Little girl
+	* position on the x axis*/
+
+	/*Gets the position of the little girl on the x axis */
 	little_girl_position = little_girl->get_position_x();
-	int distance_from_girl = 0;
+
+	int distance_from_girl = 0; /**< Interger. distance in between
+ 	* the little girl and the clown */
+
+	/* Gets the distance from the little girl */
 	distance_from_girl = clown_position - little_girl_position;
 
+	/* if the distance from girl is lower than 650*/
 	if (distance_from_girl < 650) {
+		/* increment the attack animation trigger +1*/
 		attack_animation_trigger += 1;
 
+		/* if the attack animation trigger is equal to 90*/
 		if (attack_animation_trigger == 90) {
+			/* Set the state of the clown to attacking */
 			states.set_state("ACTION_STATE", "ATTACKING");
+			/* Set the actual animation of the clown to attacking */
 			set_actual_animation(animations["attacking_animation"]);
 
-			int clown_attack_option = rand() % 1000;
 
+			int clown_attack_option = rand() % 1000; /**< Interger. clown attack
+ 			* option to random %1000*/
+
+			/* if the clown attack option is lower than 300*/
 			if (clown_attack_option < 300) {
+				/* Basic attack of the clown */
 				basic_attack();
 			}
+
+				/* else if the clown attack option is higher or
+				* equal to 300 and lower than 700*/
 			else if (clown_attack_option >= 300 && clown_attack_option < 700) {
+				/* Double attack of the clown */
 				double_attack();
 			}
+
+				/* else serial attack */
 			else {
+				/* Serial attack of the clown */
 				serial_attack();
 			}
 
+			/* Attack animation trigger setted to 0  */
 			attack_animation_trigger = 0;
 		}
 	}
@@ -368,7 +435,7 @@ void Clown::attack(engine::GameObject *little_girl) {
 void Clown::basic_attack() {
 	clown_goops.clear();
 
-	engine::GameObject *goop = nullptr;
+	engine::GameObject *goop = nullptr; /** Variable < pointer to goop, attack of the clown*/
 	goop = new Goop("goop", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop);
@@ -377,6 +444,7 @@ void Clown::basic_attack() {
 	goop->set_speed_x(-30.0);
 	goop->set_speed_y(-10);
 
+	/** Push back the object goop */
 	clown_goops.push_back(goop);
 }
 
@@ -391,7 +459,7 @@ void Clown::basic_attack() {
 void Clown::double_attack() {
 	clown_goops.clear();
 
-	engine::GameObject *goop_5 = nullptr;
+	engine::GameObject *goop_5 = nullptr; /** Variable < pointer to goop, attack of the clown*/
 	goop_5 = new Goop("goop_5", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_5);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_5);
@@ -400,9 +468,10 @@ void Clown::double_attack() {
 	goop_5->set_speed_x(-7.0);
 	goop_5->set_speed_y(-10);
 
+	/** Push back the object goop */
 	clown_goops.push_back(goop_5);
 
-	engine::GameObject *goop_6 = nullptr;
+	engine::GameObject *goop_6 = nullptr;/** Variable < pointer to goop, attack of the clown*/
 	goop_6 = new Goop("goop_6", std::make_pair(get_position_x() + 40, get_position_y() + 150), 60);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_6);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_6);
@@ -411,6 +480,7 @@ void Clown::double_attack() {
 	goop_6->set_speed_x(-15.0);
 	goop_6->set_speed_y(-10);
 
+	/** Push back the object goop */
 	clown_goops.push_back(goop_6);
 }
 
@@ -473,6 +543,8 @@ void Clown::on_attack(engine::GameObject *game_object) {
 
 	hit(game_object, 1);
 
+	/* if the object is alive set the actual
+	   animation to on attack animation */
 	if (is_alive()) {
 		set_actual_animation(animations["on_attack_animation"]);
 		//play_song("hit_me");
@@ -487,11 +559,12 @@ void Clown::on_attack(engine::GameObject *game_object) {
  * @return the goop's game object
  */
 engine::GameObject *Clown::create_goop() {
-	engine::GameObject *goop = nullptr;
+	engine::GameObject *goop = nullptr; /** Variable < pointer to goop, attack of the clown*/
 	goop = new Goop("goop", std::make_pair(885, 420), 60);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop);
 
+	/** Load the object goop*/
 	goop->load();
 
 	return goop;
@@ -508,15 +581,18 @@ engine::GameObject *Clown::create_goop() {
  * @return void
  */
 void Clown::die(engine::GameObject *game_object) {
-	std::string actual_x_state = "";
+
+	std::string actual_x_state = ""; /** String <Variable to save the actual state */
 	actual_x_state = get_state("X_STATE");
 
+	/* Set the actual state for dying */
 	states.set_state("ACTION_STATE", "DYING");
 
+	/* Set the actual animation to dying animation */
 	set_actual_animation(animations["dying_animation"]);
 	//play_song("hit_me");
 
-	LevelFactory *level_factory = nullptr;
+	LevelFactory *level_factory = nullptr; /** Pointer< to the object level factory */
 	level_factory = new LevelFactory();
 	engine::Game *game = &(engine::Game::get_instance());
 
@@ -525,6 +601,7 @@ void Clown::die(engine::GameObject *game_object) {
 			"../data/win.dat"
 	);
 
+	/*Set the state of the game to paused */
 	game->set_state(engine::Game::PAUSED);
 }
 
@@ -540,9 +617,10 @@ void Clown::die(engine::GameObject *game_object) {
  * @return void
  */
 void Clown::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox, engine::Hitbox *p_other_hitbox) {
+	/* Get the instances of the enemies */
 	Platform *platform = nullptr;
 	platform = dynamic_cast<Platform *>(other);
-    LittleGirl *little_girl = nullptr;
+	LittleGirl *little_girl = nullptr;
 	little_girl = dynamic_cast<LittleGirl *>(other);
 	Goop *goop = nullptr;
 	goop = dynamic_cast<Goop *>(other);
@@ -552,24 +630,33 @@ void Clown::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
 	engine::Hitbox *other_hitbox = nullptr;
 	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
+	/* if */
 	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "foot_hitbox") {
 		set_speed_y(0.0);
 		set_position_y(other_hitbox->get_coordinates().second - 380);
 	}
 
+	/* if little girl is attacking the clown and the action state of the
+	  	clown different of vulnerable */
 	if (little_girl &&
 		little_girl->get_state("ACTION_STATE") == "ATTACKING" &&
 		my_hitbox->get_name() == "attack_hitbox" &&
 		little_girl->get_actual_animation()->actual_column == 2
 		&& get_state("X_STATE") != little_girl->get_state("X_STATE")
 		&& get_state("ACTION_STATE") == "VULNERABLE") {
+
+		/* if the state of the clown is on attack */
 		if (get_state("ACTION_STATE") == "ON_ATTACK") { return; }
+
+		/* Else on attack */
 		else {
 			on_attack(other);
 		}
 	}
 
+	/* if goop*/
 	if (goop) {
+		/* if the goop is refuted by the little girl */
 		if (get_state("ACTION_STATE") == "NORMAL" && goop->get_state("ACTION_STATE") == "REFUTED"
 			&& my_hitbox->get_name() == "head_hitbox") {
 			refuted_goop_hits++;
@@ -577,6 +664,8 @@ void Clown::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
 			goop->set_actual_animation(goop->animations["goop_squash_animation"]);
 			goop->set_speed_x(0.0);
 
+			/* If the refuted goop hits is higher or equal than 20,
+			   set the state of the clown to vunerable. */
 			if (refuted_goop_hits >= 20) {
 				states.set_state("ACTION_STATE", "VULNERABLE");
 				set_actual_animation(animations["idle_vulnerable_animation"]);
