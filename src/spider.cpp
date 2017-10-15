@@ -11,6 +11,7 @@
 #include "../include/spider.hpp"
 #include "../include/platform.hpp"
 #include "../include/little_girl.hpp"
+#include "../engine/include/log.hpp"
 #include <stdlib.h>
 
 using namespace mindscape;
@@ -35,6 +36,7 @@ Spider::Spider(
         priority,
         100
     ) {
+        /* Initialize all the characterists of the Spider. */
         initialize_state_map();
         initialize_animations();
         initialize_hitboxes();
@@ -52,6 +54,9 @@ Spider::Spider(
  */
 
 void Spider::initialize_audio_effects() {
+    /* Starts debugger to accompany the method's development. */
+    DEBUG("Initializing audio effects.");
+
     engine::Audio * spider_attacking = nullptr; /**< Audio.
     Sound that represents when spider is attacking. */
 
@@ -79,6 +84,9 @@ void Spider::initialize_audio_effects() {
     /* Adds sound's components into a game object. */
     add_component(spider_attacking);
     add_component(spider_on_attack);
+
+    /* Ends debugger that represents the end of the method. */
+    DEBUG("Audio effects initialized.");
 }
 
 /**
@@ -90,6 +98,9 @@ void Spider::initialize_audio_effects() {
  */
 
 void Spider::initialize_animations() {
+    /* Starts debugger to accompany the method's development. */
+    DEBUG("Initializing animations.");
+
     engine::Animation* walking_left_animation = nullptr; /**< Animation.
     Animation that represents spider's walk to the left. */
 
@@ -214,6 +225,8 @@ void Spider::initialize_animations() {
 
     add_animation("dying_right_animation", dying_right_animation);
 
+    /* Ends debugger that represents the end of the method. */
+    DEBUG("Animations initializated.");
 }
 
 /**
@@ -235,6 +248,7 @@ engine::Animation* Spider::create_animation(
     int sprite_columns,
     double duration,
     std::string direction) {
+    DEBUG("Creating animations.");
 
     engine::Game& game = engine::Game::get_instance(); /**< Game.
     Gets an instance of a game just initializated. */
@@ -263,6 +277,7 @@ engine::Animation* Spider::create_animation(
         std::make_pair(0, 0)
     );
 
+    DEBUG("Animations created.");
     return animation;
 }
 
@@ -275,6 +290,9 @@ engine::Animation* Spider::create_animation(
  */
 
 void Spider::initialize_as_physicable() {
+    /* Starts debugger to accompany the method's development. */
+    DEBUG("Initializing spider as physicable.");
+
     engine::Physics *physics = nullptr; /**< Physics.
     Gets a physics instance to spider of a game just initialized. */
 
@@ -283,6 +301,9 @@ void Spider::initialize_as_physicable() {
     physics = engine::Physics::get_instance();
     physics->add_physicable(this);
     collidable = true;
+
+    /* Ends debugger that represents the end of the method. */
+    DEBUG("Spider is now collidable.");
 }
 
 /**
@@ -294,6 +315,9 @@ void Spider::initialize_as_physicable() {
  */
 
 void Spider::initialize_hitboxes() {
+    /* Starts debugger to accompany the method's development. */
+    DEBUG("Initializing spider's hitbox.");
+
     engine::Game& game = engine::Game::get_instance(); /**< Game.
     Gets an instance of a game just initializated. */
 
@@ -322,6 +346,9 @@ void Spider::initialize_hitboxes() {
     /* Adds hitboxes components into a game object. */
     add_component(spider_attack);
     add_component(spider_hitbox);
+
+    /* Ends debugger that represents the end of the method. */
+    DEBUG("Spider's hitbox initialized");
 }
 
 /**
@@ -333,8 +360,12 @@ void Spider::initialize_hitboxes() {
  */
 
 void Spider::initialize_state_map() {
+    /* Starts debugger to accompany the method's development. */
+    DEBUG("Initializing spider's state.");
     /* Sets a normal state to spider's states. */
     states.set_state("ACTION_STATE","NORMAL");
+    /* Ends debugger that represents the end of the method. */
+    DEBUG("Spider's state initialized.");
 }
 
 /**
@@ -406,6 +437,7 @@ void Spider::notify(engine::Observable *game_object) {
  */
 
 void Spider::attack() {
+    DEBUG("The spider is attacking.");
     /* Sets a state that represents when spider is attacking. */
     states.set_state("ACTION_STATE","ATTACKING");
     std::string actual_x_state = ""; /**< String.
@@ -417,15 +449,21 @@ void Spider::attack() {
     if (actual_x_state == "LOOKING_LEFT") {
         /* Initiates the animation that attacking left. */
         set_actual_animation(animations["attacking_left_animation"]);
+        INFO("The spider is attacking to the left.");
     }
     /* Check if the spider is looking to the right. */
     else if (actual_x_state == "LOOKING_RIGHT") {
         /* Initiates the animation that attacking right. */
         set_actual_animation(animations["attacking_right_animation"]);
+        INFO("The spider is attacking to the right.");
+    }
+    else {
+        ERROR("Spider's actual state is not found.");
     }
 
     /* Starts spider's sound attack. */
     play_song("attack");
+    DEBUG("The spider stop to attack.");
 }
 
 /**
@@ -553,6 +591,7 @@ void Spider::move(engine::GameObject* girl) {
  */
 
 void Spider::on_attack(GameObject *game_object) {
+    DEBUG("The spider is under attack.");
     /* Sets a state that represents when spider is under attack. */
     states.set_state("ACTION_STATE","ON_ATTACK");
     std::string actual_x_state = ""; /**< String.
@@ -562,6 +601,7 @@ void Spider::on_attack(GameObject *game_object) {
 
     /* Damage received by the spider. */
     hit(game_object, 15);
+    INFO("The spider take 15 of damage.");
 
     /* Verifies if the spider is alive. */
     if (is_alive()) {
@@ -570,15 +610,23 @@ void Spider::on_attack(GameObject *game_object) {
             /* Initiates the animation that show the spider
             being hitted left. */
             set_actual_animation(animations["on_attack_left_animation"]);
+            INFO("The spider continues alive looking to the left.");
         }
         else if (actual_x_state == "LOOKING_RIGHT") {
             /* Initiates the animation that show the spider
             being hitted right. */
             set_actual_animation(animations["on_attack_right_animation"]);
+            INFO("The spider continues alive looking to the right.");
+        } else {
+            ERROR("The actual state of the spider is invalid.");
         }
         /* Starts song when the spider is under attack. */
         play_song("hit_me");
+    } else {
+        INFO("The spider is dead.");
     }
+
+    DEBUG("The spider is no longer under attack.");
 }
 
 /**
@@ -591,6 +639,7 @@ void Spider::on_attack(GameObject *game_object) {
  */
 
 void Spider::die(engine::GameObject *game_object) {
+    DEBUG("The spider is dying.");
     std::string actual_x_state = ""; /**< String.
     Gets the actual state of the spider. */
 
@@ -602,6 +651,7 @@ void Spider::die(engine::GameObject *game_object) {
         states.set_state("ACTION_STATE", "DYING");
         /* Initiates the animation that show the spider dying to the left.*/
         set_actual_animation(animations["dying_left_animation"]);
+        INFO("The spider die looking to the left.");
     }
     /* Check if the spider is looking to the right. */
     else if (actual_x_state == "LOOKING_RIGHT") {
@@ -609,9 +659,14 @@ void Spider::die(engine::GameObject *game_object) {
         states.set_state("ACTION_STATE", "DYING");
         /* Initiates the animation that show the spider dying to the right.*/
         set_actual_animation(animations["dying_right_animation"]);
+        INFO("The spider die looking to the right.");
+    } else {
+        ERROR("The actual state of the spider is not found.");
     }
     /* Starts song when the spider is about to die. */
     play_song("hit_me");
+
+    DEBUG("The spider died.");
 }
 
 /**
