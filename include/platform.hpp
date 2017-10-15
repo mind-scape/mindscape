@@ -1,4 +1,12 @@
-//TODO discover how overwrite static attribute
+/**
+ * @file platform.hpp
+ * @brief Purpose: Contains the attributes and methods for Platform class.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
 
 #ifndef PLATFORM_H
 #define PLATFORM_H
@@ -12,19 +20,26 @@
 #include <unordered_map>
 
 namespace mindscape {
-  class Platform : public engine::GameObject {
-    private:
-      void initialize_animations();
-    public:
-      Platform(
-        std::string p_name,
-        std::pair<int, int> position,
-        int priority);
+	/**
+  	 * @brief A 2D Platform class.
+  	 *
+  	 * Class responsible for managing the platforms used in the game.
+  	 */
+	class Platform : public engine::GameObject {
+	private:
+		void initialize_animations();
 
-      ~Platform(){};
+	public:
+		Platform(
+				std::string p_name,
+				std::pair<int, int> position,
+				int priority
+		);
 
-      void on_event(GameEvent game_event);
-  };
+		~Platform() {};
+
+		void on_event(GameEvent game_event);
+	};
 }
 
 #endif
