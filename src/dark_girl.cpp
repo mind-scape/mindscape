@@ -376,7 +376,7 @@ void DarkGirl::on_collision(engine::GameObject* other,
 							engine::Hitbox* p_my_hitbox,
 							engine::Hitbox* p_other_hitbox) {
 
-
+	DEBUG("on_collision")
 	/* Gets instances of the Enemies */
 	Platform* platform = nullptr;
 	platform = dynamic_cast<Platform *>(other);
@@ -456,6 +456,7 @@ void DarkGirl::on_collision(engine::GameObject* other,
 		}
 	}
 
+	DEBUG("on_collision finished")
 }
 
 /**
@@ -508,7 +509,7 @@ void DarkGirl::die(engine::GameObject *game_object) {
  * @return void
  */
 void DarkGirl::on_event(GameEvent game_event) {
-
+	DEBUG("on_event")
 	/* Gets the name of the game event */
 	std::string event_name = "";
 	event_name = game_event.game_event_name;
@@ -557,7 +558,7 @@ void DarkGirl::on_event(GameEvent game_event) {
 		/*Makes the dark girl attack*/
 		attack();
 	}
-
+	DEBUG("on_event finished")
 }
 
 /**
@@ -787,7 +788,7 @@ void DarkGirl::attack() {
  * @return void
  */
 void DarkGirl::on_attack(GameObject *game_object) {
-
+	DEBUG("on_attack")
 	/* Gets the actual state on the X axis */
 	std::string actual_x_state = "";
 	actual_x_state = states.get_state("X_STATE");
@@ -810,7 +811,7 @@ void DarkGirl::on_attack(GameObject *game_object) {
 		/* Makes the dark girl be attacked by the right */
 		set_actual_animation(animations["on_attack_right_animation"]);
 	}
-
+	DEBUG("on_attack finished")
 }
 
 /**
@@ -822,7 +823,7 @@ void DarkGirl::on_attack(GameObject *game_object) {
  *
  */
 void DarkGirl::update_state() {
-
+	DEBUG("update_state")
 	/* Gets the actual animations */
 	engine::Animation* actual_animation = nullptr;
 	actual_animation = get_actual_animation();
@@ -911,5 +912,5 @@ void DarkGirl::update_state() {
 	 sets speed on the x axis equal to 0*/
 	set_position_x(get_position_x() - get_speed_x());
 	set_speed_x(0.0);
-
+	DEBUG("update_state finished")
 }
