@@ -94,6 +94,10 @@ void HudFox::notify(engine::Observable* game_object) {
                 fox->set_star_count(0);
                 set_actual_animation(animations["zero_star"]);
             }
+
+            else {
+                /* Do nothing */
+            }
         }
 
         else {
@@ -106,12 +110,20 @@ void HudFox::notify(engine::Observable* game_object) {
                 if(!(get_actual_animation() == animations["zero_star"])) {
                     set_actual_animation(animations["zero_star"]);
                 }
+
+                else {
+                    /* Do nothing */
+                }
             }
 
             else if(count == 1) {
             /* If there is one star */    
                 if(!(get_actual_animation() == animations["one_star"])){
                     set_actual_animation(animations["one_star"]);
+                }
+
+                else {
+                    /* Do nothing */
                 }
             }
 
@@ -120,13 +132,20 @@ void HudFox::notify(engine::Observable* game_object) {
                 if(!(get_actual_animation() == animations["two_star"])) {
                     set_actual_animation(animations["two_star"]);
                 }
+
+                else {
+                    /* Do nothing */
+                }
             }
 
             else if(count == 3 && !give_hp) {
             /* If there are three stars and is not giving hp */
                 if(!(get_actual_animation() == animations["three_star"])) {
                     set_actual_animation(animations["three_star"]);
-                }  
+                } 
+                else {
+                    /* Do nothing */
+                }
             }
 
             else if(count == 3 && give_hp) {
@@ -134,6 +153,10 @@ void HudFox::notify(engine::Observable* game_object) {
                 fox->set_animation_hud_fading(false);
                 set_actual_animation(animations["three_star_fading"]);
                 play_song("heart");
+            }
+
+            else {
+                /* Do nothing */
             }
         }
     }
