@@ -356,6 +356,10 @@ void LittleGirl::on_collision(
 		set_speed_y(0.0);
 		set_position_y(other_hitbox->get_coordinates().second - 180);
 	}
+
+	else {
+        /* Do nothing */
+    }
 	
 	if (scorpion &&
 		scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -368,6 +372,10 @@ void LittleGirl::on_collision(
 		on_attack(other);
 		hit(other, 1);
 	}
+
+	else {
+    	/* Do nothing */
+    }
 	
 	if (spider &&
 		spider->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -381,6 +389,10 @@ void LittleGirl::on_collision(
 		hit(other, 1);
 	}
 	
+	else {
+        /* Do nothing */
+    }
+
 	if (goop) {
 	/* If the goop is coming to the Little Girl's direction */
 
@@ -405,7 +417,15 @@ void LittleGirl::on_collision(
 			on_attack(other);
 			hit(other, 1);
 		}
+
+		else {
+        	/* Do nothing */
+    	}
 	}
+
+	else {
+        /* Do nothing */
+    }
 
 	DEBUG("Ended");
 }
@@ -437,6 +457,10 @@ void LittleGirl::die(engine::GameObject *game_object) {
 		states.set_state("ACTION_STATE", "DYING");
 		set_actual_animation(animations["dying_right_animation"]);
 	}
+
+	else {
+        /* Do nothing */
+    }
 	
 	/* Creates "level" of Game over */
 	LevelFactory *level_factory = new LevelFactory();
@@ -499,6 +523,10 @@ void LittleGirl::on_event(GameEvent game_event) {
 		/* Makes the Girl attack */
 		attack();
 	}
+
+	else {
+        /* Do nothing */
+    }
 }
 
 /**
@@ -536,6 +564,10 @@ void LittleGirl::jump(std::string actual_x_state) {
 			set_actual_animation(animations["jumping_left_animation"]);
 		}
 
+		else {
+        	/* Do nothing */
+    	}
+
 		/* Gets actual animation and increments jump_animation_count value */
 		engine::Animation *actual_animation = get_actual_animation();
 		jumping_animation_count += 1;
@@ -555,7 +587,15 @@ void LittleGirl::jump(std::string actual_x_state) {
 					/* Sets coordinatesOnTexture equal zero */	
 					actual_animation->coordinatesOnTexture.first = 0;
 				}
+
+				else {
+        			/* Do nothing */
+    			}
 			}
+
+			else {
+        		/* Do nothing */
+    		}
 		}
 
 		else {
@@ -591,6 +631,11 @@ void LittleGirl::move_right(std::string actual_x_state,
 		actual_animation->coordinatesOnTexture.first = 0;
 	}
 	
+	else {
+        /* Do nothing */
+    }
+
+
 	/* Makes Little Girl walk to the right */
 	states.set_state("X_STATE", "LOOKING_RIGHT");
 	set_actual_animation(animations["running_right_animation"]);
@@ -605,6 +650,10 @@ void LittleGirl::move_right(std::string actual_x_state,
 		play_song("steps");
 		set_actual_animation(animations["jumping_right_animation"]);
 	}
+
+	else {
+        /* Do nothing */
+    }
 }
 
 /**
@@ -630,6 +679,10 @@ void LittleGirl::move_left(std::string actual_x_state,
 		/* Makes coordinateOnTexture value equal 1536 */
 		actual_animation->coordinatesOnTexture.first = 1536;
 	}
+
+	else {
+        /* Do nothing */
+    }
 	
 	/* Makes Little Girl walk to the left */
 	states.set_state("X_STATE", "LOOKING_LEFT");
@@ -645,6 +698,10 @@ void LittleGirl::move_left(std::string actual_x_state,
 		play_song("steps");
 		set_actual_animation(animations["jumping_left_animation"]);
 	}
+
+	else {
+        /* Do nothing */
+    }
 }
 
 /**
@@ -674,6 +731,10 @@ void LittleGirl::attack() {
 		set_actual_animation(animations["attacking_left_animation"]);
 		get_actual_animation()->is_finished = false;
 	}
+
+	else {
+        /* Do nothing */
+    }
 
 	play_song("sword_attack"); /* Plays sword sound effect */
 
@@ -709,6 +770,10 @@ void LittleGirl::on_attack(GameObject *game_object) {
 		Little Girl be attacked looking right */
 	}
 
+	else {
+        /* Do nothing */
+    }
+
 }
 
 /**
@@ -725,6 +790,10 @@ void LittleGirl::update_state() {
 
 		die(NULL); /* Keeps the Little Girl alive */
 	}
+
+	else {
+        /* Do nothing */
+    }
 
 	/* Gets Little Girl's states */
 	std::string actual_y_state = states.get_state("Y_STATE");
@@ -749,6 +818,11 @@ void LittleGirl::update_state() {
 		}
 	}
 	
+	else {
+        /* Do nothing */
+    }
+
+
 	if (get_speed_x() == 0.0 && get_speed_y() == 0.0 
 		&& actual_action_state == "NORMAL") {
 	/* If the Little Girl is not moving */
@@ -767,10 +841,19 @@ void LittleGirl::update_state() {
 			She rest looking left */
 		}
 		
+		else {
+        	/* Do nothing */
+    	}
+
 		/* Sets jumping_animation_count equals zero */
 		jumping_animation_count = 0;
 	}
 	
+	else {
+        /* Do nothing */
+    }
+
+
 	if (get_speed_y() == 0.0 && get_state("Y_STATE") != "JUMPING") {
 	/* If the Little Girl does not have speed in y axe and she is not jumping */
 
@@ -784,7 +867,11 @@ void LittleGirl::update_state() {
 		/* Makes she fall */
 		states.set_state("Y_STATE", "FALLING");
 	}
-	
+
+	else {
+        /* Do nothing */
+    }
+
 	/* Sets new x coordinates and makes speed in x axe equal 0 */
 	set_position_x(get_position_x() - get_speed_x());
 	set_speed_x(0.0);
