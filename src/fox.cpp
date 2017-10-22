@@ -123,6 +123,10 @@ void Fox::notify(engine::Observable *game_object) {
             animation_hud_fading = true;
         }
 
+        else {
+            /* Do nothing */
+        }
+
 
         if(little_girl->get_position_y() + 70 == get_position_y()) {
             /* If the Little Girl's position is the same of the Fox */ 
@@ -145,6 +149,10 @@ void Fox::notify(engine::Observable *game_object) {
             /* If the Little Girl's position is different
             from "Ground" and the Fox is on the ground */
             set_speed_x(0.0);
+        }
+
+        else {
+            /* Do nothing */
         }
     }
 
@@ -344,6 +352,10 @@ void Fox::on_event(GameEvent game_event) {
         /* Makes the Fox move right */
         set_position_x(get_position_x() - 10);
     }
+
+    else {
+        /* Do nothing */
+    }
 }
 
 /**
@@ -396,6 +408,10 @@ void Fox::move(engine::GameObject* girl) {
             set_actual_animation(animations["running_left_animation"]);
             set_speed_x(-15);
         }
+
+        else {
+            /* Do nothing */
+        }
     }
 
     else {
@@ -427,6 +443,10 @@ void Fox::move(engine::GameObject* girl) {
             /* Set new Fox's animation: running to the right */
             set_actual_animation(animations["running_right_animation"]);
             set_speed_x(15);
+        }
+
+        else {
+            /* Do nothing */
         }
     }
 
@@ -461,6 +481,10 @@ void Fox::jump(engine::GameObject *little_girl) {
 
             /* Makes the Fox looks right */
             set_actual_animation(animations["jumping_right_animation"]);
+        }
+
+        else {
+            /* Do nothing */
         }
 
         /* Makes the Fox follow the Little Girl jump */
@@ -606,6 +630,7 @@ float Fox::calculate_jump_time(float final_x, float speed_x) {
     initial_x = (float) get_position_x();
     delta_x = final_x - initial_x;
     jump_time = delta_x/speed_x;
+    
     return jump_time;
 }
 
@@ -639,7 +664,15 @@ void Fox::update_state() {
             /* Sets idle_right animation left */
             set_actual_animation(animations["idle_left_animation"]);
         }
-    };
+
+        else {
+            /* Do nothing */
+        }
+    }
+
+    else {
+        /* Do nothing */
+    }
     
     if(get_speed_y() == 0.0 && get_state("Y_STATE") != "JUMPING") {
     /* If the Fox is not jumping */
@@ -653,6 +686,10 @@ void Fox::update_state() {
 
         /* Sets state FALLING */
         states.set_state("Y_STATE", "FALLING");
+    }
+
+    else {
+        /* Do nothing */
     }
 
 }
@@ -703,6 +740,14 @@ void Fox::on_collision(engine::GameObject* other,
             star->deactivate_components(); /* Deactivate star component */
             set_star_count(get_star_count() + 1); /* Incrementates star count */
         }
+
+        else {
+            /* Do nothing */
+        }
+    }
+
+    else {
+        /* Do nothing */
     }
 
 }
