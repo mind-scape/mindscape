@@ -94,7 +94,7 @@ void EventHandler::try_to_get_delayed_keys(std::list<KeyboardEvent>& events) {
 		/* iterates all maped keys in the keymap */
 		if(state[mapped_key.first]) {
 			/**< if there is the mapped key first on the state map */
-			auto event = KeyboardEvent(NULL,
+			auto event = KeyboardEvent(-1,
 									   KeyboardEvent::State::PRESSED,
 									   mapped_key.first, true
 			);
