@@ -418,7 +418,7 @@ void Scorpion::on_event(GameEvent game_event) {
     }
     /* Concludes that the event is empty. */
     else {
-        /* Event name is not found. */;
+        /* Event name is not found. */
     }
 }
 
@@ -490,6 +490,7 @@ void Scorpion::on_collision(
     }
     else {
         /* The scorpion isn't colliding with the girl. */
+
     }
 
     /* Check if the girl is attacking the scorpion. */
@@ -543,7 +544,7 @@ void Scorpion::attack() {
         INFO("The scorpion is attacking to the right.");
     }
     else {
-        /* Close the game if not found Scorpion's actual state. */
+        /* Warns if the game if not found Scorpion's actual state. */
         WARN("Scorpion's actual state is not found.");
     }
 
@@ -592,7 +593,7 @@ void Scorpion::on_attack(GameObject *game_object) {
             INFO("The scorpion continues alive looking to the right.");
         }
         else {
-            /* Close the game if not found Scorpion's actual state. */
+            /* Warns if the Scorpion's actual state is not found. */
             WARN("The actual state of the scorpion is invalid.");
         }
 
@@ -640,7 +641,7 @@ void Scorpion::die(engine::GameObject *game_object) {
         INFO("The scorpion die looking to the right.");
     }
     else {
-        /* Close the game if not found Scorpion's actual state. */
+        /* Warns if not found Scorpion's actual state is not found. */
         WARN("The actual state of the scorpion is not found.");
     }
     /* Starts song when the scorpion is about to die. */
