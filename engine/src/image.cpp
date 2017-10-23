@@ -37,6 +37,10 @@ bool Image::load() {
 			/* if the texture is null */
             ERROR("Unable to create texture");
         }
+        else {
+            /*Do nothing*/
+        }
+
         SDL_FreeSurface(loaded_surface);
     }
     else {
@@ -67,7 +71,11 @@ void Image::free() {
 
 		dimension_on_screen.first = 0;
 		dimension_on_screen.second = 0;
-	}
+    }
+    
+    else {
+        /*Do nothing*/
+    }
 }
 
 /**
