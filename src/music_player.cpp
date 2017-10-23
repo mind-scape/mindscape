@@ -33,24 +33,28 @@ void MusicPlayer::update_state() {
         time += timer->time_elapsed() - time_aux;
         time_aux = timer->time_elapsed();
 
+        /* Set the music volumn of the intro song in 30. */
         set_music_volume("intro_level_1", 30);
+
+        /* Set the music volumn of the loop level 1 in 30. */
         set_music_volume("loop_level_1", 30);
 
         if (time < 25850) {
-             play_song("intro_level_1");
+            /* Play intro level 1 song. */
+            play_song("intro_level_1");
         }
         else if (sub_position_x < 14000) {
-          /* On level introduction */
+            /* Frees the last song and starts the loop level 1 song. */
             free_music("intro_level_1");
             play_song("loop_level_1");
         }
         else if (sub_position_x > 14000) {
-            /* On level boss */
+            /* Frees the last song and starts the loop palhaço song. */
             free_music("loop_level_1");
             play_song("loop_palhaco");
         }
         else {
-            /* do nothing. */
+            /*  Nothing to do. */
             INFO("The sub position is on limit of introduction and clown songs.");
         }
   	}
@@ -60,6 +64,7 @@ void MusicPlayer::update_state() {
   		play_song("loop_level_2");
   	}
     else {
+        /* Close the game if the song is not found. */
         ERROR("Song was not found.");
     }
 }
@@ -74,7 +79,8 @@ void MusicPlayer::update_state() {
  * @return void
  */
 void MusicPlayer::on_event(GameEvent game_event) {
-    std::string event_name = game_event.game_event_name;
+    std::string event_name = "";
+    event_name = game_event.game_event_name;
 
     if (event_name == "MOVE_LEFT") {
         /* On left movement */
@@ -90,5 +96,8 @@ void MusicPlayer::on_event(GameEvent game_event) {
     else if (event_name == "MOVE_RIGHT") {
         /* On right movement */
         sub_position_x += 10;
+    }
+    else {
+        /* The Event name is not found. */
     }
 }
