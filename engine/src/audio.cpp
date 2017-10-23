@@ -53,7 +53,9 @@ bool Audio::load() {
 
             return false;
         }
-        DEBUG("Music successfully loaded");
+        else {
+            /*Do nothing*/
+        }
     }
     
     else if (m_audio_type == CHUNK) {
@@ -67,7 +69,9 @@ bool Audio::load() {
 
             return false;
         }
-        DEBUG("Chunk successfully loaded");
+        else {
+            /*Do nothing*/
+        }
     }
 
     else {
@@ -120,6 +124,10 @@ void Audio::play_effect() {
             time = 0;
         }
 
+        else {
+            /*Do nothing*/
+        }
+
         if (!playing) {
         /* Plays the sound effect */ 
             time = 0;
@@ -129,6 +137,14 @@ void Audio::play_effect() {
             Mix_VolumeChunk(audio_chunk, volume);
             Mix_PlayChannel(audio_chanel, audio_chunk, audio_repeat);
         }
+
+        else {
+            /*Do nothing*/
+        }
+    }
+
+    else {
+        /*Do nothing*/
     }
 }
 
@@ -165,11 +181,19 @@ void Audio::play_music_type() {
             DEBUG("Music is being played");
         }
 
-        if (Mix_PlayingMusic() == 1) {
+        else if (Mix_PlayingMusic() == 1) {
         /* Verification to know if will play or resume music */
             Mix_ResumeMusic();
             DEBUG("Music is being resumed");
         }
+
+        else {
+            /*Do nothing*/
+        }
+    }
+
+    else {
+        /*Do nothing*/
     }
 }
 
@@ -186,6 +210,10 @@ void Audio::pause_music() {
         Mix_PauseMusic();
         DEBUG("Music is being paused");
     }
+
+    else {
+        /*Do nothing*/
+    }
 }
 
 /**
@@ -201,6 +229,10 @@ void Audio::set_repetitions(int repeat) {
     /* Validates if music is not a null object */ 
         audio_repeat = repeat;
         //load();
+    }
+
+    else {
+        /*Do nothing*/
     }
 }
 
@@ -230,6 +262,10 @@ void Audio::stop_effect() {
     /* Validates if chuck is not a null object */
         Mix_VolumeChunk(audio_chunk, 0);
         DEBUG("Audio effect stopped");
+    }
+
+    else {
+        /*Do nothing*/
     }
 }
 
