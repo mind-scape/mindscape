@@ -69,6 +69,8 @@ void Spider::initialize_audio_effects() {
     /* Sets the duration of sound when it's attacking. */
     spider_attacking->set_duration(0.5);
 
+    add_component(spider_attacking);
+
     engine::Audio * spider_on_attack = nullptr; /**< Audio.
     Sound that represents when spider is on attack. */
 
@@ -81,8 +83,6 @@ void Spider::initialize_audio_effects() {
     /* Sets the duration of sound when it's hitted. */
     spider_on_attack->set_duration(0.8);
 
-    /* Adds sound's components into a game object. */
-    add_component(spider_attacking);
     add_component(spider_on_attack);
 
     /* Ends debugger that represents the end of the method. */
@@ -110,6 +110,7 @@ void Spider::initialize_animations() {
         1, 4, 0.9, "LEFT"
     );
 
+    /* Adds scorpion's walk animation to the left. */
     add_animation("walking_left_animation", walking_left_animation);
 
     engine::Animation* walking_right_animation = nullptr; /**< Animation.
@@ -121,6 +122,7 @@ void Spider::initialize_animations() {
         1, 4, 0.9, "RIGHT"
     );
 
+    /* Adds scorpion's walk animation to the right. */
     add_animation("walking_right_animation", walking_right_animation);
 
     engine::Animation* idle_left_animation = nullptr; /**< Animation.
@@ -132,6 +134,7 @@ void Spider::initialize_animations() {
         1, 2, 0.9, "LEFT"
     );
 
+    /* Adds scorpion's idle animation to the left. */
     add_animation("idle_left_animation", idle_left_animation);
 
     engine::Animation* idle_right_animation = nullptr; /**< Animation.
@@ -143,6 +146,7 @@ void Spider::initialize_animations() {
         1, 2, 0.9, "RIGHT"
     );
 
+    /* Adds scorpion's idle animation to the right. */
     add_animation("idle_right_animation", idle_right_animation);
 
     /* Sets spider's idle animation to define when its stopped. */
@@ -158,6 +162,7 @@ void Spider::initialize_animations() {
         1, 2, 0.5, "LEFT"
     );
 
+    /* Adds scorpion's under attack animation to the left. */
     add_animation("on_attack_left_animation", on_attack_left_animation);
 
     engine::Animation* on_attack_right_animation = nullptr; /**< Animation.
@@ -169,6 +174,7 @@ void Spider::initialize_animations() {
         1, 2, 0.5, "RIGHT"
     );
 
+    /* Adds scorpion's under attack animation to the right. */
     add_animation("on_attack_right_animation", on_attack_right_animation);
 
     engine::Animation* attacking_left_animation = nullptr; /**< Animation.
@@ -180,6 +186,7 @@ void Spider::initialize_animations() {
         1, 4, 0.5, "LEFT"
     );
 
+    /* Adds scorpion's attacking animation to the left. */
     add_animation("attacking_left_animation", attacking_left_animation);
 
     engine::Animation* attacking_right_animation = nullptr; /**< Animation.
@@ -191,6 +198,7 @@ void Spider::initialize_animations() {
         1, 4, 0.5, "RIGHT"
     );
 
+    /* Adds scorpion's attacking animation to the right. */
     add_animation("attacking_right_animation", attacking_right_animation);
 
     engine::Animation* dying_left_animation = nullptr; /**< Animation.
@@ -207,6 +215,7 @@ void Spider::initialize_animations() {
     dying_left_animation->is_a_final_animation = true;
     dying_left_animation->in_loop = false;
 
+    /* Adds scorpion's dying animation to the left. */
     add_animation("dying_left_animation", dying_left_animation);
 
     engine::Animation* dying_right_animation = nullptr; /**< Animation.
@@ -223,6 +232,7 @@ void Spider::initialize_animations() {
     dying_right_animation->is_a_final_animation = true;
     dying_right_animation->in_loop = false;
 
+    /* Adds scorpion's dying animation to the right. */
     add_animation("dying_right_animation", dying_right_animation);
 
     /* Ends debugger that represents the end of the method. */
@@ -332,6 +342,9 @@ void Spider::initialize_hitboxes() {
         game.get_renderer()
     );
 
+    /* Adds scorpion's hitbox component. */
+    add_component(spider_hitbox);
+
     engine::Hitbox* spider_attack = nullptr; /**< Hitbox.
     Initialize spider's hitbox when its attack. */
 
@@ -343,9 +356,8 @@ void Spider::initialize_hitboxes() {
         game.get_renderer()
     );
 
-    /* Adds hitboxes components into a game object. */
+    /* Adds scorpion's attack hitbox component .*/
     add_component(spider_attack);
-    add_component(spider_hitbox);
 
     /* Ends debugger that represents the end of the method. */
     DEBUG("Spider's hitbox initialized");
@@ -403,6 +415,9 @@ void Spider::on_event(GameEvent game_event) {
         actual_position = get_position_x();
         set_position_x(actual_position - 10);
     }
+    else {
+        /* Event name is not found. */
+    }
 }
 
 /**
@@ -423,7 +438,11 @@ void Spider::notify(engine::Observable *game_object) {
 
     /* Notify if little_girl exists, moving to her direction. */
     if (little_girl) {
+        /* The spider moves in direction of the girl. */
         move(little_girl);
+    }
+    else {
+        /* Nothing to do. */
     }
 }
 
@@ -458,7 +477,8 @@ void Spider::attack() {
         INFO("The spider is attacking to the right.");
     }
     else {
-        ERROR("Spider's actual state is not found.");
+        /* Warns if Scorpion's actual state is not found . */
+        WARN("Spider's actual state is not found.");
     }
 
     /* Starts spider's sound attack. */
@@ -487,9 +507,11 @@ void Spider::move(engine::GameObject* girl) {
 
     /* Verifies if the spider and the girl is at the same height. */
     if (spider_position_y + 100 == girl_position_y) {
+        /* The spider is in the same position that the girl. */
         same_nivel = true;
     }
     else {
+        /* The spider isn't in the same position that the girl. */
         same_nivel = false;
     }
 
@@ -497,22 +519,34 @@ void Spider::move(engine::GameObject* girl) {
     if (get_state("ACTION_STATE") == "DYING") {
         return;
     }
+    else {
+        /* The spider still alive. */
+    }
 
     /* Verifies if the actual animation of the spider is finished. */
     if (get_actual_animation()->is_finished){
+        /* Set spider's actual state with a normal state. */
         states.set_state("ACTION_STATE","NORMAL");
+    }
+    else {
+        /* The spider's actual animation is not finished yet. */
     }
 
     /* Verifies if the spider is on attack. */
     if(get_state("ACTION_STATE") == "ON_ATTTACK") {
         return;
     }
+    else {
+        /* The spider isn't under attack. */
+    }
 
     /* Gets X positions of the spider and of the girl and initializes
     they distance between them. */
     int distance_from_girl = 0;
+
     float spider_position = 0;
     spider_position = get_position_x();
+
     float girl_position = 0;
     girl_position = girl->get_position_x();
 
@@ -530,7 +564,7 @@ void Spider::move(engine::GameObject* girl) {
             set_actual_animation(animations["idle_left_animation"]);
         }
         /* Check if the girl is in the fields vision of the spider. */
-        else if (distance_from_girl <= 300) {
+        else {
             /* Sets a normal state to spider's states. */
             states.set_state("ACTION_STATE","NORMAL");
 
@@ -548,6 +582,9 @@ void Spider::move(engine::GameObject* girl) {
                     /* Calls the method that build the attack action. */
                     attack();
                 }
+                else {
+                    /* The girl is not in the same nivel that the spider.*/
+                }
             }
         }
     }
@@ -561,7 +598,7 @@ void Spider::move(engine::GameObject* girl) {
             /* Sets a idle state to spider's state. */
             set_actual_animation(animations["idle_right_animation"]);
         }
-        else if (distance_from_girl <= 588) {
+        else {
             /* Check if the girl is in the fields vision of the spider. */
             if (distance_from_girl >= 150) {
                 /* Updates the X position of the spider, making it walking.*/
@@ -575,6 +612,9 @@ void Spider::move(engine::GameObject* girl) {
                 if (same_nivel) {
                     /* Calls the method that build the attack action. */
                     attack();
+                }
+                else {
+                    /* The girl is not in the same nivel that the spider.*/
                 }
             }
         }
@@ -618,11 +658,13 @@ void Spider::on_attack(GameObject *game_object) {
             set_actual_animation(animations["on_attack_right_animation"]);
             INFO("The spider continues alive looking to the right.");
         } else {
-            ERROR("The actual state of the spider is invalid.");
+            /* Warns if the Scorpion's actual state is not found. */
+            WARN("The actual state of the spider is invalid.");
         }
         /* Starts song when the spider is under attack. */
         play_song("hit_me");
     } else {
+        /* Informs that the scorpion is dead. */
         INFO("The spider is dead.");
     }
 
@@ -661,7 +703,8 @@ void Spider::die(engine::GameObject *game_object) {
         set_actual_animation(animations["dying_right_animation"]);
         INFO("The spider die looking to the right.");
     } else {
-        ERROR("The actual state of the spider is not found.");
+        /* Informs that the scorpion is dead. */
+        WARN("The actual state of the spider is not found.");
     }
     /* Starts song when the spider is about to die. */
     play_song("hit_me");
@@ -713,6 +756,9 @@ void Spider::on_collision(
             other_hitbox->get_coordinates().second - 280)
         );
     }
+    else {
+        /* The spider isn't colliding with the girl. */
+    }
 
     /* Check if the girl is attacking the spider. */
     if (little_girl
@@ -728,5 +774,8 @@ void Spider::on_collision(
         else {
             on_attack(other);
         }
+    }
+    else {
+        /* The girl is not attacking the spider. */
     }
 }
