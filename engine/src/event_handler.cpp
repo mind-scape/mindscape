@@ -1,3 +1,4 @@
+#include <include/log.hpp>
 #include "event_handler.hpp"
 
 using namespace engine;
@@ -5,10 +6,13 @@ using namespace engine;
 std::list<GameObject *> EventHandler::listeners; /**< objects listening for events triggers */
 
 void EventHandler::dispatch_pending_events(unsigned now) {
+	INFO("Dispatching pending events");
+
 	engine::Game& game = engine::Game::get_instance(); /**< singleton game's instance */
 	auto keyboard_events = pending_keyboard_events(now); /**< keyboard events that were not processed yet */
 	auto game_events = Translator::keyboard_events_to_game_events(keyboard_events); /**< game events created from keyboard events */
 
+	INFO("Looping all events");
 	for (auto event : game_events) {
 		/* loops all events in the translated game events */
 		for (auto listener : listeners) {
@@ -35,12 +39,15 @@ void EventHandler::dispatch_pending_events(unsigned now) {
 		}
 		if(game.get_state() == Game::PAUSED) {
 			/* breaks the loop if the game state is paused */
+			INFO("Game Paused");
 			break;
 		}
 	}
 }
 
 std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now) {
+	INFO("Getting all pending keyboard events");
+
 	get_events_until_now(now);
 	auto it = sdl_events.begin();
 	std::list<KeyboardEvent> events; /* list of keyboard events */
@@ -78,6 +85,8 @@ std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now) {
 }
 
 void EventHandler::try_to_get_delayed_keys(std::list<KeyboardEvent>& events) {
+	INFO("Pump for getting delayed events");
+
 	SDL_PumpEvents();
 	const Uint8 *state = SDL_GetKeyboardState(NULL); /**< states of the keys of the keyboard */
 
@@ -96,6 +105,8 @@ void EventHandler::try_to_get_delayed_keys(std::list<KeyboardEvent>& events) {
 }
 
 void EventHandler::get_events_until_now(unsigned now) {
+	INFO("Getting all events happened until now");
+
 	if (last_update == now) {
 		/* returns if the last update is equals to now */
 		return;
@@ -131,6 +142,8 @@ void EventHandler::get_events_until_now(unsigned now) {
 }
 
 void EventHandler::add_listener(GameObject * listener) {
+	INFO("Adding " + listener->name + " as listener");
+
 	if(listener != NULL) {
 		/* if the listener is null (no listeners registered) */
 		listeners.push_back(listener);
@@ -138,6 +151,8 @@ void EventHandler::add_listener(GameObject * listener) {
 }
 
 void EventHandler::remove_listener(GameObject * listener) {
+	INFO("Removing " + listener->name + " from listeners");
+
 	if(listener != NULL) {
 		/* if the listener is not null (not empty) */
 		listeners.remove(listener);

@@ -42,6 +42,10 @@ Game& Game::get_instance() {
         exit(1);
     }
 
+    else {
+        /*Do nothing*/
+    }
+
     return *instance;
 }
 
@@ -58,6 +62,10 @@ Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions) {
         instance = new Game();
         instance->set_information(p_name, p_dimensions);
         instance->init();
+    }
+
+    else {
+        /*Do nothing*/
     }
 
     return *instance;
@@ -79,6 +87,10 @@ void Game::init() {
         ERROR("Audio and video not initialized properly");
         throw_error("SDL_Init");
     }
+
+    else {
+        /*Do nothing*/
+    }
     
     img_flags = IMG_INIT_PNG;
 
@@ -88,15 +100,30 @@ void Game::init() {
         throw_error("IMG_Init");
     }
 
+    else {
+        /*Do nothing*/
+    }
+
     if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 512 ) < 0 ) {
         /* if the mix audio sdl lib is not working properly */
         ERROR(("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError()));
+<<<<<<< HEAD
+=======
+    }
+
+    else {
+        /*Do nothing*/
+>>>>>>> 602adcf3ad92662791c86d607f46f0b8e82b3119
     }
 
     if (TTF_Init() == -1) {
         /* if the ttf sdl lib is not working properly */
         ERROR("TTF SDL lib not initialized properly");
         throw_error("TTF_Init");
+    }
+
+    else {
+        /*Do nothing*/
     }
 
     window = SDL_CreateWindow(name.c_str(),SDL_WINDOWPOS_UNDEFINED,
@@ -109,6 +136,10 @@ void Game::init() {
    		throw_error("SDL_CreateWindow");
     }
 
+    else {
+        /*Do nothing*/
+    }
+
     renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED
        | SDL_RENDERER_PRESENTVSYNC);
 
@@ -116,6 +147,10 @@ void Game::init() {
         /* if renderer is null then it was not instantiated correctly */
         ERROR("Renderer is null");
         throw_error("SDL_CreateRenderer");
+    }
+
+    else {
+        /*Do nothing*/
     }
 }
 
@@ -179,6 +214,10 @@ void Game::run() {
                 actual_scene->update();
             }
 
+            else {
+                /*Do nothing*/
+            }
+
             SDL_SetRenderDrawColor(renderer, 0xE2, 0xAC, 0xF3, 0x00);
             SDL_RenderClear(renderer);
             actual_scene->draw();
@@ -222,6 +261,10 @@ void Game::change_scene(Scene *level) {
         actual_scene->deactivate();
         actual_scene->free();
         delete actual_scene;
+    }
+
+    else {
+        /*Do nothing*/
     }
 
     level->activate();

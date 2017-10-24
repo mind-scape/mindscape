@@ -45,7 +45,9 @@ bool Text::load() {
 				text.c_str(),
 				sdl_color
 		);
-	} else {
+	} 
+	
+	else {
 		surface = TTF_RenderText_Solid(font, text.c_str(), sdl_color);
 	}
 	
@@ -53,6 +55,7 @@ bool Text::load() {
 		ERROR("The text surface cannot be NULL");
 		return false;
 	}
+<<<<<<< HEAD
 	
 	texture = SDL_CreateTextureFromSurface(renderer, surface);
 	
@@ -64,15 +67,37 @@ bool Text::load() {
 	if (texture == NULL) {
 		ERROR("The text_texture cannot be NULL");
 		return false;
+=======
+	else {
+		texture = SDL_CreateTextureFromSurface(renderer, surface);
+		
+		if (!texture) {
+			printf("\nError in the text_texture :%s\n", SDL_GetError());
+		}
+
+		else {
+			/*Do nothing*/
+		}
+		
+		if (texture == NULL) {
+			printf("\n The text_texture cannot be NULL\n");
+			return false;
+		}
+
+		else {
+
+			weigth = surface->w;
+			heigth = surface->h;
+			
+			activate();
+			SDL_FreeSurface(surface);
+			
+			return true;
+
+		}
+>>>>>>> 602adcf3ad92662791c86d607f46f0b8e82b3119
 	}
 	
-	weigth = surface->w;
-	heigth = surface->h;
-	
-	activate();
-	SDL_FreeSurface(surface);
-	
-	return true;
 }
 
 /**

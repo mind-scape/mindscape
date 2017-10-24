@@ -49,6 +49,9 @@ GameObject *Scene::get_object_by_name(std::string name) {
         if (name == game_object->name) {
             return game_object;
         }
+        else {
+            /* Do nothing */
+        }
     }
     
     return NULL;
@@ -83,6 +86,9 @@ void Scene::deactivate_game_object(std::string game_object_name) {
             objects.erase(objects.begin() + counter);
     
             break;
+        }
+        else {
+            /* Do nothing */
         }
         counter++;
     }
@@ -125,6 +131,9 @@ void Scene::run_collisions() {
             for (auto another_go : objects) {
                 go->collide(another_go);
             }
+        }
+        else {
+            /* Do nothing */
         }
     }
 }

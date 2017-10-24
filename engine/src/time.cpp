@@ -38,6 +38,9 @@ unsigned Time::time_elapsed() {
 		unsigned now = real_time_elapsed();
 		update_time(now);
 	}
+	else {
+		/* Do nothing */
+	}
 	
 	return m_time_elapsed;
 }
@@ -62,6 +65,9 @@ void Time::pause_timer() {
 		update_time(now);
 		Time::m_current_state = PAUSED;
 	}
+	else {
+		/* Do nothing */
+	}
 }
 
 /**
@@ -74,6 +80,9 @@ void Time::resume_timer() {
 		unsigned now = real_time_elapsed();
 		m_last_update = now;
 		Time::m_current_state = RUNNING;
+	}
+	else {
+		/* Do nothing */
 	}
 }
 
