@@ -17,13 +17,13 @@
 
 using namespace engine;
 
-bool GameObject::on_limit_of_level; /**< Bollean. Determs if game object is in the bound compared to map hitbox */
+bool GameObject::on_limit_of_level; /**< Boolean. Determines if game object is in the bound compared to map hitbox */
 
 /**
  * @brief This Routine compare 2 Components of one Game Object and verify with one has more 
  * priority in order to apply game effects.
  * 
- * Because the game have no ideia with game object is more important its important this routine 
+ * Because the game have no idea with game object is more important its important this routine
  * to know this.
  *  
  * @param Component a, pointer to a component declared in a Game Object.
@@ -64,6 +64,9 @@ void GameObject::add_component(Component *component) {
 		INFO("Adding Image Component " + component->get_name() + " to " + this->name);
 		images.push_back(component);
 		sort(images.begin(), images.end(), compare);
+	}
+	else {
+		/* Do nothing */
 	}
 }
 
@@ -161,12 +164,18 @@ void GameObject::draw() {
 		/* Verifys if animation is active and not null, then show on screen */
 			animation.second->draw(position.first, position.second);
 		}
+		else {
+			/* Do nothing */
+		}
 	}
 	
 	for (auto image : images) {
 		if (image->is_active()) {
 		/* Verifys if image(s) is active and not null, then show on screen */
 			image->draw(position.first, position.second);
+		}
+		else {
+			/* Do nothing */
 		}
 	}
 	
@@ -178,6 +187,9 @@ void GameObject::draw() {
 		if (hitbox->wanna_draw_hitbox()) {
 		/* Verifys if hitboxes(s) is active and not null, then show on screen */
 			hitbox->draw();
+		}
+		else {
+			/* Do nothing */
 		}
 	}
 }
@@ -220,6 +232,9 @@ void GameObject::collide(GameObject *other) {
 	/* In case that one game object is diferent from other objects then it will run collisions and verify both objetcs hitboxes */
 		this->run_collisions(other);
 	}
+	else {
+		/* Do nothing */
+	}
 }
 
 /**
@@ -242,6 +257,9 @@ void GameObject::run_collisions(GameObject *other) {
 			if (my_hitbox->collides_with(other_hitbox) && should_hitbox_collide) {
 			/* Control Struct that determs if two objects are colliding and call collision function */
 				this->on_collision(other, my_hitbox, other_hitbox);
+			}
+			else {
+				/* Do nothing */
 			}
 		}
 	}
@@ -428,6 +446,9 @@ void GameObject::set_actual_animation(Animation *animation) {
 	/* Validation to determs if current animation is not null*/
 		actual_animation->deactivate();
 	}
+	else {
+		/* Do nothing */
+	}
 	
 	/* Get reference to current animation and active it */
 	actual_animation = animation;
@@ -595,6 +616,9 @@ Audio *GameObject::get_audio_by_name(std::string audio_name) {
 		/* Case audio(s) from game object is equal to audio name passed as param in function */
 			matched_audio = dynamic_cast<Audio *>(audio);
 			break;
+		}
+		else {
+			/* Do nothing */
 		}
 	}
 	
