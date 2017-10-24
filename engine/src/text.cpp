@@ -52,14 +52,15 @@ bool Text::load() {
 	}
 	
 	if (surface == NULL) {
-		ERROR("The text surface cannot be NULL");
+		WARN("The text surface cannot be NULL");
 		return false;
 	}
+
 	else {
 		texture = SDL_CreateTextureFromSurface(renderer, surface);
 		
 		if (!texture) {
-			printf("\nError in the text_texture :%s\n", SDL_GetError());
+			WARN(("\nError in the text_texture :%s\n", SDL_GetError()));
 		}
 
 		else {
@@ -67,7 +68,7 @@ bool Text::load() {
 		}
 		
 		if (texture == NULL) {
-			printf("\n The text_texture cannot be NULL\n");
+			WARN("The text_texture cannot be NULL");
 			return false;
 		}
 
@@ -82,6 +83,7 @@ bool Text::load() {
 			return true;
 
 		}
+
 	}
 	
 }

@@ -43,40 +43,41 @@ bool Audio::load() {
     timer->init();
 
     if (m_audio_type == MUSIC) {
-    /* Separate MUSIC from  CHUNK */ 
+    /* Separate MUSIC from  CHUNK */
         audio_music = Mix_LoadMUS(audio_path.c_str());
 
         if (!audio_music) {
-        /* Verifys if music is not an null object */ 
-            ERROR(("Audio error %s", Mix_GetError()));
+        /* Verifys if music is not an null object */
+            WARN(("Audio error %s", Mix_GetError()));
             exit(1);
 
             return false;
         }
+
         else {
-            /*Do nothing*/
+            DEBUG("Music successfully loaded");
         }
     }
-    
+
     else if (m_audio_type == CHUNK) {
-    /* Separate CHUNK from  MUSIC*/ 
+    /* Separate CHUNK from  MUSIC*/
         audio_chunk = Mix_LoadWAV(audio_path.c_str());
 
         if (!audio_chunk) {
         /* Verifys if chuck is not an null object */
-            ERROR(("Audio error %s", Mix_GetError()));
+            WARN(("Audio error %s", Mix_GetError()));
             exit(1);
 
             return false;
         }
         else {
-            /*Do nothing*/
+            DEBUG("Chunk successfully loaded");
         }
     }
 
     else {
-    /* In case of there is no audio type called MUSIC or CHUCK it will be dispared and hadle the error */ 
-        ERROR(("Error loading the audio in this path: %s",
+    /* In case of there is no audio type called MUSIC or CHUCK it will be dispared and hadle the error */
+        WARN(("Error loading the audio in this path: %s",
         audio_path.c_str()));
 
         return false;
@@ -95,11 +96,11 @@ bool Audio::load() {
  * @return void.
  */
 void Audio::free() {
-    /* SDL function to delete music and chunk */ 
-    Mix_FreeMusic(audio_music);  
+    /* SDL function to delete music and chunk */
+    Mix_FreeMusic(audio_music);
     Mix_FreeChunk(audio_chunk);
 
-    /* Poiting music and chuck to NULL */ 
+    /* Poiting music and chuck to NULL */
     audio_music = NULL;
     audio_chunk = NULL;
 }
@@ -112,14 +113,14 @@ void Audio::free() {
  * @return void.
  */
 void Audio::play_effect() {
-    /* Stores the time of song */ 
+    /* Stores the time of song */
     time += timer->time_elapsed() - aux_time;
     aux_time = timer->time_elapsed();
 
     if (audio_chunk != NULL) {
-    /* Validates audio chuck */ 
+    /* Validates audio chuck */
         if (time >= effect_duration) {
-        /* Effect will only be stoped when time is bigger than the effect duration */ 
+        /* Effect will only be stoped when time is bigger than the effect duration */
             playing = false;
             time = 0;
         }
@@ -129,11 +130,11 @@ void Audio::play_effect() {
         }
 
         if (!playing) {
-        /* Plays the sound effect */ 
+        /* Plays the sound effect */
             time = 0;
             playing = true;
 
-            /* Apply volume and play with random chanel */ 
+            /* Apply volume and play with random chanel */
             Mix_VolumeChunk(audio_chunk, volume);
             Mix_PlayChannel(audio_chanel, audio_chunk, audio_repeat);
         }
@@ -172,11 +173,11 @@ void Audio::draw(int x, int y) {
  */
 void Audio::play_music_type() {
     if (audio_music != NULL) {
-    /* Validates audio chuck */ 
+    /* Validates audio chuck */
         is_active();
 
         if (Mix_PlayingMusic() == 0) {
-        /* Verification to know if will play or resume music */ 
+        /* Verification to know if will play or resume music */
             Mix_PlayMusic(audio_music, 0 );
             DEBUG("Music is being played");
         }
@@ -206,7 +207,7 @@ void Audio::play_music_type() {
  */
 void Audio::pause_music() {
     if (m_audio_type == MUSIC && Mix_PlayingMusic()) {
-    /* Case is a music and is playing it, it can be paused here */ 
+    /* Case is a music and is playing it, it can be paused here */
         Mix_PauseMusic();
         DEBUG("Music is being paused");
     }
@@ -226,7 +227,7 @@ void Audio::pause_music() {
  */
 void Audio::set_repetitions(int repeat) {
     if (audio_music != NULL) {
-    /* Validates if music is not a null object */ 
+    /* Validates if music is not a null object */
         audio_repeat = repeat;
         //load();
     }
@@ -286,7 +287,7 @@ void Audio::set_effect_volume(int _volume) {
     }
 
     else {
-        ERROR("The volume must be between 0 and 128");
+        WARN("The volume must be between 0 and 128");
     }
 }
 
@@ -302,13 +303,13 @@ void Audio::set_effect_volume(int _volume) {
 void Audio::set_music_volume(int _volume) {
     if (audio_music != NULL) {
         if (_volume > -1 && volume < 129) {
-        /* Limits volume to be in a rate of 0 to 128 */    
+        /* Limits volume to be in a rate of 0 to 128 */
             Mix_VolumeMusic(_volume);
             DEBUG(("Music volume set to %d", _volume));
         }
 
         else {
-            ERROR("The volume must be between 0 and 128");
+            WARN("The volume must be between 0 and 128");
         }
     }
 }
