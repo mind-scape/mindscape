@@ -23,7 +23,7 @@ Game* Game::instance = NULL; /**< initialization of the game instance singleton 
  * @return void.
  */
 void throw_error(const char* function) {
-    ERROR(("Something's wrong in %s\n", function));
+    WARN(("Something's wrong in %s\n", function));
     exit(-1);
 }
 
@@ -38,7 +38,7 @@ Game& Game::get_instance() {
     DEBUG("Getting instance of game");
     if (!instance) {
         /* if the instance is null */
-        ERROR("Instance is null. Exiting.");
+        WARN("Instance is null. Exiting.");
         exit(1);
     }
 
@@ -84,19 +84,19 @@ void Game::init() {
 
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
         /* if the initialization of the video and audio doesn't works properly */
-        ERROR("Audio and video not initialized properly");
+        WARN("Audio and video not initialized properly");
         throw_error("SDL_Init");
     }
 
     else {
         /*Do nothing*/
     }
-    
+
     img_flags = IMG_INIT_PNG;
 
     if (!(IMG_Init(IMG_INIT_PNG) & img_flags)) {
         /* if the initialization of sdl img is not working properly */
-        ERROR("SDL IMG not initialized properly");
+        WARN("SDL IMG not initialized properly");
         throw_error("IMG_Init");
     }
 
@@ -106,19 +106,16 @@ void Game::init() {
 
     if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 512 ) < 0 ) {
         /* if the mix audio sdl lib is not working properly */
-        ERROR(("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError()));
-<<<<<<< HEAD
-=======
+        WARN(("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError()));
     }
 
     else {
         /*Do nothing*/
->>>>>>> 602adcf3ad92662791c86d607f46f0b8e82b3119
     }
 
     if (TTF_Init() == -1) {
         /* if the ttf sdl lib is not working properly */
-        ERROR("TTF SDL lib not initialized properly");
+        WARN("TTF SDL lib not initialized properly");
         throw_error("TTF_Init");
     }
 
@@ -132,7 +129,7 @@ void Game::init() {
 
     if (!window) {
         /* if the window is null it means it didnt work well */
-        ERROR("Window not created");
+        WARN("Window not created");
    		throw_error("SDL_CreateWindow");
     }
 
@@ -145,7 +142,7 @@ void Game::init() {
 
     if (!renderer) {
         /* if renderer is null then it was not instantiated correctly */
-        ERROR("Renderer is null");
+        WARN("Renderer is null");
         throw_error("SDL_CreateRenderer");
     }
 
@@ -227,7 +224,7 @@ void Game::run() {
 
     else {
 		/* print if the medias were not yet loaded */
-        ERROR("Medias could not be loaded\n");
+        WARN("Medias could not be loaded\n");
     }
 
     close();

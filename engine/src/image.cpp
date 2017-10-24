@@ -32,21 +32,21 @@ bool Image::load() {
     if (loaded_surface != NULL) {
         /* if the loaded surface is null (didnt work properly) */
         new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
-    
+
         if (new_texture == NULL) {
 			/* if the texture is null */
-            ERROR("Unable to create texture");
+            WARN("Unable to create texture");
         }
 
         else {
             /*Do nothing*/
         }
-        
+
         SDL_FreeSurface(loaded_surface);
     }
     else {
 		/* if the surface loaded properly */
-        ERROR("Unable to load image");
+        WARN("Unable to load image");
     }
 
 	texture = nullptr;
@@ -65,7 +65,7 @@ void Image::free() {
     DEBUG("Trying to free image");
     if (texture != NULL) {
         /* if the texture didnt load properly */
-        ERROR("Image could not be freed");
+        WARN("Image could not be freed");
         SDL_DestroyTexture(texture);
 
 		texture = nullptr;
@@ -73,7 +73,7 @@ void Image::free() {
 		dimension_on_screen.first = 0;
 		dimension_on_screen.second = 0;
     }
-    
+
     else {
         /*Do nothing*/
     }
