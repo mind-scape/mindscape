@@ -35,6 +35,9 @@ bool Animation::load() {
 		/* In case the game is running */
 		time->init_timer();
 	}
+	else {
+		/* Do nothing */
+	}
 
 	return true;
 }
@@ -54,6 +57,9 @@ void Animation::activate() {
 	if(!in_loop) {
 		/* In case the game is not running */
 		time->init_timer();
+	}
+	else {
+		/* Do nothing */
 	}
 }
 
@@ -80,20 +86,28 @@ void Animation::draw(int x, int y) {
 			/*  Is running animation*/
 			playing_duration_of_animation =
 					playing_duration_of_animation - duration_of_animation;
-		} else {
+		}
+		else {
 			/* Animation has end */
 			if(is_a_final_animation) {
 				/* Final frame of animation */
 				game_object->deactivate();
-			} else {
+			}
+			else {
 				/* Has blocks to run animation */
 				playing_duration_of_animation = duration_of_animation;
 			}
 		}
 	}
+	else {
+		/* Do nothing */
+	}
 
 	if(time_of_sprite == 0.0) {
 		time_of_sprite = 1.0;
+	}
+	else {
+		/* Do nothing */
 	}
 
 
@@ -131,11 +145,15 @@ void Animation::set_sprites_order(int total_sprites, std::string direction) {
 			sprites_order[i] = reverse_index;
 			reverse_index--;
 		}
-	} else if(direction == "RIGHT") {
+	}
+	else if(direction == "RIGHT") {
 		/* Sprite is shown right to left, reversed */
 		for(int j = 0; j < total_sprites; ++j) {
 			sprites_order[j] = j;
 		}
+	}
+	else {
+		/* Do nothing */
 	}
 }
 
