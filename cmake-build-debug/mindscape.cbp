@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="mindscape"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\engine\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/victorcmoura/Documentos/mindscape/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/victorcmoura/Documentos/mindscape/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/victorcmoura/Documentos/mindscape/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mindscape">
+				<Option output="/home/victorcmoura/Documentos/mindscape/cmake-build-debug/mindscape" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/victorcmoura/Documentos/mindscape/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/victorcmoura/Documentos/mindscape/include"/>
+					<Add directory="/usr/include/c++/6"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/6"/>
+					<Add directory="/usr/include/c++/6/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 mindscape"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mindscape/fast">
+				<Option output="/home/victorcmoura/Documentos/mindscape/cmake-build-debug/mindscape" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/victorcmoura/Documentos/mindscape/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/victorcmoura/Documentos/mindscape/include"/>
+					<Add directory="/usr/include/c++/6"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/6"/>
+					<Add directory="/usr/include/c++/6/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 mindscape/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="engine">
+				<Option output="/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/libengine.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/victorcmoura/Documentos/mindscape/engine"/>
+					<Add directory="/home/victorcmoura/Documentos/mindscape/engine/include"/>
+					<Add directory="/usr/include/c++/6"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/6"/>
+					<Add directory="/usr/include/c++/6/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 engine"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="engine/fast">
+				<Option output="/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/libengine.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/victorcmoura/Documentos/mindscape/engine"/>
+					<Add directory="/home/victorcmoura/Documentos/mindscape/engine/include"/>
+					<Add directory="/usr/include/c++/6"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/6"/>
+					<Add directory="/usr/include/c++/6/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 engine/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/animation.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/audio.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/component.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/event_handler.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/game.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/game_object.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/hitbox.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/image.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/keyboard_event.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/level.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/persistence_dat.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/persistence_map.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/physics.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/scene.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/state_map.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/text.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/time.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/timer.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/src/translator.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/action.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/arm.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/background.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/boss.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/button.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/clown.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/dark_girl.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/enemy.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/fighter.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/fox.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/game_object_factory.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/goop.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/hud_fox.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/hud_girl.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/level_factory.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/little_girl.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/main.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/music_player.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/platform.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/scorpion.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/select_arrow.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/spider.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/star.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/src/uncle.cpp">
+			<Option target="mindscape"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/victorcmoura/Documentos/mindscape/engine/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\engine\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
