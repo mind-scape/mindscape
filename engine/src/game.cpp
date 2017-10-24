@@ -162,6 +162,15 @@ void Game::load_media() {
 }
 
 /**
+ * @brief This method is a test to know if media is loaded.
+ *
+ * @return Returns the situation of media.
+ */
+ bool Game::is_media_loaded() {
+    return loaded_media;
+}
+
+/**
  * @brief Closes the game.
  *
  * Closes the game, destroying its renderer, window, functions of the game and medias.
@@ -178,15 +187,6 @@ void Game::close() {
 
     IMG_Quit();
     SDL_Quit();
-}
-
-/**
- * @brief This method is a test to know if media is loaded.
- *
- * @return Returns the situation of media.
- */
-bool Game::is_media_loaded() {
-    return loaded_media;
 }
 
 void Game::run() {
@@ -267,6 +267,17 @@ void Game::change_scene(Scene *level) {
     level->activate();
     actual_scene = level;
     load_media();
+}
+
+/**
+ * @brief This method get the current scene of the game.
+ *
+ * It is important to load the media of the game
+ *
+ *
+ */
+ Scene* Game::get_actual_scene() {
+    return actual_scene;
 }
 
 /**
@@ -357,15 +368,4 @@ Game::State Game::get_state() {
  */
 SDL_Renderer * Game::get_renderer() {
     return renderer;
-}
-
-/**
- * @brief This method get the current scene of the game.
- *
- * It is important to load the media of the game
- *
- *
- */
-Scene* Game::get_actual_scene() {
-    return actual_scene;
 }
