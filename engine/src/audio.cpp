@@ -279,6 +279,46 @@ void Audio::set_duration(float duration) {
 }
 
 /**
+ * @brief This method stop the effect.
+ *
+ * It is important to aplly this method to stop the effect after finish the duration/action.
+ *
+ * @return void.
+ */
+void Audio::stop_effect() {
+    if (audio_chunk != NULL) {
+    /* Validates if chuck is not a null object */
+        Mix_VolumeChunk(audio_chunk, 0);
+        DEBUG("Audio effect stopped");
+    }
+
+    else {
+        /*Do nothing*/
+    }
+}
+
+/**
+ * @brief This method set the volume of the effect.
+ *
+ * It is important to dont pass the limit of the volume.
+ * That is a condition to validate the limit.
+ *
+ * @param integer to identify the nivel of the effect volume.
+ * @return void.
+ */
+void Audio::set_effect_volume(int _volume) {
+    if (_volume > -1 && volume < 129) {
+    /* Limits volume to be in a rate of 0 to 128 */
+        volume = _volume;
+        DEBUG(("Sound effect volume set to %d", _volume));
+    }
+
+    else {
+        WARN("The volume must be between 0 and 128");
+    }
+}
+
+/**
  * @brief This method set the volume of the music.
  *
  * It is important to dont pass the limit of the volume.
