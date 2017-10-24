@@ -1,6 +1,0 @@
-/home/victorcmoura/Documentos/mindscape/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/victorcmoura/Documentos/mindscape/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/victorcmoura/Documentos/mindscape/cmake-build-debug/CMakeFiles/mindscape.dir
-/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/CMakeFiles/rebuild_cache.dir
-/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/CMakeFiles/edit_cache.dir
-/home/victorcmoura/Documentos/mindscape/cmake-build-debug/engine/CMakeFiles/engine.dir
