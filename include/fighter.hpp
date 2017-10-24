@@ -1,3 +1,12 @@
+/** 
+ * @file fighter.hpp
+ * @brief Purpose: Contains methods to game class' management.
+ * 
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
 #ifndef FIGHTER_H
 #define FIGHTER_H
 
@@ -9,26 +18,35 @@
 #include <string>
 
 namespace mindscape {
-  class Fighter {
-    private:
-      int max_hitpoints;
-      int hitpoints;
 
-    public:
-      Fighter(int p_hitpoints):hitpoints(p_hitpoints),
-        max_hitpoints(p_hitpoints){};
-      ~Fighter(){};
+    /** 
+     * @brief A Fighter class.
+     * 
+     * The class Fighter has atributtes and methods for all chacteres(classes) 
+     * that need information about hp, attacks, range of hitpoints 
+     * and if it is alive or not.
+     */   
+    class Fighter {
+        private:
+            int max_hitpoints;
+            int hitpoints;
 
-      virtual void attack(){};
-      virtual void on_attack(engine::GameObject *){};
-      virtual void die(engine::GameObject*){};
-      int get_hp();
-      void set_hp(int);
-      void heal(int);
-      void hit(engine::GameObject *, int);
-      bool is_life_full();
-      bool is_alive();
-  };
+        public:
+            Fighter(int p_hitpoints):hitpoints(p_hitpoints),
+                max_hitpoints(p_hitpoints){};
+            ~Fighter(){};
+
+            virtual void attack(){};
+            virtual void on_attack(engine::GameObject *){};
+            virtual void die(engine::GameObject*){};
+    
+            int get_hp();
+            void set_hp(int);
+            void heal(int);
+            void hit(engine::GameObject *, int);
+            bool is_life_full();
+            bool is_alive();
+    };
 }
 
 #endif

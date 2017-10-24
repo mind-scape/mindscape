@@ -1,3 +1,12 @@
+/**
+* @file action.hpp
+* @brief Purpose: Contains the Action class declaration.
+*
+* MIT License
+* Copyright (c) 2017 MindScape
+*
+* https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+*/
 #ifndef ACTION_H
 #define ACTION_H
 
@@ -5,18 +14,24 @@
 #include <string>
 
 namespace mindscape {
-  class Action {
-    public:
-      typedef enum {
-        CHANGE_SCENE, PAUSE_GAME, PLAY_GAME
-      } Command;
-    private:
-      Command command;
+    /**
+    * @brief A Action class.
+    *
+    * A class responsible to ensure action handling.
+    *
+    */
+    class Action {
+      public:
+        typedef enum {
+          CHANGE_SCENE, PAUSE_GAME, PLAY_GAME
+        } Command;
+      private:
+        Command command;
 
-    public:
-      Action(Command p_command):command(p_command){};
-      ~Action(){};
-      void execute(std::string param);
+      public:
+        Action(Command p_command):command(p_command){};
+        ~Action(){};
+        void execute(std::string param);
   };
 }
 
