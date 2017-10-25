@@ -10,6 +10,7 @@
 
 #include "game.hpp"
 #include <unistd.h>
+#include "log.hpp"
 
 using namespace engine;
 
@@ -22,7 +23,7 @@ Game* Game::instance = NULL; /**< initialization of the game instance singleton 
  * @return void.
  */
 void throw_error(const char* function) {
-    printf("Something's wrong in %s\n", function);
+    WARN(("Something's wrong in %s\n", function));
     exit(-1);
 }
 
@@ -34,10 +35,14 @@ void throw_error(const char* function) {
  * @return Returns the instance.
  */
 Game& Game::get_instance() {
+    DEBUG("Getting instance of game");
     if (!instance) {
         /* if the instance is null */
-        fprintf(stderr, "You should initialize instance first");
+        WARN("Instance is null. Exiting.");
         exit(1);
+    }
+    else {
+        /*Do nothing*/
     }
 
     return *instance;
@@ -57,6 +62,9 @@ Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions) {
         instance->set_information(p_name, p_dimensions);
         instance->init();
     }
+    else {
+        /*Do nothing*/
+    }
 
     return *instance;
 }
@@ -74,24 +82,39 @@ void Game::init() {
 
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
         /* if the initialization of the video and audio doesn't works properly */
+        WARN("Audio and video not initialized properly");
         throw_error("SDL_Init");
     }
-    
+    else {
+        /*Do nothing*/
+    }
+
     img_flags = IMG_INIT_PNG;
 
     if (!(IMG_Init(IMG_INIT_PNG) & img_flags)) {
         /* if the initialization of sdl img is not working properly */
+        WARN("SDL IMG not initialized properly");
         throw_error("IMG_Init");
+    }
+    else {
+        /*Do nothing*/
     }
 
     if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 512 ) < 0 ) {
         /* if the mix audio sdl lib is not working properly */
-        printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+        WARN(("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError()));
+    }
+    else {
+        /*Do nothing*/
     }
 
     if (TTF_Init() == -1) {
-		/* if the ttf sdl lib is not working properly */
+        /* if the ttf sdl lib is not working properly */
+        WARN("TTF SDL lib not initialized properly");
         throw_error("TTF_Init");
+    }
+    else {
+        /*Do nothing*/
     }
 
     window = SDL_CreateWindow(name.c_str(),SDL_WINDOWPOS_UNDEFINED,
@@ -99,16 +122,24 @@ void Game::init() {
         window_dimensions.second,SDL_WINDOW_SHOWN);
 
     if (!window) {
-		/* if the window is null it means it didnt work well */
+        /* if the window is null it means it didnt work well */
+        WARN("Window not created");
    		throw_error("SDL_CreateWindow");
+    }
+    else {
+        /*Do nothing*/
     }
 
     renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED
        | SDL_RENDERER_PRESENTVSYNC);
 
     if (!renderer) {
-		/* if renderer is null then it was not instantiated correctly */
+        /* if renderer is null then it was not instantiated correctly */
+        WARN("Renderer is null");
         throw_error("SDL_CreateRenderer");
+    }
+    else {
+        /*Do nothing*/
     }
 }
 
@@ -123,6 +154,15 @@ void Game::load_media() {
 }
 
 /**
+ * @brief This method is a test to know if media is loaded.
+ *
+ * @return Returns the situation of media.
+ */
+ bool Game::is_media_loaded() {
+    return loaded_media;
+}
+
+/**
  * @brief Closes the game.
  *
  * Closes the game, destroying its renderer, window, functions of the game and medias.
@@ -130,6 +170,7 @@ void Game::load_media() {
  * @return void.
  */
 void Game::close() {
+    DEBUG("Attempting to close game");
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
@@ -140,19 +181,11 @@ void Game::close() {
     SDL_Quit();
 }
 
-/**
- * @brief This method is a test to know if media is loaded.
- *
- * @return Returns the situation of media.
- */
-bool Game::is_media_loaded() {
-    return loaded_media;
-}
-
 void Game::run() {
     state = RUNNING;
-
+    DEBUG("Game is running");
     if (is_media_loaded()) {
+        DEBUG("Game media is loaded");
 		/* if the media is already loaded */
         SDL_Event e;
 
@@ -169,6 +202,9 @@ void Game::run() {
 				/* if the state is different from pause state */
                 actual_scene->update();
             }
+            else {
+                /*Do nothing*/
+            }
 
             SDL_SetRenderDrawColor(renderer, 0xE2, 0xAC, 0xF3, 0x00);
             SDL_RenderClear(renderer);
@@ -176,10 +212,9 @@ void Game::run() {
             SDL_RenderPresent(renderer);
         }
     }
-
     else {
 		/* print if the medias were not yet loaded */
-        printf("Medias could not be loaded\n");
+        WARN("Medias could not be loaded\n");
     }
 
     close();
@@ -207,16 +242,31 @@ void Game::set_information(std::string p_name,std::pair<int,int> p_dimensions) {
  * @return void.
  */
 void Game::change_scene(Scene *level) {
+    DEBUG("Changing scene");
     if (actual_scene) {
 		/* if actual scene is not null */
         actual_scene->deactivate();
         actual_scene->free();
         delete actual_scene;
     }
+    else {
+        /*Do nothing*/
+    }
 
     level->activate();
     actual_scene = level;
     load_media();
+}
+
+/**
+ * @brief This method get the current scene of the game.
+ *
+ * It is important to load the media of the game
+ *
+ *
+ */
+ Scene* Game::get_actual_scene() {
+    return actual_scene;
 }
 
 /**
@@ -307,15 +357,4 @@ Game::State Game::get_state() {
  */
 SDL_Renderer * Game::get_renderer() {
     return renderer;
-}
-
-/**
- * @brief This method get the current scene of the game.
- *
- * It is important to load the media of the game
- *
- *
- */
-Scene* Game::get_actual_scene() {
-    return actual_scene;
 }

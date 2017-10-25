@@ -12,17 +12,18 @@
 
 #include "game_object.hpp"
 #include "game.hpp"
+#include "../include/log.hpp"
 #include <algorithm>
 
 using namespace engine;
 
-bool GameObject::on_limit_of_level; /**< Bollean. Determs if game object is in the bound compared to map hitbox */
+bool GameObject::on_limit_of_level; /**< Boolean. Determines if game object is in the bound compared to map hitbox */
 
 /**
  * @brief This Routine compare 2 Components of one Game Object and verify with one has more 
  * priority in order to apply game effects.
  * 
- * Because the game have no ideia with game object is more important its important this routine 
+ * Because the game have no idea with game object is more important its important this routine
  * to know this.
  *  
  * @param Component a, pointer to a component declared in a Game Object.
@@ -44,21 +45,28 @@ bool compare(Component *a, Component *b) {
 void GameObject::add_component(Component *component) {
 	if (dynamic_cast<Audio *>(component)) {
 	/* Add an audio component to the map of audios of that game object */
+		INFO("Adding Audio Component " + component->get_name() + " to " + this->name);
 		audios.push_back(component);
 	}
 	else if (dynamic_cast<Text *>(component)) {
 	/* Add an text component to the map of texts of that game object */
+		INFO("Adding Text Component " + component->get_name() + " to " + this->name);
 		texts.push_back(component);
 		sort(texts.begin(), texts.end(), compare);
 	}
 	else if (dynamic_cast<Hitbox *>(component)) {
 	/* Add an hitbox component to the map of hitboxes of that game object */
+		INFO("Adding Hitbox Component " + component->get_name() + " to " + this->name);
 		hitboxes.push_back(dynamic_cast<Hitbox *>(component));
 	}
 	else if (dynamic_cast<Image *>(component)) {
 	/* Add an image component to the map of images of that game object */
+		INFO("Adding Image Component " + component->get_name() + " to " + this->name);
 		images.push_back(component);
 		sort(images.begin(), images.end(), compare);
+	}
+	else {
+		/* Do nothing */
 	}
 }
 
@@ -74,6 +82,7 @@ void GameObject::add_component(Component *component) {
  */
 void GameObject::add_animation(std::string animation_name, Animation *animation) {
 	/* Attach an animation previous created to a game object */
+	INFO("Adding animation " + animation->get_name() + " to " + this->name);
 	animations[animation_name] = animation;
 	animation->set_game_object(this);
 }
@@ -88,6 +97,8 @@ void GameObject::add_animation(std::string animation_name, Animation *animation)
  * @return boolean true meaning that everything finishes fine.
  */
 bool GameObject::load() {
+	INFO("Loading components for " + this->name);
+
 	for (auto image : images) {
 		image->load();
 	}
@@ -116,6 +127,8 @@ bool GameObject::load() {
  * @return void.
  */
 void GameObject::free() {
+	INFO("Freeing " + this->name + " object components");
+
 	for (auto image : images) {
 		image->free();
 	}
@@ -151,12 +164,18 @@ void GameObject::draw() {
 		/* Verifys if animation is active and not null, then show on screen */
 			animation.second->draw(position.first, position.second);
 		}
+		else {
+			/* Do nothing */
+		}
 	}
 	
 	for (auto image : images) {
 		if (image->is_active()) {
 		/* Verifys if image(s) is active and not null, then show on screen */
 			image->draw(position.first, position.second);
+		}
+		else {
+			/* Do nothing */
 		}
 	}
 	
@@ -168,6 +187,9 @@ void GameObject::draw() {
 		if (hitbox->wanna_draw_hitbox()) {
 		/* Verifys if hitboxes(s) is active and not null, then show on screen */
 			hitbox->draw();
+		}
+		else {
+			/* Do nothing */
 		}
 	}
 }
@@ -210,6 +232,9 @@ void GameObject::collide(GameObject *other) {
 	/* In case that one game object is diferent from other objects then it will run collisions and verify both objetcs hitboxes */
 		this->run_collisions(other);
 	}
+	else {
+		/* Do nothing */
+	}
 }
 
 /**
@@ -232,6 +257,9 @@ void GameObject::run_collisions(GameObject *other) {
 			if (my_hitbox->collides_with(other_hitbox) && should_hitbox_collide) {
 			/* Control Struct that determs if two objects are colliding and call collision function */
 				this->on_collision(other, my_hitbox, other_hitbox);
+			}
+			else {
+				/* Do nothing */
 			}
 		}
 	}
@@ -413,9 +441,13 @@ void GameObject::set_speed_y(float v_y) {
  * @return void.
  */
 void GameObject::set_actual_animation(Animation *animation) {
+	INFO("Changing " + this->name + " animation to " + animation->get_name());
 	if (actual_animation != NULL) {
 	/* Validation to determs if current animation is not null*/
 		actual_animation->deactivate();
+	}
+	else {
+		/* Do nothing */
 	}
 	
 	/* Get reference to current animation and active it */
@@ -467,6 +499,8 @@ void GameObject::deactivate() {
  * @return void.
  */
 void GameObject::deactivate_components() {
+	INFO("Deactivating " + this->name + " components");
+
 	for (auto image : images) {
 		image->deactivate();
 	}
@@ -511,6 +545,8 @@ void GameObject::update_state() {
 void GameObject::create_hitbox(
 		std::pair<int, int> displacement,
 		std::pair<int, int> dimensions) {
+	INFO("Creating hitbox for " + this->name);
+
 	Game &game = Game::get_instance();
 	/* Instantiate objects calling contrutor and passsing params */
 	Hitbox *hitbox = new Hitbox("hitbox",
@@ -531,6 +567,7 @@ void GameObject::create_hitbox(
  * @return void.
  */
 void GameObject::attach_observer(Observer *observer) {
+	INFO("Attaching observer to " + this->name);
 	observers.push_back(observer);
 }
 
@@ -543,6 +580,7 @@ void GameObject::attach_observer(Observer *observer) {
  * @return void.
  */
 void GameObject::detach_observer(Observer *observer) {
+	INFO("Releasing observer from " + this->name);
 	observers.remove(observer);
 }
 
@@ -569,6 +607,8 @@ void GameObject::notify_observers() {
  * @return Address of object called matched audio containing the game object audio.
  */
 Audio *GameObject::get_audio_by_name(std::string audio_name) {
+	INFO("Getting audio " + audio_name + " in " + this->name);
+
 	Audio *matched_audio = NULL;
 	
 	for (auto audio : audios) {
@@ -576,6 +616,9 @@ Audio *GameObject::get_audio_by_name(std::string audio_name) {
 		/* Case audio(s) from game object is equal to audio name passed as param in function */
 			matched_audio = dynamic_cast<Audio *>(audio);
 			break;
+		}
+		else {
+			/* Do nothing */
 		}
 	}
 	
@@ -593,6 +636,8 @@ Audio *GameObject::get_audio_by_name(std::string audio_name) {
  * @return void.
  */
 void GameObject::play_song(std::string song_name) {
+	INFO("Playing song " + song_name + " in " + this->name);
+
 	/* Instantiate object song */
 	Audio *song = get_audio_by_name(song_name);
 	
@@ -612,6 +657,8 @@ void GameObject::play_song(std::string song_name) {
  * @return void.
  */
 void GameObject::stop_song(std::string song_name) {
+	INFO("Stoping song " + song_name + " in " + this->name);
+
 	Audio *song = get_audio_by_name(song_name);
 	
 	/* Stop songs. If is a music it will be stopped in pause_music, case is a audio effect in stop_effect */
@@ -649,6 +696,8 @@ void GameObject::set_repetitions(std::string song_name, int repet) {
  * @return void.
  */
 void GameObject::set_music_volume(std::string song_name, int vol) {
+	INFO("Setting " + song_name + " volume in " + this->name);
+
 	/* Instantiate object song  and set volume */
 	Audio *song = get_audio_by_name(song_name);
 	song->set_music_volume(vol);
@@ -665,6 +714,8 @@ void GameObject::set_music_volume(std::string song_name, int vol) {
  * @return void.
  */
 void GameObject::free_music(std::string song_name) {
+	INFO("Freeing " + song_name + " in " + this->name);
+
 	/* Instantiate object song  and delete it. Normaly this will be called in game close operation */
 	Audio *song = get_audio_by_name(song_name);
 	song->free();

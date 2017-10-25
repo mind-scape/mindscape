@@ -11,6 +11,7 @@
 #include "../include/goop.hpp"
 #include "../include/platform.hpp"
 #include "../include/little_girl.hpp"
+#include "../engine/include/log.hpp"
 #include <stdlib.h>
 
 using namespace mindscape;
@@ -55,7 +56,7 @@ Goop::Goop(
  * @return void.
  */
 void Goop::initialize_animations(){
-
+    DEBUG("Started: initialize_animation()");
     /**<
      * engine::Animation. Group of pixels that generates the image goop.
      */
@@ -115,8 +116,9 @@ void Goop::initialize_animations(){
     );
     goop_squash_animation->in_loop = false;
     goop_squash_animation->is_a_final_animation = true;
-    add_animation("goop_squash_animation",goop_squash_animation);
+    add_animation("goop_squash_animation", goop_squash_animation);
 
+    DEBUG("Ended: initialize_animation()");
 }
 
 /**
@@ -139,6 +141,8 @@ engine::Animation* Goop::create_animation(
     int sprite_columns,
     double duration,
     std::string direction) {
+
+    DEBUG("Started: create_animation() goop");
 
     engine::Game& game = engine::Game::get_instance(); /**< initialization of the game instance singleton */
 
@@ -166,6 +170,8 @@ engine::Animation* Goop::create_animation(
     );
 
   return animation;
+
+  DEBUG("Ended: create_animation() goop")
 }
 
 /**
@@ -176,6 +182,7 @@ engine::Animation* Goop::create_animation(
  * @return void.
  */
 void Goop::initialize_as_physicable() {
+    DEBUG("Started: initialize_as_physicable()");
 
     engine::Physics *physics = nullptr; /**< engine::Physics. initialize the instance of the game physics. */
     physics = engine::Physics::get_instance();
@@ -184,7 +191,11 @@ void Goop::initialize_as_physicable() {
      * Adds physics to goop and sets collidable
      */
     physics->add_physicable(this);
+
+    INFO("Goop as collidable");
     collidable = true;
+
+    DEBUG("Ended: initialize_as_physicable()");
 }
 
 /**
@@ -194,6 +205,8 @@ void Goop::initialize_as_physicable() {
  * @return void.
  */
 void Goop::initialize_hitboxes() {
+    DEBUG("Started: initialize goop add hitbox");
+
     engine::Game& game = engine::Game::get_instance(); /**< engine::Game. initialization of the game instance singleton */
     engine::Hitbox* goop_hitbox = nullptr; /**< engine::Hitbox. initialization the goop as hitbox */
 
@@ -210,6 +223,8 @@ void Goop::initialize_hitboxes() {
     goop_hitbox->initialize();
 
     add_component(goop_hitbox);
+
+    DEBUG("Ended: initialize goop add hitbox");
 }
 
 /**
@@ -219,8 +234,12 @@ void Goop::initialize_hitboxes() {
  * @return void.
  */
 void Goop::initialize_state_map(){
+    DEBUG("Started: initialize_state_map");
+
     states.set_state("ACTION_STATE","NORMAL");
     states.set_state("Y_STATE","ON_GROUND");
+
+    DEBUG("Ended: initialize_state_map");
 }
 
 /**
@@ -232,6 +251,8 @@ void Goop::initialize_state_map(){
  * @return void.
  */
 void Goop::on_event(GameEvent game_event) {
+    DEBUG("Started: on_event()");
+
     std::string event_name = ""; /**< string. Initialization the goop as hitbox */
     event_name = game_event.game_event_name;
 
@@ -248,6 +269,8 @@ void Goop::on_event(GameEvent game_event) {
         /* If event is move to right */
         set_speed_x(speed_x - 5);
     }
+
+    DEBUG("Ended: on_event()");
 }
 
 /**
@@ -262,6 +285,7 @@ void Goop::on_event(GameEvent game_event) {
  */
 void Goop::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox,
         engine::Hitbox* p_other_hitbox) {
+    DEBUG("Started: on_collision()");
 
     Platform* platform = nullptr; /**< Plataform. Initialization the platform (floor) */
     engine::Hitbox* my_hitbox = nullptr; /**< Hitbox. Initialization the goop hitbox */
@@ -275,7 +299,7 @@ void Goop::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox,
             my_hitbox->get_name() == "goop_hitbox") {
 
         /* If speed on the axis y is 0 or more and my_hitbox is goop hitbox. */
-        
+
         set_speed_y(0.0);
         set_position_y(other_hitbox->get_coordinates().second - 30);
         states.set_state("Y_STATE","ON_GROUND");
@@ -284,4 +308,6 @@ void Goop::on_collision(engine::GameObject* other, engine::Hitbox* p_my_hitbox,
 
         free();
     }
+
+    DEBUG("Ended: on_collision()");
 }

@@ -8,6 +8,7 @@
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
  */
 #include "../include/hud_fox.hpp"
+#include "../engine/include/log.hpp"
 
 using namespace mindscape;
 
@@ -45,14 +46,20 @@ HudFox::HudFox(
  * @return void.
  */
 void HudFox::initialize_audio_effects() {
+    
+    DEBUG("Started");
+    
+    /* Initiates sound effect */
     engine::Audio * take_this_hp = nullptr;
     take_this_hp = new engine::Audio(
         "heart", "../assets/audios/effects_songs/mindscape_heart.wav", 
         engine::Audio::CHUNK);
     
+    /* Set duration of the sound effect and add component in game */
     take_this_hp->set_duration(1);
-
     add_component(take_this_hp);
+
+    DEBUG("Ended");
 }
 
 /**
@@ -66,12 +73,14 @@ void HudFox::initialize_audio_effects() {
  * @return void.
  */
 void HudFox::notify(engine::Observable* game_object) {
+    
     Fox* fox = nullptr;
     fox = dynamic_cast<Fox *>(game_object);
 
     if(fox) {
-    /* If the fox exists */    
-        bool give_hp = false; /*< Boolean. Boolean that defines if hp is being given or not */
+    /* If the fox exists */ 
+        bool give_hp = false; /*< Boolean. Boolean that defines if 
+        hp is being given or not */
         give_hp = fox->get_animation_hud_fading();
         
         engine::Animation* actual = NULL;
@@ -79,11 +88,15 @@ void HudFox::notify(engine::Observable* game_object) {
         
         if(actual == animations["three_star_fading"]) {
         /* If stars are fading */    
-            if(actual->is_finished) {
+            if(actual->is_finished) {   
             /* If stars already faded */
                 give_hp = false;
                 fox->set_star_count(0);
                 set_actual_animation(animations["zero_star"]);
+            }
+
+            else {
+                /* Do nothing */
             }
         }
 
@@ -97,12 +110,20 @@ void HudFox::notify(engine::Observable* game_object) {
                 if(!(get_actual_animation() == animations["zero_star"])) {
                     set_actual_animation(animations["zero_star"]);
                 }
+
+                else {
+                    /* Do nothing */
+                }
             }
 
             else if(count == 1) {
             /* If there is one star */    
                 if(!(get_actual_animation() == animations["one_star"])){
                     set_actual_animation(animations["one_star"]);
+                }
+
+                else {
+                    /* Do nothing */
                 }
             }
 
@@ -111,13 +132,20 @@ void HudFox::notify(engine::Observable* game_object) {
                 if(!(get_actual_animation() == animations["two_star"])) {
                     set_actual_animation(animations["two_star"]);
                 }
+
+                else {
+                    /* Do nothing */
+                }
             }
 
             else if(count == 3 && !give_hp) {
             /* If there are three stars and is not giving hp */
                 if(!(get_actual_animation() == animations["three_star"])) {
                     set_actual_animation(animations["three_star"]);
-                }  
+                } 
+                else {
+                    /* Do nothing */
+                }
             }
 
             else if(count == 3 && give_hp) {
@@ -126,8 +154,18 @@ void HudFox::notify(engine::Observable* game_object) {
                 set_actual_animation(animations["three_star_fading"]);
                 play_song("heart");
             }
+
+            else {
+                /* Do nothing */
+            }
         }
     }
+
+    else {
+        /* Do nothing */
+        WARN("HudFox: Fox IS NULL");
+    }
+
 }
 
 /**
@@ -139,6 +177,7 @@ void HudFox::notify(engine::Observable* game_object) {
  */
 void HudFox::initialize_animations() {
 
+    DEBUG("Started");
     
     engine::Animation* fox_zero_star = nullptr;
     fox_zero_star = create_animation(
@@ -178,6 +217,8 @@ void HudFox::initialize_animations() {
     
     fox_zero_star->activate();
     set_actual_animation(fox_zero_star);
+
+    DEBUG("Ended");
 }
 
 /**
@@ -201,6 +242,7 @@ engine::Animation* HudFox::create_animation(
     double duration,
     std::string direction) {
 
+    DEBUG("Started");
     engine::Game& game = engine::Game::get_instance();
     
     engine::Animation* animation = nullptr;
@@ -226,5 +268,7 @@ engine::Animation* HudFox::create_animation(
         std::make_pair(0, 0)
     );
 
+    DEBUG("Ended");
+    
     return animation;
 }

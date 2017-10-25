@@ -8,6 +8,7 @@
 * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
 */
 #include "game_object_factory.hpp"
+#include "../engine/include/log.hpp"
 
 using namespace mindscape;
 /**
@@ -24,6 +25,8 @@ engine::GameObject* GameObjectFactory::fabricate(
     GameObjectFactory::Options option,
     std::string name, /* Used as an unique id */
     std::pair<int, int> coordinates, int priority) {
+    DEBUG("Started: GameObject fabricate()");
+
         switch(option){
           /* For each option that the GameObject assumes, the function returns
              an object created */
@@ -79,6 +82,8 @@ engine::GameObject* GameObjectFactory::fabricate(
             /* If the option is not described above, return a null object*/
                 return NULL;
     }
+
+    DEBUG("Ended: GameObject fabricate()");
 }
 
 /**
@@ -93,11 +98,12 @@ engine::GameObject* GameObjectFactory::fabricate(
 */
 engine::GameObject* GameObjectFactory::fabricate_hud_fox(std::string name,
    std::pair<int, int> position, int priority) {
-
+    DEBUG("Started: GameObject fabricate_hud_fox()");
     /* Inializes a GameObject object and creates a HudFox object */
     engine::GameObject* hud_fox = nullptr;
     hud_fox = new HudFox(name, position, priority);
     
+    DEBUG("Ended: GameObject fabricate_hud_fox()");
     return hud_fox;
 }
 
@@ -113,11 +119,12 @@ engine::GameObject* GameObjectFactory::fabricate_hud_fox(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_hud_girl(std::string name,
    std::pair<int, int> position, int priority) {
-    
+    DEBUG("Started: GameObject fabricate_hud_girl()");
     /* Inializes a GameObject object and creates a HudGirl object */    
     engine::GameObject* hud_girl = nullptr;
     hud_girl = new HudGirl(name, position, priority);
 
+    DEBUG("Ended: GameObject fabricate_hud_girl()");
     return hud_girl;
 }
 
@@ -133,11 +140,12 @@ engine::GameObject* GameObjectFactory::fabricate_hud_girl(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_button(std::string name,
   std::pair<int, int> position, int priority) {
-
+    DEBUG("Started: GameObject fabricate_button()");
     /* Inializes a GameObject object and creates a Button object */
     engine::GameObject* button = nullptr;
     button = new Button(name, position, priority);
 
+    DEBUG("Ended: GameObject fabricate_button()");
     return button;
 }
 
@@ -153,11 +161,12 @@ engine::GameObject* GameObjectFactory::fabricate_button(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_select_arrow(std::string name,
    std::pair<int, int> position, int priority) {
-    
+    DEBUG("Started: GameObject fabricate_select_arrow()");
     /* Inializes a GameObject object and creates a SelectArrow object */
     engine::GameObject* select_arrow = nullptr;
     select_arrow = new SelectArrow(name, position, priority);
 
+    DEBUG("Ended: GameObject fabricate_select_arrow()");
     return select_arrow;
 }
 
@@ -173,11 +182,12 @@ engine::GameObject* GameObjectFactory::fabricate_select_arrow(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_fox(std::string name,
    std::pair<int, int> position, int priority) {
-    
+    DEBUG("Started: GameObject fabricate_fox()");
     /* Inializes a GameObject object and creates a Fox object */
     engine::GameObject* fox = nullptr;
     fox = new Fox(name, position, priority);
 
+    DEBUG("Ended: GameObject fabricate_fox()");
     return fox;
 }
 
@@ -193,7 +203,7 @@ engine::GameObject* GameObjectFactory::fabricate_fox(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_background(std::string name,
   std::pair<int, int> position, int priority) {
-    
+    DEBUG("Started: GameObject fabricate_background()");
     /* Inializes a GameObject object and creates a Background object */
     Background* background = nullptr;
     background = new Background(name, position, priority);
@@ -209,6 +219,7 @@ engine::GameObject* GameObjectFactory::fabricate_background(std::string name,
         background->set_paralax(2 * priority);
     }
 
+    DEBUG("Ended: GameObject fabricate_background()");
     return background;
 }
 
@@ -224,11 +235,12 @@ engine::GameObject* GameObjectFactory::fabricate_background(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_platform(std::string name,
   std::pair<int, int> position, int priority) {
-
+    DEBUG("Started: GameObject fabricate_platform()");
     /* Inializes a GameObject object and creates a Platform object */
     engine::GameObject* platform = nullptr;
     platform = new Platform(name, position, priority);
 
+    DEBUG("Ended: GameObject fabricate_platform()");
     return platform;
 }
 
@@ -244,11 +256,12 @@ engine::GameObject* GameObjectFactory::fabricate_platform(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_spider(std::string name,
    std::pair<int, int> position, int priority) {
-
+    DEBUG("Started: GameObject fabricate_spider()");
     /* Inializes a GameObject object and creates a Spider object */
     engine::GameObject* spider = nullptr;
     spider = new Spider(name, position, priority);
 
+    DEBUG("Ended: GameObject fabricate_spider()");
     return spider;
 }
 
@@ -264,11 +277,12 @@ engine::GameObject* GameObjectFactory::fabricate_spider(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_scorpion(std::string name,
   std::pair<int, int> position, int priority) {
-    
+    DEBUG("Started: GameObject fabricate_scorpion()");
     /* Inializes a GameObject object and creates a Scorpion object */
     engine::GameObject* scorpion = nullptr;
     scorpion = new Scorpion(name, position, priority);
 
+    DEBUG("Ended: GameObject fabricate_scorpion()");
     return scorpion;
 }
 
@@ -284,11 +298,12 @@ engine::GameObject* GameObjectFactory::fabricate_scorpion(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_star(std::string name,
   std::pair<int, int> position, int priority) {
-
+    DEBUG("Started: GameObject fabricate_star()");
     /* Inializes a GameObject object and creates a Scorpion object */
     engine::GameObject* scorpion = nullptr;
     scorpion = new Star(name, position, priority);
 
+    DEBUG("Ended: GameObject fabricate_star()");
     return scorpion;
 }
 
@@ -304,11 +319,12 @@ engine::GameObject* GameObjectFactory::fabricate_star(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_little_girl(std::string name,
    std::pair<int, int> position, int priority) {
-    
+    DEBUG("Started: GameObject fabricate_little_girl()");
     /* Inializes a GameObject object and creates a Little Girl object */
     engine::GameObject *little_girl = nullptr;
     little_girl = new LittleGirl(name , position, priority);
 
+    DEBUG("Ended: GameObject fabricate_little_girl()");
     return little_girl;
 }
 
@@ -324,9 +340,11 @@ engine::GameObject* GameObjectFactory::fabricate_little_girl(std::string name,
 */
 void GameObjectFactory::fabricate_hitbox(engine::GameObject * game_object,
   std::pair<int, int> displacement, std::pair<int, int> dimensions) {
-
+    DEBUG("Started: GameObject fabricate_hitbox()");
     /* Creates hitbox of the object received */
     game_object->create_hitbox(displacement, dimensions);
+
+    DEBUG("Ended: GameObject fabricate_hitbox()");
 }
 
 /**
@@ -349,6 +367,7 @@ void GameObjectFactory::fabricate_image(engine::GameObject *game_object,
   std::pair<int, int> dimensions_on_texture,
   std::pair<int, int> coordinatesOnTexture) {
 
+    DEBUG("Started: GameObject fabricate_image()");
     /* Gets game's istance and creates new Image object */
     engine::Game& game = engine::Game::get_instance();
     engine::Image* image = new engine::Image(game.get_renderer(), path, true,
@@ -360,6 +379,8 @@ void GameObjectFactory::fabricate_image(engine::GameObject *game_object,
 
     game_object->add_component(image); /* Adds Image to the GameObject 
     received */
+
+    DEBUG("Ended: GameObject fabricate_image()");
 }
 
 /**
@@ -378,7 +399,7 @@ void GameObjectFactory::fabricate_image(engine::GameObject *game_object,
 void GameObjectFactory::fabricate_text(engine::GameObject *game_object,
   std::string p_text, std::string font_path, int font_size,
   std::pair<int, int> displacement, int priority) {
-
+    DEBUG("Started: GameObject fabricate_text()");
     /* Gets game's istance and creates new Text object */
     engine::Game& game = engine::Game::get_instance();
     engine::Text* text = new engine::Text(game.get_renderer(),
@@ -386,6 +407,8 @@ void GameObjectFactory::fabricate_text(engine::GameObject *game_object,
 
     game_object->add_component(text); /* Adds Text to the GameObject 
     received */
+
+    DEBUG("Ended: GameObject fabricate_text()");
 }
 
 /**
@@ -400,7 +423,7 @@ void GameObjectFactory::fabricate_text(engine::GameObject *game_object,
 */
 void GameObjectFactory::fabricate_action(engine::GameObject *game_object,
   int p_command, std::string param) {
-
+    DEBUG("Started: GameObject fabricate_action()");
     /* Instanciates new Command enum */
     Action::Command command = static_cast < Action::Command > (0);
     command = static_cast<Action::Command>(p_command);
@@ -413,6 +436,8 @@ void GameObjectFactory::fabricate_action(engine::GameObject *game_object,
     Button* button = NULL;
     button = dynamic_cast<Button *>(game_object);
     button->set_action(action, param);
+
+    DEBUG("Ended: GameObject fabricate_action()");
 }
 
 /**
@@ -427,13 +452,15 @@ void GameObjectFactory::fabricate_action(engine::GameObject *game_object,
 */
 void GameObjectFactory::fabricate_translation(engine::GameObject *game_object,
    int p_key, std::string event_name) {
-    
+    DEBUG("Started");
     /* Inializes new KeyboardEvent object */
     engine::KeyboardEvent::Key key = 
         static_cast < engine::KeyboardEvent::Key > (0);
     key = static_cast < engine::KeyboardEvent::Key > (p_key);
 
     game_object->translations[key] = event_name;
+
+    DEBUG("Ended");
 }
 
 /**
@@ -449,7 +476,7 @@ void GameObjectFactory::fabricate_translation(engine::GameObject *game_object,
 */
 void GameObjectFactory::fabricate_audio(engine::GameObject *game_object,
   std::string name, std::string path, int p_audio_type) {
-    
+    DEBUG("Started");
     /* Inializes a new AudioType object */
     engine::Audio::AudioType audio_type = 
         static_cast < engine::Audio::AudioType > (0);
@@ -461,6 +488,8 @@ void GameObjectFactory::fabricate_audio(engine::GameObject *game_object,
 
     /* Adds Audio to the GameObject received */
     game_object->add_component(audio);
+
+    DEBUG("Ended");
 }
 
 /**
@@ -475,11 +504,12 @@ void GameObjectFactory::fabricate_audio(engine::GameObject *game_object,
 */
 engine::GameObject* GameObjectFactory::fabricate_music_player(
   std::string name, std::pair<int, int> position, int priority){
-
+    DEBUG("Started");
     /* Inializes a GameObject object and creates a MusicPlayer object */
     engine::GameObject *music_player = nullptr;
     music_player = new MusicPlayer(name , position, priority);
 
+    DEBUG("Ended");
     return music_player;
 }
 
@@ -495,11 +525,12 @@ engine::GameObject* GameObjectFactory::fabricate_music_player(
 */
 engine::GameObject* GameObjectFactory::fabricate_clown(std::string name,
   std::pair<int, int> position, int priority) {
-
+    DEBUG("Started");
     /* Inializes a GameObject object and creates a Clown object */
     engine::GameObject* clown = nullptr;
     clown = new Clown(name , position, priority);
 
+    DEBUG("Ended");
     return clown;
 }
 
@@ -515,11 +546,12 @@ engine::GameObject* GameObjectFactory::fabricate_clown(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_dark_girl(std::string name,
   std::pair<int, int> position, int priority) {
-
+    DEBUG("Started");
     /* Inializes a GameObject object and creates a Dark Girl object */
     engine::GameObject* dark_girl = nullptr;
     dark_girl = new DarkGirl(name , position, priority);
 
+    DEBUG("Ended");
     return dark_girl;
 }
 
@@ -535,11 +567,12 @@ engine::GameObject* GameObjectFactory::fabricate_dark_girl(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_uncle(std::string name,
    std::pair<int, int> position, int priority) {
-
+    DEBUG("Started");
     /* Inializes a GameObject object and creates an Uncle object */
     engine::GameObject* uncle = nullptr;
     uncle = new Uncle(name, position, priority);
 
+    DEBUG("Ended");
     return uncle;
 }
 
@@ -555,10 +588,11 @@ engine::GameObject* GameObjectFactory::fabricate_uncle(std::string name,
 */
 engine::GameObject* GameObjectFactory::fabricate_arm(std::string name,
   std::pair<int, int> position, int priority) {
-
+    DEBUG("Started");
     /* Inializes a GameObject object and creates an Arm object */
     engine::GameObject* arm = nullptr;
     arm = new Arm(name , position, priority);
 
+    DEBUG("Ended");
     return arm;
 }

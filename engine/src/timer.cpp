@@ -9,6 +9,7 @@
  */
 
 #include "../include/timer.hpp"
+#include <include/log.hpp>
 
 using namespace engine;
 
@@ -23,6 +24,7 @@ using namespace engine;
 void Timer::init_timer() {
     is_running = true;
     initial_time = SDL_GetTicks();
+    
     time_interval = initial_time;
 }
 
@@ -37,6 +39,7 @@ void Timer::init_timer() {
 void Timer::stop_timer() {
     is_running = false;
     initial_time = 0;
+
     time_interval = initial_time;
 }
 
@@ -53,8 +56,10 @@ int Timer::get_total_time() {
     int final_time = SDL_GetTicks();
 
     if (!is_running) {
+        DEBUG("final_time");
+
         return 0;
-    } 
+    }
     else {
         return final_time - initial_time;
     }
@@ -72,8 +77,10 @@ int Timer::get_elapsed_time() {
     int total_time = SDL_GetTicks();
 
     if (!is_running) {
+        DEBUG("total_time");
+
         return 0;
-    } 
+    }
     else {
         return total_time - time_interval;
     }
@@ -92,8 +99,8 @@ void Timer::set_interval() {
     time_interval = 0;
 
     if (!is_running) {
-        printf("Cannot set interval while timer is stopped.");
-    } 
+        INFO("Cannot set interval while timer is stopped.");
+    }
     else {
         time_interval = get_total_time();
     }

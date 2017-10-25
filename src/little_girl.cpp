@@ -13,6 +13,7 @@
 #include "../include/scorpion.hpp"
 #include "../include/goop.hpp"
 #include "../engine/include/game.hpp"
+#include "../engine/include/log.hpp"
 #include "level_factory.hpp"
 #include <typeinfo>
 #include <algorithm>
@@ -60,11 +61,14 @@ LittleGirl::LittleGirl(
  * @return void
  */
 void LittleGirl::initialize_state_map() {
+	DEBUG("Started");
 	/* Sets initial position of the Little Girl in the game, also her action
 		state */ 
 	states.set_state("X_STATE", "LOOKING_RIGHT");
 	states.set_state("Y_STATE", "FALLING");
 	states.set_state("ACTION_STATE", "NORMAL");
+
+	DEBUG("Ended");
 }
 
 /**
@@ -73,7 +77,7 @@ void LittleGirl::initialize_state_map() {
  * @return void
  */
 void LittleGirl::initialize_hitboxes() {
-
+	DEBUG("Started");
 	/* Gets actual state of the game */
 	engine::Game &game = engine::Game::get_instance();
 
@@ -98,6 +102,8 @@ void LittleGirl::initialize_hitboxes() {
 	/* Adds both components in game */
 	add_component(hitbox);
 	add_component(footer);
+
+	DEBUG("Ended");
 }
 
 /**
@@ -106,8 +112,9 @@ void LittleGirl::initialize_hitboxes() {
  * @return void
  */
 void LittleGirl::initialize_audio_effects() {
-	
-	/* Initiates sound effect while the Litte Girl is walking */
+	DEBUG("Started");
+
+	/* Initiates sound effect while the Little Girl is walking */
 	engine::Audio *little_girl_steps = new engine::Audio(
 			"steps",
 			"../assets/audios/effects_songs/menina_passos_rapido.wav",
@@ -116,7 +123,7 @@ void LittleGirl::initialize_audio_effects() {
 	little_girl_steps->set_effect_volume(45);
 	add_component(little_girl_steps);
 
-	/* Initiates sound effect while the Litte Girl is been hit */
+	/* Initiates sound effect while the Little Girl is been hit */
 	engine::Audio *little_girl_getting_hit = new engine::Audio(
 			"hit_me",
 			"../assets/audios/effects_songs/menina_apanhando.wav",
@@ -124,13 +131,15 @@ void LittleGirl::initialize_audio_effects() {
 	little_girl_getting_hit->set_duration(0.5);
 	add_component(little_girl_getting_hit);
 
-	/* Initiates sound effect while the Litte Girl is using the sword */
+	/* Initiates sound effect while the Little Girl is using the sword */
 	engine::Audio *sword_song = new engine::Audio(
 			"sword_attack",
 			"../assets/audios/effects_songs/espada_fase_1.wav",
 			engine::Audio::CHUNK);
 	sword_song->set_duration(0.4);
 	add_component(sword_song);
+
+	DEBUG("Ended");
 }
 
 /**
@@ -139,78 +148,90 @@ void LittleGirl::initialize_audio_effects() {
  * @return void
  */
 void LittleGirl::initialize_animations() {
+	DEBUG("Started");
 
-	/* Initiates animation of the Litte Girl's running to right */
+	/* Initiates animation of the Little Girl's running to right */
+	DEBUG("running_right_animation");
 	engine::Animation *running_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_running_right.png",
 		1, 9, 0.9, "RIGHT"
 	);
 	add_animation("running_right_animation", running_right_animation);
 
-	/* Initiates animation of the Litte Girl's running to left */
+	/* Initiates animation of the Little Girl's running to left */
+	DEBUG("running_left_animation");
 	engine::Animation *running_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_running_left.png",
 		1, 9, 0.9, "LEFT"
 	);
 	add_animation("running_left_animation", running_left_animation);
 
-	/* Initiates animation of the Litte Girl's standing looking right */
+	/* Initiates animation of the Little Girl's standing looking right */
+	DEBUG("idle_right_animation");
 	engine::Animation *idle_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_idle_right.png",
 		1, 10, 1.5, "RIGHT"
 	);
 	add_animation("idle_right_animation", idle_right_animation);
 
-	/* Initiates animation of the Litte Girl's standing looking left */
+	/* Initiates animation of the Little Girl's standing looking left */
+	DEBUG("idle_left_animation");
 	engine::Animation *idle_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_idle_left.png",
 		1, 10, 1.5, "LEFT"
 	);
 	add_animation("idle_left_animation", idle_left_animation);
 
-	/* Initiates animation of the Litte Girl's jumping to right */
+	/* Initiates animation of the Little Girl's jumping to right */
+	DEBUG("jumping_right_animation");
 	engine::Animation *jumping_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_jumping_right.png",
 		1, 5, 1.5, "RIGHT"
 	);
 	add_animation("jumping_right_animation", jumping_right_animation);
 
-	/* Initiates animation of the Litte Girl's jumping to left */
+	/* Initiates animation of the Little Girl's jumping to left */
+	DEBUG("jumping_left_animation");
 	engine::Animation *jumping_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_jumping_left.png",
 		1, 5, 1.5, "LEFT"
 	);
 	add_animation("jumping_left_animation", jumping_left_animation);
 
-	/* Initiates animation of the Litte Girl's attacking on right direction */
+	/* Initiates animation of the Little Girl's attacking on right direction */
+	DEBUG("attacking_right_animation");
 	engine::Animation *attacking_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_attacking_right.png",
 		1, 5, 0.4, "RIGHT"
 	);
 	add_animation("attacking_right_animation", attacking_right_animation);
 
-	/* Initiates animation of the Litte Girl's attacking on left direction */
+	/* Initiates animation of the Little Girl's attacking on left direction */
+	DEBUG("attacking_left_animation");
 	engine::Animation *attacking_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_attacking_left.png",
 		1, 5, 0.4, "LEFT"
 	);
 	add_animation("attacking_left_animation", attacking_left_animation);
 
-	/* Initiates animation of the Litte Girl when She's been attacking in right */
+	/* Initiates animation of the Little Girl when She's been attacking in right */
+	DEBUG("on_attack_right_animation");
 	engine::Animation *on_attack_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
 		1, 3, 0.8, "RIGHT"
 	);
 	add_animation("on_attack_right_animation", on_attack_right_animation);
 
-	/* Initiates animation of the Litte Girl when She's been attacking in left */
+	/* Initiates animation of the Little Girl when She's been attacking in left */
+	DEBUG("on_attack_left_animation");
 	engine::Animation *on_attack_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_on_attack_left.png",
 		1, 3, 0.8, "LEFT"
 	);
 	add_animation("on_attack_left_animation", on_attack_left_animation);
 
-	/* Initiates animation of the Litte Girl when She's dying looking to left*/
+	/* Initiates animation of the Little Girl when She's dying looking to left*/
+	DEBUG("dying_left_animation");
 	engine::Animation *dying_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_dying_left.png",
 		1, 5, 0.8, "LEFT"
@@ -219,7 +240,8 @@ void LittleGirl::initialize_animations() {
 	dying_left_animation->in_loop = false;
 	dying_left_animation->is_a_final_animation = true;
 
-	/* Initiates animation of the Litte Girl when She's dying looking to right */
+	/* Initiates animation of the Little Girl when She's dying looking to right */
+	DEBUG("dying_right_animation");
 	engine::Animation *dying_right_animation = create_animation(
 			"../assets/images/sprites/little_girl/little_girl_dying_right.png",
 			1, 5, 1.0, "RIGHT"
@@ -231,6 +253,8 @@ void LittleGirl::initialize_animations() {
 	/* Initiates Little Girl animation when She's standing */
 	idle_right_animation->activate();
 	set_actual_animation(idle_right_animation);
+
+	DEBUG("Ended");
 }
 
 /**
@@ -253,6 +277,8 @@ engine::Animation *LittleGirl::create_animation(
 		double duration,
 		std::string direction) {
 	
+	DEBUG("Started");
+
 	engine::Game &game = engine::Game::get_instance(); /* Gets game instance */
 	
 	/* Creates an animation Object of the Little Girl */
@@ -269,13 +295,15 @@ engine::Animation *LittleGirl::create_animation(
 			direction          
 	);
 	
-	/* Set dimentions on screen and, coordinates and dimention on texture  */
+	/* Set dimentions on screen and, coordinates and dimention on texture */
 	animation->set_values(
 			std::make_pair(192, 192),
 			std::make_pair(192, 192),
 			std::make_pair(0, 0)
 	);
 	
+	DEBUG("Ended");
+
 	return animation;
 }
 
@@ -287,11 +315,14 @@ engine::Animation *LittleGirl::create_animation(
  * @return void
  */
 void LittleGirl::initialize_as_physicable() {
+	DEBUG("Started");
 
 	/* Gets Physics object and makes Little Girl collidable */
 	engine::Physics *physics = engine::Physics::get_instance();
 	physics->add_physicable(this);
 	collidable = true;
+
+	DEBUG("Ended");
 }
 
 /**
@@ -308,6 +339,8 @@ void LittleGirl::on_collision(
 		engine::Hitbox *p_my_hitbox,
 		engine::Hitbox *p_other_hitbox) {
 	
+	DEBUG("Started");
+
 	/* Gets instances of the Enemies */
 	Platform *platform = dynamic_cast<Platform *>(other);
 	Scorpion *scorpion = dynamic_cast<Scorpion *>(other);
@@ -323,6 +356,10 @@ void LittleGirl::on_collision(
 		set_speed_y(0.0);
 		set_position_y(other_hitbox->get_coordinates().second - 180);
 	}
+
+	else {
+        /* Do nothing */
+    }
 	
 	if (scorpion &&
 		scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -335,6 +372,10 @@ void LittleGirl::on_collision(
 		on_attack(other);
 		hit(other, 1);
 	}
+
+	else {
+    	/* Do nothing */
+    }
 	
 	if (spider &&
 		spider->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -348,6 +389,10 @@ void LittleGirl::on_collision(
 		hit(other, 1);
 	}
 	
+	else {
+        /* Do nothing */
+    }
+
 	if (goop) {
 	/* If the goop is coming to the Little Girl's direction */
 
@@ -372,7 +417,17 @@ void LittleGirl::on_collision(
 			on_attack(other);
 			hit(other, 1);
 		}
+
+		else {
+        	/* Do nothing */
+    	}
 	}
+
+	else {
+        /* Do nothing */
+    }
+
+	DEBUG("Ended");
 }
 
 /**
@@ -383,6 +438,8 @@ void LittleGirl::on_collision(
  * @param game_object
  */
 void LittleGirl::die(engine::GameObject *game_object) {
+	DEBUG("Started");
+
 	std::string actual_x_state = get_state("X_STATE");
 	
 	if (actual_x_state == "LOOKING_LEFT") {
@@ -400,6 +457,10 @@ void LittleGirl::die(engine::GameObject *game_object) {
 		states.set_state("ACTION_STATE", "DYING");
 		set_actual_animation(animations["dying_right_animation"]);
 	}
+
+	else {
+        /* Do nothing */
+    }
 	
 	/* Creates "level" of Game over */
 	LevelFactory *level_factory = new LevelFactory();
@@ -411,6 +472,8 @@ void LittleGirl::die(engine::GameObject *game_object) {
 	
 	/* Pauses the game */
 	game->set_state(engine::Game::PAUSED);
+
+	DEBUG("Ended");
 }
 
 /**
@@ -429,7 +492,7 @@ void LittleGirl::on_event(GameEvent game_event) {
 	std::string actual_x_state = states.get_state("X_STATE"); /* Gets x 
 	coordinates of the game event */
 	std::string actual_y_state = states.get_state("Y_STATE"); /* Gets y 
-	coordinates of the game event */
+	coordinates of the game event */	
 	std::string actual_action_state = states.get_state("ACTION_STATE"); /* Gets  
 	action state of the game event */
 	
@@ -460,6 +523,10 @@ void LittleGirl::on_event(GameEvent game_event) {
 		/* Makes the Girl attack */
 		attack();
 	}
+
+	else {
+        /* Do nothing */
+    }
 }
 
 /**
@@ -472,6 +539,7 @@ void LittleGirl::on_event(GameEvent game_event) {
  * @return void
  */
 void LittleGirl::jump(std::string actual_x_state) {
+
 	if (get_state("Y_STATE") != "JUMPING" 
 		|| get_state("Y_STATE") != "FALLING") {
 	/* If the state in y axis is different from JUMPING or FALLING */
@@ -496,6 +564,10 @@ void LittleGirl::jump(std::string actual_x_state) {
 			set_actual_animation(animations["jumping_left_animation"]);
 		}
 
+		else {
+        	/* Do nothing */
+    	}
+
 		/* Gets actual animation and increments jump_animation_count value */
 		engine::Animation *actual_animation = get_actual_animation();
 		jumping_animation_count += 1;
@@ -515,7 +587,15 @@ void LittleGirl::jump(std::string actual_x_state) {
 					/* Sets coordinatesOnTexture equal zero */	
 					actual_animation->coordinatesOnTexture.first = 0;
 				}
+
+				else {
+        			/* Do nothing */
+    			}
 			}
+
+			else {
+        		/* Do nothing */
+    		}
 		}
 
 		else {
@@ -551,6 +631,11 @@ void LittleGirl::move_right(std::string actual_x_state,
 		actual_animation->coordinatesOnTexture.first = 0;
 	}
 	
+	else {
+        /* Do nothing */
+    }
+
+
 	/* Makes Little Girl walk to the right */
 	states.set_state("X_STATE", "LOOKING_RIGHT");
 	set_actual_animation(animations["running_right_animation"]);
@@ -565,6 +650,10 @@ void LittleGirl::move_right(std::string actual_x_state,
 		play_song("steps");
 		set_actual_animation(animations["jumping_right_animation"]);
 	}
+
+	else {
+        /* Do nothing */
+    }
 }
 
 /**
@@ -590,6 +679,10 @@ void LittleGirl::move_left(std::string actual_x_state,
 		/* Makes coordinateOnTexture value equal 1536 */
 		actual_animation->coordinatesOnTexture.first = 1536;
 	}
+
+	else {
+        /* Do nothing */
+    }
 	
 	/* Makes Little Girl walk to the left */
 	states.set_state("X_STATE", "LOOKING_LEFT");
@@ -605,6 +698,10 @@ void LittleGirl::move_left(std::string actual_x_state,
 		play_song("steps");
 		set_actual_animation(animations["jumping_left_animation"]);
 	}
+
+	else {
+        /* Do nothing */
+    }
 }
 
 /**
@@ -635,7 +732,12 @@ void LittleGirl::attack() {
 		get_actual_animation()->is_finished = false;
 	}
 
+	else {
+        /* Do nothing */
+    }
+
 	play_song("sword_attack"); /* Plays sword sound effect */
+
 }
 
 /**
@@ -667,6 +769,11 @@ void LittleGirl::on_attack(GameObject *game_object) {
 		set_actual_animation(animations["on_attack_right_animation"]); /* Makes
 		Little Girl be attacked looking right */
 	}
+
+	else {
+        /* Do nothing */
+    }
+
 }
 
 /**
@@ -683,6 +790,10 @@ void LittleGirl::update_state() {
 
 		die(NULL); /* Keeps the Little Girl alive */
 	}
+
+	else {
+        /* Do nothing */
+    }
 
 	/* Gets Little Girl's states */
 	std::string actual_y_state = states.get_state("Y_STATE");
@@ -707,6 +818,11 @@ void LittleGirl::update_state() {
 		}
 	}
 	
+	else {
+        /* Do nothing */
+    }
+
+
 	if (get_speed_x() == 0.0 && get_speed_y() == 0.0 
 		&& actual_action_state == "NORMAL") {
 	/* If the Little Girl is not moving */
@@ -725,10 +841,19 @@ void LittleGirl::update_state() {
 			She rest looking left */
 		}
 		
+		else {
+        	/* Do nothing */
+    	}
+
 		/* Sets jumping_animation_count equals zero */
 		jumping_animation_count = 0;
 	}
 	
+	else {
+        /* Do nothing */
+    }
+
+
 	if (get_speed_y() == 0.0 && get_state("Y_STATE") != "JUMPING") {
 	/* If the Little Girl does not have speed in y axe and she is not jumping */
 
@@ -742,8 +867,13 @@ void LittleGirl::update_state() {
 		/* Makes she fall */
 		states.set_state("Y_STATE", "FALLING");
 	}
-	
+
+	else {
+        /* Do nothing */
+    }
+
 	/* Sets new x coordinates and makes speed in x axe equal 0 */
 	set_position_x(get_position_x() - get_speed_x());
 	set_speed_x(0.0);
+
 }
