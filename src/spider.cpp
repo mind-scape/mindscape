@@ -11,6 +11,7 @@
 #include "../include/spider.hpp"
 #include "../include/platform.hpp"
 #include "../include/little_girl.hpp"
+#include "../engine/include/log.hpp"
 #include <stdlib.h>
 
 using namespace mindscape;
@@ -393,6 +394,9 @@ void Spider::notify(engine::Observable *game_object) {
     /* Notify if little_girl exists, moving to her direction. */
     if (little_girl) {
         move(little_girl);
+    }
+    else {
+        /* The spider stays in the same place. */
     }
 }
 

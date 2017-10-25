@@ -11,7 +11,9 @@
 #include "../include/scorpion.hpp"
 #include "../include/platform.hpp"
 #include "../include/little_girl.hpp"
+#include "../engine/include/log.hpp"
 #include <stdlib.h>
+#include <limits>
 
 using namespace mindscape;
 
@@ -393,6 +395,74 @@ void Scorpion::notify(engine::Observable *game_object) {
     if (little_girl) {
         move(little_girl);
     }
+    else {
+        /* The scorpion stays in the same place. */
+    }
+}
+
+/**
+ * @brief Event for the collision.
+ *
+ * Method called everytime when two game objects collides.
+ *
+ * @param other Other game object that collides.
+ * @param p_my_hitbox Hitbox that receives the collision.
+ * @param p_other_hitbox Hitbox that collided.
+ * @return void.
+ */
+
+void Scorpion::on_collision(
+    engine::GameObject* other,
+    engine::Hitbox* p_my_hitbox,
+    engine::Hitbox* p_other_hitbox) {
+    Platform* platform = nullptr; /**< Platform.
+    References the map where is happening the collision. */
+    platform = dynamic_cast<Platform *>(other);
+
+    LittleGirl* little_girl = nullptr; /**< LittleGirl.
+    References to LittleGirl object. */
+    little_girl = dynamic_cast<LittleGirl *>(other);
+
+    engine::Hitbox* my_hitbox = nullptr; /**< Hitbox.
+    References to scorpion's hitbox. */
+    my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
+    engine::Hitbox* other_hitbox = nullptr; /**< Hitbox.
+    References to girl's hitbox. */
+    other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+
+    /* Check if the scorpion and the girl are on collision. */
+    if (get_speed_y() >= 0
+        && platform
+        && my_hitbox->get_name() == "scorpion_hitbox") {
+
+        /* Stops the scorpion. */
+        set_speed_y(0.0);
+        set_position_y(other_hitbox->get_coordinates().second - 312);
+    }
+    else {
+        /* The scorpion isn't colliding with the girl. */
+
+    }
+
+    /* Check if the girl is attacking the scorpion. */
+    if (little_girl
+        && little_girl->get_state("ACTION_STATE") == "ATTACKING"
+        && my_hitbox->get_name() == "scorpion_attack"
+        && little_girl->get_actual_animation()->actual_column == 2
+        && get_state("X_STATE") != little_girl->get_state("X_STATE")) {
+
+        /* Check if the scorpion is under attack. */
+        if (get_state("ACTION_STATE") == "ON_ATTACK") {
+            return;
+        }
+        else {
+            on_attack(other);
+        }
+    }
+    else {
+        /* The girl is not attacking the scorpion. */
+    }
 }
 
 /**
@@ -610,65 +680,6 @@ void Scorpion::move(engine::GameObject* girl) {
                     attack();
                 }
             }
-        }
-    }
-}
-
-/**
- * @brief Event for the collision.
- *
- * Method called everytime when two game objects collides.
- *
- * @param other Other game object that collides.
- * @param p_my_hitbox Hitbox that receives the collision.
- * @param p_other_hitbox Hitbox that collided.
- * @return void.
- */
-
-void Scorpion::on_collision(
-    engine::GameObject* other,
-    engine::Hitbox* p_my_hitbox,
-    engine::Hitbox* p_other_hitbox) {
-
-    Platform* platform = nullptr; /**< Platform.
-    References the map where is happening the collision. */
-    platform = dynamic_cast<Platform *>(other);
-
-    LittleGirl* little_girl = nullptr; /**< LittleGirl.
-    References to LittleGirl object. */
-    little_girl = dynamic_cast<LittleGirl *>(other);
-
-    engine::Hitbox* my_hitbox = nullptr; /**< Hitbox.
-    References to scorpion's hitbox. */
-    my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-
-    engine::Hitbox* other_hitbox = nullptr; /**< Hitbox.
-    References to girl's hitbox. */
-    other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
-
-    /* Check if the scorpion and the girl are on collision. */
-    if (get_speed_y() >= 0
-        && platform
-        && my_hitbox->get_name() == "scorpion_hitbox") {
-
-        /* Stops the scorpion. */
-        set_speed_y(0.0);
-        set_position_y(other_hitbox->get_coordinates().second - 312);
-    }
-
-    /* Check if the girl is attacking the scorpion. */
-    if (little_girl
-        && little_girl->get_state("ACTION_STATE") == "ATTACKING"
-        && my_hitbox->get_name() == "scorpion_attack"
-        && little_girl->get_actual_animation()->actual_column == 2
-        && get_state("X_STATE") != little_girl->get_state("X_STATE")) {
-
-        /* Check if the scorpion is under attack. */
-        if (get_state("ACTION_STATE") == "ON_ATTACK") {
-            return;
-        }
-        else {
-            on_attack(other);
         }
     }
 }

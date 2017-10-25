@@ -11,6 +11,7 @@
 #include "../include/uncle.hpp"
 #include "../include/platform.hpp"
 #include "../include/little_girl.hpp"
+#include "../engine/include/log.hpp"
 #include <stdlib.h>
 
 using namespace mindscape;
@@ -66,25 +67,25 @@ void Uncle::initialize_animations() {
       	"../assets/images/sprites/enemies/uncle/uncle_idle.png",
       	1, 4, 3.0, "LEFT"
     );
-  	
+
   	idle_animation->set_values(
       	std::make_pair(665, 484),
       	std::make_pair(665, 484),
       	std::make_pair(0, 0)
     );
-  
-  	engine::Animation* attacking_animation = nullptr; 
+
+  	engine::Animation* attacking_animation = nullptr;
     attacking_animation = create_animation(
      	"../assets/images/sprites/enemies/uncle/uncle_attacking.png",
       	1, 1, 3.0, "LEFT"
     );
-  	
+
   	attacking_animation->set_values(
       	std::make_pair(719, 523),
       	std::make_pair(719, 523),
       	std::make_pair(0, 0)
     );
-  	
+
   	attacking_animation->in_loop = false;
 
   	add_animation("idle_animation",idle_animation);
@@ -114,7 +115,7 @@ engine::Animation* Uncle::create_animation(
   	std::string direction) {
 
   	engine::Game& game = engine::Game::get_instance();
-  	
+
     engine::Animation* animation = nullptr;
     animation = new engine::Animation(
     	game.get_renderer(),
@@ -142,13 +143,13 @@ engine::Animation* Uncle::create_animation(
  * @brief Initialize Uncle's hitboxes.
  *
  * Initializes Uncle instance hitboxes.
- * 
+ *
  * @return void.
  */
 
 void Uncle::initialize_hitboxes() {
   	engine::Game& game = engine::Game::get_instance();
-  	
+
     engine::Hitbox* head_hitbox = nullptr;
     head_hitbox = new engine::Hitbox(
     	"head_hitbox",
@@ -165,7 +166,7 @@ void Uncle::initialize_hitboxes() {
  * @brief Initialize Uncle's state map.
  *
  * Initialize all possibles states for the Uncle.
- * 
+ *
  * @return void.
  */
 
@@ -186,14 +187,14 @@ void Uncle::on_event(GameEvent game_event) {
   	std::string event_name = "";
     event_name = game_event.game_event_name;
 
-  	if (event_name == "MOVE_LEFT" 
+  	if (event_name == "MOVE_LEFT"
   		&& !engine::GameObject::on_limit_of_level) {
-    	
+
     	set_position_x(get_position_x() + 10);
   	}
-  	else if (event_name == "MOVE_RIGHT" 
+  	else if (event_name == "MOVE_RIGHT"
   		&& !engine::GameObject::on_limit_of_level) {
-    	
+
     	set_position_x(get_position_x() - 10);
   	}
 }
@@ -211,18 +212,21 @@ void Uncle::on_event(GameEvent game_event) {
 void Uncle::notify(engine::Observable *game_object) {
   	LittleGirl* little_girl = nullptr;
     little_girl = dynamic_cast<LittleGirl *>(game_object);
-  	
+
     if (little_girl) {
     	attack(little_girl);
   	}
+    else {
+        /* The Uncle don't attack. */
+    }
 }
 
 /**
  * @brief Uncle's attack.
  *
- * This method define Uncle's state while is attacking, is on attack or 
+ * This method define Uncle's state while is attacking, is on attack or
  * while is dying.
- * 
+ *
  * @param little_girl Object to be attacked.
  * @return void.
  */
@@ -235,13 +239,13 @@ void Uncle::attack(engine::GameObject* little_girl) {
   		return;
   	}
 
-  	if (actual_action_state == "ON_ATTACK" 
+  	if (actual_action_state == "ON_ATTACK"
   		|| actual_action_state == "ATTACKING") {
-    
+
     	if (get_actual_animation()->is_finished) {
       		states.set_state("ACTION_STATE","NORMAL");
       		set_actual_animation(animations["idle_animation"]);
-    	} 
+    	}
     	else {
       		return;
     	}
@@ -270,7 +274,7 @@ void Uncle::basic_attack(){
 
 void Uncle::on_attack(engine::GameObject *game_object) {
   	states.set_state("ACTION_STATE","ON_ATTACK");
-  
+
   	hit(game_object, 1);
   	if (is_alive()) {
     	set_actual_animation(animations["on_attack_animation"]);
@@ -288,9 +292,9 @@ void Uncle::on_attack(engine::GameObject *game_object) {
  */
 
 void Uncle::die(engine::GameObject *game_object) {
-  	std::string actual_x_state = ""; 
+  	std::string actual_x_state = "";
     actual_x_state = get_state("X_STATE");
-  	
+
     states.set_state("ACTION_STATE", "DYING");
   	set_actual_animation(animations["dying_animation"]);
   	//play_song("hit_me");
@@ -309,24 +313,24 @@ void Uncle::die(engine::GameObject *game_object) {
 
 void Uncle::on_collision(
 	engine::GameObject* other,
-	engine::Hitbox* p_my_hitbox, 
+	engine::Hitbox* p_my_hitbox,
 	engine::Hitbox* p_other_hitbox) {
-  
+
   	LittleGirl* little_girl = nullptr;
     little_girl = dynamic_cast<LittleGirl *>(other);
-  	
+
   	engine::Hitbox* my_hitbox = nullptr;
     my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
 
   	engine::Hitbox* other_hitbox = nullptr;
     other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
-  	if (little_girl 
-  		&& little_girl->get_state("ACTION_STATE") == "ATTACKING" 
-  		&& my_hitbox->get_name() == "head_hitbox" 
+  	if (little_girl
+  		&& little_girl->get_state("ACTION_STATE") == "ATTACKING"
+  		&& my_hitbox->get_name() == "head_hitbox"
   		&& little_girl->get_actual_animation()->actual_column == 2
      	&& get_state("X_STATE") != little_girl->get_state("X_STATE")) {
-      
+
       	if(get_state("ACTION_STATE") == "ON_ATTACK") {
       		return;
       	}

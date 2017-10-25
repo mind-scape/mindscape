@@ -11,6 +11,7 @@
 #include "../include/music_player.hpp"
 #include "../include/little_girl.hpp"
 #include "../engine/include/audio.hpp"
+#include "../engine/include/log.hpp"
 #include <stdlib.h>
 
 using namespace mindscape;
@@ -25,8 +26,8 @@ using namespace mindscape;
 void MusicPlayer::update_state() {
     if (get_audio_by_name("music_menu")) {
 	/* Search and play the song of main_menu */
-		play_song("music_menu"); 
-	} 
+		play_song("music_menu");
+	}
 
 	else if (get_audio_by_name("intro_level_1")) {
 	/* search and play the songs of level_1 */
@@ -36,29 +37,33 @@ void MusicPlayer::update_state() {
 		set_music_volume("intro_level_1", 30);
 		set_music_volume("loop_level_1", 30);
 
-		if (time < 25850) {
-			play_song("intro_level_1");
-		} 
-
-		else if (sub_position_x < 14000) {
-		/* On level introduction */
-			free_music("intro_level_1");
-			play_song("loop_level_1");
-		} 
-
-		else if (sub_position_x > 14000) {
-		/* On level boss */
-			free_music("loop_level_1");
-			play_song("loop_palhaco");
-		}
-	} 
-
-	else if (get_audio_by_name("loop_level_2")) {
-	/* search and play the songs of level_2 */
-		set_music_volume("loop_level_2", 30);
-		play_song("loop_level_2");
-
-	}
+        if (time < 25850) {
+            /* Play intro level 1 song. */
+            play_song("intro_level_1");
+        }
+        else if (sub_position_x < 14000) {
+            /* Frees the last song and starts the loop level 1 song. */
+            free_music("intro_level_1");
+            play_song("loop_level_1");
+        }
+        else if (sub_position_x > 14000) {
+            /* Frees the last song and starts the loop palhaço song. */
+            free_music("loop_level_1");
+            play_song("loop_palhaco");
+        }
+        else {
+            INFO("The sub position is on limit of introduction and clown songs.");
+        }
+  	}
+  	else if (get_audio_by_name("loop_level_2")) {
+  	    /* search and play the songs of level_2 */
+  		set_music_volume("loop_level_2", 30);
+  		play_song("loop_level_2");
+  	}
+    else {
+        /* Close the game if the song is not found. */
+        ERROR("Song was not found.");
+    }
 }
 
 /**
@@ -84,7 +89,7 @@ void MusicPlayer::on_event(GameEvent game_event) {
 		/* If on the corner of the screen */
 			sub_position_x = 0; /* Keep on the corner */
 		}
-	} 
+	}
 
 	else if (event_name == "MOVE_RIGHT") {
 	/* On right movement */
