@@ -13,6 +13,7 @@
 #include "../include/little_girl.hpp"
 #include "../engine/include/log.hpp"
 #include <stdlib.h>
+#include <limits>
 
 using namespace mindscape;
 
@@ -444,7 +445,7 @@ void Scorpion::notify(engine::Observable *game_object) {
         move(little_girl);
     }
     else {
-        /* Nothing to do. */
+        /* The scorpion stays in the same place. */
     }
 }
 

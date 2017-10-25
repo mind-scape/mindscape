@@ -442,7 +442,7 @@ void Spider::notify(engine::Observable *game_object) {
         move(little_girl);
     }
     else {
-        /* Nothing to do. */
+        /* The spider stays in the same place. */
     }
 }
 

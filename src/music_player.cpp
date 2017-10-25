@@ -54,7 +54,6 @@ void MusicPlayer::update_state() {
             play_song("loop_palhaco");
         }
         else {
-            /*  Nothing to do. */
             INFO("The sub position is on limit of introduction and clown songs.");
         }
   	}
