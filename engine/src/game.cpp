@@ -41,7 +41,6 @@ Game& Game::get_instance() {
         WARN("Instance is null. Exiting.");
         exit(1);
     }
-
     else {
         /*Do nothing*/
     }
@@ -63,7 +62,6 @@ Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions) {
         instance->set_information(p_name, p_dimensions);
         instance->init();
     }
-
     else {
         /*Do nothing*/
     }
@@ -87,7 +85,6 @@ void Game::init() {
         WARN("Audio and video not initialized properly");
         throw_error("SDL_Init");
     }
-
     else {
         /*Do nothing*/
     }
@@ -99,7 +96,6 @@ void Game::init() {
         WARN("SDL IMG not initialized properly");
         throw_error("IMG_Init");
     }
-
     else {
         /*Do nothing*/
     }
@@ -108,7 +104,6 @@ void Game::init() {
         /* if the mix audio sdl lib is not working properly */
         WARN(("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError()));
     }
-
     else {
         /*Do nothing*/
     }
@@ -118,7 +113,6 @@ void Game::init() {
         WARN("TTF SDL lib not initialized properly");
         throw_error("TTF_Init");
     }
-
     else {
         /*Do nothing*/
     }
@@ -132,7 +126,6 @@ void Game::init() {
         WARN("Window not created");
    		throw_error("SDL_CreateWindow");
     }
-
     else {
         /*Do nothing*/
     }
@@ -145,7 +138,6 @@ void Game::init() {
         WARN("Renderer is null");
         throw_error("SDL_CreateRenderer");
     }
-
     else {
         /*Do nothing*/
     }
@@ -210,7 +202,6 @@ void Game::run() {
 				/* if the state is different from pause state */
                 actual_scene->update();
             }
-
             else {
                 /*Do nothing*/
             }
@@ -221,7 +212,6 @@ void Game::run() {
             SDL_RenderPresent(renderer);
         }
     }
-
     else {
 		/* print if the medias were not yet loaded */
         WARN("Medias could not be loaded\n");
@@ -259,7 +249,6 @@ void Game::change_scene(Scene *level) {
         actual_scene->free();
         delete actual_scene;
     }
-
     else {
         /*Do nothing*/
     }

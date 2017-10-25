@@ -22,70 +22,66 @@ using namespace engine;
  */
 bool Text::load() {
 	font = TTF_OpenFont(font_path.c_str(), font_size);
-	
+
 	SDL_Color sdl_color = {
 			color.r,
 			color.g,
 			color.b,
 			color.a
 	};
-	
+
 	SDL_Color bg_color = {
 			background_color.r,
 			background_color.g,
 			background_color.b,
 			background_color.a
 	};
-	
+
 	SDL_Surface *surface = NULL;
-	
+
 	if (bg_color.a == 0x00) {
 		surface = TTF_RenderText_Blended(
 				font,
 				text.c_str(),
 				sdl_color
 		);
-	} 
-	
+	}
 	else {
 		surface = TTF_RenderText_Solid(font, text.c_str(), sdl_color);
 	}
-	
+
 	if (surface == NULL) {
 		WARN("The text surface cannot be NULL");
 		return false;
 	}
-
 	else {
 		texture = SDL_CreateTextureFromSurface(renderer, surface);
-		
+
 		if (!texture) {
 			WARN(("\nError in the text_texture :%s\n", SDL_GetError()));
 		}
-
 		else {
 			/*Do nothing*/
 		}
-		
+
 		if (texture == NULL) {
 			WARN("The text_texture cannot be NULL");
 			return false;
 		}
-
 		else {
 
 			weigth = surface->w;
 			heigth = surface->h;
-			
+
 			activate();
 			SDL_FreeSurface(surface);
-			
+
 			return true;
 
 		}
 
 	}
-	
+
 }
 
 /**
@@ -99,7 +95,7 @@ void Text::free() {
 	DEBUG("Freeing text");
 	SDL_DestroyTexture(texture);
 	texture = NULL;
-	
+
 	TTF_CloseFont(font);
 	font = NULL;
 }
@@ -118,6 +114,6 @@ void Text::draw(int x, int y) {
 						   y + get_displacement().second,
 						   weigth,
 						   heigth};
-	
+
 	SDL_RenderCopy(renderer, texture, NULL, &renderQuad);
 }

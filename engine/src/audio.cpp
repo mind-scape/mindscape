@@ -53,12 +53,10 @@ bool Audio::load() {
 
             return false;
         }
-
         else {
             DEBUG("Music successfully loaded");
         }
     }
-
     else if (m_audio_type == CHUNK) {
     /* Separate CHUNK from  MUSIC*/
         audio_chunk = Mix_LoadWAV(audio_path.c_str());
@@ -74,7 +72,6 @@ bool Audio::load() {
             DEBUG("Chunk successfully loaded");
         }
     }
-
     else {
     /* In case of there is no audio type called MUSIC or CHUCK it will be dispared and hadle the error */
         WARN(("Error loading the audio in this path: %s",
@@ -124,7 +121,6 @@ void Audio::play_effect() {
             playing = false;
             time = 0;
         }
-
         else {
             /*Do nothing*/
         }
@@ -138,12 +134,10 @@ void Audio::play_effect() {
             Mix_VolumeChunk(audio_chunk, volume);
             Mix_PlayChannel(audio_chanel, audio_chunk, audio_repeat);
         }
-
         else {
             /*Do nothing*/
         }
     }
-
     else {
         /*Do nothing*/
     }
@@ -162,7 +156,6 @@ void Audio::play_effect() {
         Mix_VolumeChunk(audio_chunk, 0);
         DEBUG("Audio effect stopped");
     }
-
     else {
         /*Do nothing*/
     }
@@ -183,7 +176,6 @@ void Audio::play_effect() {
         volume = _volume;
         DEBUG(("Sound effect volume set to %d", _volume));
     }
-
     else {
         WARN("The volume must be between 0 and 128");
     }
@@ -221,18 +213,15 @@ void Audio::play_music_type() {
             Mix_PlayMusic(audio_music, 0 );
             DEBUG("Music is being played");
         }
-
         else if (Mix_PlayingMusic() == 1) {
         /* Verification to know if will play or resume music */
             Mix_ResumeMusic();
             DEBUG("Music is being resumed");
         }
-
         else {
             /*Do nothing*/
         }
     }
-
     else {
         /*Do nothing*/
     }
@@ -251,7 +240,6 @@ void Audio::pause_music() {
         Mix_PauseMusic();
         DEBUG("Music is being paused");
     }
-
     else {
         /*Do nothing*/
     }
@@ -271,7 +259,6 @@ void Audio::set_repetitions(int repeat) {
         audio_repeat = repeat;
         //load();
     }
-
     else {
         /*Do nothing*/
     }
@@ -307,7 +294,6 @@ void Audio::set_music_volume(int _volume) {
             Mix_VolumeMusic(_volume);
             DEBUG(("Music volume set to %d", _volume));
         }
-
         else {
             WARN("The volume must be between 0 and 128");
         }
