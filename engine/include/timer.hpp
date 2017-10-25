@@ -1,21 +1,38 @@
+/**
+ * @file timer.hpp
+ * @brief Purpose: Contains methods to timer's management.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
+
 #ifndef TIMER
 #define TIMER
 
 #include "../include/SDL2basics.hpp"
 
-namespace engine{
+namespace engine {
 
-    class Timer{
-    public:
+    /**
+     * @brief A Timer class.
+     *
+     * This class is responsible for build a timer for an specific occasion.
+     */
 
-        bool is_running;
-        int initial_time;
-        int time_interval;
+    class Timer {
+        public:
 
-        Timer()
-            : is_running(false),
-            initial_time(0),
-            time_interval(0){}
+            bool is_running = false;
+            int initial_time = 0;
+            int time_interval = 0;
+
+            Timer()
+                : is_running(false),
+                initial_time(0),
+                time_interval(0){  
+                }
 
             void init_timer();
             void stop_timer();
@@ -23,7 +40,6 @@ namespace engine{
             int get_elapsed_time();
             int get_total_time();
     };
-
 }
 
 #endif
