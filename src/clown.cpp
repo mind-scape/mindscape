@@ -309,13 +309,16 @@ void Clown::on_event(GameEvent game_event) {
 		INFO("limit move left")
 		set_position_x(get_position_x() + 10);
 	}
-
-		/* If the event name is move right and the hitboxes are int
-		the limit set the position on the x axis -10 */
+	/* If the event name is move right and the hitboxes are int
+	the limit set the position on the x axis -10 */
 	else if (event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level) {
 		INFO("limit move right")
 		set_position_x(get_position_x() - 10);
 	}
+	else {
+		/*Do Nothing */
+	}
+
 	DEBUG("on_event finished")
 }
 
@@ -340,6 +343,10 @@ void Clown::notify(engine::Observable *game_object) {
 		INFO("notify clown about little girl")
 		attack(little_girl);
 	}
+	else {
+		/*Do Nothing */
+	}
+
 	DEBUG("notify finished")
 }
 /**
@@ -365,6 +372,10 @@ void Clown::attack(engine::GameObject *little_girl) {
 			INFO("animation has finished")
 			set_actual_animation(animations["idle_vulnerable_animation"]);
 		}
+		else {
+			/*Do Nothing */
+		}
+
 		vulnerable_counter++;
 
 		/* if the vunerable counter is higher or equal to 600 */
@@ -374,17 +385,24 @@ void Clown::attack(engine::GameObject *little_girl) {
 			set_actual_animation(animations["idle_animation"]);
 			vulnerable_counter = 0;
 		}
-
-			/* Else do nothing */
+		/* Else do nothing */
 		else {
 			return;
 		}
 	}
+	else {
+		/*Do Nothing */
+	}
+
 	/* if the actual action state of the clown is dying */
 	if (actual_action_state == "DYING") {
 		INFO("clown is dying")
 		return;
 	}
+	else {
+		/*Do Nothing */
+	}
+
 
 	/* if the actual action state of the clown is on attack or attacking */
 	if (actual_action_state == "ON_ATTACK" || actual_action_state == "ATTACKING") {
@@ -395,12 +413,15 @@ void Clown::attack(engine::GameObject *little_girl) {
 			states.set_state("ACTION_STATE", "NORMAL");
 			set_actual_animation(animations["idle_animation"]);
 		}
-
-			/* else do nothing */
+		/* else do nothing */
 		else {
 			return;
 		}
 	}
+	else {
+		/*Do Nothing */
+	}
+
 
 
 	int clown_position = 0; /**< Interger. Clown position on the x axis */
@@ -444,16 +465,14 @@ void Clown::attack(engine::GameObject *little_girl) {
 				/* Basic attack of the clown */
 				basic_attack();
 			}
-
-				/* else if the clown attack option is higher or
-				* equal to 300 and lower than 700*/
+			/* else if the clown attack option is higher or
+			* equal to 300 and lower than 700*/
 			else if (clown_attack_option >= 300 && clown_attack_option < 700) {
 				INFO("clown double attack")
 				/* Double attack of the clown */
 				double_attack();
 			}
-
-				/* else serial attack */
+			/* else serial attack */
 			else {
 				INFO("clown serial attack")
 				/* Serial attack of the clown */
@@ -463,7 +482,15 @@ void Clown::attack(engine::GameObject *little_girl) {
 			/* Attack animation trigger setted to 0  */
 			attack_animation_trigger = 0;
 		}
+		else {
+			/*Do Nothing */
+		}
+
 	}
+	else {
+		/*Do Nothing */
+	}
+
 	DEBUG("attack finished")
 }
 
@@ -549,6 +576,10 @@ void Clown::serial_attack() {
 		INFO("clown goops size")
 		clown_goops.clear();
 	}
+	else {
+		/*Do Nothing */
+	}
+
 
 	DEBUG("goop_1")
 	engine::GameObject *goop_1 = nullptr;
@@ -607,6 +638,10 @@ void Clown::on_attack(engine::GameObject *game_object) {
 		set_actual_animation(animations["on_attack_animation"]);
 		//play_song("hit_me");
 	}
+	else {
+		/*Do Nothing */
+	}
+
 	DEBUG("on_attack finished")
 }
 
@@ -701,6 +736,10 @@ void Clown::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
 		set_speed_y(0.0);
 		set_position_y(other_hitbox->get_coordinates().second - 380);
 	}
+	else {
+		/*Do Nothing */
+	}
+
 
 	/* if little girl is attacking the clown and the action state of the
 	  	clown different of vulnerable */
@@ -718,12 +757,15 @@ void Clown::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
 
 			return;
 		}
-
-			/* Else on attack */
+		/* Else on attack */
 		else {
 			on_attack(other);
 		}
 	}
+	else {
+		/*Do Nothing */
+	}
+
 
 	/* if goop*/
 	if (goop) {
@@ -747,7 +789,19 @@ void Clown::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
 				//engine::Game::get_instance().get_actual_scene()->deactivate_game_object(goop->name);
 				//goop->free();
 			}
+			else {
+				/*Do Nothing */
+			}
+
 		}
+		else {
+			/*Do Nothing */
+		}
+
 	}
+	else {
+		/*Do Nothing */
+	}
+
 	DEBUG("on_collision finished")
 }
