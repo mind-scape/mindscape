@@ -144,24 +144,6 @@ void Audio::play_effect() {
 }
 
 /**
- * @brief This method stop the effect.
- *
- * It is important to aplly this method to stop the effect after finish the duration/action.
- *
- * @return void.
- */
- void Audio::stop_effect() {
-    if (audio_chunk != NULL) {
-    /* Validates if chuck is not a null object */
-        Mix_VolumeChunk(audio_chunk, 0);
-        DEBUG("Audio effect stopped");
-    }
-    else {
-        /*Do nothing*/
-    }
-}
-
-/**
  * @brief This method set the volume of the effect.
  *
  * It is important to dont pass the limit of the volume.
