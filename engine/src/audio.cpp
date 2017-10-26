@@ -280,27 +280,6 @@ void Audio::stop_effect() {
 }
 
 /**
- * @brief This method set the volume of the effect.
- *
- * It is important to dont pass the limit of the volume.
- * That is a condition to validate the limit.
- *
- * @param integer to identify the nivel of the effect volume.
- * @return void.
- */
-void Audio::set_effect_volume(int _volume) {
-    if (_volume > -1 && volume < 129) {
-    /* Limits volume to be in a rate of 0 to 128 */
-        volume = _volume;
-        DEBUG(("Sound effect volume set to %d", _volume));
-    }
-
-    else {
-        WARN("The volume must be between 0 and 128");
-    }
-}
-
-/**
  * @brief This method set the volume of the music.
  *
  * It is important to dont pass the limit of the volume.
