@@ -57,112 +57,61 @@ DarkGirl::DarkGirl(
 };
 
 /**
- * @brief Initialize state map for dark girl
+ * @brief create dark girl animations
  *
- * Initialize all the possibles states for dark girl
+ * Creates the animations for the dark girl on the second level
  *
- * @return void
+ * @param path path to the image which contains the sprite sheet
+ * @param sprite_lines number of the lines on the sprite sheet
+ * @param sprite_columns number of columns on the sprite sheet
+ * @param duration Time duration of the animation
+ * @param direction direction of the animation
+ *
+ *
+ * @return animation created
  */
-void DarkGirl::initialize_state_map() {
-	/* Sets the initial position of the Dark Girl on the game,
-	 also her action and states*/
-	DEBUG("initialize_state_map");
-	states.set_state("X_STATE", "LOOKING_RIGHT");
-	states.set_state("Y_STATE", "FALLING");
-	states.set_state("ACTION_STATE", "NORMAL");
-	DEBUG("initialize_state_map finished");
-}
+engine::Animation* DarkGirl::create_animation(
 
-/**
- * @brief Initializes hitboxes for dark girl
- *
- * Initializes dark girl instance hitboxes
- *
- * @return void
- *
- */
-void DarkGirl::initialize_hitboxes() {
-	DEBUG("initialize_hitboxes");
-	/* Get actual state of the game */
+		std::string image_path,
+		int sprite_lines,
+		int sprite_columns,
+		double duration,
+		std::string direction) {
+
+	DEBUG("create_animation");
+
 	engine::Game& game = engine::Game::get_instance();
 
-	/* Creates Dark Girl Hitbox*/
-	engine::Hitbox* hitbox = nullptr;
-	hitbox = new engine::Hitbox(
-			"hitbox",
-			get_position(),
-			std::make_pair(60, 45),
-			std::make_pair(50,130),
-			game.get_renderer()
+
+	/* Creates and initializes the object of the Dark GIrl */
+	engine::Animation* animation = nullptr;
+	animation = new engine::Animation(
+			game.get_renderer(),
+			image_path,
+			// is_active
+			false,
+			// displacement
+			std::make_pair(0, 0),
+			// priority
+			1,
+			sprite_lines,
+			sprite_columns,
+			duration,
+			// in_loop
+			true,
+			direction
 	);
 
-	/* Add component in the game */
-	add_component(hitbox);
-
-	/* Creates Dark Girl Hitbox on footer*/
-	engine::Hitbox* footer = nullptr;
-	footer = new engine::Hitbox(
-			"footer",
-			get_position(),
-			std::make_pair(60, 180),
-			std::make_pair(50, 20),
-			game.get_renderer()
+	/* Set dimentions on screen and, coordinates and dimention on texture  */
+	animation->set_values(
+			std::make_pair(192, 192),
+			std::make_pair(192, 192),
+			std::make_pair(0, 0)
 	);
 
-	/* Add component in the game */
-	add_component(footer);
+	DEBUG("create_animation finished");
 
-	DEBUG("initialize_hitboxes finished");
-}
-
-/**
- * @brief Initializes audio effects
- *
- * Initializes audio effects for dark girl on second level
- *
- * @return void
- *
- */
-void DarkGirl::initialize_audio_effects() {
-	DEBUG("initialize_audio_effects");
-
-	/* Initializes Audio effects while the Dark GIrl is Walking*/
-	DEBUG("little_girl_steps")
-	engine::Audio * little_girl_steps = nullptr;
-	little_girl_steps = new engine::Audio(
-			"steps",
-			"../assets/audios/effects_songs/menina_passos_rapido.wav",
-			engine::Audio::CHUNK
-	);
-
-	little_girl_steps->set_duration(1);
-	little_girl_steps->set_effect_volume(45);
-	add_component(little_girl_steps);
-
-	/* Initializes Audio effects while the Dark GIrl is getting a hit*/
-	DEBUG("little_gitl_getting_hit")
-	engine::Audio * little_girl_getting_hit = nullptr;
-	little_girl_getting_hit = new engine::Audio(
-			"hit_me",
-			"../assets/audios/effects_songs/menina_apanhando.wav",
-			engine::Audio::CHUNK
-	);
-
-	little_girl_getting_hit->set_duration(0.5);
-	add_component(little_girl_getting_hit);
-
-	/* Initializes Audio effects while the Dark GIrl is Attacking*/
-	DEBUG("sword_song")
-	engine::Audio * sword_song = nullptr;
-	sword_song = new engine::Audio(
-			"sword_attack",
-			"../assets/audios/effects_songs/espada_fase_1.wav",
-			engine::Audio::CHUNK
-	);
-	sword_song->set_duration(0.5);
-	add_component(sword_song);
-
-	DEBUG("initialize_audio_effects finished");
+	return animation;
 }
 
 /**
@@ -284,61 +233,112 @@ void DarkGirl::initialize_animations() {
 }
 
 /**
- * @brief create dark girl animations
+ * @brief Initializes hitboxes for dark girl
  *
- * Creates the animations for the dark girl on the second level
+ * Initializes dark girl instance hitboxes
  *
- * @param path path to the image which contains the sprite sheet
- * @param sprite_lines number of the lines on the sprite sheet
- * @param sprite_columns number of columns on the sprite sheet
- * @param duration Time duration of the animation
- * @param direction direction of the animation
+ * @return void
  *
- *
- * @return animation created
  */
-engine::Animation* DarkGirl::create_animation(
-
-		std::string image_path,
-		int sprite_lines,
-		int sprite_columns,
-		double duration,
-		std::string direction) {
-
-	DEBUG("create_animation");
-
+void DarkGirl::initialize_hitboxes() {
+	DEBUG("initialize_hitboxes");
+	/* Get actual state of the game */
 	engine::Game& game = engine::Game::get_instance();
 
-
-	/* Creates and initializes the object of the Dark GIrl */
-	engine::Animation* animation = nullptr;
-	animation = new engine::Animation(
-			game.get_renderer(),
-			image_path,
-			// is_active
-			false,
-			// displacement
-			std::make_pair(0, 0),
-			// priority
-			1,
-			sprite_lines,
-			sprite_columns,
-			duration,
-			// in_loop
-			true,
-			direction
+	/* Creates Dark Girl Hitbox*/
+	engine::Hitbox* hitbox = nullptr;
+	hitbox = new engine::Hitbox(
+			"hitbox",
+			get_position(),
+			std::make_pair(60, 45),
+			std::make_pair(50,130),
+			game.get_renderer()
 	);
 
-	/* Set dimentions on screen and, coordinates and dimention on texture  */
-	animation->set_values(
-			std::make_pair(192, 192),
-			std::make_pair(192, 192),
-			std::make_pair(0, 0)
+	/* Add component in the game */
+	add_component(hitbox);
+
+	/* Creates Dark Girl Hitbox on footer*/
+	engine::Hitbox* footer = nullptr;
+	footer = new engine::Hitbox(
+			"footer",
+			get_position(),
+			std::make_pair(60, 180),
+			std::make_pair(50, 20),
+			game.get_renderer()
 	);
 
-	DEBUG("create_animation finished");
+	/* Add component in the game */
+	add_component(footer);
 
-	return animation;
+	DEBUG("initialize_hitboxes finished");
+}
+
+/**
+ * @brief Initialize state map for dark girl
+ *
+ * Initialize all the possibles states for dark girl
+ *
+ * @return void
+ */
+void DarkGirl::initialize_state_map() {
+	/* Sets the initial position of the Dark Girl on the game,
+	 also her action and states*/
+	DEBUG("initialize_state_map");
+	states.set_state("X_STATE", "LOOKING_RIGHT");
+	states.set_state("Y_STATE", "FALLING");
+	states.set_state("ACTION_STATE", "NORMAL");
+	DEBUG("initialize_state_map finished");
+}
+
+/**
+ * @brief Initializes audio effects
+ *
+ * Initializes audio effects for dark girl on second level
+ *
+ * @return void
+ *
+ */
+void DarkGirl::initialize_audio_effects() {
+	DEBUG("initialize_audio_effects");
+
+	/* Initializes Audio effects while the Dark GIrl is Walking*/
+	DEBUG("little_girl_steps")
+	engine::Audio * little_girl_steps = nullptr;
+	little_girl_steps = new engine::Audio(
+			"steps",
+			"../assets/audios/effects_songs/menina_passos_rapido.wav",
+			engine::Audio::CHUNK
+	);
+
+	little_girl_steps->set_duration(1);
+	little_girl_steps->set_effect_volume(45);
+	add_component(little_girl_steps);
+
+	/* Initializes Audio effects while the Dark GIrl is getting a hit*/
+	DEBUG("little_gitl_getting_hit")
+	engine::Audio * little_girl_getting_hit = nullptr;
+	little_girl_getting_hit = new engine::Audio(
+			"hit_me",
+			"../assets/audios/effects_songs/menina_apanhando.wav",
+			engine::Audio::CHUNK
+	);
+
+	little_girl_getting_hit->set_duration(0.5);
+	add_component(little_girl_getting_hit);
+
+	/* Initializes Audio effects while the Dark GIrl is Attacking*/
+	DEBUG("sword_song")
+	engine::Audio * sword_song = nullptr;
+	sword_song = new engine::Audio(
+			"sword_attack",
+			"../assets/audios/effects_songs/espada_fase_1.wav",
+			engine::Audio::CHUNK
+	);
+	sword_song->set_duration(0.5);
+	add_component(sword_song);
+
+	DEBUG("initialize_audio_effects finished");
 }
 
 /**
@@ -468,47 +468,6 @@ void DarkGirl::on_collision(engine::GameObject* other,
 	}
 
 	DEBUG("on_collision finished")
-}
-
-/**
- * @brief Death Method
- *
- * Method for the death of the dark girl
- *
- * @param game_object dark girl
- *
- * @return void
- */
-void DarkGirl::die(engine::GameObject *game_object) {
-
-	/* Gets the actual state of the dark Girl */
-	DEBUG("die");
-	std::string actual_x_state = "";
-	actual_x_state = get_state("X_STATE");
-
-	/* If dark girl is dying looking left  */
-	if(actual_x_state == "LOOKING_LEFT") {
-		INFO("Dark girl is dying looking left")
-
-		/* Sets the animation of the dark girl dying left */
-		states.set_state("ACTION_STATE", "DYING");
-		set_actual_animation(animations["dying_left_animation"]);
-	}
-	/* If dark girl is dying looking right */
-	else if(actual_x_state == "LOOKING_RIGHT") {
-		INFO("Dark girl is dying looking right")
-
-		/* Sets the animation of the dark girl dying right */
-		states.set_state("ACTION_STATE", "DYING");
-		set_actual_animation(animations["dying_right_animation"]);
-	}
-	else {
-		/*Do Nothing */
-	}
-
-	sleep(1);
-
-	DEBUG("die finished");
 }
 
 /**
@@ -964,4 +923,45 @@ void DarkGirl::update_state() {
 	set_position_x(get_position_x() - get_speed_x());
 	set_speed_x(0.0);
 	DEBUG("update_state finished")
+}
+
+/**
+ * @brief Death Method
+ *
+ * Method for the death of the dark girl
+ *
+ * @param game_object dark girl
+ *
+ * @return void
+ */
+void DarkGirl::die(engine::GameObject *game_object) {
+
+	/* Gets the actual state of the dark Girl */
+	DEBUG("die");
+	std::string actual_x_state = "";
+	actual_x_state = get_state("X_STATE");
+
+	/* If dark girl is dying looking left  */
+	if(actual_x_state == "LOOKING_LEFT") {
+		INFO("Dark girl is dying looking left")
+
+		/* Sets the animation of the dark girl dying left */
+		states.set_state("ACTION_STATE", "DYING");
+		set_actual_animation(animations["dying_left_animation"]);
+	}
+		/* If dark girl is dying looking right */
+	else if(actual_x_state == "LOOKING_RIGHT") {
+		INFO("Dark girl is dying looking right")
+
+		/* Sets the animation of the dark girl dying right */
+		states.set_state("ACTION_STATE", "DYING");
+		set_actual_animation(animations["dying_right_animation"]);
+	}
+	else {
+		/*Do Nothing */
+	}
+
+	sleep(1);
+
+	DEBUG("die finished");
 }

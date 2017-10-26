@@ -47,15 +47,52 @@ Clown::Clown(
 };
 
 /**
- * @brief Initializes audio effects for the clown
+ * @brief Creates clown animations
  *
- * Not Implemented
+ * Creates an animation for the clown
  *
- * @return void
+ * @param path path to the image which contains the sprite sheet
+ * @param sprite_lines number of the lines on the sprite sheet
+ * @param sprite_columns number of columns on the sprite sheet
+ * @param duration Time duration of the animation
+ * @param direction direction of the animation
  *
+ *
+ * @return animation created
  */
-void Clown::initialize_audio_effects() {
-	/* Empty method to audio effects of the clown */
+engine::Animation *Clown::create_animation(
+		/* Creates and initializes the object of the clown  */
+		std::string path,
+		int sprite_lines,
+		int sprite_columns,
+		double duration,
+		std::string direction) {
+	DEBUG("create_animation")
+	engine::Game &game = engine::Game::get_instance();
+
+	engine::Animation *animation = nullptr;
+	animation = new engine::Animation(
+			game.get_renderer(),
+			path,                 // image path
+			false,                // is_active
+			std::make_pair(0, 0), // displacement
+			1,                    // priority
+			sprite_lines,         // sprite_lines
+			sprite_columns,       // sprite_columns
+			duration,             // duration
+			true,                 // in_loop
+			direction             // direction
+
+	);
+
+	animation->set_values(
+			std::make_pair(320, 320),
+			std::make_pair(320, 320),
+			std::make_pair(0, 0)
+	);
+
+	DEBUG("create_animation finished")
+	return animation;
 }
 
 /**
@@ -152,55 +189,6 @@ void Clown::initialize_animations() {
 }
 
 /**
- * @brief Creates clown animations
- *
- * Creates an animation for the clown
- *
- * @param path path to the image which contains the sprite sheet
- * @param sprite_lines number of the lines on the sprite sheet
- * @param sprite_columns number of columns on the sprite sheet
- * @param duration Time duration of the animation
- * @param direction direction of the animation
- *
- *
- * @return animation created
- */
-engine::Animation *Clown::create_animation(
-		/* Creates and initializes the object of the clown  */
-		std::string path,
-		int sprite_lines,
-		int sprite_columns,
-		double duration,
-		std::string direction) {
-	DEBUG("create_animation")
-	engine::Game &game = engine::Game::get_instance();
-
-	engine::Animation *animation = nullptr;
-	animation = new engine::Animation(
-			game.get_renderer(),
-			path,                 // image path
-			false,                // is_active
-			std::make_pair(0, 0), // displacement
-			1,                    // priority
-			sprite_lines,         // sprite_lines
-			sprite_columns,       // sprite_columns
-			duration,             // duration
-			true,                 // in_loop
-			direction             // direction
-
-	);
-
-	animation->set_values(
-			std::make_pair(320, 320),
-			std::make_pair(320, 320),
-			std::make_pair(0, 0)
-	);
-
-	DEBUG("create_animation finished")
-	return animation;
-}
-
-/**
  * @brief Initializes the clown as a physical object
  *
  * Makes the clowns become physical, making it impossible to cross it
@@ -217,6 +205,108 @@ void Clown::initialize_as_physicable() {
 	DEBUG("intialize_as_physicable finished")
 }
 
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void Clown::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox, engine::Hitbox *p_other_hitbox) {
+	DEBUG("on_collision")
+	/* Get the instances of the enemies */
+
+	Platform *platform = nullptr;
+	platform = dynamic_cast<Platform *>(other);
+	LittleGirl *little_girl = nullptr;
+	little_girl = dynamic_cast<LittleGirl *>(other);
+	Goop *goop = nullptr;
+	goop = dynamic_cast<Goop *>(other);
+
+	engine::Hitbox *my_hitbox = nullptr;
+	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = nullptr;
+	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+
+	/* if clown is on ground */
+	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "foot_hitbox") {
+		INFO("clown is on ground")
+		set_speed_y(0.0);
+		set_position_y(other_hitbox->get_coordinates().second - 380);
+	}
+	else {
+		/*Do Nothing */
+	}
+
+
+	/* if little girl is attacking the clown and the action state of the
+	  	clown different of vulnerable */
+	if (little_girl &&
+		little_girl->get_state("ACTION_STATE") == "ATTACKING" &&
+		my_hitbox->get_name() == "attack_hitbox" &&
+		little_girl->get_actual_animation()->actual_column == 2
+		&& get_state("X_STATE") != little_girl->get_state("X_STATE")
+		&& get_state("ACTION_STATE") == "VULNERABLE") {
+		DEBUG("clown is being attacked and vunerable")
+
+		/* if the state of the clown is on attack */
+		if (get_state("ACTION_STATE") == "ON_ATTACK") {
+			INFO("clown state equal to on attack")
+
+			return;
+		}
+			/* Else on attack */
+		else {
+			on_attack(other);
+		}
+	}
+	else {
+		/*Do Nothing */
+	}
+
+
+	/* if goop*/
+	if (goop) {
+		INFO("goop")
+		/* if the goop is refuted by the little girl */
+		if (get_state("ACTION_STATE") == "NORMAL" && goop->get_state("ACTION_STATE") == "REFUTED"
+			&& my_hitbox->get_name() == "head_hitbox") {
+			INFO("goop refuted")
+			refuted_goop_hits++;
+
+			goop->set_actual_animation(goop->animations["goop_squash_animation"]);
+			goop->set_speed_x(0.0);
+
+			/* If the refuted goop hits is higher or equal than 20,
+			   set the state of the clown to vunerable. */
+			if (refuted_goop_hits >= 20) {
+				INFO("refuted goops hits")
+				states.set_state("ACTION_STATE", "VULNERABLE");
+				set_actual_animation(animations["idle_vulnerable_animation"]);
+				refuted_goop_hits = 0;
+				//engine::Game::get_instance().get_actual_scene()->deactivate_game_object(goop->name);
+				//goop->free();
+			}
+			else {
+				/*Do Nothing */
+			}
+
+		}
+		else {
+			/*Do Nothing */
+		}
+
+	}
+	else {
+		/*Do Nothing */
+	}
+
+	DEBUG("on_collision finished")
+}
 
 /**
  * @brief Initializes Clown hitboxes
@@ -349,6 +439,28 @@ void Clown::notify(engine::Observable *game_object) {
 
 	DEBUG("notify finished")
 }
+
+/**
+ * @brief Creates a goop
+ *
+ * Method that creates a goop for the clowns attack
+ *
+ * @return the goop's game object
+ */
+engine::GameObject *Clown::create_goop() {
+	DEBUG("create_goop")
+	engine::GameObject *goop = nullptr; /** Variable < pointer to goop, attack of the clown*/
+	goop = new Goop("goop", std::make_pair(885, 420), 60);
+	engine::Game::get_instance().get_actual_scene()->add_object(goop);
+	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop);
+
+	/** Load the object goop*/
+	goop->load();
+
+	return goop;
+	DEBUG("create_goop finished")
+}
+
 /**
  * @brief Method for clown attack
  *
@@ -560,7 +672,6 @@ void Clown::double_attack() {
 	DEBUG("double_attack finished")
 }
 
-
 /**
  * @brief Clown serial attack
  *
@@ -646,28 +757,6 @@ void Clown::on_attack(engine::GameObject *game_object) {
 }
 
 /**
- * @brief Creates a goop
- *
- * Method that creates a goop for the clowns attack
- *
- * @return the goop's game object
- */
-engine::GameObject *Clown::create_goop() {
-	DEBUG("create_goop")
-	engine::GameObject *goop = nullptr; /** Variable < pointer to goop, attack of the clown*/
-	goop = new Goop("goop", std::make_pair(885, 420), 60);
-	engine::Game::get_instance().get_actual_scene()->add_object(goop);
-	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop);
-
-	/** Load the object goop*/
-	goop->load();
-
-	return goop;
-	DEBUG("create_goop finished")
-}
-
-
-/**
  * @brief Death Method
  *
  * Method for the death of the clown
@@ -704,104 +793,13 @@ void Clown::die(engine::GameObject *game_object) {
 }
 
 /**
- * @brief On Collision event
+ * @brief Initializes audio effects for the clown
  *
- * Method called everytime there is a collision
- *
- * @param other the other game object that collided
- * @param p_my_hitbox hitbox that recives the collision
- * @param p_other_hitbox hitbox that collided
+ * Not Implemented
  *
  * @return void
+ *
  */
-void Clown::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox, engine::Hitbox *p_other_hitbox) {
-	DEBUG("on_collision")
-	/* Get the instances of the enemies */
-
-	Platform *platform = nullptr;
-	platform = dynamic_cast<Platform *>(other);
-	LittleGirl *little_girl = nullptr;
-	little_girl = dynamic_cast<LittleGirl *>(other);
-	Goop *goop = nullptr;
-	goop = dynamic_cast<Goop *>(other);
-
-	engine::Hitbox *my_hitbox = nullptr;
-	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-	engine::Hitbox *other_hitbox = nullptr;
-	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
-
-	/* if clown is on ground */
-	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "foot_hitbox") {
-		INFO("clown is on ground")
-		set_speed_y(0.0);
-		set_position_y(other_hitbox->get_coordinates().second - 380);
-	}
-	else {
-		/*Do Nothing */
-	}
-
-
-	/* if little girl is attacking the clown and the action state of the
-	  	clown different of vulnerable */
-	if (little_girl &&
-		little_girl->get_state("ACTION_STATE") == "ATTACKING" &&
-		my_hitbox->get_name() == "attack_hitbox" &&
-		little_girl->get_actual_animation()->actual_column == 2
-		&& get_state("X_STATE") != little_girl->get_state("X_STATE")
-		&& get_state("ACTION_STATE") == "VULNERABLE") {
-		DEBUG("clown is being attacked and vunerable")
-
-		/* if the state of the clown is on attack */
-		if (get_state("ACTION_STATE") == "ON_ATTACK") {
-			INFO("clown state equal to on attack")
-
-			return;
-		}
-		/* Else on attack */
-		else {
-			on_attack(other);
-		}
-	}
-	else {
-		/*Do Nothing */
-	}
-
-
-	/* if goop*/
-	if (goop) {
-		INFO("goop")
-		/* if the goop is refuted by the little girl */
-		if (get_state("ACTION_STATE") == "NORMAL" && goop->get_state("ACTION_STATE") == "REFUTED"
-			&& my_hitbox->get_name() == "head_hitbox") {
-			INFO("goop refuted")
-			refuted_goop_hits++;
-
-			goop->set_actual_animation(goop->animations["goop_squash_animation"]);
-			goop->set_speed_x(0.0);
-
-			/* If the refuted goop hits is higher or equal than 20,
-			   set the state of the clown to vunerable. */
-			if (refuted_goop_hits >= 20) {
-				INFO("refuted goops hits")
-				states.set_state("ACTION_STATE", "VULNERABLE");
-				set_actual_animation(animations["idle_vulnerable_animation"]);
-				refuted_goop_hits = 0;
-				//engine::Game::get_instance().get_actual_scene()->deactivate_game_object(goop->name);
-				//goop->free();
-			}
-			else {
-				/*Do Nothing */
-			}
-
-		}
-		else {
-			/*Do Nothing */
-		}
-
-	}
-	else {
-		/*Do Nothing */
-	}
-
-	DEBUG("on_collision finished")
+void Clown::initialize_audio_effects() {
+	/* Empty method to audio effects of the clown */
 }
