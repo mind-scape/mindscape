@@ -41,7 +41,59 @@ Uncle::Uncle(
     	initialize_hitboxes();
     	initialize_animations();
     	initialize_audio_effects();
-	};
+};
+
+/**
+ * @brief Creates Uncle's animation.
+ *
+ * Creates an animation to Uncle enemy.
+ *
+ * @param path Path to the image which contains the sprite sheet.
+ * @param sprite_lines Number of the lines on the sprite sheet.
+ * @param sprite_colums Number of colums on the sprite sheet.
+ * @param duration Time duration of animation.
+ * @param direction Direction of animation.
+ * @return This method returns Uncle's animation.
+ */
+
+engine::Animation* Uncle::create_animation(
+	std::string path,
+  	int sprite_lines,
+  	int sprite_columns,
+  	double duration,
+  	std::string direction) {
+    DEBUG("Creating animations.");
+
+  	engine::Game& game = engine::Game::get_instance(); /**< Game.
+    Gets an instance of a game just initializated. */
+
+    engine::Animation* animation = nullptr; /**< Animation.
+    Can represents all functions about uncle's animation. */
+
+    /* Initializes uncle's animation object. */
+    animation = new engine::Animation(
+    	  game.get_renderer(),
+    	  path,
+    	  false,
+    	  std::make_pair(0, 0),
+    	  1,
+    	  sprite_lines,
+    	  sprite_columns,
+    	  duration,
+    	  true,
+    	  direction
+  	);
+
+    /* Sets values to init a initial position of animation on the screen.*/
+  	animation->set_values(
+    	  std::make_pair(320, 320),
+    	  std::make_pair(320, 320),
+    	  std::make_pair(0, 0)
+  	);
+
+    DEBUG("Animations created.");
+  	return animation;
+}
 
 /**
  * @brief Initialize Uncle's animations.
