@@ -71,7 +71,6 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
                 mindscape_factory.fabricate_hitbox(level->get_object_by_name(
                 object["belongs_to"]), displacement, dimensions);
             }
-
             else if (type == Opts::IMAGE) {
                 int priority = 0;
                 priority = std::stoi(object["priority"]);
@@ -103,7 +102,6 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
                     coordinatesOnTexture
                 );
             }
-
             else if (type == Opts::TEXT) {
                 int priority = 0;
                 priority = std::stoi(object["priority"]);
@@ -124,7 +122,6 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
                     text, font_path, font_size, displacement, priority
                 );
             }
-
             else if (type == Opts::AUDIO) {
                 int audio_type = 0;
                 std::string name = "";
@@ -139,14 +136,12 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
                     name, path, audio_type
                 );
             }
-
             else if (type == Opts::ACTION) {
                 mindscape_factory.fabricate_action(
                     level->get_object_by_name(object["belongs_to"]),
                     std::stoi(object["command"]), object["param"]
                 );
             }
-
             else if (type == Opts::TRANSLATION) {
                 int key = 0;
                 std::string event_name = "";
@@ -159,7 +154,6 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
                     key, event_name
                 );
             }
-
             else {
                 engine::GameObject * constructed_obj =
                     mindscape_factory.fabricate(
