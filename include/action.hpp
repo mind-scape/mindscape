@@ -21,17 +21,22 @@ namespace mindscape {
     *
     */
     class Action {
-      public:
-        typedef enum {
-          CHANGE_SCENE, PAUSE_GAME, PLAY_GAME
-        } Command;
-      private:
-        Command command;
+        public:
+            /* Struct that commands */
+            typedef enum {
+                CHANGE_SCENE, PAUSE_GAME, PLAY_GAME
+            } Command;
+            
+        private:
+            Command command;
 
-      public:
-        Action(Command p_command):command(p_command){};
-        ~Action(){};
-        void execute(std::string param);
+        public:
+            /* Constructor and destructor */
+            Action(Command p_command):command(p_command){};
+            ~Action(){};
+
+            /* Loop method */
+            void execute(std::string param);
   };
 }
 
