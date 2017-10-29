@@ -42,7 +42,6 @@ PersistenceDat *PersistenceDat::get_instance(){
 	return instance;
 }
 
-
 /**
  * @brief Load Method
  *
@@ -129,7 +128,7 @@ bool PersistenceDat::dump(std::string path, PersistenceMap * data){
 	/* Opens the file to be written */
 	if (save_file.is_open()) {
 		for (auto it = data->begin(); it < data->end(); it++) {
-			
+
 			/* Writes persistence datas in opened file */
 			for (auto each_data : *it) {
 				save_file << each_data.first << " " << each_data.second << " ";
