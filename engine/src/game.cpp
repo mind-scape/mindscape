@@ -81,7 +81,7 @@ void Game::init() {
     int img_flags = IMG_INIT_PNG; /**< flags for sdl image lib */
 
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
-        /* if the initialization of the video and audio doesn't works properly */
+        /* if the initialization of the video and audio doesn't work properly */
         WARN("Audio and video not initialized properly");
         throw_error("SDL_Init");
     }
@@ -282,7 +282,34 @@ void Game::change_scene(Scene *level) {
  * @return void.
  */
 void Game::set_game_background_color(int R, int G, int B, int A) {
-    game_background_color = Color(R, G, B, A);
+    /*Ensures that the color values given are valid*/
+    bool color_is_valid = true;
+    if (R < 0 || R > 255){
+        /*Given value for red channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+
+    else if (G < 0 || G > 255){
+        /*Given value for green channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+
+    else if (B < 0 || B > 255){
+        /*Given value for blue channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+
+    else if (A < 0 || A > 255){
+        /*Given value for alpha channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+    else {
+        /*All values are valid*/
+    }
+
+    if (color_is_valid){
+        game_background_color = Color(R, G, B, A);
+    }
 }
 
 /**
