@@ -136,6 +136,10 @@ void Animation::draw(int x, int y) {
 void Animation::set_sprites_order(int total_sprites, std::string direction) {
 	INFO("Setting sprites order to " + direction + " in " + this->get_name());
 
+	if(total_sprites <= 0) {
+		ERROR("Number of sprites can't be less than zero");
+	}
+
 	if(direction == "LEFT") {
 		/* Sprite is shown left to right */
 		int reverse_index = 0;
