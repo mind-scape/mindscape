@@ -583,7 +583,9 @@ void DarkGirl::jump(std::string actual_x_state) {
 		actual_animation = get_actual_animation();
 
 		jumping_animation_count += 1;
-		int jumping_animation_count_max = 26;
+
+		const int jumping_animation_count_max = 26; /**Interger. Constant of
+		jumping animation counter */
 
 		/* If the jumping_animation_count has value lower than 26 */
 		if(jumping_animation_count < jumping_animation_count_max) {
@@ -593,11 +595,17 @@ void DarkGirl::jump(std::string actual_x_state) {
 			if(jumping_animation_count % 5 == 0) {
 				INFO("jumping_animation_count divisible")
 
+				const int coordinate_on_texture_minimum = 192;/**Interger.
+ 				Minimum coordinate on texture constant */
+
+				const int coordinate_on_texture_max = 960;/**Interger. Maximum
+ 				coordinate on texture constant */
+
 				/* Increment the value of the coordinates */
-				actual_animation->coordinatesOnTexture.first += 192;
+				actual_animation->coordinatesOnTexture.first += coordinate_on_texture_minimum;
 
 				/*if the cordinate on the y axis is lower than 960 */
-				if(actual_animation->coordinatesOnTexture.first == 960) {
+				if(actual_animation->coordinatesOnTexture.first == coordinate_on_texture_max) {
 					INFO("cordinate on the Y axis")
 
 					/* Sets coordinatesOnTexture to 0 */
@@ -643,8 +651,12 @@ void DarkGirl::move_right(std::string actual_x_state,
 	DEBUG("move_right");
 	engine::Animation* actual_animation = nullptr;
 	actual_animation = get_actual_animation();
-	int coordinates_on_texture_lower  = 192;
-	int coordinates_on_texture_higher = 1728;
+
+	const int coordinates_on_texture_lower  = 192;/**Interger. Minimum
+ 	coordinate on texture constant */
+
+	const int coordinates_on_texture_higher = 1728;/**Interger. Maximum
+ 	coordinate on texture constant */
 
 	actual_animation->coordinatesOnTexture.first += coordinates_on_texture_lower;
 
@@ -699,8 +711,12 @@ void DarkGirl::move_left(std::string actual_x_state,
 	DEBUG("move_left");
 	engine::Animation* actual_animation = nullptr;
 	actual_animation = get_actual_animation();
-	int coordinates_on_texture_lower  = 192;
-	int coordinates_on_texture_higher = 1536;
+
+	const int coordinates_on_texture_lower  = 192;/**Interger. Minimum
+ 	coordinate on texture constant */
+
+	const int coordinates_on_texture_higher = 1536;/**Interger. Maximum
+ 	coordinate on texture constant */
 
 	actual_animation->coordinatesOnTexture.first -= coordinates_on_texture_lower;
 
@@ -841,7 +857,7 @@ void DarkGirl::update_state() {
 	/* Gets the actual action state of the dark girl */
 	std::string actual_action_state = states.get_state("ACTION_STATE");
 
-	int position_y_axis_minimum = 576;
+	const int position_y_axis_minimum = 576;
 
 	/* if the position on the y axis is higher  or equal than 576*/
 	if(get_position_y() >= position_y_axis_minimum) {
