@@ -53,22 +53,29 @@ HudGirl::HudGirl(
 void HudGirl::notify(engine::Observable* game_object) {
     DEBUG("Started: HudGirl notify()");
 
-    LittleGirl* little_girl = nullptr;
+    LittleGirl* little_girl = nullptr; /**< LittleGirl. initialize a new girl */
     little_girl = dynamic_cast<LittleGirl *>(game_object);
 
     if (little_girl) {
-        float reducer_percentage = 0;
-        int bar_size = 0;
-        engine::Image* bar = nullptr;
+        float reducer_percentage = 0; /**< float. Reducer percentage of the life */
+        int bar_size = 0; /**< int. Size of the total life */
+        engine::Image* bar = nullptr; /**< Image of the girl life */
 
-        reducer_percentage = little_girl->get_hp()/90.0;
-        bar_size = reducer_percentage * 180;
-        bar = dynamic_cast<engine::Image *>(images[0]);
+        const int max_life = 180; /**< const int. Max life of the girl */
+        const int first_image = 0; /**< const int. select first image of the animation */
+        const float reducer_denominator = 90.0; /**< const float. Denominator that devide the hp to reduce */
+
+        reducer_percentage = little_girl->get_hp()/reducer_denominator;
+        bar_size = reducer_percentage * max_life;
+        bar = dynamic_cast<engine::Image *>(images[first_image]);
+
+        const int max_height = 10; /**< const int. Max height that hp contains */
+        const int min_life = 10; /**< const int. Min life of the girl */
 
         bar->set_values(
-            std::make_pair(bar_size, 10),
-            std::make_pair(180, 10),
-            std::make_pair(0, 0)
+            std::make_pair(bar_size, max_height),
+            std::make_pair(max_life, min_life),
+            std::make_pair(first_image, first_image)
         );
     }
 
@@ -85,11 +92,11 @@ void HudGirl::notify(engine::Observable* game_object) {
 void HudGirl::initialize_animations() {
     DEBUG("Started: HudGirl initialize_animations()");
 
-    engine::Image* hp = nullptr;
+    engine::Image* hp = nullptr; /**< Image. Health points image */
     hp = create_image();
     add_component(hp);
 
-    engine::Animation* girl_hp = nullptr;
+    engine::Animation* girl_hp = nullptr; /**< Animation. Initialize pointer of girl_hp animation */
     girl_hp = create_animation(
         "../assets/images/sprites/hud/hud_girl.png",
         1,1,0.9, "RIGHT"
@@ -112,16 +119,19 @@ void HudGirl::initialize_animations() {
 engine::Image* HudGirl::create_image() {
     DEBUG("Started: HudGirl create_image() - health_bar");
 
-    engine::Game& game = engine::Game::get_instance();
-    engine::Image* health_bar = nullptr;
+    engine::Game& game = engine::Game::get_instance(); /**< Instance. Game instance */
+    engine::Image* health_bar = nullptr; /**< Image. Image pointer of health_bar */
 
     health_bar = new engine::Image(game.get_renderer(),
     "../assets/images/sprites/sprites_test/health_bar.jpg",
     true, std::make_pair(74, 64), 70);
 
+    const int max_hp = 180; /**< const int. Max life of the girl */
+    const int min_hp = 10; /**< const int. Min life of the girl */
+
     health_bar->set_values(
-        std::make_pair(180, 10),
-        std::make_pair(180, 10),
+        std::make_pair(max_hp, min_hp),
+        std::make_pair(max_hp, min_hp),
         std::make_pair(0, 0)
     );
 
@@ -152,21 +162,21 @@ engine::Animation* HudGirl::create_animation(
     std::string direction) {
     DEBUG("Started: HudGirl create_animation()");
 
-    engine::Game& game = engine::Game::get_instance();
-    engine::Animation* animation = nullptr;
+    engine::Game& game = engine::Game::get_instance(); /**< Instance. Initialize instace of the game */
+    engine::Animation* animation = nullptr; /**< Animation. Animation of the girl */
     animation = new engine::Animation(
         game.get_renderer(),
-        // Hud Girl image path
+        /* Hud Girl image path */
         path,
-        // is_active
+        /* is_active */
         false,
         std::make_pair(0, 0),
-        // priority
+        /* priority */
         1,
         sprite_lines,
         sprite_columns,
         duration,
-        // in_loop
+        /* in_loop */
         true,
         direction
     );
