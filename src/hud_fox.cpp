@@ -39,6 +39,112 @@ HudFox::HudFox(
         initialize_audio_effects();
 };
 
+
+/**
+ * @brief Creates Hud Fox's animation.  
+ * 
+ * Creates all Hud Fox's animation based on Hud Fox's sprites.
+ *
+ * @param image_path Path of the Hud Fox's sprite. 
+ * @param sprite_lines Line of the Hud Fox's sprite. 
+ * @warning Limitations of sprite_lines and sprite_columns are
+ * 1 to the quantity of lines/columns in the image.
+ * @param sprite_columns Column of the Fox's sprite needed.
+ * @param duration Duration of the Hud Fox's image to show up.
+ * @param direction Direction of the Hud Fox's image.
+ * @return engine::Animation* The animation constructed.
+ */
+engine::Animation* HudFox::create_animation(
+    std::string path,
+    int sprite_lines,
+    int sprite_columns,
+    double duration,
+    std::string direction) {
+
+    DEBUG("Started");
+    engine::Game& game = engine::Game::get_instance();
+    
+    engine::Animation* animation = nullptr;
+    animation = new engine::Animation(
+        game.get_renderer(),
+        path, 
+        // is_active                
+        false,               
+        std::make_pair(0, 0), 
+        // priority
+        1,                    
+        sprite_lines,         
+        sprite_columns,    
+        duration,            
+        // in_loop
+        true,                 
+        direction            
+    );
+
+    animation->set_values(
+        std::make_pair(170, 78),
+        std::make_pair(170, 78),
+        std::make_pair(0, 0)
+    );
+
+    DEBUG("Ended");
+    
+    return animation;
+}
+
+/**
+ * @brief Initiates Hud Fox's animation.  
+ * 
+ * Initiates all Hud Fox's sprites(images).
+ *
+ * @return void.
+ */
+void HudFox::initialize_animations() {
+
+    DEBUG("Started");
+    
+    engine::Animation* fox_zero_star = nullptr;
+    fox_zero_star = create_animation(
+        "../assets/images/sprites/hud/hud_fox_0.png",
+        1,1,0.9, "RIGHT"
+    );
+    add_animation("zero_star", fox_zero_star);
+    
+    engine::Animation* fox_one_star = nullptr;
+    fox_one_star = create_animation(
+        "../assets/images/sprites/hud/hud_fox_1.png",
+        1,1,0.9, "RIGHT"
+    );
+    add_animation("one_star", fox_one_star);
+    
+    engine::Animation* fox_two_star = nullptr;
+    fox_two_star = create_animation(
+        "../assets/images/sprites/hud/hud_fox_2.png",
+        1,1,0.9, "RIGHT"
+    );
+    add_animation("two_star", fox_two_star);
+    
+    engine::Animation* fox_three_star = nullptr;
+    fox_three_star = create_animation(
+        "../assets/images/sprites/hud/hud_fox_3.png",
+        1,1,0.9, "RIGHT"
+    );
+    add_animation("three_star", fox_three_star);
+    
+    engine::Animation* fox_three_star_fading = nullptr;
+    fox_three_star_fading = create_animation(
+        "../assets/images/sprites/hud/hud_fox_3_animation.png",
+        1,4,1.0, "RIGHT"
+    );
+    fox_three_star_fading->in_loop = false;
+    add_animation("three_star_fading", fox_three_star_fading);
+    
+    fox_zero_star->activate();
+    set_actual_animation(fox_zero_star);
+
+    DEBUG("Ended");
+}
+
 /**
  * @brief Initiates Hud Fox's sound effect.  
  * 
@@ -166,109 +272,4 @@ void HudFox::notify(engine::Observable* game_object) {
         WARN("HudFox: Fox IS NULL");
     }
 
-}
-
-/**
- * @brief Initiates Hud Fox's animation.  
- * 
- * Initiates all Hud Fox's sprites(images).
- *
- * @return void.
- */
-void HudFox::initialize_animations() {
-
-    DEBUG("Started");
-    
-    engine::Animation* fox_zero_star = nullptr;
-    fox_zero_star = create_animation(
-        "../assets/images/sprites/hud/hud_fox_0.png",
-        1,1,0.9, "RIGHT"
-    );
-    add_animation("zero_star", fox_zero_star);
-    
-    engine::Animation* fox_one_star = nullptr;
-    fox_one_star = create_animation(
-        "../assets/images/sprites/hud/hud_fox_1.png",
-        1,1,0.9, "RIGHT"
-    );
-    add_animation("one_star", fox_one_star);
-    
-    engine::Animation* fox_two_star = nullptr;
-    fox_two_star = create_animation(
-        "../assets/images/sprites/hud/hud_fox_2.png",
-        1,1,0.9, "RIGHT"
-    );
-    add_animation("two_star", fox_two_star);
-    
-    engine::Animation* fox_three_star = nullptr;
-    fox_three_star = create_animation(
-        "../assets/images/sprites/hud/hud_fox_3.png",
-        1,1,0.9, "RIGHT"
-    );
-    add_animation("three_star", fox_three_star);
-    
-    engine::Animation* fox_three_star_fading = nullptr;
-    fox_three_star_fading = create_animation(
-        "../assets/images/sprites/hud/hud_fox_3_animation.png",
-        1,4,1.0, "RIGHT"
-    );
-    fox_three_star_fading->in_loop = false;
-    add_animation("three_star_fading", fox_three_star_fading);
-    
-    fox_zero_star->activate();
-    set_actual_animation(fox_zero_star);
-
-    DEBUG("Ended");
-}
-
-/**
- * @brief Creates Hud Fox's animation.  
- * 
- * Creates all Hud Fox's animation based on Hud Fox's sprites.
- *
- * @param image_path Path of the Hud Fox's sprite. 
- * @param sprite_lines Line of the Hud Fox's sprite. 
- * @warning Limitations of sprite_lines and sprite_columns are
- * 1 to the quantity of lines/columns in the image.
- * @param sprite_columns Column of the Fox's sprite needed.
- * @param duration Duration of the Hud Fox's image to show up.
- * @param direction Direction of the Hud Fox's image.
- * @return engine::Animation* The animation constructed.
- */
-engine::Animation* HudFox::create_animation(
-    std::string path,
-    int sprite_lines,
-    int sprite_columns,
-    double duration,
-    std::string direction) {
-
-    DEBUG("Started");
-    engine::Game& game = engine::Game::get_instance();
-    
-    engine::Animation* animation = nullptr;
-    animation = new engine::Animation(
-        game.get_renderer(),
-        path, 
-        // is_active                
-        false,               
-        std::make_pair(0, 0), 
-        // priority
-        1,                    
-        sprite_lines,         
-        sprite_columns,    
-        duration,            
-        // in_loop
-        true,                 
-        direction            
-    );
-
-    animation->set_values(
-        std::make_pair(170, 78),
-        std::make_pair(170, 78),
-        std::make_pair(0, 0)
-    );
-
-    DEBUG("Ended");
-    
-    return animation;
 }
