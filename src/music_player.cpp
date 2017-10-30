@@ -16,6 +16,8 @@
 
 using namespace mindscape;
 
+bool passed = false;
+
 /**
  * @brief Updates the state of the music player
  *
@@ -43,15 +45,34 @@ void MusicPlayer::update_state() {
             /* Play intro level 1 song. */
             play_song("intro_level_1");
         }
-        else if (sub_position_x < 14000) {
+        else if (sub_position_x < 13700) {
             /* Frees the last song and starts the loop level 1 song. */
-            free_music("intro_level_1");
+
+            if (passed) {
+                while(!Mix_FadeOutMusic(500) && Mix_PlayingMusic()) {
+                    SDL_Delay(100);
+                }
+                
+                passed = false;
+            }
+            else {
+                free_music("intro_level_1");
+            }
+
             play_song("loop_level_1");
         }
         else if (sub_position_x > 14000) {
             /* Frees the last song and starts the loop palhaço song. */
-            free_music("loop_level_1");
+
+            if (!passed) {
+                while(!Mix_FadeOutMusic(1000) && Mix_PlayingMusic()) {
+                    SDL_Delay(100);
+                }
+            }
+
             play_song("loop_palhaco");
+
+            passed = true;
         }
         else {
             INFO("The sub position is on limit of introduction and clown songs.");
