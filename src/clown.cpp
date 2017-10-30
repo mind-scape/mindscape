@@ -555,9 +555,9 @@ void Clown::attack(engine::GameObject *little_girl) {
 	int distance_from_girl = 0; /**< Interger. distance in between
  	* the little girl and the clown */
 
-	int distance_from_girl_limit_max = 650;/**< Interger.  Max distance from girl*/
+	const int distance_from_girl_limit_max = 650;/**< Interger.  Max distance from girl*/
 
-	int attack_animation_trigger_limit = 90;/**< Interger. Attack animation trigger
+	const int attack_animation_trigger_limit = 90;/**< Interger. Attack animation trigger
  	limit */
 
 	/* Gets the distance from the little girl */
@@ -581,10 +581,10 @@ void Clown::attack(engine::GameObject *little_girl) {
 			int clown_attack_option = rand() % 1000; /**< Interger. clown attack
  			* option to random %1000*/
 
-			int clown_attack_option_limit_lower = 300; /**< Interger. clown attack
+			const int clown_attack_option_limit_lower = 300; /**< Interger. clown attack
  			option limit lower */
 
-			int clown_attack_option_limit_higher = 700; /**< Interger. clown attack
+			const int clown_attack_option_limit_higher = 700; /**< Interger. clown attack
  			option limit  higher*/
 
 
