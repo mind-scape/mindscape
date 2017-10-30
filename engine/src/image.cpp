@@ -88,7 +88,6 @@ void Image::free() {
  * @return
  */
 void Image::draw(int x, int y) {
-    DEBUG("Drawing image");
     SDL_Rect ret = {coordinatesOnTexture.first,
                     coordinatesOnTexture.second,
                     dimensionOnTexture.first,

@@ -48,7 +48,6 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
     std::vector<engine::GameObject *> added_game_objects;
 
     GameObjectFactory mindscape_factory = GameObjectFactory();
-
     engine::PersistenceDat *persistence =
         engine::PersistenceDat::get_instance();
     engine::PersistenceMap *objects = persistence->load(path);
@@ -78,17 +77,21 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
                 priority = std::stoi(object["priority"]);
 
                 std::pair<int, int> displacement;
-                std::pair<int, int> dimensions_on_screen;
-                std::pair<int, int> dimensions_on_texture;
-                std::pair<int, int> coordinatesOnTexture;
 
                 displacement.first = std::stoi(object["displ_x"]);
                 displacement.second = std::stoi(object["displ_y"]);
 
+                std::pair<int, int> dimensions_on_screen;
+
                 dimensions_on_screen.first = std::stoi(object["screen_x"]);
                 dimensions_on_screen.second = std::stoi(object["screen_y"]);
+
+                std::pair<int, int> dimensions_on_texture;
+
                 dimensions_on_texture.first = std::stoi(object["tex_x"]);
                 dimensions_on_texture.second = std::stoi(object["tex_y"]);
+
+                std::pair<int, int> coordinatesOnTexture;
 
                 coordinatesOnTexture.first = std::stoi(object["tex_coord_x"]);
                 coordinatesOnTexture.second = std::stoi(object["tex_coord_y"]);
@@ -104,6 +107,7 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
             else if (type == Opts::TEXT) {
                 int priority = 0;
                 priority = std::stoi(object["priority"]);
+
                 std::string text = object["text"];
                 std::string font_path = object["font_path"];
 
@@ -164,17 +168,24 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
                         std::stoi(object["y"])), std::stoi(object["priority"])
                     );
 
-                if (object.count("follows") > 0) { //if follow key is declared
-
+                /* If follow key is declared */
+                if (object.count("follows") > 0) {
                     engine::Observable * observable =
                         level->get_object_by_name(object["follows"]);
 
                     observable->attach_observer(constructed_obj);
                 }
+                else {
+                    INFO("Follow Key is not declared");
+                }
+
                 level->add_object(constructed_obj);
                 added_game_objects.push_back(constructed_obj);
             }
         }
+    }
+    else {
+        /* Do nothing */
     }
 
     return added_game_objects;
