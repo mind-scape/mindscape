@@ -25,7 +25,7 @@
 #include <string>
 
 namespace mindscape {
-	
+
 	/**
 	  * @brief A Arm class.
 	  *
@@ -33,21 +33,30 @@ namespace mindscape {
 	  */
 	class Arm : public Enemy {
 	private:
+		/* Loop methods */
 		void initialize_state_map();
-		void initialize_hitboxes();
-		void initialize_animations();
+
+		/* Hitboxes and physics methods*/
 		void initialize_as_physicable();
+		void initialize_hitboxes();
+
+		/* Animation methods */
+		void initialize_animations();
 		engine::Animation *create_animation(std::string path,
 											int sprite_lines, int sprite_columns, double duration,
 											std::string direction);
-	
+
 	public:
+		/* Constructor and destructor */
 		Arm(std::string name, std::pair<int, int> position, int priority);
+		~Arm() {};
+
+		/* Loop methods */
 		void on_event(GameEvent);
+
+		/* Collision method */
 		void on_collision(engine::GameObject *, engine::Hitbox *,
 						  engine::Hitbox *);
-		
-		~Arm() {};
 	};
 }
 

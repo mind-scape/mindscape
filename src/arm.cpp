@@ -158,6 +158,39 @@ void Arm::initialize_hitboxes() {
 }
 
 /**
+ * @brief Event for collisions
+ *
+ * This method is triggered everytime a collision happens
+ *
+ * @param other The other game object which collided
+ * @param p_my_hitbox This object hitbox that received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void Arm::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
+					   engine::Hitbox *p_other_hitbox) {
+	Platform *platform = dynamic_cast<Platform *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+
+	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "arm_hitbox") {
+		/* If arm is not falling */
+
+		set_speed_y(0.0);
+		set_position_y(other_hitbox->get_coordinates().second - 30);
+
+		states.set_state("Y_STATE", "ON_GROUND");
+
+		engine::Game::get_instance()
+		 .get_actual_scene()->deactivate_game_object(name);
+
+		free();
+	}
+	else {
+		/* Do nothing */
+	}
+}
+
+/**
  * @brief Initialize the object's state map
  *
  * @return void
@@ -192,38 +225,5 @@ void Arm::on_event(GameEvent game_event) {
 	}
 	else {
 		INFO("Arm are not moving");
-	}
-}
-
-/**
- * @brief Event for collisions
- *
- * This method is triggered everytime a collision happens
- *
- * @param other The other game object which collided
- * @param p_my_hitbox This object hitbox that received the collision
- * @param p_other_hitbox The other object hitbox which provided the collision
- */
-void Arm::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
-					   engine::Hitbox *p_other_hitbox) {
-	Platform *platform = dynamic_cast<Platform *>(other);
-	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-	engine::Hitbox *other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
-
-	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "arm_hitbox") {
-		/* If arm is not falling */
-
-		set_speed_y(0.0);
-		set_position_y(other_hitbox->get_coordinates().second - 30);
-
-		states.set_state("Y_STATE", "ON_GROUND");
-
-		engine::Game::get_instance()
-		 .get_actual_scene()->deactivate_game_object(name);
-
-		free();
-	}
-	else {
-		/* Do nothing */
 	}
 }

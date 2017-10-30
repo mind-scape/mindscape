@@ -27,17 +27,19 @@ namespace mindscape {
   	 */
 	class Platform : public engine::GameObject {
 	private:
+		/* Animations methods */
 		void initialize_animations();
 
 	public:
+		/* Constructor and destructor methods*/
 		Platform(
 				std::string p_name,
 				std::pair<int, int> position,
 				int priority
 		);
-
 		~Platform() {};
 
+		/* Loop method */
 		void on_event(GameEvent game_event);
 	};
 }

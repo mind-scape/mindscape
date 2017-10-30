@@ -76,7 +76,7 @@ void Platform::on_event(GameEvent game_event) {
 		/* Do nothing */
 	}
 
-	// Second Level Limiter
+	/* Second Level Limiter */
 	if (name == "limiter") {
 		if (get_position_x() > 3000) {
 			engine::GameObject::on_limit_of_level = true;
@@ -85,7 +85,7 @@ void Platform::on_event(GameEvent game_event) {
 		}
 		else if (get_position_x() < 0) {
 			engine::GameObject::on_limit_of_level = true;
-			
+
 			set_position_x(0);
 		}
 		else {
