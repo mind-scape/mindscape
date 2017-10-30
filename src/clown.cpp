@@ -281,9 +281,11 @@ void Clown::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
 			goop->set_actual_animation(goop->animations["goop_squash_animation"]);
 			goop->set_speed_x(0.0);
 
+			int refuted_goop_hits_limit = 20; /**Interger. Limit of refuted goops */
+
 			/* If the refuted goop hits is higher or equal than 20,
-			   set the state of the clown to vunerable. */
-			if (refuted_goop_hits >= 20) {
+			set the state of the clown to vunerable. */
+			if (refuted_goop_hits >= refuted_goop_hits_limit) {
 				INFO("refuted goops hits")
 				states.set_state("ACTION_STATE", "VULNERABLE");
 				set_actual_animation(animations["idle_vulnerable_animation"]);
@@ -490,6 +492,9 @@ void Clown::attack(engine::GameObject *little_girl) {
 
 		vulnerable_counter++;
 
+		int vunerable_counter_limit = 600; /** Interger. limit for
+ 		the vunerable counter */
+
 		/* if the vunerable counter is higher or equal to 600 */
 		if (vulnerable_counter >= 600) {
 			INFO("vunerable_counter")
@@ -550,17 +555,22 @@ void Clown::attack(engine::GameObject *little_girl) {
 	int distance_from_girl = 0; /**< Interger. distance in between
  	* the little girl and the clown */
 
+	int distance_from_girl_limit_max = 650;/**< Interger.  Max distance from girl*/
+
+	int attack_animation_trigger_limit = 90;/**< Interger. Attack animation trigger
+ 	limit */
+
 	/* Gets the distance from the little girl */
 	distance_from_girl = clown_position - little_girl_position;
 
 	/* if the distance from girl is lower than 650*/
-	if (distance_from_girl < 650) {
+	if (distance_from_girl < distance_from_girl_limit_max) {
 		INFO("distance from girl")
 		/* increment the attack animation trigger +1*/
 		attack_animation_trigger += 1;
 
 		/* if the attack animation trigger is equal to 90*/
-		if (attack_animation_trigger == 90) {
+		if (attack_animation_trigger == attack_animation_trigger_limit) {
 			INFO("attack animation trigger")
 			/* Set the state of the clown to attacking */
 			states.set_state("ACTION_STATE", "ATTACKING");
@@ -571,15 +581,22 @@ void Clown::attack(engine::GameObject *little_girl) {
 			int clown_attack_option = rand() % 1000; /**< Interger. clown attack
  			* option to random %1000*/
 
+			int clown_attack_option_limit_lower = 300; /**< Interger. clown attack
+ 			option limit lower */
+
+			int clown_attack_option_limit_higher = 700; /**< Interger. clown attack
+ 			option limit  higher*/
+
+
 			/* if the clown attack option is lower than 300*/
-			if (clown_attack_option < 300) {
+			if (clown_attack_option < clown_attack_option_limit_lower) {
 				INFO("clown basic attack")
 				/* Basic attack of the clown */
 				basic_attack();
 			}
 			/* else if the clown attack option is higher or
 			* equal to 300 and lower than 700*/
-			else if (clown_attack_option >= 300 && clown_attack_option < 700) {
+			else if (clown_attack_option >= clown_attack_option_limit_lower && clown_attack_option < clown_attack_option_limit_higher) {
 				INFO("clown double attack")
 				/* Double attack of the clown */
 				double_attack();
