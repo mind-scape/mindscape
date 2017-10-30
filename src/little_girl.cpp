@@ -107,37 +107,19 @@ void LittleGirl::initialize_hitboxes() {
 }
 
 /**
- * @brief Initialize all audio effects
+ * @brief Initialize the object as physicable
+ *
+ * This makes the object vulnerable to collisions and forces like gravity
  *
  * @return void
  */
-void LittleGirl::initialize_audio_effects() {
+void LittleGirl::initialize_as_physicable() {
 	DEBUG("Started");
 
-	/* Initiates sound effect while the Little Girl is walking */
-	engine::Audio *little_girl_steps = new engine::Audio(
-			"steps",
-			"../assets/audios/effects_songs/menina_passos_rapido.wav",
-			engine::Audio::CHUNK);
-	little_girl_steps->set_duration(1);
-	little_girl_steps->set_effect_volume(45);
-	add_component(little_girl_steps);
-
-	/* Initiates sound effect while the Little Girl is been hit */
-	engine::Audio *little_girl_getting_hit = new engine::Audio(
-			"hit_me",
-			"../assets/audios/effects_songs/menina_apanhando.wav",
-			engine::Audio::CHUNK);
-	little_girl_getting_hit->set_duration(0.5);
-	add_component(little_girl_getting_hit);
-
-	/* Initiates sound effect while the Little Girl is using the sword */
-	engine::Audio *sword_song = new engine::Audio(
-			"sword_attack",
-			"../assets/audios/effects_songs/espada_fase_1.wav",
-			engine::Audio::CHUNK);
-	sword_song->set_duration(0.4);
-	add_component(sword_song);
+	/* Gets Physics object and makes Little Girl collidable */
+	engine::Physics *physics = engine::Physics::get_instance();
+	physics->add_physicable(this);
+	collidable = true;
 
 	DEBUG("Ended");
 }
@@ -305,228 +287,6 @@ engine::Animation *LittleGirl::create_animation(
 	DEBUG("Ended");
 
 	return animation;
-}
-
-/**
- * @brief Initialize the object as physicable
- *
- * This makes the object vulnerable to collisions and forces like gravity
- *
- * @return void
- */
-void LittleGirl::initialize_as_physicable() {
-	DEBUG("Started");
-
-	/* Gets Physics object and makes Little Girl collidable */
-	engine::Physics *physics = engine::Physics::get_instance();
-	physics->add_physicable(this);
-	collidable = true;
-
-	DEBUG("Ended");
-}
-
-/**
- * @brief On collision event
- *
- * Method called everytime a collision happens
- *
- * @param other The other object which collided
- * @param p_my_hitbox This object hitbox which received the collision
- * @param p_other_hitbox The other object hitbox which provided the collision
- */
-void LittleGirl::on_collision(
-		engine::GameObject *other,
-		engine::Hitbox *p_my_hitbox,
-		engine::Hitbox *p_other_hitbox) {
-	
-	DEBUG("Started");
-
-	/* Gets instances of the Enemies */
-	Platform *platform = dynamic_cast<Platform *>(other);
-	Scorpion *scorpion = dynamic_cast<Scorpion *>(other);
-	Spider *spider = dynamic_cast<Spider *>(other);
-	Goop *goop = dynamic_cast<Goop *>(other);
-	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-	engine::Hitbox *other_hitbox = 
-			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
-	
-	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "footer") { 
-	/* If she is falling on a platform */
-
-		set_speed_y(0.0);
-		set_position_y(other_hitbox->get_coordinates().second - 180);
-	}
-
-	else {
-        /* Do nothing */
-    }
-	
-	if (scorpion &&
-		scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
-		other_hitbox->get_name() == "scorpion_attack" &&
-		scorpion->get_actual_animation()->actual_column == 1) {
-	/* If the scorpion is attacking the Little Girl */
-
-		/* Makes the Little Girl be hit and plays the sound effect */
-		play_song("hit_me");
-		on_attack(other);
-		hit(other, 1);
-	}
-
-	else {
-    	/* Do nothing */
-    }
-	
-	if (spider &&
-		spider->get_state("ACTION_STATE") == "ATTACKING" &&
-		other_hitbox->get_name() == "spider_attack" &&
-		spider->get_actual_animation()->actual_column == 3) {
-	/* If the spider is attacking the Little Girl */
-
-		/* Makes the Little Girl be hit and plays the sound effect */
-		play_song("hit_me");
-		on_attack(other);
-		hit(other, 1);
-	}
-	
-	else {
-        /* Do nothing */
-    }
-
-	if (goop) {
-	/* If the goop is coming to the Little Girl's direction */
-
-		if (get_state("ACTION_STATE") == "ATTACKING" && 
-			goop->get_state("ACTION_STATE") != "REFUTED") {
-		/* If the goop has been refuted by the Girl */
-
-			/* Makes the goop be refuted */
-			goop->set_speed_x(goop->get_speed_x() * (-1));
-			goop->set_speed_y(-10);
-			goop->set_actual_animation(
-				goop->animations["refuted_goop_animation"]
-			);
-			goop->states.set_state("ACTION_STATE", "REFUTED");
-		} 
-
-		else if (get_state("ACTION_STATE") != "ATTACKING") {
-		/* If the goop hits the Girl */
-			
-			/* Makes the Little Girl be hit and plays the sound effect */
-			play_song("hit_me");
-			on_attack(other);
-			hit(other, 1);
-		}
-
-		else {
-        	/* Do nothing */
-    	}
-	}
-
-	else {
-        /* Do nothing */
-    }
-
-	DEBUG("Ended");
-}
-
-/**
- * @brief Method for dying
- *
- * This method is called when the little girl must die
- *
- * @param game_object
- */
-void LittleGirl::die(engine::GameObject *game_object) {
-	DEBUG("Started");
-
-	std::string actual_x_state = get_state("X_STATE");
-	
-	if (actual_x_state == "LOOKING_LEFT") {
-	/* If the Little Girl is dying looking left */
-
-		/* Sets the animation of the Little Girl dying looking left */
-		states.set_state("ACTION_STATE", "DYING");
-		set_actual_animation(animations["dying_left_animation"]);
-	} 
-
-	else if (actual_x_state == "LOOKING_RIGHT") {
-	/* If the Little Girl is dying looking right */
-
-		/* Sets the animation of the Little Girl dying looking right */
-		states.set_state("ACTION_STATE", "DYING");
-		set_actual_animation(animations["dying_right_animation"]);
-	}
-
-	else {
-        /* Do nothing */
-    }
-	
-	/* Creates "level" of Game over */
-	LevelFactory *level_factory = new LevelFactory();
-	engine::Game *game = &(engine::Game::get_instance());
-	level_factory->update_level(
-			dynamic_cast<engine::Level *>(game->get_actual_scene()),
-			"../data/game_over.dat"
-	);
-	
-	/* Pauses the game */
-	game->set_state(engine::Game::PAUSED);
-
-	DEBUG("Ended");
-}
-
-/**
- * @brief Registers an event
- *
- * This method receives an event and registers it
- *
- * @param game_event The event to be registered
- *
- * @return void
- */
-void LittleGirl::on_event(GameEvent game_event) {
-
-	std::string event_name = game_event.game_event_name; /* Gets name of the 
-	game event */
-	std::string actual_x_state = states.get_state("X_STATE"); /* Gets x 
-	coordinates of the game event */
-	std::string actual_y_state = states.get_state("Y_STATE"); /* Gets y 
-	coordinates of the game event */	
-	std::string actual_action_state = states.get_state("ACTION_STATE"); /* Gets  
-	action state of the game event */
-	
-	if (event_name == "JUMP" && actual_y_state == "ON_GROUND") {
-	/* If the event is JUMP and the girl is on ground */
-
-		/* Makes the Girl jump */
-		jump(actual_x_state);
-	} 
-
-	else if (event_name == "MOVE_LEFT") {
-	/* If the event is MOVE LEFT */
-
-		/* Makes the Girl move to the left */
-		move_left(actual_x_state, actual_y_state);
-	}
-
-	else if (event_name == "MOVE_RIGHT") {
-	/* If the event is MOVE RIGHT */
-
-		/* Makes the Girl move to the right */
-		move_right(actual_x_state, actual_y_state);
-	}
-
-	else if (event_name == "ATTACK" && actual_action_state != "ATTACKING") {
-	/* If the event is ATTACK and the action state is diffrent from ATTACKING */
-
-		/* Makes the Girl attack */
-		attack();
-	}
-
-	else {
-        /* Do nothing */
-    }
 }
 
 /**
@@ -777,6 +537,210 @@ void LittleGirl::on_attack(GameObject *game_object) {
 }
 
 /**
+ * @brief On collision event
+ *
+ * Method called everytime a collision happens
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Enemies */
+	Platform *platform = dynamic_cast<Platform *>(other);
+	Scorpion *scorpion = dynamic_cast<Scorpion *>(other);
+	Spider *spider = dynamic_cast<Spider *>(other);
+	Goop *goop = dynamic_cast<Goop *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = 
+			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+	
+	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "footer") { 
+	/* If she is falling on a platform */
+
+		set_speed_y(0.0);
+		set_position_y(other_hitbox->get_coordinates().second - 180);
+	}
+
+	else {
+        /* Do nothing */
+    }
+	
+	if (scorpion &&
+		scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
+		other_hitbox->get_name() == "scorpion_attack" &&
+		scorpion->get_actual_animation()->actual_column == 1) {
+	/* If the scorpion is attacking the Little Girl */
+
+		/* Makes the Little Girl be hit and plays the sound effect */
+		play_song("hit_me");
+		on_attack(other);
+		hit(other, 1);
+	}
+
+	else {
+    	/* Do nothing */
+    }
+	
+	if (spider &&
+		spider->get_state("ACTION_STATE") == "ATTACKING" &&
+		other_hitbox->get_name() == "spider_attack" &&
+		spider->get_actual_animation()->actual_column == 3) {
+	/* If the spider is attacking the Little Girl */
+
+		/* Makes the Little Girl be hit and plays the sound effect */
+		play_song("hit_me");
+		on_attack(other);
+		hit(other, 1);
+	}
+	
+	else {
+        /* Do nothing */
+    }
+
+	if (goop) {
+	/* If the goop is coming to the Little Girl's direction */
+
+		if (get_state("ACTION_STATE") == "ATTACKING" && 
+			goop->get_state("ACTION_STATE") != "REFUTED") {
+		/* If the goop has been refuted by the Girl */
+
+			/* Makes the goop be refuted */
+			goop->set_speed_x(goop->get_speed_x() * (-1));
+			goop->set_speed_y(-10);
+			goop->set_actual_animation(
+				goop->animations["refuted_goop_animation"]
+			);
+			goop->states.set_state("ACTION_STATE", "REFUTED");
+		} 
+
+		else if (get_state("ACTION_STATE") != "ATTACKING") {
+		/* If the goop hits the Girl */
+			
+			/* Makes the Little Girl be hit and plays the sound effect */
+			play_song("hit_me");
+			on_attack(other);
+			hit(other, 1);
+		}
+
+		else {
+        	/* Do nothing */
+    	}
+	}
+
+	else {
+        /* Do nothing */
+    }
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief Method for dying
+ *
+ * This method is called when the little girl must die
+ *
+ * @param game_object
+ */
+void LittleGirl::die(engine::GameObject *game_object) {
+	DEBUG("Started");
+
+	std::string actual_x_state = get_state("X_STATE");
+	
+	if (actual_x_state == "LOOKING_LEFT") {
+	/* If the Little Girl is dying looking left */
+
+		/* Sets the animation of the Little Girl dying looking left */
+		states.set_state("ACTION_STATE", "DYING");
+		set_actual_animation(animations["dying_left_animation"]);
+	} 
+
+	else if (actual_x_state == "LOOKING_RIGHT") {
+	/* If the Little Girl is dying looking right */
+
+		/* Sets the animation of the Little Girl dying looking right */
+		states.set_state("ACTION_STATE", "DYING");
+		set_actual_animation(animations["dying_right_animation"]);
+	}
+
+	else {
+        /* Do nothing */
+    }
+	
+	/* Creates "level" of Game over */
+	LevelFactory *level_factory = new LevelFactory();
+	engine::Game *game = &(engine::Game::get_instance());
+	level_factory->update_level(
+			dynamic_cast<engine::Level *>(game->get_actual_scene()),
+			"../data/game_over.dat"
+	);
+	
+	/* Pauses the game */
+	game->set_state(engine::Game::PAUSED);
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief Registers an event
+ *
+ * This method receives an event and registers it
+ *
+ * @param game_event The event to be registered
+ *
+ * @return void
+ */
+void LittleGirl::on_event(GameEvent game_event) {
+
+	std::string event_name = game_event.game_event_name; /* Gets name of the 
+	game event */
+	std::string actual_x_state = states.get_state("X_STATE"); /* Gets x 
+	coordinates of the game event */
+	std::string actual_y_state = states.get_state("Y_STATE"); /* Gets y 
+	coordinates of the game event */	
+	std::string actual_action_state = states.get_state("ACTION_STATE"); /* Gets  
+	action state of the game event */
+	
+	if (event_name == "JUMP" && actual_y_state == "ON_GROUND") {
+	/* If the event is JUMP and the girl is on ground */
+
+		/* Makes the Girl jump */
+		jump(actual_x_state);
+	} 
+
+	else if (event_name == "MOVE_LEFT") {
+	/* If the event is MOVE LEFT */
+
+		/* Makes the Girl move to the left */
+		move_left(actual_x_state, actual_y_state);
+	}
+
+	else if (event_name == "MOVE_RIGHT") {
+	/* If the event is MOVE RIGHT */
+
+		/* Makes the Girl move to the right */
+		move_right(actual_x_state, actual_y_state);
+	}
+
+	else if (event_name == "ATTACK" && actual_action_state != "ATTACKING") {
+	/* If the event is ATTACK and the action state is diffrent from ATTACKING */
+
+		/* Makes the Girl attack */
+		attack();
+	}
+
+	else {
+        /* Do nothing */
+    }
+}
+
+/**
  * @brief Updates the state
  *
  * Updates the state on the states map
@@ -876,4 +840,39 @@ void LittleGirl::update_state() {
 	set_position_x(get_position_x() - get_speed_x());
 	set_speed_x(0.0);
 
+}
+/**
+ * @brief Initialize all audio effects
+ *
+ * @return void
+ */
+void LittleGirl::initialize_audio_effects() {
+	DEBUG("Started");
+
+	/* Initiates sound effect while the Little Girl is walking */
+	engine::Audio *little_girl_steps = new engine::Audio(
+			"steps",
+			"../assets/audios/effects_songs/menina_passos_rapido.wav",
+			engine::Audio::CHUNK);
+	little_girl_steps->set_duration(1);
+	little_girl_steps->set_effect_volume(45);
+	add_component(little_girl_steps);
+
+	/* Initiates sound effect while the Little Girl is been hit */
+	engine::Audio *little_girl_getting_hit = new engine::Audio(
+			"hit_me",
+			"../assets/audios/effects_songs/menina_apanhando.wav",
+			engine::Audio::CHUNK);
+	little_girl_getting_hit->set_duration(0.5);
+	add_component(little_girl_getting_hit);
+
+	/* Initiates sound effect while the Little Girl is using the sword */
+	engine::Audio *sword_song = new engine::Audio(
+			"sword_attack",
+			"../assets/audios/effects_songs/espada_fase_1.wav",
+			engine::Audio::CHUNK);
+	sword_song->set_duration(0.4);
+	add_component(sword_song);
+
+	DEBUG("Ended");
 }
