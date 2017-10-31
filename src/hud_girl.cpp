@@ -41,15 +41,67 @@ HudGirl::HudGirl(
 };
 
 /**
- * @brief Notifies Hud Girl of Girl's state.
- *
- * Verifies Girl's state and sets hp' animation depending of the quantity of
- *  life of the Girl.
- *
- * @param game_object Object for observe game's situation,
- * in this case, the Girl.
- * @return void.
- */
+* @brief Creates Hud Girl's animation.
+*
+* Creates all Hud Girl's animation based on Hud Girl's sprites.
+*
+* @param image_path Path of the Hud Girl's sprite.
+* @param sprite_lines Line of the Hud Girl's sprite.
+* @warning Limitations of sprite_lines and sprite_columns are
+* 1 to the quantity of lines/columns in the image.
+* @param sprite_columns Column of the Girl's sprite needed.
+* @param duration Duration of the Hud Girl's image to show up.
+* @param direction Direction of the Hud Girl's image.
+* @return engine::Animation* The animation constructed.
+*/
+engine::Animation* HudGirl::create_animation(
+    std::string path,
+    int sprite_lines,
+    int sprite_columns,
+    double duration,
+    std::string direction) {
+        DEBUG("Started: HudGirl create_animation()");
+
+        engine::Game& game = engine::Game::get_instance(); /**< Instance. Initialize instace of the game */
+        engine::Animation* animation = nullptr; /**< Animation. Animation of the girl */
+        animation = new engine::Animation(
+            game.get_renderer(),
+            /* Hud Girl image path */
+            path,
+            /* is_active */
+            false,
+            std::make_pair(0, 0),
+            /* priority */
+            1,
+            sprite_lines,
+            sprite_columns,
+            duration,
+            /* in_loop */
+            true,
+            direction
+        );
+
+        animation->set_values(
+            std::make_pair(266, 90),
+            std::make_pair(266, 90),
+            std::make_pair(0, 0)
+        );
+
+        return animation;
+
+        DEBUG("Ended: HudGirl create_animation()");
+}
+
+/**
+* @brief Notifies Hud Girl of Girl's state.
+*
+* Verifies Girl's state and sets hp' animation depending of the quantity of
+*  life of the Girl.
+*
+* @param game_object Object for observe game's situation,
+* in this case, the Girl.
+* @return void.
+*/
 void HudGirl::notify(engine::Observable* game_object) {
     DEBUG("Started: HudGirl notify()");
 
@@ -83,12 +135,12 @@ void HudGirl::notify(engine::Observable* game_object) {
 }
 
 /**
- * @brief Initiates Hud Girl's animation.
- *
- * Initiates Hud Girl's sprites(health bar with right hp).
- *
- * @return void.
- */
+* @brief Initiates Hud Girl's animation.
+*
+* Initiates Hud Girl's sprites(health bar with right hp).
+*
+* @return void.
+*/
 void HudGirl::initialize_animations() {
     DEBUG("Started: HudGirl initialize_animations()");
 
@@ -112,7 +164,7 @@ void HudGirl::initialize_animations() {
 /**
  * @brief Creates Health bar's animation.
  *
- * Creates Health bar's animation.
+ * Creates Health bar's images.
  *
  * @return void.
  */
@@ -138,56 +190,4 @@ engine::Image* HudGirl::create_image() {
     return health_bar;
 
     DEBUG("Ended: HudGirl create_image() - health_bar");
-}
-
-/**
- * @brief Creates Hud Girl's animation.
- *
- * Creates all Hud Girl's animation based on Hud Girl's sprites.
- *
- * @param image_path Path of the Hud Girl's sprite.
- * @param sprite_lines Line of the Hud Girl's sprite.
- * @warning Limitations of sprite_lines and sprite_columns are
- * 1 to the quantity of lines/columns in the image.
- * @param sprite_columns Column of the Girl's sprite needed.
- * @param duration Duration of the Hud Girl's image to show up.
- * @param direction Direction of the Hud Girl's image.
- * @return engine::Animation* The animation constructed.
- */
-engine::Animation* HudGirl::create_animation(
-    std::string path,
-    int sprite_lines,
-    int sprite_columns,
-    double duration,
-    std::string direction) {
-    DEBUG("Started: HudGirl create_animation()");
-
-    engine::Game& game = engine::Game::get_instance(); /**< Instance. Initialize instace of the game */
-    engine::Animation* animation = nullptr; /**< Animation. Animation of the girl */
-    animation = new engine::Animation(
-        game.get_renderer(),
-        /* Hud Girl image path */
-        path,
-        /* is_active */
-        false,
-        std::make_pair(0, 0),
-        /* priority */
-        1,
-        sprite_lines,
-        sprite_columns,
-        duration,
-        /* in_loop */
-        true,
-        direction
-    );
-
-    animation->set_values(
-        std::make_pair(266, 90),
-        std::make_pair(266, 90),
-        std::make_pair(0, 0)
-    );
-
-  return animation;
-
-  DEBUG("Ended: HudGirl create_animation()");
 }
