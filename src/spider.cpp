@@ -87,10 +87,16 @@ engine::Animation* Spider::create_animation(
     );
 
     /* Sets values to init a initial position of animation on the screen.*/
+    const int size_on_screen = 288;
+    const int size_of_texture = 288;
+
+    const int coordinates_x = 0;
+    const int coordinates_y = 0;
+
     animation->set_values(
-        std::make_pair(288, 288),
-        std::make_pair(288, 288),
-        std::make_pair(0, 0)
+        std::make_pair(size_on_screen, size_on_screen),
+        std::make_pair(size_of_texture, size_of_texture),
+        std::make_pair(coordinates_x, coordinates_y)
     );
 
     DEBUG("Animations created.");
@@ -109,13 +115,17 @@ void Spider::initialize_animations() {
     /* Starts debugger to accompany the method's development. */
     DEBUG("Initializing animations.");
 
+    const int walking_sprite_lines = 1;
+    const int walking_sprite_columns = 4;
+    const double walking_duration = 0.9;
+
     engine::Animation* walking_left_animation = nullptr; /**< Animation.
     Animation that represents spider's walk to the left. */
 
     /* Creates spider's walk movement animation to the left. */
     walking_left_animation = create_animation(
         "../assets/images/sprites/enemies/spider/spider_walking_left.png",
-        1, 4, 0.9, "LEFT"
+        walking_sprite_lines, walking_sprite_columns, walking_duration, "LEFT"
     );
 
     /* Adds spider's walk animation to the left. */
@@ -127,11 +137,15 @@ void Spider::initialize_animations() {
     /* Creates spider's walk movement animation to the right. */
     walking_right_animation = create_animation(
         "../assets/images/sprites/enemies/spider/spider_walking_right.png",
-        1, 4, 0.9, "RIGHT"
+        walking_sprite_lines, walking_sprite_columns, walking_duration, "RIGHT"
     );
 
     /* Adds spider's walk animation to the right. */
     add_animation("walking_right_animation", walking_right_animation);
+
+    const int idle_sprite_lines = 1;
+    const int idle_sprite_columns = 2;
+    const double idle_duration = 0.9;
 
     engine::Animation* idle_left_animation = nullptr; /**< Animation.
     Animation that represents spider's idle to the left. */
@@ -139,7 +153,7 @@ void Spider::initialize_animations() {
     /* Creates spider's idle animation to the left. */
     idle_left_animation = create_animation(
         "../assets/images/sprites/enemies/spider/spider_idle_left.png",
-        1, 2, 0.9, "LEFT"
+        idle_sprite_lines, idle_sprite_columns, idle_duration, "LEFT"
     );
 
     /* Adds spider's idle animation to the left. */
@@ -151,7 +165,7 @@ void Spider::initialize_animations() {
     /* Creates spider's idle animation to the right. */
     idle_right_animation = create_animation(
         "../assets/images/sprites/enemies/spider/spider_idle_right.png",
-        1, 2, 0.9, "RIGHT"
+        idle_sprite_lines, idle_sprite_columns, idle_duration, "RIGHT"
     );
 
     /* Adds spider's idle animation to the right. */
@@ -161,13 +175,52 @@ void Spider::initialize_animations() {
     idle_left_animation->activate();
     set_actual_animation(idle_left_animation);
 
+    const int attacking_left_sprite_lines = 1;
+    const int attacking_left_sprite_columns = 5;
+    const double attacking_left_duration = 0.7;
+
+    engine::Animation* attacking_left_animation = nullptr; /**< Animation.
+     Animation that represents spider's attack to the left. */
+
+    /* Creates spider's attack animation to the left. */
+    attacking_left_animation = create_animation(
+        "../assets/images/sprites/enemies/spider/spider_attacking_left.png",
+        attacking_left_sprite_lines, attacking_left_sprite_columns,
+        attacking_left_duration, "LEFT"
+    );
+
+    /* Adds spider's attacking animation to the left. */
+    add_animation("attacking_left_animation", attacking_left_animation);
+
+    const int attacking_right_sprite_lines = 1;
+    const int attacking_right_sprite_columns = 4;
+    const double attacking_right_duration = 0.5;
+
+    engine::Animation* attacking_right_animation = nullptr; /**< Animation.
+    Animation that represents spider's attack to the right. */
+
+    /* Creates spider's attack animation to the right. */
+    attacking_right_animation = create_animation(
+        "../assets/images/sprites/enemies/spider/spider_attacking_right.png",
+        attacking_right_sprite_lines, attacking_right_sprite_columns,
+        attacking_right_duration, "RIGHT"
+    );
+
+    /* Adds spider's attacking animation to the right. */
+    add_animation("attacking_right_animation", attacking_right_animation);
+
+    const int on_attack_sprite_lines = 1;
+    const int on_attack_sprite_columns = 2;
+    const double on_attack_duration = 0.5;
+
     engine::Animation* on_attack_left_animation = nullptr; /**< Animation.
     Animation that represents spider's on attack to the left.  */
 
     /* Creates spider's animation to the left, when it take some damage. */
     on_attack_left_animation = create_animation(
         "../assets/images/sprites/enemies/spider/spider_on_attack_left.png",
-        1, 2, 0.5, "LEFT"
+        on_attack_sprite_lines, on_attack_sprite_columns, on_attack_duration,
+        "LEFT"
     );
 
     /* Adds spider's under attack animation to the left. */
@@ -179,35 +232,16 @@ void Spider::initialize_animations() {
     /* Creates spider's animation to the right, when it take some damage. */
     on_attack_right_animation = create_animation(
         "../assets/images/sprites/enemies/spider/spider_on_attack_right.png",
-        1, 2, 0.5, "RIGHT"
+        on_attack_sprite_lines, on_attack_sprite_columns, on_attack_duration,
+        "RIGHT"
     );
 
     /* Adds spider's under attack animation to the right. */
     add_animation("on_attack_right_animation", on_attack_right_animation);
 
-    engine::Animation* attacking_left_animation = nullptr; /**< Animation.
-     Animation that represents spider's attack to the left. */
-
-    /* Creates spider's attack animation to the left. */
-    attacking_left_animation = create_animation(
-        "../assets/images/sprites/enemies/spider/spider_attacking_left.png",
-        1, 4, 0.5, "LEFT"
-    );
-
-    /* Adds spider's attacking animation to the left. */
-    add_animation("attacking_left_animation", attacking_left_animation);
-
-    engine::Animation* attacking_right_animation = nullptr; /**< Animation.
-    Animation that represents spider's attack to the right. */
-
-    /* Creates spider's attack animation to the right. */
-    attacking_right_animation = create_animation(
-        "../assets/images/sprites/enemies/spider/spider_attacking_right.png",
-        1, 4, 0.5, "RIGHT"
-    );
-
-    /* Adds spider's attacking animation to the right. */
-    add_animation("attacking_right_animation", attacking_right_animation);
+    const int dying_sprite_lines = 1;
+    const int dying_sprite_columns = 2;
+    const double dying_duration = 0.5;
 
     engine::Animation* dying_left_animation = nullptr; /**< Animation.
     Animation that represents spider's death to the left. */
@@ -215,7 +249,7 @@ void Spider::initialize_animations() {
     /* Creates spider's death animation to the left. */
     dying_left_animation = create_animation(
         "../assets/images/sprites/enemies/spider/spider_dying_left.png",
-        1, 2, 0.5, "LEFT"
+        dying_sprite_lines, dying_sprite_columns, dying_duration, "LEFT"
     );
 
     /* Initialize booleans that references the spider's death animation
@@ -232,7 +266,7 @@ void Spider::initialize_animations() {
     /* Creates spider's death animation to the right. */
     dying_right_animation = create_animation(
         "../assets/images/sprites/enemies/spider/spider_dying_right.png",
-        1, 2, 0.5, "RIGHT"
+        dying_sprite_lines, dying_sprite_columns, dying_duration, "RIGHT"
     );
 
     /* Initialize booleans that references the spider's death animation
@@ -357,8 +391,10 @@ void Spider::initialize_audio_effects() {
         "../assets/audios/effects_songs/ataque_insetos.wav",
         engine::Audio::CHUNK);
 
+    const double duration_attacking = 0.5;
+
     /* Sets the duration of sound when it's attacking. */
-    spider_attacking->set_duration(0.5);
+    spider_attacking->set_duration(duration_attacking);
 
     add_component(spider_attacking);
 
@@ -371,8 +407,10 @@ void Spider::initialize_audio_effects() {
         "../assets/audios/effects_songs/inseto_apanhando.wav",
         engine::Audio::CHUNK);
 
+    const double on_attack_duration = 0.8;
+
     /* Sets the duration of sound when it's hitted. */
-    spider_on_attack->set_duration(0.8);
+    spider_on_attack->set_duration(on_attack_duration);
 
     add_component(spider_on_attack);
 
@@ -399,13 +437,15 @@ void Spider::on_event(GameEvent game_event) {
     int actual_position = 0; /**< Integer.
     Define the actual position of the spider on the screen. */
 
+    const int distance_to_move = 10;
+
     /* Check if the spider gets an event to move to the left direction. */
     if (event_name == "MOVE_LEFT"
         && !engine::GameObject::on_limit_of_level) {
 
         /* The spider increments its actual position. */
         actual_position = get_position_x();
-        set_position_x(actual_position + 10);
+        set_position_x(actual_position + distance_to_move);
     }
     /* Check if the spider gets an event to move to the right direction. */
     else if (event_name == "MOVE_RIGHT"
@@ -413,7 +453,7 @@ void Spider::on_event(GameEvent game_event) {
 
         /* The spider decrements its actual position. */
         actual_position = get_position_x();
-        set_position_x(actual_position - 10);
+        set_position_x(actual_position - distance_to_move);
     }
     else {
         /* Event name is not found. */
@@ -465,8 +505,10 @@ void Spider::move(engine::GameObject* girl) {
 
     //100 is the diference of girl position_y and spider position_y
 
+    const int height_difference = 100;
+
     /* Verifies if the spider and the girl is at the same height. */
-    if (spider_position_y + 100 == girl_position_y) {
+    if (spider_position_y + height_difference == girl_position_y) {
         /* The spider is in the same position that the girl. */
         same_nivel = true;
     }
@@ -518,8 +560,11 @@ void Spider::move(engine::GameObject* girl) {
         /* Calculates the distance between the spider and the girl. */
         distance_from_girl = spider_position - girl_position;
 
+        const int max_left_area = 300;
+        const int left_vision_area = 50;
+
         /* Check if the girl is too far away behind the spider. */
-        if (distance_from_girl > 300) {
+        if (distance_from_girl > max_left_area) {
             /* Sets a idle state to spider's state. */
             set_actual_animation(animations["idle_left_animation"]);
         }
@@ -529,7 +574,7 @@ void Spider::move(engine::GameObject* girl) {
             states.set_state("ACTION_STATE","NORMAL");
 
             /* Check if the girl is next or far away to the spider. */
-            if (distance_from_girl >= 50) {
+            if (distance_from_girl >= left_vision_area) {
                 /* Updates the X position of the spider, making it walking.*/
                 set_position_x(get_position_x() - (same_nivel? 8 : 3));
                 /* Initiates the animation that show the spider
@@ -553,14 +598,17 @@ void Spider::move(engine::GameObject* girl) {
         states.set_state("X_STATE","LOOKING_RIGHT");
         distance_from_girl = girl_position - spider_position;
 
+        const int max_right_area = 588;
+        const int right_vision_area = 150;
+
         /* Check if the spider is to far away in front of spider. */
-        if (distance_from_girl > 588) {
+        if (distance_from_girl > max_right_area) {
             /* Sets a idle state to spider's state. */
             set_actual_animation(animations["idle_right_animation"]);
         }
         else {
             /* Check if the girl is in the fields vision of the spider. */
-            if (distance_from_girl >= 150) {
+            if (distance_from_girl >= right_vision_area) {
                 /* Updates the X position of the spider, making it walking.*/
                 set_position_x(get_position_x() + (same_nivel? 8 : 3));
                 /* Initiates the animation that show the spider
@@ -613,16 +661,19 @@ void Spider::on_collision(
     References to girl's hitbox. */
     other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
+    const double stop_speed = 0.0;
+    const int plataform_height = 280;
+
     /* Check if the spider and the girl are on collision. */
     if (get_speed_y() >= 0
         && platform
         && my_hitbox->get_name() == "spider_hitbox") {
 
         /* Stops the spider. */
-        set_speed(std::make_pair(get_speed_x(), 0.0));
+        set_speed(std::make_pair(get_speed_x(), stop_speed));
         set_position(
             std::make_pair(get_position().first,
-            other_hitbox->get_coordinates().second - 280)
+            other_hitbox->get_coordinates().second - plataform_height)
         );
     }
     else {
@@ -708,6 +759,7 @@ void Spider::on_attack(GameObject *game_object) {
     actual_x_state = get_state("X_STATE");
 
     /* Damage received by the spider. */
+    const int damage = 15;
     hit(game_object, 15);
     INFO("The spider take 15 of damage.");
 
