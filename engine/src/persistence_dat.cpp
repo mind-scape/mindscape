@@ -43,6 +43,42 @@ PersistenceDat *PersistenceDat::get_instance(){
 }
 
 /**
+ * @brief Dump Method
+ *
+ * Method responsible for dump
+ *
+ * @param path path to save the open game in a file
+ * @param data saved game
+ * @return void
+ */
+bool PersistenceDat::dump(std::string path, PersistenceMap * data){
+	std::ofstream save_file;
+	save_file.open(path);
+
+	/* Opens the file to be written */
+	if (save_file.is_open()) {
+		for (auto it = data->begin(); it < data->end(); it++) {
+
+			/* Writes persistence datas in opened file */
+			for (auto each_data : *it) {
+				save_file << each_data.first << " " << each_data.second << " ";
+			}
+
+			save_file << std::endl;
+		}
+	}
+	else {
+		INFO("Unable to open file");
+
+		return false;
+	}
+
+	save_file.close();
+
+	return true;
+}
+
+/**
  * @brief Load Method
  *
  * Method responsible for load the saved game
@@ -110,40 +146,4 @@ PersistenceMap * PersistenceDat::load(std::string p_path){
 	}
 
 	return data;
-}
-
-/**
- * @brief Dump Method
- *
- * Method responsible for dump
- *
- * @param path path to save the open game in a file
- * @param data saved game
- * @return void
- */
-bool PersistenceDat::dump(std::string path, PersistenceMap * data){
-	std::ofstream save_file;
-	save_file.open(path);
-
-	/* Opens the file to be written */
-	if (save_file.is_open()) {
-		for (auto it = data->begin(); it < data->end(); it++) {
-
-			/* Writes persistence datas in opened file */
-			for (auto each_data : *it) {
-				save_file << each_data.first << " " << each_data.second << " ";
-			}
-
-			save_file << std::endl;
-		}
-	}
-	else {
-		INFO("Unable to open file");
-
-		return false;
-	}
-
-	save_file.close();
-
-	return true;
 }
