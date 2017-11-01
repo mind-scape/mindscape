@@ -270,6 +270,43 @@ void Game::change_scene(Scene *level) {
 }
 
 /**
+ * @brief This routine validates an RGBA color.
+ *
+ * It is important to use RGBA to change the opacity of the background.
+ * R (red) G (green) B (blue) is the regular colors and the A is the opacity nivel.
+ *
+ * @param integer containing the quantity of the red color.
+ * @param integer containing the quantity of the green color.
+ * @param integer containing the quantity of the blue color.
+ * @param integer containing the quantity of the Alpha (A) opacity.
+ * @return void.
+ */
+bool RGBA_color_is_valid(int R, int G, int B, int A) {
+    bool color_is_valid = true;
+    if (R < 0 || R > 255) {
+        /*Given value for red channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+    else if (G < 0 || G > 255) {
+        /*Given value for green channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+    else if (B < 0 || B > 255) {
+        /*Given value for blue channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+    else if (A < 0 || A > 255) {
+        /*Given value for alpha channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+    else {
+        /*All values are valid*/
+    }
+
+    return color_is_valid;
+}
+
+/**
  * @brief This Routine set the game background color.
  *
  * It is important to use RGBA to change the opacity of the background.
@@ -282,32 +319,9 @@ void Game::change_scene(Scene *level) {
  * @return void.
  */
 void Game::set_game_background_color(int R, int G, int B, int A) {
-    /*Ensures that the color values given are valid*/
-    bool color_is_valid = true;
-    if (R < 0 || R > 255) {
-        /*Given value for red channel is out of limits, therefore, invalid*/
-        color_is_valid = false;
-    }
 
-    else if (G < 0 || G > 255) {
-        /*Given value for green channel is out of limits, therefore, invalid*/
-        color_is_valid = false;
-    }
-
-    else if (B < 0 || B > 255) {
-        /*Given value for blue channel is out of limits, therefore, invalid*/
-        color_is_valid = false;
-    }
-
-    else if (A < 0 || A > 255) {
-        /*Given value for alpha channel is out of limits, therefore, invalid*/
-        color_is_valid = false;
-    }
-    else {
-        /*All values are valid*/
-    }
-
-    if (color_is_valid) {
+    if (RGBA_color_is_valid(R, G, B, A)) {
+        /*Ensures that the color values given are valid*/ 
         game_background_color = Color(R, G, B, A);
     }
 }
