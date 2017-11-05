@@ -125,9 +125,21 @@ void DarkGirl::initialize_animations() {
 	/* Initializes animation of the Dark Girl running right */
 	DEBUG("running_right_animation");
 	engine::Animation* running_right_animation = nullptr;
+
+	const int default_sprite_line = 1; /** Interger. Default sprite
+ 	line for animations */
+
+	const int default_sprite_column_running = 9; /** Interger. Default
+ 	sprite column */
+
+	const double default_animation_duration_running = 0.9; /** Double.
+ 	Default sprite line for animations */
+
 	running_right_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_running_right.png",
-			1, 9, 0.9, "RIGHT"
+			default_sprite_line,
+			default_sprite_column_running,
+			default_animation_duration_running, "RIGHT"
 	);
 	add_animation("running_right_animation", running_right_animation);
 
@@ -136,16 +148,27 @@ void DarkGirl::initialize_animations() {
 	engine::Animation* running_left_animation = nullptr;
 	running_left_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_running_left.png",
-			1, 9, 0.9, "LEFT"
+			default_sprite_line,
+			default_sprite_column_running,
+			default_animation_duration_running, "LEFT"
 	);
 	add_animation("running_left_animation", running_left_animation);
 
 	/* Initializes animation of the Dark Girl standing looking right */
 	DEBUG("idle_right_animation");
 	engine::Animation* idle_right_animation = nullptr;
+
+	const int default_sprite_column_idle = 10; /** Interger. Default
+ 	sprite column */
+
+	const double default_animation_duration_idle = 1.5; /** Double.
+ 	Default sprite line for animations */
+
 	idle_right_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_idle_right.png",
-			1, 10, 1.5, "RIGHT"
+			default_sprite_line,
+			default_sprite_column_idle,
+			default_animation_duration_idle, "RIGHT"
 	);
 	add_animation("idle_right_animation", idle_right_animation);
 
@@ -154,16 +177,27 @@ void DarkGirl::initialize_animations() {
 	engine::Animation* idle_left_animation = nullptr;
 	idle_left_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_idle_left.png",
-			1, 10, 1.5, "LEFT"
+			default_sprite_line,
+			default_sprite_column_idle,
+			default_animation_duration_idle, "LEFT"
 	);
 	add_animation("idle_left_animation", idle_left_animation);
 
 	/* Initializes animation of the Dark Girl jumping to the right */
 	DEBUG("jumping_right_animation");
 	engine::Animation* jumping_right_animation = nullptr;
+
+	const int default_sprite_column_jumping = 5; /** Interger. Default
+ 	sprite column */
+
+	const double default_animation_duration_jumping = 1.5; /** Double.
+ 	Default sprite line for animations */
+
 	jumping_right_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_jumping_right.png",
-			1, 5, 1.5, "RIGHT"
+			default_sprite_line,
+			default_sprite_column_jumping,
+			default_animation_duration_jumping, "RIGHT"
 	);
 	add_animation("jumping_right_animation", jumping_right_animation);
 
@@ -172,16 +206,27 @@ void DarkGirl::initialize_animations() {
 	engine::Animation* jumping_left_animation = nullptr;
 	jumping_left_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_jumping_left.png",
-			1, 5, 1.5, "LEFT"
+			default_sprite_line,
+			default_sprite_column_jumping,
+			default_animation_duration_jumping, "LEFT"
 	);
 	add_animation("jumping_left_animation", jumping_left_animation);
 
 	/* Initializes animation of the Dark Girl attacking to the right */
 	DEBUG("attacking_right_animation");
 	engine::Animation* attacking_right_animation = nullptr;
+
+	const int default_sprite_column_attacking = 5; /** Interger. Default
+ 	sprite column */
+
+	const double default_animation_duration_attacking = 0.5; /** Double.
+ 	Default sprite line for animations */
+
 	attacking_right_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_attacking_right.png",
-			1, 5, 0.5, "RIGHT"
+			default_sprite_line,
+			default_sprite_column_attacking,
+			default_animation_duration_attacking, "RIGHT"
 	);
 	attacking_right_animation->in_loop = false;
 	add_animation("attacking_right_animation", attacking_right_animation);
@@ -191,7 +236,9 @@ void DarkGirl::initialize_animations() {
 	engine::Animation* attacking_left_animation = nullptr;
 	attacking_left_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_attacking_left.png",
-			1, 5, 0.5, "LEFT"
+			default_sprite_line,
+			default_sprite_column_attacking,
+			default_animation_duration_attacking, "LEFT"
 	);
 	attacking_left_animation->in_loop = false;
 	add_animation("attacking_left_animation", attacking_left_animation);
@@ -200,9 +247,18 @@ void DarkGirl::initialize_animations() {
 	when she was sying looking to the left */
 	DEBUG("dying_left_animation");
 	engine::Animation* dying_left_animation = nullptr;
+
+	const int default_sprite_column_dying = 5; /** Interger. Default
+ 	sprite column */
+
+	const double default_animation_duration_dying = 1.0; /** Double.
+ 	Default sprite line for animations */
+
 	dying_left_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_dying_left.png",
-			1, 5, 0.8, "LEFT"
+			default_sprite_line,
+			default_sprite_column_dying,
+			default_animation_duration_dying, "LEFT"
 	);
 
 	dying_left_animation->in_loop = false;
@@ -215,7 +271,9 @@ void DarkGirl::initialize_animations() {
 	engine::Animation* dying_right_animation = nullptr;
 	dying_right_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_dying_right.png",
-			1, 5, 1.0, "RIGHT"
+			default_sprite_line,
+			default_sprite_column_dying,
+			default_animation_duration_dying, "RIGHT"
 	);
 
 	dying_right_animation->in_loop = false;
@@ -243,26 +301,38 @@ void DarkGirl::initialize_hitboxes() {
 	/* Get actual state of the game */
 	engine::Game& game = engine::Game::get_instance();
 
+	const std::pair<int,int> default_hitbox_displacement =
+			std::make_pair(60, 45); /**< Pair(int, int). Hitbox's displacement */
+
+	const std::pair<int,int> default_hitbox_dimension =
+			std::make_pair(50, 130); /**< Pair(int, int). Hitbox's dimension */
+
 	/* Creates Dark Girl Hitbox*/
 	engine::Hitbox* hitbox = nullptr;
 	hitbox = new engine::Hitbox(
 			"hitbox",
 			get_position(),
-			std::make_pair(60, 45),
-			std::make_pair(50,130),
+			default_hitbox_displacement,
+			default_hitbox_dimension,
 			game.get_renderer()
 	);
 
 	/* Add component in the game */
 	add_component(hitbox);
 
+	const std::pair<int,int> default_footer_displacement =
+			std::make_pair(60, 180); /**< Pair(int, int). Hitbox's displacement */
+
+	const std::pair<int,int> default_footer_dimension =
+			std::make_pair(50, 20); /**< Pair(int, int). Hitbox's dimension */
+
 	/* Creates Dark Girl Hitbox on footer*/
 	engine::Hitbox* footer = nullptr;
 	footer = new engine::Hitbox(
 			"footer",
 			get_position(),
-			std::make_pair(60, 180),
-			std::make_pair(50, 20),
+			default_footer_displacement,
+			default_footer_dimension,
 			game.get_renderer()
 	);
 
@@ -303,26 +373,34 @@ void DarkGirl::initialize_audio_effects() {
 	/* Initializes Audio effects while the Dark GIrl is Walking*/
 	DEBUG("little_girl_steps")
 	engine::Audio * little_girl_steps = nullptr;
+
+	const double sound_duration_steps  = 1; /**Double. Sound duration effect */
+
+	const double sound_volume = 45; /**Double. Sound duration effect */
+
 	little_girl_steps = new engine::Audio(
 			"steps",
 			"../assets/audios/effects_songs/menina_passos_rapido.wav",
 			engine::Audio::CHUNK
 	);
 
-	little_girl_steps->set_duration(1);
-	little_girl_steps->set_effect_volume(45);
+	little_girl_steps->set_duration(sound_duration_steps);
+	little_girl_steps->set_effect_volume(sound_volume);
 	add_component(little_girl_steps);
 
 	/* Initializes Audio effects while the Dark GIrl is getting a hit*/
 	DEBUG("little_gitl_getting_hit")
 	engine::Audio * little_girl_getting_hit = nullptr;
+
+	const double sound_duration = 0.5; /**Double. Sound duration effect */
+
 	little_girl_getting_hit = new engine::Audio(
 			"hit_me",
 			"../assets/audios/effects_songs/menina_apanhando.wav",
 			engine::Audio::CHUNK
 	);
 
-	little_girl_getting_hit->set_duration(0.5);
+	little_girl_getting_hit->set_duration(sound_duration);
 	add_component(little_girl_getting_hit);
 
 	/* Initializes Audio effects while the Dark GIrl is Attacking*/
@@ -333,7 +411,7 @@ void DarkGirl::initialize_audio_effects() {
 			"../assets/audios/effects_songs/espada_fase_1.wav",
 			engine::Audio::CHUNK
 	);
-	sword_song->set_duration(0.5);
+	sword_song->set_duration(sound_duration);
 	add_component(sword_song);
 
 	DEBUG("initialize_audio_effects finished");
@@ -581,7 +659,8 @@ void DarkGirl::jump(std::string actual_x_state) {
 		engine::Animation* actual_animation = nullptr;
 		actual_animation = get_actual_animation();
 
-		jumping_animation_count += 1;
+		jumping_animation_count += 1; /**Increment
+ 		jumping animation counter by 1 */
 
 		const int jumping_animation_count_max = 26; /**Interger. Constant of
 		jumping animation counter */
@@ -856,7 +935,8 @@ void DarkGirl::update_state() {
 	/* Gets the actual action state of the dark girl */
 	std::string actual_action_state = states.get_state("ACTION_STATE");
 
-	const int position_y_axis_minimum = 576;
+	const int position_y_axis_minimum = 576; /** Minimum position
+ 	on the Y axis */
 
 	if(get_position_y() >= position_y_axis_minimum) {
 		/* if the position on the y axis is higher  or equal than 576*/

@@ -118,15 +118,20 @@ void Clown::initialize_animations() {
 			std::make_pair(0, 0); /**< Pair(int, int).
  			default coordinate on texture of the clown */
 
-	const int default_sprite_line = 1; /** Interger. Default sprite line for animations */
+	const int default_sprite_line = 1; /** Interger. Default sprite
+ 	line for animations */
 
-	const int default_sprite_column_on_attack = 4; /** Interger. Default sprite column */
+	const int default_sprite_column_on_attack = 4; /** Interger. Default
+ 	sprite column */
 
-	const double default_animation_duration_on_attack = 0.4; /** Double. Default sprite line for animations */
+	const double default_animation_duration_on_attack = 0.4; /** Double.
+ 	Default sprite line for animations */
 
 	on_attack_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_on_attack.png",
-			default_sprite_line, default_sprite_column_on_attack, default_animation_duration_on_attack, "LEFT"
+			default_sprite_line,
+			default_sprite_column_on_attack,
+			default_animation_duration_on_attack, "LEFT"
 	);
 
 	on_attack_animation->set_values(
@@ -141,13 +146,17 @@ void Clown::initialize_animations() {
 	DEBUG("dying_animation")
 	engine::Animation *dying_animation = nullptr;
 
-	const int default_sprite_column_dying = 5; /** Interger. Default sprite column */
+	const int default_sprite_column_dying = 5; /** Interger.
+ 	Default sprite column */
 
-	const double default_animation_duration_dying = 0.9; /** Double. Default sprite line for animations */
+	const double default_animation_duration_dying = 0.9; /** Double.
+ 	Default sprite line for animations */
 
 	dying_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_dying.png",
-			default_sprite_line, default_sprite_column_dying, default_animation_duration_dying, "LEFT"
+			default_sprite_line,
+			default_sprite_column_dying,
+			default_animation_duration_dying, "LEFT"
 	);
 
 	dying_animation->set_values(
@@ -163,13 +172,17 @@ void Clown::initialize_animations() {
 	DEBUG("attacking_animation")
 	engine::Animation *attacking_animation = nullptr;
 
-	const int default_sprite_column_attacking = 6; /** Interger. Default sprite column */
+	const int default_sprite_column_attacking = 6; /** Interger.
+ 	Default sprite column */
 
-	const double default_animation_duration_attacking = 1.5; /** Double. Default sprite line for animations */
+	const double default_animation_duration_attacking = 1.5; /** Double.
+ 	Default sprite line for animations */
 
 	attacking_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_attacking.png",
-			default_sprite_line, default_sprite_column_attacking, default_animation_duration_attacking, "LEFT"
+			default_sprite_line,
+			default_sprite_column_attacking,
+			default_animation_duration_attacking, "LEFT"
 	);
 
 	attacking_animation->set_values(
@@ -183,13 +196,17 @@ void Clown::initialize_animations() {
 	DEBUG("idle_animation")
 	engine::Animation *idle_animation = nullptr;
 
-	const int default_sprite_column_idle= 15; /** Interger. Default sprite column */
+	const int default_sprite_column_idle= 15; /** Interger.
+ 	Default sprite column */
 
-	const double default_animation_duration_idle = 3; /** Double. Default sprite line for animations */
+	const double default_animation_duration_idle = 3; /** Double.
+ 	Default sprite line for animations */
 
 	idle_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_idle.png",
-			default_sprite_line, default_sprite_column_idle, default_animation_duration_idle, "LEFT"
+			default_sprite_line,
+			default_sprite_column_idle,
+			default_animation_duration_idle, "LEFT"
 	);
 
 	idle_animation->set_values(
@@ -204,7 +221,9 @@ void Clown::initialize_animations() {
 	engine::Animation *idle_vulnerable_animation = nullptr;
 	idle_vulnerable_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_vulnerable_idle.png",
-			default_sprite_line, default_sprite_column_idle, default_animation_duration_idle, "LEFT"
+			default_sprite_line,
+			default_sprite_column_idle,
+			default_animation_duration_idle, "LEFT"
 	);
 
 	idle_vulnerable_animation->set_values(
@@ -323,7 +342,7 @@ void Clown::on_collision(engine::GameObject *other,
 				set the state of the clown to vunerable. */
 				INFO("refuted goops hits")
 				states.set_state("ACTION_STATE", "VULNERABLE"); /* Set state to vunerable*/
-				set_actual_animation(animations["idle_vulnerable_animation"]); /* Set te anumation to
+				set_actual_animation(animations["idle_vulnerable_animation"]); /* Set the animation to
   				idle_vulnerable_animation */
 				refuted_goop_hits = 0;
 				//engine::Game::get_instance().get_actual_scene()->deactivate_game_object(goop->name);
