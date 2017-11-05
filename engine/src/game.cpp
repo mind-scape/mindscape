@@ -192,7 +192,12 @@ void Game::close() {
  * @return void.
  */
 void renderScreen(SDL_Renderer* renderer, Scene* actual_scene) {
-    SDL_SetRenderDrawColor(renderer, 0xE2, 0xAC, 0xF3, 0x00);
+    const Uint8 r_value = 0xE2;
+    const Uint8 g_value = 0xAC;
+    const Uint8 b_value = 0xF3;
+    const Uint8 a_value = 0x00;
+
+    SDL_SetRenderDrawColor(renderer, r_value, g_value, b_value, a_value);
     SDL_RenderClear(renderer);
     actual_scene->draw();
     SDL_RenderPresent(renderer);
