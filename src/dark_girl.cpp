@@ -6,7 +6,6 @@
  * Copyright (c) 2017 MindScape
  *
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
- *
  */
 #include "../include/dark_girl.hpp"
 #include "../include/platform.hpp"
@@ -66,7 +65,6 @@ DarkGirl::DarkGirl(
  * @param sprite_columns number of columns on the sprite sheet
  * @param duration Time duration of the animation
  * @param direction direction of the animation
- *
  *
  * @return animation created
  */
@@ -199,7 +197,7 @@ void DarkGirl::initialize_animations() {
 	add_animation("attacking_left_animation", attacking_left_animation);
 
 	/* Initializes animation of the Dark Girl
-		when she was sying looking to the left */
+	when she was sying looking to the left */
 	DEBUG("dying_left_animation");
 	engine::Animation* dying_left_animation = nullptr;
 	dying_left_animation = create_animation(
@@ -212,7 +210,7 @@ void DarkGirl::initialize_animations() {
 	add_animation("dying_left_animation", dying_left_animation);
 
 	/* Initializes animation of the Dark Girl
-		when she was sying looking to the right */
+	when she was sying looking to the right */
 	DEBUG("dying_right_animation");
 	engine::Animation* dying_right_animation = nullptr;
 	dying_right_animation = create_animation(
@@ -225,7 +223,7 @@ void DarkGirl::initialize_animations() {
 	add_animation("dying_right_animation", dying_right_animation);
 
 	/* Initializes animation of the Dark Girl
-		when she is standing */
+	when she is standing */
 	idle_right_animation->activate();
 	set_actual_animation(idle_right_animation);
 
@@ -238,10 +236,10 @@ void DarkGirl::initialize_animations() {
  * Initializes dark girl instance hitboxes
  *
  * @return void
- *
  */
 void DarkGirl::initialize_hitboxes() {
 	DEBUG("initialize_hitboxes");
+
 	/* Get actual state of the game */
 	engine::Game& game = engine::Game::get_instance();
 
@@ -282,8 +280,9 @@ void DarkGirl::initialize_hitboxes() {
  * @return void
  */
 void DarkGirl::initialize_state_map() {
+
 	/* Sets the initial position of the Dark Girl on the game,
-	 also her action and states*/
+	also her action and states*/
 	DEBUG("initialize_state_map");
 	states.set_state("X_STATE", "LOOKING_RIGHT");
 	states.set_state("Y_STATE", "FALLING");
@@ -297,7 +296,6 @@ void DarkGirl::initialize_state_map() {
  * Initializes audio effects for dark girl on second level
  *
  * @return void
- *
  */
 void DarkGirl::initialize_audio_effects() {
 	DEBUG("initialize_audio_effects");
@@ -394,8 +392,8 @@ void DarkGirl::on_collision(engine::GameObject* other,
 	engine::Hitbox* other_hitbox = nullptr;
 	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
-	//if she is falling on a platform
 	if(get_speed_y() >= 0 && platform && my_hitbox->get_name() == "footer") {
+		//if she is falling on a platform
 		INFO("She is falling on a platform")
 		set_speed_y(0.0);
 		set_position_y(other_hitbox->get_coordinates().second - 180);
@@ -404,11 +402,11 @@ void DarkGirl::on_collision(engine::GameObject* other,
 		/* Do nothing */
 	}
 
-	/* if the scorpion is attacking the dark girl */
 	if(scorpion &&
 	   scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
 	   other_hitbox->get_name() == "scorpion_attack" &&
 	   scorpion->get_actual_animation()->actual_column == 1) {
+		/* if the scorpion is attacking the dark girl */
 		INFO("Scorpion is attacking")
 
 		/* Makes dark girl be hit and play sound effects */
@@ -420,11 +418,11 @@ void DarkGirl::on_collision(engine::GameObject* other,
 		/* Do nothing */
 	}
 
-	/*if the spider is attacking the dark girl*/
 	if(spider &&
 	   spider->get_state("ACTION_STATE") == "ATTACKING" &&
 	   other_hitbox->get_name() == "spider_attack" &&
 	   spider->get_actual_animation()->actual_column == 3) {
+		/*if the spider is attacking the dark girl*/
 		INFO("Spider is attacking")
 
 		/* Makes dark girl be hit and play sound effects */
@@ -437,8 +435,8 @@ void DarkGirl::on_collision(engine::GameObject* other,
 	}
 
 
-	/* if the goop is on the dark girl direction */
 	if(goop) {
+		/* if the goop is on the dark girl direction */
 		INFO("Goop is on her direction")
 
 		if(get_state("ACTION_STATE") == "ATTACKING"
@@ -455,8 +453,8 @@ void DarkGirl::on_collision(engine::GameObject* other,
 
 			goop->states.set_state("ACTION_STATE","REFUTED");
 		}
-		/*Makes dark girl be hit and play sound effects */
 		else {
+			/*Makes dark girl be hit and play sound effects */
 			INFO("Dark girl get a hit")
 			play_song("hit_me");
 			on_attack(other);
@@ -501,27 +499,28 @@ void DarkGirl::on_event(GameEvent game_event) {
 	std::string actual_action_state = "";
 	actual_action_state = states.get_state("ACTION_STATE");
 
-	/* if the event is jump and the dark girl is on groun */
 	if(event_name == "JUMP" && actual_y_state == "ON_GROUND") {
+		/* if the event is jump and the dark girl is on groun */
 		INFO("dark girl jump and she is on ground")
 
 		/* Makes the dark girl jump */
 		jump(actual_x_state);
 	}
-	/* else if the event is move left */
 	else if(event_name == "MOVE_LEFT") {
+		/* else if the event is move left */
 		INFO("dark girl move left")
 		/* Makes the dark girl move left*/
 		move_left(actual_x_state, actual_y_state);
 	}
-	/* else if the event is move right */
 	else if(event_name == "MOVE_RIGHT") {
+		/* else if the event is move right */
 		INFO("dark girl move right")
 		/*Makes the dark girl move right*/
 		move_right(actual_x_state, actual_y_state);
 	}
-	/* if the event is attack and the actual state is different from attacking */
 	else if(event_name == "ATTACK" && actual_action_state != "ATTACKING") {
+		/* if the event is attack and the actual state is
+		different from attacking */
 		INFO("attack event")
 		/*Makes the dark girl attack*/
 		attack();
@@ -543,32 +542,33 @@ void DarkGirl::on_event(GameEvent game_event) {
  */
 void DarkGirl::jump(std::string actual_x_state) {
 
-	/*if the states of the dark girl on y axis is
-	 different from jumping or falling */
 	DEBUG("jump");
 
-	if(get_state("Y_STATE") != "JUMPING" || get_state("Y_STATE") != "FALLING") {
+	if(get_state("Y_STATE") != "JUMPING" ||
+	   get_state("Y_STATE") != "FALLING") {
+		/*if the states of the dark girl on y axis is
+		different from jumping or falling */
 		INFO("dark girl jump")
 
 		/* Makes the dark girl jump */
 		set_speed_y(-23);
 		states.set_state("Y_STATE", "JUMPING");
 
-		/*If the the state of the dark girl is looking right */
 		if(actual_x_state == "LOOKING_RIGHT") {
+			/*If the the state of the dark girl is looking right */
 			INFO("jump to the right")
 
 			/*Stop sound effects of walking and starts the animation of
-			  jumping to the right direction */
+			jumping to the right direction */
 			stop_song("steps");
 			set_actual_animation(animations["jumping_right_animation"]);
 		}
-		/* else if the state of the dark girl is looking to the left*/
 		else if(actual_x_state == "LOOKING_LEFT") {
+			/* else if the state of the dark girl is looking to the left*/
 			INFO("jump to the left")
 
 			/*Stop sound effects of walking and starts the animation of
-			  jumping to the left direction */
+			 jumping to the left direction */
 			stop_song("steps");
 			set_actual_animation(animations["jumping_left_animation"]);
 		}
@@ -578,7 +578,6 @@ void DarkGirl::jump(std::string actual_x_state) {
 
 		/* Gets the actual animation and increments
 		jumping_animation_count value */
-
 		engine::Animation* actual_animation = nullptr;
 		actual_animation = get_actual_animation();
 
@@ -587,13 +586,13 @@ void DarkGirl::jump(std::string actual_x_state) {
 		const int jumping_animation_count_max = 26; /**Interger. Constant of
 		jumping animation counter */
 
-		/* If the jumping_animation_count has value lower than 26 */
 		if(jumping_animation_count < jumping_animation_count_max) {
+			/* If the jumping_animation_count has value lower than 26 */
 			INFO("jumping_animation_count value")
 
-			/* If the jumping_animation_count is divisible by 5 */
 			if(jumping_animation_count % 5 == 0) {
 				INFO("jumping_animation_count divisible")
+				/* If the jumping_animation_count is divisible by 5 */
 
 				const int coordinate_on_texture_minimum = 192;/**Interger.
  				Minimum coordinate on texture constant */
@@ -604,8 +603,8 @@ void DarkGirl::jump(std::string actual_x_state) {
 				/* Increment the value of the coordinates */
 				actual_animation->coordinatesOnTexture.first += coordinate_on_texture_minimum;
 
-				/*if the cordinate on the y axis is lower than 960 */
 				if(actual_animation->coordinatesOnTexture.first == coordinate_on_texture_max) {
+					/*if the cordinate on the y axis is lower than 960 */
 					INFO("cordinate on the Y axis")
 
 					/* Sets coordinatesOnTexture to 0 */
@@ -619,7 +618,7 @@ void DarkGirl::jump(std::string actual_x_state) {
 				/* Do nothing */
 			}
 		}
-		/* else jumping_animation_count is higher than 25 */
+			/* else jumping_animation_count is higher than 25 */
 		else {
 
 			/* Sets the jumping_animation_count to 26*/
@@ -660,8 +659,8 @@ void DarkGirl::move_right(std::string actual_x_state,
 
 	actual_animation->coordinatesOnTexture.first += coordinates_on_texture_lower;
 
-	/* If the coordinatesOnTexture is lower or equal to 1728 */
 	if(actual_animation->coordinatesOnTexture.first >= coordinates_on_texture_higher ) {
+		/* If the coordinatesOnTexture is lower or equal to 1728 */
 		INFO("coordinateOnTexture")
 
 		/* Sets the coordinatesOnTexture to 0 */
@@ -677,8 +676,8 @@ void DarkGirl::move_right(std::string actual_x_state,
 	play_song("steps");
 	set_speed_x(0.1);
 
-	/* if the dark girl is jumping and looking left*/
 	if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_LEFT") {
+		/* if the dark girl is jumping and looking left*/
 		INFO("jumping and looking left")
 
 		/* Turn the dark girl to the right and keep her jumping */
@@ -720,8 +719,8 @@ void DarkGirl::move_left(std::string actual_x_state,
 
 	actual_animation->coordinatesOnTexture.first -= coordinates_on_texture_lower;
 
-	/* if the coordinatesOnTexture is equal or lower than 0*/
 	if(actual_animation->coordinatesOnTexture.first <= 0) {
+		/* if the coordinatesOnTexture is equal or lower than 0*/
 		INFO("coordinatesOnTexture")
 
 		/* Sets the coordinatesOnTexture equal to 1536 */
@@ -737,8 +736,8 @@ void DarkGirl::move_left(std::string actual_x_state,
 	play_song("steps");
 	set_speed_x(-0.1);
 
-	/* if the dark girl is jumping and looking to the right */
 	if(actual_y_state == "JUMPING" && actual_x_state == "LOOKING_RIGHT") {
+		/* if the dark girl is jumping and looking to the right */
 		INFO("jumping and looking right")
 
 		/* Turn the dark girl to the left and keep her jumping */
@@ -770,16 +769,16 @@ void DarkGirl::attack() {
 	/* Sets states equal  attack */
 	states.set_state("ACTION_STATE", "ATTACKING");
 
-	/* if the dark girl is looking to the right*/
 	if(actual_x_state == "LOOKING_RIGHT") {
+		/* if the dark girl is looking to the right*/
 		INFO("attack looking right")
 
 		/* Makes dark girl attack looking right */
 		set_actual_animation(animations["attacking_right_animation"]);
 		get_actual_animation()->is_finished = false;
 	}
-	/* if the dark girl is looking to the left*/
 	else if(actual_x_state == "LOOKING_LEFT") {
+		/* if the dark girl is looking to the left*/
 		INFO("attack looking left")
 		/* Makes the dark girl attack looking left */
 		set_actual_animation(animations["attacking_left_animation"]);
@@ -812,15 +811,15 @@ void DarkGirl::on_attack(GameObject *game_object) {
 	/* Sets states equal to on attacking */
 	states.set_state("ACTION_STATE", "ON_ATTACK");
 
-	/* if the dark girl is looking left */
 	if(actual_x_state == "LOOKING_LEFT") {
+		/* if the dark girl is looking left */
 		INFO("get a hit from left")
 
 		/* Makes the dark girl be attacked by the left */
 		set_actual_animation(animations["on_attack_left_animation"]);
 	}
-	/* if the dark girl is looking right */
 	else if(actual_x_state == "LOOKING_RIGHT") {
+		/* if the dark girl is looking right */
 		INFO("get a hit from right")
 
 		/* Makes the dark girl be attacked by the right */
@@ -859,8 +858,8 @@ void DarkGirl::update_state() {
 
 	const int position_y_axis_minimum = 576;
 
-	/* if the position on the y axis is higher  or equal than 576*/
 	if(get_position_y() >= position_y_axis_minimum) {
+		/* if the position on the y axis is higher  or equal than 576*/
 		INFO("position on the Y axis")
 
 		/* Keep the dark girl alive */
@@ -870,19 +869,19 @@ void DarkGirl::update_state() {
 		/* Do nothing */
 	}
 
-	/*if the actual state is attack or beeing attacked */
 	if(actual_action_state == "ATTACKING"
 	   || actual_action_state == "ON_ATTACK") {
+		/*if the actual state is attack or beeing attacked */
 		INFO("ATTACKING OR ON_ATTACK")
 
-		/* if the animation is finished */
 		if(get_actual_animation()->is_finished) {
+			/* if the animation is finished */
 			INFO("animation is finished")
 
 			/* Sets the dark girl state to normal */
 			states.set_state("ACTION_STATE", "NORMAL");
 		}
-		/* else do nothing */
+			/* else do nothing */
 		else {
 			return;
 		}
@@ -891,20 +890,21 @@ void DarkGirl::update_state() {
 		/* Do nothing */
 	}
 
-	/* if the dark girl is moving */
 	if(get_speed_x() == 0.0 && get_speed_y() == 0.0
 	   && actual_action_state == "NORMAL") {
+		/* if the dark girl is moving */
 		INFO("dark girl is moving")
 
-		/* if the dark girl is looking right */
 		if(actual_x_state == "LOOKING_RIGHT") {
+			/* if the dark girl is looking right */
 			INFO("dark girl is looking right")
 
 			/* Makes she stand looking right */
 			set_actual_animation(animations["idle_right_animation"]);
 		}
-		/* else if the dark girl is looking left */
+
 		else if(actual_x_state == "LOOKING_LEFT") {
+			/* else if the dark girl is looking left */
 			INFO("dark girl is looking left")
 
 			/* Makes she stand looking left */
@@ -921,17 +921,16 @@ void DarkGirl::update_state() {
 		/*Do Nothing */
 	}
 
-	/* if the dark girl has no speed in the y axis
-	 and she is not jumping  */
 	if(get_speed_y() == 0.0 && get_state("Y_STATE") != "JUMPING") {
+		/* if the dark girl has no speed in the y axis
+		and she is not jumping  */
 		INFO("dark girl on ground")
 		/* Sets the dark girl on the ground */
 		states.set_state("Y_STATE", "ON_GROUND");
 	}
-
-	/* else if the dark girl has no speed
-	on the y axis and she is jumping */
 	else if(get_speed_y() == 0.0) {
+		/* else if the dark girl has no speed
+	on the y axis and she is jumping */
 		INFO("dark girl falling")
 
 		/* Sets the dark girl to state of falling */
@@ -942,7 +941,7 @@ void DarkGirl::update_state() {
 	}
 
 	/* Sets new coordinates to the dark girl and
-	 sets speed on the x axis equal to 0*/
+	sets speed on the x axis equal to 0*/
 	set_position_x(get_position_x() - get_speed_x());
 	set_speed_x(0.0);
 	DEBUG("update_state finished")
@@ -964,16 +963,16 @@ void DarkGirl::die(engine::GameObject *game_object) {
 	std::string actual_x_state = "";
 	actual_x_state = get_state("X_STATE");
 
-	/* If dark girl is dying looking left  */
 	if(actual_x_state == "LOOKING_LEFT") {
+		/* If dark girl is dying looking left  */
 		INFO("Dark girl is dying looking left")
 
 		/* Sets the animation of the dark girl dying left */
 		states.set_state("ACTION_STATE", "DYING");
 		set_actual_animation(animations["dying_left_animation"]);
 	}
-		/* If dark girl is dying looking right */
 	else if(actual_x_state == "LOOKING_RIGHT") {
+		/* If dark girl is dying looking right */
 		INFO("Dark girl is dying looking right")
 
 		/* Sets the animation of the dark girl dying right */
