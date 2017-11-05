@@ -106,33 +106,33 @@ void Clown::initialize_animations() {
 
 	DEBUG("intialize_animations")
 
-	/* Initializes the clown standing animation */
-	DEBUG("idle_animation")
-	engine::Animation *idle_animation = nullptr;
-	idle_animation = create_animation(
-			"../assets/images/sprites/enemies/clown/clown_idle.png",
-			1, 15, 3.0, "LEFT"
-	);
-
-	idle_animation->set_values(
-			std::make_pair(448, 448),
-			std::make_pair(448, 448),
-			std::make_pair(0, 0)
-	);
-	add_animation("idle_animation", idle_animation);
-
 	/* Initializes the anitmation when the clown is getting a hit */
 	DEBUG("on_attack_animation")
 	engine::Animation *on_attack_animation = nullptr;
+
+	const std::pair<int,int> default_dimensions_clown =
+			std::make_pair(448, 448); /**< Pair(int, int).
+ 			default dimensions and coordinates of the clown */
+
+	const std::pair<int,int> default__coordinate_on_texture_clown =
+			std::make_pair(0, 0); /**< Pair(int, int).
+ 			default coordinate on texture of the clown */
+
+	const int default_sprite_line = 1; /** Interger. Default sprite line for animations */
+
+	const int default_sprite_column_on_attack = 4; /** Interger. Default sprite column */
+
+	const double default_animation_duration_on_attack = 0.4; /** Double. Default sprite line for animations */
+
 	on_attack_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_on_attack.png",
-			1, 4, 0.4, "LEFT"
+			default_sprite_line, default_sprite_column_on_attack, default_animation_duration_on_attack, "LEFT"
 	);
 
 	on_attack_animation->set_values(
-			std::make_pair(448, 448),
-			std::make_pair(448, 448),
-			std::make_pair(0, 0)
+			default_dimensions_clown,
+			default_dimensions_clown,
+			default__coordinate_on_texture_clown
 	);
 	on_attack_animation->in_loop = false;
 	add_animation("on_attack_animation", on_attack_animation);
@@ -140,15 +140,20 @@ void Clown::initialize_animations() {
 	/* Initializes the animation when the clown is dying */
 	DEBUG("dying_animation")
 	engine::Animation *dying_animation = nullptr;
+
+	const int default_sprite_column_dying = 5; /** Interger. Default sprite column */
+
+	const double default_animation_duration_dying = 0.9; /** Double. Default sprite line for animations */
+
 	dying_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_dying.png",
-			1, 5, 0.9, "LEFT"
+			default_sprite_line, default_sprite_column_dying, default_animation_duration_dying, "LEFT"
 	);
 
 	dying_animation->set_values(
-			std::make_pair(448, 448),
-			std::make_pair(448, 448),
-			std::make_pair(0, 0)
+			default_dimensions_clown,
+			default_dimensions_clown,
+			default__coordinate_on_texture_clown
 	);
 	dying_animation->in_loop = false;
 	dying_animation->is_a_final_animation = true;
@@ -157,30 +162,55 @@ void Clown::initialize_animations() {
 	/* Initializes the animation when clown is attacking */
 	DEBUG("attacking_animation")
 	engine::Animation *attacking_animation = nullptr;
+
+	const int default_sprite_column_attacking = 6; /** Interger. Default sprite column */
+
+	const double default_animation_duration_attacking = 1.5; /** Double. Default sprite line for animations */
+
 	attacking_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_attacking.png",
-			1, 6, 1.5, "LEFT"
+			default_sprite_line, default_sprite_column_attacking, default_animation_duration_attacking, "LEFT"
 	);
 
 	attacking_animation->set_values(
-			std::make_pair(448, 448),
-			std::make_pair(448, 448),
-			std::make_pair(0, 0)
+			default_dimensions_clown,
+			default_dimensions_clown,
+			default__coordinate_on_texture_clown
 	);
 	add_animation("attacking_animation", attacking_animation);
+
+	/* Initializes the clown standing animation */
+	DEBUG("idle_animation")
+	engine::Animation *idle_animation = nullptr;
+
+	const int default_sprite_column_idle= 15; /** Interger. Default sprite column */
+
+	const double default_animation_duration_idle = 3; /** Double. Default sprite line for animations */
+
+	idle_animation = create_animation(
+			"../assets/images/sprites/enemies/clown/clown_idle.png",
+			default_sprite_line, default_sprite_column_idle, default_animation_duration_idle, "LEFT"
+	);
+
+	idle_animation->set_values(
+			default_dimensions_clown,
+			default_dimensions_clown,
+			default__coordinate_on_texture_clown
+	);
+	add_animation("idle_animation", idle_animation);
 
 	/* Initializes the animation when the clown if vunerable to get a hit */
 	DEBUG("idle_vunelrable_animation")
 	engine::Animation *idle_vulnerable_animation = nullptr;
 	idle_vulnerable_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_vulnerable_idle.png",
-			1, 15, 3.0, "LEFT"
+			default_sprite_line, default_sprite_column_idle, default_animation_duration_idle, "LEFT"
 	);
 
 	idle_vulnerable_animation->set_values(
-			std::make_pair(448, 448),
-			std::make_pair(448, 448),
-			std::make_pair(0, 0)
+			default_dimensions_clown,
+			default_dimensions_clown,
+			default__coordinate_on_texture_clown
 	);
 	add_animation("idle_vulnerable_animation", idle_vulnerable_animation);
 
@@ -286,7 +316,7 @@ void Clown::on_collision(engine::GameObject *other,
 			goop->set_actual_animation(goop->animations["goop_squash_animation"]);
 			goop->set_speed_x(0.0); /*Set goop speed on X axis to 0 */
 
-			int refuted_goop_hits_limit = 20; /**Interger. Limit of refuted goops */
+			const int refuted_goop_hits_limit = 20; /**Interger. Limit of refuted goops */
 
 			if (refuted_goop_hits >= refuted_goop_hits_limit) {
 				/* If the refuted goop hits is higher or equal than 20,
@@ -329,19 +359,32 @@ void Clown::initialize_hitboxes() {
 	DEBUG("initialize_hitboxes")
 	engine::Game &game = engine::Game::get_instance();
 
+	const std::pair<int,int> default_foothitbox_displacement =
+			std::make_pair(160, 380); /**< Pair(int, int). Hitbox's displacement */
+
+	const std::pair<int,int> default_foothitbox_dimension =
+			std::make_pair(180, 20); /**< Pair(int, int). Hitbox's dimension */
+
 	/* Creates the foot hitbox for the clown */
 	DEBUG("foot_hitbox")
 	engine::Hitbox *foot_hitbox = nullptr;
 	foot_hitbox = new engine::Hitbox(
 			"foot_hitbox",
 			this->get_position(),
-			std::make_pair(160, 380),
-			std::make_pair(180, 20),
+			default_foothitbox_displacement,
+			default_foothitbox_dimension,
 			game.get_renderer()
 	);
-
 	/* Add component to the game */
 	add_component(foot_hitbox);
+
+	const std::pair<int,int> default_attack_hitbox_displacement =
+			std::make_pair(120, 170); /**< Pair(int, int).
+ 			Hitbox's displacement */
+
+	const std::pair<int,int> default_attack_hitbox_dimension =
+			std::make_pair(100, 25); /**< Pair(int, int).
+ 			Hitbox's dimension */
 
 	/* Creates the attack hitbox for the clown */
 	DEBUG("attack_hitbox")
@@ -349,12 +392,20 @@ void Clown::initialize_hitboxes() {
 	attack_hitbox = new engine::Hitbox(
 			"attack_hitbox",
 			this->get_position(),
-			std::make_pair(120, 170),
-			std::make_pair(100, 25),
+			default_attack_hitbox_displacement,
+			default_attack_hitbox_dimension,
 			game.get_renderer()
 	);
 	/* Add component to the game */
 	add_component(attack_hitbox);
+
+	const std::pair<int,int> default_head_hitbox_displacement =
+			std::make_pair(120, 90); /**< Pair(int, int).
+ 			Hitbox's displacement */
+
+	const std::pair<int,int> default_head_hitbox_dimension =
+			std::make_pair(110,110); /**< Pair(int, int).
+ 			Hitbox's dimension */
 
 	/* Creates the head hitbox of the clown */
 	DEBUG("head_hitbox")
@@ -362,8 +413,8 @@ void Clown::initialize_hitboxes() {
 	head_hitbox = new engine::Hitbox(
 			"head_hitbox",
 			this->get_position(),
-			std::make_pair(120, 90),
-			std::make_pair(110, 110),
+			default_head_hitbox_displacement,
+			default_head_hitbox_dimension,
 			game.get_renderer()
 	);
 	/* Add component to the game */
@@ -401,6 +452,7 @@ void Clown::on_event(GameEvent game_event) {
 	DEBUG("on_event")
 	std::string event_name = "";
 	event_name = game_event.game_event_name;
+
 	if (event_name == "MOVE_LEFT" &&
 		!engine::GameObject::on_limit_of_level) {
 		/* If the event name is move left and the hitboxes are int
@@ -460,10 +512,21 @@ void Clown::notify(engine::Observable *game_object) {
  */
 engine::GameObject *Clown::create_goop() {
 	DEBUG("create_goop")
+
 	engine::GameObject *goop = nullptr; /** Variable < pointer to goop,
  	attack of the clown*/
 
-	goop = new Goop("goop", std::make_pair(885, 420), 60);
+	const int pair_goop_x_axis = 885; /** Interger. constant on the
+ 	x axis for the first tidy pair of the goop */
+
+	const int pair_goop_y_axis = 420; /** Interger. constant on the
+ 	y axis for the first tidy pair of the goop */
+
+	const int goop_y_axis = 60; /** Interger. constant on the y
+ 	axis for pair of the goop */
+
+	goop = new Goop("goop", std::make_pair(pair_goop_x_axis, pair_goop_y_axis),
+					goop_y_axis);
 	engine::Game::get_instance().get_actual_scene()->add_object(goop);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop);
 
@@ -504,10 +567,10 @@ void Clown::attack(engine::GameObject *little_girl) {
 
 		vulnerable_counter++; /*Increment vunerable_counter */
 
-		int vunerable_counter_limit = 600; /** Interger. limit for
+		const int vunerable_counter_limit = 600; /** Interger. limit for
  		the vunerable counter */
 
-		if (vulnerable_counter >= 600) {
+		if (vulnerable_counter >= vunerable_counter_limit) {
 			/* if the vunerable counter is higher or equal to 600 */
 			INFO("vunerable_counter")
 			states.set_state("ACTION_STATE", "NORMAL");
@@ -561,7 +624,7 @@ void Clown::attack(engine::GameObject *little_girl) {
 	clown_position = get_position_x();
 
 	int little_girl_position = 0; /**<Interger. Little girl
-	* position on the x axis*/
+	position on the x axis*/
 
 	/*Gets the position of the little girl on the x axis */
 	little_girl_position = little_girl->get_position_x();
@@ -655,8 +718,20 @@ void Clown::basic_attack() {
 	engine::GameObject *goop = nullptr; /** Variable < pointer to goop,
  	attack of the clown*/
 
-	goop = new Goop("goop", std::make_pair(get_position_x() + 40,
-										   get_position_y() + 150), 60);
+	const int add_position_X_axis = 40; /** Interger. Constant to
+ 	add on the X axis */
+
+	const int add_position_Y_axis = 150; /** Interger. Constant to
+ 	add on the y axis */
+
+	const int goop_position_Y_axis = 60; /** Interger. Constant to
+ 	on the y axis for the goop */
+
+	goop = new Goop("goop", std::make_pair(
+			get_position_x() + add_position_X_axis,
+			get_position_y() + add_position_Y_axis),
+					goop_position_Y_axis);
+
 	engine::Game::get_instance().get_actual_scene()->add_object(goop);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop);
 
@@ -685,8 +760,20 @@ void Clown::double_attack() {
 	engine::GameObject *goop_5 = nullptr; /** Variable < pointer to goop,
  	attack of the clown*/
 
-	goop_5 = new Goop("goop_5", std::make_pair(get_position_x() + 40,
-											   get_position_y() + 150), 60);
+	const int add_position_X_axis = 40; /** Interger. Constant to
+ 	add on the X axis */
+
+	const int add_position_Y_axis = 150; /** Interger. Constant to
+ 	add on the y axis */
+
+	const int goop_position_Y_axis = 60; /** Interger. Constant to
+ 	on the y axis for the goop */
+
+	goop_5 = new Goop("goop_5", std::make_pair(
+			get_position_x() + add_position_X_axis,
+			get_position_y() + add_position_Y_axis),
+					  goop_position_Y_axis);
+
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_5);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_5);
 
@@ -701,8 +788,11 @@ void Clown::double_attack() {
 	engine::GameObject *goop_6 = nullptr;/** Variable < pointer to goop,
  	attack of the clown*/
 
-	goop_6 = new Goop("goop_6", std::make_pair(get_position_x() + 40,
-											   get_position_y() + 150), 60);
+	goop_6 = new Goop("goop_6", std::make_pair(
+			get_position_x() + add_position_X_axis,
+			get_position_y() + add_position_Y_axis),
+					  goop_position_Y_axis);
+
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_6);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_6);
 
@@ -739,8 +829,20 @@ void Clown::serial_attack() {
 	engine::GameObject *goop_1 = nullptr; /** Variable < pointer to goop,
  	attack of the clown*/
 
-	goop_1 = new Goop("goop_1", std::make_pair(get_position_x() + 40,
-											   get_position_y() + 150), 60);
+	const int add_position_X_axis = 40; /** Interger. Constant to
+ 	add on the X axis */
+
+	const int add_position_Y_axis = 150; /** Interger. Constant to
+ 	add on the y axis */
+
+	const int goop_position_Y_axis = 60; /** Interger. Constant to
+ 	on the y axis for the goop */
+
+	goop_1 = new Goop("goop_1", std::make_pair(
+			get_position_x() + add_position_X_axis,
+			get_position_y() + add_position_Y_axis),
+					  goop_position_Y_axis);
+
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_1);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_1);
 
@@ -753,8 +855,11 @@ void Clown::serial_attack() {
 	engine::GameObject *goop_2 = nullptr; /** Variable < pointer to goop,
  	attack of the clown*/
 
-	goop_2 = new Goop("goop_2", std::make_pair(get_position_x() + 40,
-											   get_position_y() + 150), 60);
+	goop_2 = new Goop("goop_2", std::make_pair(
+			get_position_x() + add_position_X_axis,
+			get_position_y() + add_position_Y_axis),
+					  goop_position_Y_axis);
+
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_2);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_2);
 
@@ -767,8 +872,11 @@ void Clown::serial_attack() {
 	engine::GameObject *goop_3 = nullptr; /** Variable < pointer to goop,
  	attack of the clown*/
 
-	goop_3 = new Goop("goop_3", std::make_pair(get_position_x() + 40,
-											   get_position_y() + 150), 60);
+	goop_3 = new Goop("goop_3", std::make_pair(
+			get_position_x() + add_position_X_axis,
+			get_position_y() + add_position_Y_axis),
+					  goop_position_Y_axis);
+
 	engine::Game::get_instance().get_actual_scene()->add_object(goop_3);
 	engine::Game::get_instance().get_actual_scene()->activate_game_object(goop_3);
 
