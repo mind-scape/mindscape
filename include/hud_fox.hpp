@@ -32,7 +32,11 @@ namespace mindscape{
      */  
     class HudFox : public engine::GameObject{
         private:
-            void initialize_animations();
+            void initialize_zero_star_animations();
+            void initialize_one_star_animations();
+            void initialize_two_star_animations();
+            void initialize_three_star_animations();
+            void initialize_fading_star_animations();
             void initialize_audio_effects();
   
             engine::Animation *create_animation(
