@@ -43,29 +43,25 @@ bool compare(Component *a, Component *b) {
  * @return void.
  */
 void GameObject::add_component(Component *component) {
-	if (dynamic_cast<Audio *>(component)) {
-	/* Add an audio component to the map of audios of that game object */
+	if(dynamic_cast<Audio *>(component)) {
+		/* Add an audio component to the map of audios of that game object */
 		INFO("Adding Audio Component " + component->get_name() + " to " + this->name);
 		audios.push_back(component);
-	}
-	else if (dynamic_cast<Text *>(component)) {
-	/* Add an text component to the map of texts of that game object */
+	} else if(dynamic_cast<Text *>(component)) {
+		/* Add an text component to the map of texts of that game object */
 		INFO("Adding Text Component " + component->get_name() + " to " + this->name);
 		texts.push_back(component);
 		sort(texts.begin(), texts.end(), compare);
-	}
-	else if (dynamic_cast<Hitbox *>(component)) {
-	/* Add an hitbox component to the map of hitboxes of that game object */
+	} else if(dynamic_cast<Hitbox *>(component)) {
+		/* Add an hitbox component to the map of hitboxes of that game object */
 		INFO("Adding Hitbox Component " + component->get_name() + " to " + this->name);
 		hitboxes.push_back(dynamic_cast<Hitbox *>(component));
-	}
-	else if (dynamic_cast<Image *>(component)) {
-	/* Add an image component to the map of images of that game object */
+	} else if(dynamic_cast<Image *>(component)) {
+		/* Add an image component to the map of images of that game object */
 		INFO("Adding Image Component " + component->get_name() + " to " + this->name);
 		images.push_back(component);
 		sort(images.begin(), images.end(), compare);
-	}
-	else {
+	} else {
 		/* Do nothing */
 	}
 }
@@ -99,22 +95,64 @@ void GameObject::add_animation(std::string animation_name, Animation *animation)
 bool GameObject::load() {
 	INFO("Loading components for " + this->name);
 
-	for (auto image : images) {
+	bool success = load_images() && load_audios() && load_animations() && load_texts();
+
+	return success;
+}
+
+/**
+ * @brief Load all image components of the game object.
+ *
+ * This routine is used for loading and preparing every image component for this specific game object.
+ *
+ * @return boolean true meaning that everything finishes fine.
+ */
+bool GameObject::load_images() {
+	for(auto image : images) {
 		image->load();
 	}
+	return true;
+}
 
-	for (auto audio : audios) {
-		audio->load();
-	}
-
-	for (auto text : texts) {
+/**
+ * @brief Load all text components of the game object.
+ *
+ * This routine is used for loading and preparing every text component for this specific game object.
+ *
+ * @return boolean true meaning that everything finishes fine.
+ */
+bool GameObject::load_texts() {
+	for(auto text : texts) {
 		text->load();
 	}
+	return true;
+}
 
-	for (auto animation : animations) {
+/**
+ * @brief Load all audio components of the game object.
+ *
+ * This routine is used for loading and preparing every audio component for this specific game object.
+ *
+ * @return boolean true meaning that everything finishes fine.
+ */
+bool GameObject::load_audios() {
+	for(auto audio : audios) {
+		audio->load();
+	}
+	return true;
+}
+
+/**
+ * @brief Load all animation components of the game object.
+ *
+ * This routine is used for loading and preparing every animation component for this specific game object.
+ *
+ * @return boolean true meaning that everything finishes fine.
+ */
+bool GameObject::load_animations() {
+	for(auto animation : animations) {
 		animation.second->load();
 	}
-
 	return true;
 }
 
@@ -129,25 +167,70 @@ bool GameObject::load() {
 void GameObject::free() {
 	INFO("Freeing " + this->name + " object components");
 
-	for (auto image : images) {
+	free_images();
+	free_animations();
+	free_audios();
+	free_texts();
+}
+
+/**
+ * @brief Free all image components of the game game object applied.
+ *
+ * After the use of the component, when the game will be finished this routine will be called to destroy every
+ * image component of Game Object to free the computer memory.
+ *
+ * @return void.
+ */
+void GameObject::free_images() {
+	for(auto image : images) {
 		image->free();
 	}
+}
 
-	for (auto audio : audios) {
+/**
+ * @brief Free all audio components of the game game object applied.
+ *
+ * After the use of the component, when the game will be finished this routine will be called to destroy every
+ * audio component of Game Object to free the computer memory.
+ *
+ * @return void.
+ */
+void GameObject::free_audios() {
+	for(auto audio : audios) {
 		audio->free();
 	}
+}
 
-	for (auto text : texts) {
+/**
+ * @brief Free all text components of the game game object applied.
+ *
+ * After the use of the component, when the game will be finished this routine will be called to destroy every
+ * text component of Game Object to free the computer memory.
+ *
+ * @return void.
+ */
+void GameObject::free_texts() {
+	for(auto text : texts) {
 		text->free();
 	}
+}
 
-	for (auto animation : animations) {
+/**
+ * @brief Free all animation components of the game game object applied.
+ *
+ * After the use of the component, when the game will be finished this routine will be called to destroy every
+ * animation component of Game Object to free the computer memory.
+ *
+ * @return void.
+ */
+void GameObject::free_animations() {
+	for(auto animation : animations) {
 		animation.second->free();
 	}
 }
 
 /**
- * @brief This routine Draw the components of the game objects in game, includes animations, images, texts and hitboxes
+ * @brief This routine draws the components of the game objects in game, includes animations, images, texts and hitboxes
  *
  * Before add the component need to be one way to display everything added to screen, this routine randles this. One observation
  * it that the hitboxes will only be displayed if one one condition is satisfied to not disturb the player interaction.
@@ -155,42 +238,80 @@ void GameObject::free() {
  * @return void.
  */
 void GameObject::draw() {
-	for (auto audio : audios) {
+	draw_audios();
+	draw_images();
+	draw_animations();
+	draw_hitboxes();
+	draw_texts();
+}
+
+/**
+ * @brief This routine draws the image components of the game objects in game
+ *
+ * @return void.
+ */
+void GameObject::draw_images() {
+	for(auto image : images) {
+		if(image->is_active()) {
+			/* Verifies if image(s) is active and not null, then show on screen */
+			image->draw(position.first, position.second);
+		} else {
+			/* Do nothing */
+		}
+	}
+}
+
+/**
+ * @brief This routine draws the audio components of the game objects in game
+ *
+ * @return void.
+ */
+void GameObject::draw_audios() {
+	for(auto audio : audios) {
 		audio->draw(position.first, position.second);
 	}
+}
 
-	for (auto animation : animations) {
-		if (animation.second->is_active()) {
-		/* Verifys if animation is active and not null, then show on screen */
+/**
+ * @brief This routine draws the animations components of the game objects in game
+ *
+ * @return void.
+ */
+void GameObject::draw_animations() {
+	for(auto animation : animations) {
+		if(animation.second->is_active()) {
+			/* Verifies if animation is active and not null, then show on screen */
 			animation.second->draw(position.first, position.second);
-		}
-		else {
+		} else {
 			/* Do nothing */
 		}
 	}
+}
 
-	for (auto image : images) {
-		if (image->is_active()) {
-		/* Verifys if image(s) is active and not null, then show on screen */
-			image->draw(position.first, position.second);
-		}
-		else {
-			/* Do nothing */
-		}
-	}
-
-	for (auto text : texts) {
-		text->draw(position.first, position.second);
-	}
-
-	for (auto hitbox : hitboxes) {
-		if (hitbox->wanna_draw_hitbox()) {
-		/* Verifys if hitboxes(s) is active and not null, then show on screen */
+/**
+ * @brief This routine draws the hitbox components of the game objects in game
+ *
+ * @return void.
+ */
+void GameObject::draw_hitboxes() {
+	for(auto hitbox : hitboxes) {
+		if(hitbox->wanna_draw_hitbox()) {
+			/* Verifies if hitboxes(s) is active and not null, then show on screen */
 			hitbox->draw();
-		}
-		else {
+		} else {
 			/* Do nothing */
 		}
+	}
+}
+
+/**
+ * @brief This routine draws the text components of the game objects in game
+ *
+ * @return void.
+ */
+void GameObject::draw_texts() {
+	for(auto text : texts) {
+		text->draw(position.first, position.second);
 	}
 }
 
@@ -228,11 +349,10 @@ std::vector<Hitbox *> GameObject::get_hitboxes() {
  * @return void.
  */
 void GameObject::collide(GameObject *other) {
-	if (!this->equals(other)) {
-	/* In case that one game object is diferent from other objects then it will run collisions and verify both objetcs hitboxes */
+	if(!this->equals(other)) {
+		/* In case that one game object is diferent from other objects then it will run collisions and verify both objetcs hitboxes */
 		this->run_collisions(other);
-	}
-	else {
+	} else {
 		/* Do nothing */
 	}
 }
@@ -247,18 +367,17 @@ void GameObject::collide(GameObject *other) {
  * @return void.
  */
 void GameObject::run_collisions(GameObject *other) {
-	for (auto my_hitbox : hitboxes) {
-		for (auto other_hitbox : other->get_hitboxes()) {
+	for(auto my_hitbox : hitboxes) {
+		for(auto other_hitbox : other->get_hitboxes()) {
 			/* Get status of hitboxes */
 			bool my_hitbox_active = my_hitbox->is_active();
 			bool other_hitbox_active = other_hitbox->is_active();
 			bool should_hitbox_collide = my_hitbox_active && other_hitbox_active;
 
-			if (my_hitbox->collides_with(other_hitbox) && should_hitbox_collide) {
-			/* Control Struct that determs if two objects are colliding and call collision function */
+			if(my_hitbox->collides_with(other_hitbox) && should_hitbox_collide) {
+				/* Control Struct that determs if two objects are colliding and call collision function */
 				this->on_collision(other, my_hitbox, other_hitbox);
-			}
-			else {
+			} else {
 				/* Do nothing */
 			}
 		}
@@ -273,7 +392,7 @@ void GameObject::run_collisions(GameObject *other) {
  * @return void.
  */
 void GameObject::update_hitboxes() {
-	for (auto hitbox : hitboxes) {
+	for(auto hitbox : hitboxes) {
 		hitbox->update(position);
 	}
 }
@@ -442,11 +561,10 @@ void GameObject::set_speed_y(float v_y) {
  */
 void GameObject::set_actual_animation(Animation *animation) {
 	INFO("Changing " + this->name + " animation to " + animation->get_name());
-	if (actual_animation != NULL) {
-	/* Validation to determs if current animation is not null*/
+	if(actual_animation != NULL) {
+		/* Validation to determs if current animation is not null*/
 		actual_animation->deactivate();
-	}
-	else {
+	} else {
 		/* Do nothing */
 	}
 
@@ -501,25 +619,25 @@ void GameObject::deactivate() {
 void GameObject::deactivate_components() {
 	INFO("Deactivating " + this->name + " components");
 
-	for (auto image : images) {
+	for(auto image : images) {
 		image->deactivate();
 	}
 
-	for (auto audio : audios) {
+	for(auto audio : audios) {
 		audio->deactivate();
 	}
 
-	for (auto text : texts) {
+	for(auto text : texts) {
 		text->deactivate();
 	}
 
-	for (auto hitbox : hitboxes) {
+	for(auto hitbox : hitboxes) {
 		hitbox->deactivate();
 	}
 }
 
 /**
- * @brief Verifys if the current game object is active
+ * @brief Verifies if the current game object is active
  *
  * Is necessary to have this routine know the current state of the game object changing it state of just free from game.
  *
@@ -550,10 +668,10 @@ void GameObject::create_hitbox(
 	Game &game = Game::get_instance();
 	/* Instantiate objects calling contrutor and passsing params */
 	Hitbox *hitbox = new Hitbox("hitbox",
-	                            this->get_position(),
-	                            displacement,
-	                            dimensions,
-	                            game.get_renderer());
+								this->get_position(),
+								displacement,
+								dimensions,
+								game.get_renderer());
 
 	add_component(hitbox);
 }
@@ -593,7 +711,7 @@ void GameObject::detach_observer(Observer *observer) {
  * @return void.
  */
 void GameObject::notify_observers() {
-	for (auto observer : observers) {
+	for(auto observer : observers) {
 		observer->notify(this);
 	}
 }
@@ -611,13 +729,12 @@ Audio *GameObject::get_audio_by_name(std::string audio_name) {
 
 	Audio *matched_audio = NULL;
 
-	for (auto audio : audios) {
-		if (audio->get_name() == audio_name) {
-		/* Case audio(s) from game object is equal to audio name passed as param in function */
+	for(auto audio : audios) {
+		if(audio->get_name() == audio_name) {
+			/* Case audio(s) from game object is equal to audio name passed as param in function */
 			matched_audio = dynamic_cast<Audio *>(audio);
 			break;
-		}
-		else {
+		} else {
 			/* Do nothing */
 		}
 	}
@@ -724,7 +841,7 @@ void GameObject::set_music_volume(std::string song_name, int vol) {
 void GameObject::free_music(std::string song_name) {
 	INFO("Freeing " + song_name + " in " + this->name);
 
-	/* Instantiate object song  and delete it. Normaly this will be called in game close operation */
+	/* Instantiate object song  and delete it. Normally this will be called in game close operation */
 	Audio *song = get_audio_by_name(song_name);
 	song->free();
 };
