@@ -55,7 +55,12 @@ namespace mindscape {
 		
 		void initialize_state_map();
 		void initialize_hitboxes();
-		void initialize_animations();
+		void initialize_idle_animations();
+		void initialize_running_animations();
+		void initialize_jumping_animations();
+		void initialize_attacking_animations();
+		void initialize_on_attack_animations();
+		void initialize_dying_animations();
 		void initialize_audio_effects();
 		void initialize_as_physicable();
 		void jump(std::string);
