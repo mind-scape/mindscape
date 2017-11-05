@@ -181,6 +181,30 @@ void Game::close() {
     SDL_Quit();
 }
 
+/**
+ * @brief Renders a given scene.
+ *
+ * Given a scene, it replaces the previous with the given.
+ *
+ * @params SDL_Renderer* renderer that will render the new scene.
+ * @params Scene* actual_scene that is the scene that will be updated.
+ *
+ * @return void.
+ */
+void renderScreen(SDL_Renderer* renderer, Scene* actual_scene) {
+    SDL_SetRenderDrawColor(renderer, 0xE2, 0xAC, 0xF3, 0x00);
+    SDL_RenderClear(renderer);
+    actual_scene->draw();
+    SDL_RenderPresent(renderer);
+}
+
+/**
+ * @brief Runs the game.
+ *
+ * Runs the game updating the scenes and verifying the states.
+ *
+ * @return void.
+ */
 void Game::run() {
     state = RUNNING;
     DEBUG("Game is running");
@@ -206,10 +230,7 @@ void Game::run() {
                 /*Do nothing*/
             }
 
-            SDL_SetRenderDrawColor(renderer, 0xE2, 0xAC, 0xF3, 0x00);
-            SDL_RenderClear(renderer);
-            actual_scene->draw();
-            SDL_RenderPresent(renderer);
+            renderScreen(renderer, actual_scene);
         }
     }
     else {
