@@ -36,11 +36,31 @@ namespace mindscape {
         private:
 
             void initialize_state_map();
+
             void initialize_hitboxes();
+            void initialize_scorpion_hitbox(engine::Game);
+            void initialize_scorpion_attack_hitbox(engine::Game);
+
             void initialize_animations();
+            void initialize_walking_animations();
+            void initialize_idle_animations();
+            void activate_idle_animation(engine::Animation* );
+            void initialize_on_attack_animations();
+            void initialize_attacking_animations();
+            void initialize_dying_animations();
+
             void initialize_as_physicable();
+
             void initialize_audio_effects();
+            void initialize_scorpion_attacking_audio();
+            void initialize_scorpion_on_attack_audio();
+
             void on_attack(engine::GameObject *);
+            void verifies_same_nivel(float, float);
+            void verifies_actual_animation();
+            void verifies_left_distance_from_girl(int, const int);
+            void verifies_right_distance_from_girl(int, const int);
+
             void attack();
             void die(engine::GameObject*);
 

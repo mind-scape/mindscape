@@ -45,6 +45,9 @@ Scorpion::Scorpion(
         initialize_audio_effects();
 };
 
+void set_duration_scorpion_attacking(engine::Audio*);
+void set_duration_scorpion_on_attack(engine::Audio*);
+
 /**
  * @brief Creates Scorpion's animation.
  *
@@ -117,6 +120,26 @@ void Scorpion::initialize_animations() {
     /* Starts debugger to accompany the method's development. */
     DEBUG("Initializing animations.");
 
+    initialize_walking_animations();
+    initialize_idle_animations();
+    initialize_attacking_animations();
+    initialize_on_attack_animations();
+    initialize_dying_animations();
+
+    /* Ends debugger that represents the end of the method. */
+    DEBUG("Animations initializated.");
+}
+
+/**
+ * @brief
+ *
+ * 
+ *
+ *
+ * @return void.
+ */
+
+void Scorpion::initialize_walking_animations(){
     const int walking_sprite_lines = 1;
     const int walking_sprite_columns = 5;
     const double walking_duration = 0.9;
@@ -144,7 +167,33 @@ void Scorpion::initialize_animations() {
 
     /* Adds scorpion's walk animation to the right. */
     add_animation("walking_right_animation", walking_right_animation);
+}
 
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void Scorpion::activate_idle_animation(engine::Animation* idle_right_animation){
+    /* Sets scorpion's idle animation to define when its stopped. */
+    idle_right_animation->activate();
+    set_actual_animation(idle_right_animation);
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void Scorpion::initialize_idle_animations(){
     const int idle_sprite_lines = 1;
     const int idle_sprite_columns = 2;
     const double idle_duration = 0.9;
@@ -173,40 +222,19 @@ void Scorpion::initialize_animations() {
     /* Adds scorpion's idle animation to the right. */
     add_animation("idle_right_animation", idle_right_animation);
 
-    /* Sets scorpion's idle animation to define when its stopped. */
-    idle_right_animation->activate();
-    set_actual_animation(idle_right_animation);
+    activate_idle_animation(idle_right_animation);
+}
 
-    const int attacking_sprite_lines = 1;
-    const int attacking_sprite_columns = 5;
-    const double attacking_duration = 0.7;
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
 
-    engine::Animation* attacking_left_animation = nullptr; /**< Animation.
-     Animation that represents scorpion's attack to the left. */
-
-    /* Creates scorpion's attack animation to the left. */
-    attacking_left_animation = create_animation(
-        "../assets/images/sprites/enemies/scorpion/scorpion_attacking_left.png",
-        attacking_sprite_lines, attacking_sprite_columns, attacking_duration,
-        "LEFT"
-    );
-
-    /* Adds scorpion's attacking animation to the left. */
-    add_animation("attacking_left_animation", attacking_left_animation);
-
-    engine::Animation* attacking_right_animation = nullptr; /**< Animation.
-    Animation that represents scorpion's attack to the right. */
-
-    /* Creates scorpion's attack animation to the right. */
-    attacking_right_animation = create_animation(
-        "../assets/images/sprites/enemies/scorpion/scorpion_attacking_right.png",
-        attacking_sprite_lines, attacking_sprite_columns, attacking_duration,
-        "RIGHT"
-    );
-
-    /* Adds scorpion's attacking animation to the right. */
-    add_animation("attacking_right_animation", attacking_right_animation);
-
+void Scorpion::initialize_on_attack_animations(){
     const int on_attack_sprite_lines = 1;
     const int on_attack_sprite_columns = 2;
     const double on_attack_duration = 0.8;
@@ -236,7 +264,91 @@ void Scorpion::initialize_animations() {
 
     /* Adds scorpion's under attack animation to the right. */
     add_animation("on_attack_right_animation", on_attack_right_animation);
+}
 
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void Scorpion::initialize_attacking_animations(){
+    const int attacking_sprite_lines = 1;
+    const int attacking_sprite_columns = 5;
+    const double attacking_duration = 0.7;
+
+    engine::Animation* attacking_left_animation = nullptr; /**< Animation.
+     Animation that represents scorpion's attack to the left. */
+
+    /* Creates scorpion's attack animation to the left. */
+    attacking_left_animation = create_animation(
+        "../assets/images/sprites/enemies/scorpion/scorpion_attacking_left.png",
+        attacking_sprite_lines, attacking_sprite_columns, attacking_duration,
+        "LEFT"
+    );
+
+    /* Adds scorpion's attacking animation to the left. */
+    add_animation("attacking_left_animation", attacking_left_animation);
+
+    engine::Animation* attacking_right_animation = nullptr; /**< Animation.
+    Animation that represents scorpion's attack to the right. */
+
+    /* Creates scorpion's attack animation to the right. */
+    attacking_right_animation = create_animation(
+        "../assets/images/sprites/enemies/scorpion/scorpion_attacking_right.png",
+        attacking_sprite_lines, attacking_sprite_columns, attacking_duration,
+        "RIGHT"
+    );
+
+    /* Adds scorpion's attacking animation to the right. */
+    add_animation("attacking_right_animation", attacking_right_animation);
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void define_final_left_animation(engine::Animation* dying_left_animation){
+    /* Initialize booleans that references the scorpion's death animation
+    process, to the left. */
+    dying_left_animation->is_a_final_animation = true;
+    dying_left_animation->in_loop = false;
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void define_final_right_animation(engine::Animation* dying_right_animation){
+    /* Initialize booleans that references the scorpion's death animation
+    process, to the right. */
+    dying_right_animation->is_a_final_animation = true;
+    dying_right_animation->in_loop = false;
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void Scorpion::initialize_dying_animations(){
     const int dying_sprite_lines = 1;
     const int dying_sprite_columns = 5;
     const double dying_duration = 0.8;
@@ -250,10 +362,7 @@ void Scorpion::initialize_animations() {
         dying_sprite_lines, dying_sprite_columns, dying_duration, "LEFT"
     );
 
-    /* Initialize booleans that references the scorpion's death animation
-    process, to the left. */
-    dying_left_animation->is_a_final_animation = true;
-    dying_left_animation->in_loop = false;
+    define_final_left_animation(dying_left_animation);
 
     /* Adds scorpion's dying animation to the left. */
     add_animation("dying_left_animation", dying_left_animation);
@@ -267,16 +376,10 @@ void Scorpion::initialize_animations() {
         dying_sprite_lines, dying_sprite_columns, dying_duration, "RIGHT"
     );
 
-    /* Initialize booleans that references the scorpion's death animation
-    process, to the right. */
-    dying_right_animation->is_a_final_animation = true;
-    dying_right_animation->in_loop = false;
+    define_final_right_animation(dying_right_animation);
 
     /* Adds scorpion's dying animation to the right. */
     add_animation("dying_right_animation", dying_right_animation);
-
-    /* Ends debugger that represents the end of the method. */
-    DEBUG("Animations initializated.");
 }
 
 /**
@@ -305,6 +408,56 @@ void Scorpion::initialize_as_physicable() {
 }
 
 /**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void Scorpion::initialize_scorpion_hitbox(engine::Game game){
+    engine::Hitbox* scorpion_hitbox = nullptr; /**< Hitbox.
+    Initialize scorpion's hitbox with its height and width. */
+
+    scorpion_hitbox = new engine::Hitbox(
+        "scorpion_hitbox",
+        this->get_position(),
+        std::make_pair(40, 312),
+        std::make_pair(180, 8),
+        game.get_renderer()
+    );
+
+    /* Adds scorpion's hitbox component. */
+    add_component(scorpion_hitbox);
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void Scorpion::initialize_scorpion_attack_hitbox(engine::Game game){
+    engine::Hitbox* scorpion_attack = nullptr; /**< Hitbox.
+    Initialize scorpion's hitbox when its attack. */
+
+    scorpion_attack = new engine::Hitbox(
+        "scorpion_attack",
+        this->get_position(),
+        std::make_pair(5, 200),
+        std::make_pair(283, 10),
+        game.get_renderer()
+    );
+
+    /* Adds scorpion's attack hitbox component .*/
+    add_component(scorpion_attack);
+}
+
+/**
  * @brief Initialize Scorpion's hitboxes.
  *
  * Initializes Scorpion instance hitboxes.
@@ -319,33 +472,8 @@ void Scorpion::initialize_hitboxes() {
     engine::Game& game = engine::Game::get_instance(); /**< Game.
     Gets an instance of a game just initializated. */
 
-    engine::Hitbox* scorpion_hitbox = nullptr; /**< Hitbox.
-    Initialize scorpion's hitbox with its height and width. */
-
-    scorpion_hitbox = new engine::Hitbox(
-        "scorpion_hitbox",
-        this->get_position(),
-        std::make_pair(40, 312),
-        std::make_pair(180, 8),
-        game.get_renderer()
-    );
-
-    /* Adds scorpion's hitbox component. */
-    add_component(scorpion_hitbox);
-
-    engine::Hitbox* scorpion_attack = nullptr; /**< Hitbox.
-    Initialize scorpion's hitbox when its attack. */
-
-    scorpion_attack = new engine::Hitbox(
-        "scorpion_attack",
-        this->get_position(),
-        std::make_pair(5, 200),
-        std::make_pair(283, 10),
-        game.get_renderer()
-    );
-
-    /* Adds scorpion's attack hitbox component .*/
-    add_component(scorpion_attack);
+    initialize_scorpion_hitbox(game);
+    initialize_scorpion_attack_hitbox(game);
 
     /* Ends debugger that represents the end of the method. */
     DEBUG("Scorpion's hitbox initialized");
@@ -354,7 +482,7 @@ void Scorpion::initialize_hitboxes() {
 /**
  * @brief Initialize Scorpion's state map.
  *
- * Initialize all possibles states for the scorpion.
+ * Initialize a normal state for the scorpion.
  *
  * @return void.
  */
@@ -369,6 +497,86 @@ void Scorpion::initialize_state_map() {
 }
 
 /**
+ *
+ * @brief Initialize Scorpion's attack audio.
+ *
+ * Initialize an audio for scorpion attack animation.
+ *
+ * @return void.
+ */
+
+void Scorpion::initialize_scorpion_attacking_audio(){
+    engine::Audio * scorpion_attacking = nullptr; /**< Audio.
+    Sound that represents when scorpion is attacking. */
+
+    /* Creates scorpion's sound when it's attacking. */
+    scorpion_attacking = new engine::Audio(
+        "attack",
+        "../assets/audios/effects_songs/ataque_insetos.wav",
+        engine::Audio::CHUNK);
+
+    set_duration_scorpion_attacking(scorpion_attacking);
+
+    add_component(scorpion_attacking);
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void set_duration_scorpion_attacking(engine::Audio* scorpion_attacking){
+    const double duration_attacking = 0.7;
+
+    /* Sets the duration of sound when it's attacking. */
+    scorpion_attacking->set_duration(duration_attacking);
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void Scorpion::initialize_scorpion_on_attack_audio(){
+    engine::Audio * scorpion_on_attack = nullptr; /**< Audio.
+    Sound that represents when scorpion is on attack. */
+
+    /* Creates scorpion's sound when it's hitted. */
+    scorpion_on_attack = new engine::Audio(
+        "hit_me",
+        "../assets/audios/effects_songs/inseto_apanhando.wav",
+        engine::Audio::CHUNK);
+
+    set_duration_scorpion_on_attack(scorpion_on_attack);
+
+    add_component(scorpion_on_attack);
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void set_duration_scorpion_on_attack(engine::Audio* scorpion_on_attack){
+    const double on_attack_duration = 0.8;
+
+    /* Sets the duration of sound when it's hitted. */
+    scorpion_on_attack->set_duration(on_attack_duration);
+}
+
+/**
  * @brief Initialize scorpion's audio effects.
  *
  * Initialize audio effects when a scorpion is attacking or when is on attack.
@@ -380,37 +588,8 @@ void Scorpion::initialize_audio_effects() {
     /* Starts debugger to accompany the method's development. */
     DEBUG("Initializing audio effects.");
 
-    engine::Audio * scorpion_attacking = nullptr; /**< Audio.
-    Sound that represents when scorpion is attacking. */
-
-    /* Creates scorpion's sound when it's attacking. */
-    scorpion_attacking = new engine::Audio(
-        "attack",
-        "../assets/audios/effects_songs/ataque_insetos.wav",
-        engine::Audio::CHUNK);
-
-    const double duration_attacking = 0.7;
-
-    /* Sets the duration of sound when it's attacking. */
-    scorpion_attacking->set_duration(duration_attacking);
-
-    add_component(scorpion_attacking);
-
-    engine::Audio * scorpion_on_attack = nullptr; /**< Audio.
-    Sound that represents when scorpion is on attack. */
-
-    /* Creates scorpion's sound when it's hitted. */
-    scorpion_on_attack = new engine::Audio(
-        "hit_me",
-        "../assets/audios/effects_songs/inseto_apanhando.wav",
-        engine::Audio::CHUNK);
-
-    const double on_attack_duration = 0.8;
-
-    /* Sets the duration of sound when it's hitted. */
-    scorpion_on_attack->set_duration(on_attack_duration);
-
-    add_component(scorpion_on_attack);
+    initialize_scorpion_attacking_audio();
+    initialize_scorpion_on_attack_audio();
 
     /* Ends debugger that represents the end of the method. */
     DEBUG("Audio effects initialized.");
@@ -486,6 +665,112 @@ void Scorpion::notify(engine::Observable *game_object) {
 }
 
 /**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void Scorpion::verifies_same_nivel(float scorpion_position_y,
+    float girl_position_y){
+    const int height_difference = 132;
+
+    /* Verifies if the scorpion and the girl is at the same height. */
+    if (scorpion_position_y + height_difference == girl_position_y) {
+        /* The scorpion is in the same position that the girl. */
+        same_nivel = true;
+    }
+    else {
+        /* The scorpion isn't in the same position that the girl. */
+        same_nivel = false;
+    }
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void Scorpion::verifies_actual_animation(){
+    /* Verifies if the actual animation of the scorpion is finished. */
+    if(get_actual_animation()->is_finished) {
+        /* Set scorpion's actual state with a normal state. */
+        states.set_state("ACTION_STATE","NORMAL");
+    }
+    else {
+        /* The scorpion's actual animation is not finished yet. */
+    }
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void Scorpion::verifies_left_distance_from_girl(int distance_from_girl,
+    const int left_vision_area){
+    /* Check if the girl is next or far away to the scorpion. */
+    if (distance_from_girl >= left_vision_area) {
+        /* Updates the X position of the scorpion, making it walking.*/
+        set_position_x(get_position_x() - (same_nivel? 8 : 3));
+        /* Initiates the animation that show the scorpion
+        walking to the left. */
+        set_actual_animation(animations["walking_left_animation"]);
+    }
+    else {
+        /* Check if the scorpion and the girl is in the same nivel.*/
+        if (same_nivel) {
+            /* Calls the method that build the attack action. */
+            attack();
+        }
+        else {
+            /* The girl is not in the same nivel that the scorpion.*/
+        }
+    }
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void Scorpion::verifies_right_distance_from_girl(int distance_from_girl,
+    const int right_vision_area){
+    /* Check if the girl is in the fields vision of the scorpion. */
+    if (distance_from_girl >= right_vision_area) {
+        /* Updates the X position of the scorpion, making it walking.*/
+        set_position_x(get_position_x() + (same_nivel? 8 : 3));
+        /* Initiates the animation that show the scorpion
+        walking to the right. */
+        set_actual_animation(animations["walking_right_animation"]);
+    }
+    else {
+        /* Check if the scorpion and the girl is in the same nivel. */
+        if (same_nivel) {
+            /* Calls the method that build the attack action. */
+            attack();
+        }
+        else {
+            /* The girl is not in the same nivel that the scorpion.*/
+        }
+    }
+}
+
+/**
  * @brief Scorpion's move.
  *
  * This method allow that a Scorpion can follow the girl.
@@ -502,18 +787,7 @@ void Scorpion::move(engine::GameObject* girl) {
     float girl_position_y = 0;
     girl_position_y = girl->get_position_y();
 
-    //132 is the diference of girl position_y and scorpion position_y
-    const int height_difference = 132;
-
-    /* Verifies if the scorpion and the girl is at the same height. */
-    if (scorpion_position_y + height_difference == girl_position_y) {
-        /* The scorpion is in the same position that the girl. */
-        same_nivel = true;
-    }
-    else {
-        /* The scorpion isn't in the same position that the girl. */
-        same_nivel = false;
-    }
+    verifies_same_nivel(scorpion_position_y, girl_position_y);
 
     /* Verifies if the scorpion is dying. */
     if (get_state("ACTION_STATE") == "DYING") {
@@ -523,14 +797,7 @@ void Scorpion::move(engine::GameObject* girl) {
         /* The scorpion still alive. */
     }
 
-    /* Verifies if the actual animation of the scorpion is finished. */
-    if(get_actual_animation()->is_finished) {
-        /* Set scorpion's actual state with a normal state. */
-        states.set_state("ACTION_STATE","NORMAL");
-    }
-    else {
-        /* The scorpion's actual animation is not finished yet. */
-    }
+    verifies_actual_animation();
 
     /* Verifies if the scorpion is on attack. */
     if(get_state("ACTION_STATE") == "ON_ATTACK") {
@@ -571,24 +838,8 @@ void Scorpion::move(engine::GameObject* girl) {
             /* Sets a normal state to scorpion's states. */
             states.set_state("ACTION_STATE","NORMAL");
 
-            /* Check if the girl is next or far away to the scorpion. */
-            if (distance_from_girl >= left_vision_area) {
-                /* Updates the X position of the scorpion, making it walking.*/
-                set_position_x(get_position_x() - (same_nivel? 8 : 3));
-                /* Initiates the animation that show the scorpion
-                walking to the left. */
-                set_actual_animation(animations["walking_left_animation"]);
-            }
-            else {
-                /* Check if the scorpion and the girl is in the same nivel.*/
-                if (same_nivel) {
-                    /* Calls the method that build the attack action. */
-                    attack();
-                }
-                else {
-                    /* The girl is not in the same nivel that the scorpion.*/
-                }
-            }
+            verifies_left_distance_from_girl(distance_from_girl,
+                left_vision_area);
         }
     }
     else {
@@ -605,24 +856,9 @@ void Scorpion::move(engine::GameObject* girl) {
             set_actual_animation(animations["idle_right_animation"]);
         }
         else {
-            /* Check if the girl is in the fields vision of the scorpion. */
-            if (distance_from_girl >= right_vision_area) {
-                /* Updates the X position of the scorpion, making it walking.*/
-                set_position_x(get_position_x() + (same_nivel? 8 : 3));
-                /* Initiates the animation that show the scorpion
-                walking to the right. */
-                set_actual_animation(animations["walking_right_animation"]);
-            }
-            else {
-                /* Check if the scorpion and the girl is in the same nivel. */
-                if (same_nivel) {
-                    /* Calls the method that build the attack action. */
-                    attack();
-                }
-                else {
-                    /* The girl is not in the same nivel that the scorpion.*/
-                }
-            }
+
+            verifies_right_distance_from_girl(distance_from_girl,
+                right_vision_area);
         }
     }
 }
