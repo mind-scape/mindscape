@@ -131,10 +131,9 @@ void Scorpion::initialize_animations() {
 }
 
 /**
- * @brief
+ * @brief Initialize Scorpion's walking animation.
  *
- * 
- *
+ * Define scorpion's animation to the left and the right when it is walking.
  *
  * @return void.
  */
@@ -170,12 +169,15 @@ void Scorpion::initialize_walking_animations(){
 }
 
 /**
+ * @brief Activate the idle animation as the actual.
  *
+ * Activate the idle right animation and sets as the actual animation of
+ * the scorpion.
  *
+ * @param idle_right_animation animation object which contains an
+ * idle animation.
  *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::activate_idle_animation(engine::Animation* idle_right_animation){
@@ -185,12 +187,12 @@ void Scorpion::activate_idle_animation(engine::Animation* idle_right_animation){
 }
 
 /**
+ * @brief Initialize Scorpion's idle animation.
  *
+ * Define Scorpion's animation to the left and the right when it is in a
+ * idle states.
  *
- *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::initialize_idle_animations(){
@@ -226,12 +228,12 @@ void Scorpion::initialize_idle_animations(){
 }
 
 /**
+ * @brief Inicialize Scorpion's on attack animation.
  *
+ * Define Scorpion's animation to the left and the right when it is
+ * under attack.
  *
- *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::initialize_on_attack_animations(){
@@ -267,12 +269,12 @@ void Scorpion::initialize_on_attack_animations(){
 }
 
 /**
+ * @brief Initialize Scorpion's attacking animations.
  *
+ * Define Scorpion's animation to the left and the right when it is
+ * attacking.
  *
- *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::initialize_attacking_animations(){
@@ -313,7 +315,7 @@ void Scorpion::initialize_attacking_animations(){
  *
  *
  *
- *
+ * @return void.
  */
 
 void define_final_left_animation(engine::Animation* dying_left_animation){
@@ -324,12 +326,15 @@ void define_final_left_animation(engine::Animation* dying_left_animation){
 }
 
 /**
+ * @brief Define Scorpion's final right animation.
  *
+ * Sets the dying right animation as the final animation of the scorpion,
+ * that works when it's dying.
  *
+ * @param dying_left_animation animation object which contains a dying
+ * animation.
  *
- *
- *
- *
+ * @return void.
  */
 
 void define_final_right_animation(engine::Animation* dying_right_animation){
@@ -340,12 +345,11 @@ void define_final_right_animation(engine::Animation* dying_right_animation){
 }
 
 /**
+ * @brief Initialize Scorpion's dying animation.
  *
+ * Define Scorpion's animation to the left and the right when it is dying.
  *
- *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::initialize_dying_animations(){
@@ -408,12 +412,14 @@ void Scorpion::initialize_as_physicable() {
 }
 
 /**
+ * @brief Initialize Scorpion's hitbox when it isn't attacking.
  *
+ *  Creates the scorpion hitbox when it isn't attacking.
  *
+ * @param game Game object that permits get a renderer when the game is
+ * running.
  *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::initialize_scorpion_hitbox(engine::Game game){
@@ -433,12 +439,14 @@ void Scorpion::initialize_scorpion_hitbox(engine::Game game){
 }
 
 /**
+ * @brief Initialize Scorpion's hitbox when it is attacking.
  *
+ *  Creates the scorpion hitbox when it is attacking.
  *
+ * @param game Game object that permits get a renderer when the game is
+ * running.
  *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::initialize_scorpion_attack_hitbox(engine::Game game){
@@ -500,7 +508,7 @@ void Scorpion::initialize_state_map() {
  *
  * @brief Initialize Scorpion's attack audio.
  *
- * Initialize an audio for scorpion attack animation.
+ * Creates an audio for scorpion attack animation an set duration.
  *
  * @return void.
  */
@@ -521,12 +529,15 @@ void Scorpion::initialize_scorpion_attacking_audio(){
 }
 
 /**
+ * @brief Set the duration of the scorpion's attacking audio.
  *
+ * Define a duration an sets on the Scorpion's audio object when it is
+ * attacking.
  *
+ * @param scorpion_attacking audio object that contains the scorpion's sound
+ * when it is attacking.
  *
- *
- *
- *
+ * @return void.
  */
 
 void set_duration_scorpion_attacking(engine::Audio* scorpion_attacking){
@@ -537,12 +548,11 @@ void set_duration_scorpion_attacking(engine::Audio* scorpion_attacking){
 }
 
 /**
+ * @brief Initialize Scorpion's on attack audio.
  *
+ * Creates an audio for scorpion on attack animation an set duration.
  *
- *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::initialize_scorpion_on_attack_audio(){
@@ -561,12 +571,15 @@ void Scorpion::initialize_scorpion_on_attack_audio(){
 }
 
 /**
+ * @brief Set the duration of the scorpion's under attack audio.
  *
+ * Define a duration an sets on the Scorpion's audio object when it is
+ 8 under attack.
  *
+ * @param scorpion_on_attack audio object that contains the scorpion's sound
+ * when it is under attack.
  *
- *
- *
- *
+ * @return void.
  */
 
 void set_duration_scorpion_on_attack(engine::Audio* scorpion_on_attack){
@@ -665,12 +678,15 @@ void Scorpion::notify(engine::Observable *game_object) {
 }
 
 /**
+ * @brief Verifies if the girl and the scorpion are in the same nivel.
  *
+ * Verifies if the girl isn't above an below the scorpion.
  *
+ * @param scorpion_position_y measure that informs the scorpion position in the
+ * Y axis.
+ * @param girl_position_y measure that informs the girl position in the Y axis.
  *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::verifies_same_nivel(float scorpion_position_y,
@@ -689,12 +705,11 @@ void Scorpion::verifies_same_nivel(float scorpion_position_y,
 }
 
 /**
+ * @brief Verifies if the actual animation is finished.
  *
+ * Define a normal state if the Scorpion's actual animation is finished.
  *
- *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::verifies_actual_animation(){
@@ -709,12 +724,17 @@ void Scorpion::verifies_actual_animation(){
 }
 
 /**
+ * @brief Verifies the distance of the scorpion from the girl in the left
+ * direction.
  *
+ * Sets an animation according with the distance from the girl and the fields
+ * vision of the scorpion.
  *
+ * @param distance_from_girl the distance of the scorpion from the girl
+ * in pixels.
+ * @param left_vision_area field vision of the scorpion in the left direction.
  *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::verifies_left_distance_from_girl(int distance_from_girl,
@@ -740,12 +760,17 @@ void Scorpion::verifies_left_distance_from_girl(int distance_from_girl,
 }
 
 /**
+ * @brief Verifies the distance of the scorpion from the girl in the right
+ * direction.
  *
+ * Sets an animation according with the distance from the girl and the fields
+ * vision of the scorpion.
  *
+ * @param distance_from_girl the distance of the scorpion from the girl
+ * in pixels.
+ * @param right_vision_area field vision of the scorpion in the right direction.
  *
- *
- *
- *
+ * @return void.
  */
 
 void Scorpion::verifies_right_distance_from_girl(int distance_from_girl,
