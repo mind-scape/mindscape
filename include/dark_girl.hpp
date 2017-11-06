@@ -50,8 +50,13 @@ namespace mindscape {
         * number of attacking animations while the Dark Girl is looking left */
 
         void initialize_state_map();
-        void initialize_hitboxes();
-        void initialize_animations();
+        void initialize_hitbox();
+        void initialize_footer_hitbox();
+        void initialize_running_animation();
+        void initialize_idle_animation();
+        void initialize_jumping_animation();
+        void initialize_attacking_animation();
+        void initialize_dying_animation();
         void initialize_audio_effects();
         void initialize_as_physicable();
         void jump(std::string);
