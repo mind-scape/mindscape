@@ -41,6 +41,11 @@ namespace mindscape {
 
 		/* Loop method */
 		void on_event(GameEvent game_event);
+
+		/* Levels methods */
+		void platform_movement(GameEvent game_event);
+		void first_level_clown(GameEvent game_event);
+		void second_level_boss(GameEvent game_event);
 	};
 }
 

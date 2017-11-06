@@ -26,7 +26,7 @@ namespace mindscape {
             typedef enum {
                 CHANGE_SCENE, PAUSE_GAME, PLAY_GAME
             } Command;
-            
+
         private:
             Command command;
 
@@ -37,7 +37,7 @@ namespace mindscape {
 
             /* Loop method */
             void execute(std::string param);
-  };
+    };
 }
 
 #endif
