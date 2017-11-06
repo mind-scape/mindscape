@@ -30,6 +30,7 @@ using namespace mindscape;
  *
  * @return void
  */
+const int little_max_hitpoints = 90; /**< Integer. Little Girl's max hitpoints */
 LittleGirl::LittleGirl(
 		std::string name,
 		std::pair<int, int> position,
@@ -45,7 +46,7 @@ LittleGirl::LittleGirl(
 				{engine::KeyboardEvent::DOWN,  "CROUCH"},
 				{engine::KeyboardEvent::F,     "ATTACK"},
 		}
-), Fighter(90) {
+), Fighter(little_max_hitpoints) {
 	
 	/* Inicialize all the characterists of the Little Girl */
 	initialize_state_map();
@@ -81,21 +82,33 @@ void LittleGirl::initialize_hitboxes() {
 	/* Gets actual state of the game */
 	engine::Game &game = engine::Game::get_instance();
 
+	const std::pair<int, int> default_hitbox_displacement = 
+		std::make_pair(60, 45); /**< Pair(int, int). Hitbox's displacement */
+	const std::pair<int, int> default_hitbox_dimension = std::make_pair(50, 130); 
+	/**< Pair(int, int). Hitbox's dimensions */
+
 	/* Creates Little Girl's hitbox */
 	engine::Hitbox *hitbox = new engine::Hitbox(
 			"hitbox", /* Hitbox's name */
 			get_position(), /* Little Girl's coordinate */
-			std::make_pair(60, 45), /* Hitbox's displacement */
-			std::make_pair(50, 130), /* Hitbox's dimentions */
+			default_hitbox_displacement,
+			default_hitbox_dimension,
 			game.get_renderer() /* Gets Renderer */
 	);
 	
+
+
+	const std::pair<int, int> footer_hitbox_displacement = 
+		std::make_pair(60, 180); /**< Pair(int, int). "Footer" Hitbox's displacement */
+	const std::pair<int, int> footer_hitbox_dimension = std::make_pair(50, 20); 
+	/**< Pair(int, int). "Footer" Hitbox's dimensions */
+
 	/* Creates Little Girl's hitbox on footer */
 	engine::Hitbox *footer = new engine::Hitbox(
 			"footer", /* Hitbox's name */
 			get_position(), /* Little Girl's coordinate */
-			std::make_pair(60, 180), /* "Footer" Hitbox's displacement */
-			std::make_pair(50, 20), /* "Footer" Hitbox's dimentions */
+			footer_hitbox_displacement,
+			footer_hitbox_dimension,
 			game.get_renderer() /* Gets Renderer */
 	);
 	
@@ -115,7 +128,7 @@ void LittleGirl::initialize_hitboxes() {
  */
 void LittleGirl::initialize_as_physicable() {
 	DEBUG("Started");
-
+  
 	/* Gets Physics object and makes Little Girl collidable */
 	engine::Physics *physics = engine::Physics::get_instance();
 	physics->add_physicable(this);
@@ -131,12 +144,18 @@ void LittleGirl::initialize_as_physicable() {
  */
 void LittleGirl::initialize_animations() {
 	DEBUG("Started");
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 9;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */
+
 
 	/* Initiates animation of the Little Girl's running to right */
 	DEBUG("running_right_animation");
 	engine::Animation *running_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_running_right.png",
-		1, 9, 0.9, "RIGHT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
 	);
 	add_animation("running_right_animation", running_right_animation);
 
@@ -144,15 +163,19 @@ void LittleGirl::initialize_animations() {
 	DEBUG("running_left_animation");
 	engine::Animation *running_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_running_left.png",
-		1, 9, 0.9, "LEFT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
 	);
 	add_animation("running_left_animation", running_left_animation);
 
 	/* Initiates animation of the Little Girl's standing looking right */
+	default_sprite_column = 10;
+	default_animation_duration = 1.5;
 	DEBUG("idle_right_animation");
 	engine::Animation *idle_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_idle_right.png",
-		1, 10, 1.5, "RIGHT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
 	);
 	add_animation("idle_right_animation", idle_right_animation);
 
@@ -160,15 +183,18 @@ void LittleGirl::initialize_animations() {
 	DEBUG("idle_left_animation");
 	engine::Animation *idle_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_idle_left.png",
-		1, 10, 1.5, "LEFT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
 	);
 	add_animation("idle_left_animation", idle_left_animation);
 
 	/* Initiates animation of the Little Girl's jumping to right */
+	default_sprite_column = 5;
 	DEBUG("jumping_right_animation");
 	engine::Animation *jumping_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_jumping_right.png",
-		1, 5, 1.5, "RIGHT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
 	);
 	add_animation("jumping_right_animation", jumping_right_animation);
 
@@ -176,15 +202,18 @@ void LittleGirl::initialize_animations() {
 	DEBUG("jumping_left_animation");
 	engine::Animation *jumping_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_jumping_left.png",
-		1, 5, 1.5, "LEFT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
 	);
 	add_animation("jumping_left_animation", jumping_left_animation);
 
 	/* Initiates animation of the Little Girl's attacking on right direction */
+	default_animation_duration = 0.4;
 	DEBUG("attacking_right_animation");
 	engine::Animation *attacking_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_attacking_right.png",
-		1, 5, 0.4, "RIGHT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
 	);
 	add_animation("attacking_right_animation", attacking_right_animation);
 
@@ -192,15 +221,19 @@ void LittleGirl::initialize_animations() {
 	DEBUG("attacking_left_animation");
 	engine::Animation *attacking_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_attacking_left.png",
-		1, 5, 0.4, "LEFT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
 	);
 	add_animation("attacking_left_animation", attacking_left_animation);
 
 	/* Initiates animation of the Little Girl when She's been attacking in right */
+	default_sprite_column = 3;
+	default_animation_duration = 0.8;
 	DEBUG("on_attack_right_animation");
 	engine::Animation *on_attack_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
-		1, 3, 0.8, "RIGHT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
 	);
 	add_animation("on_attack_right_animation", on_attack_right_animation);
 
@@ -208,25 +241,30 @@ void LittleGirl::initialize_animations() {
 	DEBUG("on_attack_left_animation");
 	engine::Animation *on_attack_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_on_attack_left.png",
-		1, 3, 0.8, "LEFT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
 	);
 	add_animation("on_attack_left_animation", on_attack_left_animation);
 
 	/* Initiates animation of the Little Girl when She's dying looking to left*/
+	default_sprite_column = 5;
 	DEBUG("dying_left_animation");
 	engine::Animation *dying_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_dying_left.png",
-		1, 5, 0.8, "LEFT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
 	);
 	add_animation("dying_left_animation", dying_left_animation);
 	dying_left_animation->in_loop = false;
 	dying_left_animation->is_a_final_animation = true;
 
 	/* Initiates animation of the Little Girl when She's dying looking to right */
+	default_animation_duration = 1.0;
 	DEBUG("dying_right_animation");
 	engine::Animation *dying_right_animation = create_animation(
-			"../assets/images/sprites/little_girl/little_girl_dying_right.png",
-			1, 5, 1.0, "RIGHT"
+		"../assets/images/sprites/little_girl/little_girl_dying_right.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
 	);
 	dying_right_animation->in_loop = false;
 	dying_right_animation->is_a_final_animation = true;
@@ -263,25 +301,35 @@ engine::Animation *LittleGirl::create_animation(
 
 	engine::Game &game = engine::Game::get_instance(); /* Gets game instance */
 	
+	/* Constants for default animation creation */
+    const bool default_is_active = false;
+    const std::pair<int, int> default_displacement = std::make_pair(0, 0);
+    const int default_priority = 1;
+    const bool default_in_loop = true;
 	/* Creates an animation Object of the Little Girl */
 	engine::Animation *animation = new engine::Animation(
 			game.get_renderer(),
 			path,               
-			false,             
-			std::make_pair(0, 0),
-			1,                
+			default_is_active,             
+			default_displacement,
+			default_priority,                
 			sprite_lines,         
 			sprite_columns,       
 			duration,         
-			true,            
+			default_in_loop,            
 			direction          
 	);
 	
-	/* Set dimentions on screen and, coordinates and dimention on texture */
+	/* Defaults dimensions and coordinates of little girl in pixels */
+	const std::pair<int, int> default_dimensions_little_girl = 
+        std::make_pair(192, 192);
+    const std::pair<int, int> coordinates_on_texture_little_girl = 
+        std::make_pair(0, 0);
+	/* Set dimensions on screen and, coordinates and dimension on texture */
 	animation->set_values(
-			std::make_pair(192, 192),
-			std::make_pair(192, 192),
-			std::make_pair(0, 0)
+			default_dimensions_little_girl,
+			default_dimensions_little_girl,
+			coordinates_on_texture_little_girl
 	);
 	
 	DEBUG("Ended");

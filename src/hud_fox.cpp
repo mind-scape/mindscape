@@ -39,7 +39,6 @@ HudFox::HudFox(
         initialize_audio_effects();
 };
 
-
 /**
  * @brief Creates Hud Fox's animation.  
  * 
@@ -64,27 +63,37 @@ engine::Animation* HudFox::create_animation(
     DEBUG("Started");
     engine::Game& game = engine::Game::get_instance();
     
+    /* Constants for default animation creation */
+    const bool default_is_active = false;
+    const std::pair<int, int> default_displacement = std::make_pair(0, 0);
+    const int default_priority = 1;
+    const bool default_in_loop = true;
+    
     engine::Animation* animation = nullptr;
     animation = new engine::Animation(
         game.get_renderer(),
         path, 
-        // is_active                
-        false,               
-        std::make_pair(0, 0), 
-        // priority
-        1,                    
+        default_is_active,               
+        default_displacement, 
+        default_priority,                    
         sprite_lines,         
         sprite_columns,    
         duration,            
-        // in_loop
-        true,                 
+        default_in_loop,                 
         direction            
     );
 
+
+    /* Defaults dimensions and coordinates of hud fox in pixels */
+    const std::pair<int, int> default_dimensions_hud_fox = 
+        std::make_pair(170, 78);
+    const std::pair<int, int> coordinates_on_texture_hud_fox = 
+        std::make_pair(0, 0);
+
     animation->set_values(
-        std::make_pair(170, 78),
-        std::make_pair(170, 78),
-        std::make_pair(0, 0)
+        default_dimensions_hud_fox,
+        default_dimensions_hud_fox ,
+        coordinates_on_texture_hud_fox
     );
 
     DEBUG("Ended");
@@ -102,39 +111,54 @@ engine::Animation* HudFox::create_animation(
 void HudFox::initialize_animations() {
 
     DEBUG("Started");
-    
+    const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    const int default_sprite_column = 1;  /**< Integer. Default sprite column, RANGE 1 */
+    const double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */
+
+
     engine::Animation* fox_zero_star = nullptr;
     fox_zero_star = create_animation(
         "../assets/images/sprites/hud/hud_fox_0.png",
-        1,1,0.9, "RIGHT"
+        default_sprite_line, default_sprite_column, default_animation_duration,
+        "RIGHT"
     );
     add_animation("zero_star", fox_zero_star);
     
     engine::Animation* fox_one_star = nullptr;
     fox_one_star = create_animation(
         "../assets/images/sprites/hud/hud_fox_1.png",
-        1,1,0.9, "RIGHT"
+        default_sprite_line, default_sprite_column, default_animation_duration,
+        "RIGHT"
     );
     add_animation("one_star", fox_one_star);
     
     engine::Animation* fox_two_star = nullptr;
     fox_two_star = create_animation(
         "../assets/images/sprites/hud/hud_fox_2.png",
-        1,1,0.9, "RIGHT"
+        default_sprite_line, default_sprite_column, default_animation_duration,
+        "RIGHT"
     );
     add_animation("two_star", fox_two_star);
     
     engine::Animation* fox_three_star = nullptr;
     fox_three_star = create_animation(
         "../assets/images/sprites/hud/hud_fox_3.png",
-        1,1,0.9, "RIGHT"
+        default_sprite_line, default_sprite_column, default_animation_duration,
+        "RIGHT"
     );
     add_animation("three_star", fox_three_star);
     
+    const int sprite_columns_tree_star = 4; /**< Default sprite column of tree 
+    star fading */
+    const double duration_tree_star = 1.0; /**< Default duration of tree 
+    star fading in seconds */
+
     engine::Animation* fox_three_star_fading = nullptr;
     fox_three_star_fading = create_animation(
         "../assets/images/sprites/hud/hud_fox_3_animation.png",
-        1,4,1.0, "RIGHT"
+        default_sprite_line, sprite_columns_tree_star, duration_tree_star,
+        "RIGHT"
     );
     fox_three_star_fading->in_loop = false;
     add_animation("three_star_fading", fox_three_star_fading);
@@ -162,7 +186,8 @@ void HudFox::initialize_audio_effects() {
         engine::Audio::CHUNK);
     
     /* Set duration of the sound effect and add component in game */
-    take_this_hp->set_duration(1);
+    const int sound_duration = 1; /**< Integer. Duration of the sound effect in seconds*/
+    take_this_hp->set_duration(sound_duration);
     add_component(take_this_hp);
 
     DEBUG("Ended");
@@ -197,7 +222,9 @@ void HudFox::notify(engine::Observable* game_object) {
             if(actual->is_finished) {   
             /* If stars already faded */
                 give_hp = false;
-                fox->set_star_count(0);
+                const int default_star_count = 0; /**< Integer.
+                Default star count. Range 0-3*/
+                fox->set_star_count(default_star_count);
                 set_actual_animation(animations["zero_star"]);
             }
 
@@ -273,3 +300,7 @@ void HudFox::notify(engine::Observable* game_object) {
     }
 
 }
+
+
+
+
