@@ -59,6 +59,7 @@ namespace mindscape {
 		void on_event(GameEvent game_event);
 		void add_action(Action *act);
 		void update_state();
+		void arrow_select(std::string event_name);
 	};
 }
 
