@@ -176,8 +176,8 @@ void Spider::initialize_animations() {
     set_actual_animation(idle_left_animation);
 
     const int attacking_left_sprite_lines = 1;
-    const int attacking_left_sprite_columns = 5;
-    const double attacking_left_duration = 0.7;
+    const int attacking_left_sprite_columns = 4;
+    const double attacking_left_duration = 0.5;
 
     engine::Animation* attacking_left_animation = nullptr; /**< Animation.
      Animation that represents spider's attack to the left. */
