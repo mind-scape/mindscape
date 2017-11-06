@@ -41,17 +41,58 @@ Uncle::Uncle(
     	initialize_hitboxes();
     	initialize_animations();
     	initialize_audio_effects();
-	};
+};
 
 /**
- * @brief Initialize uncle's audio effects.
+ * @brief Creates Uncle's animation.
  *
- * Not implemented.
+ * Creates an animation to Uncle enemy.
  *
- * @return void.
+ * @param path Path to the image which contains the sprite sheet.
+ * @param sprite_lines Number of the lines on the sprite sheet.
+ * @param sprite_colums Number of colums on the sprite sheet.
+ * @param duration Time duration of animation.
+ * @param direction Direction of animation.
+ * @return This method returns Uncle's animation.
  */
 
-void Uncle::initialize_audio_effects() {
+engine::Animation* Uncle::create_animation(
+	std::string path,
+  	int sprite_lines,
+  	int sprite_columns,
+  	double duration,
+  	std::string direction) {
+    DEBUG("Creating animations.");
+
+  	engine::Game& game = engine::Game::get_instance(); /**< Game.
+    Gets an instance of a game just initializated. */
+
+    engine::Animation* animation = nullptr; /**< Animation.
+    Can represents all functions about uncle's animation. */
+
+    /* Initializes uncle's animation object. */
+    animation = new engine::Animation(
+    	  game.get_renderer(),
+    	  path,
+    	  false,
+    	  std::make_pair(0, 0),
+    	  1,
+    	  sprite_lines,
+    	  sprite_columns,
+    	  duration,
+    	  true,
+    	  direction
+  	);
+
+    /* Sets values to init a initial position of animation on the screen.*/
+  	animation->set_values(
+    	  std::make_pair(320, 320),
+    	  std::make_pair(320, 320),
+    	  std::make_pair(0, 0)
+  	);
+
+    DEBUG("Animations created.");
+  	return animation;
 }
 
 /**
@@ -112,58 +153,6 @@ void Uncle::initialize_animations() {
 }
 
 /**
- * @brief Creates Uncle's animation.
- *
- * Creates an animation to Uncle enemy.
- *
- * @param path Path to the image which contains the sprite sheet.
- * @param sprite_lines Number of the lines on the sprite sheet.
- * @param sprite_colums Number of colums on the sprite sheet.
- * @param duration Time duration of animation.
- * @param direction Direction of animation.
- * @return This method returns Uncle's animation.
- */
-
-engine::Animation* Uncle::create_animation(
-	std::string path,
-  	int sprite_lines,
-  	int sprite_columns,
-  	double duration,
-  	std::string direction) {
-    DEBUG("Creating animations.");
-
-  	engine::Game& game = engine::Game::get_instance(); /**< Game.
-    Gets an instance of a game just initializated. */
-
-    engine::Animation* animation = nullptr; /**< Animation.
-    Can represents all functions about uncle's animation. */
-
-    /* Initializes uncle's animation object. */
-    animation = new engine::Animation(
-    	  game.get_renderer(),
-    	  path,
-    	  false,
-    	  std::make_pair(0, 0),
-    	  1,
-    	  sprite_lines,
-    	  sprite_columns,
-    	  duration,
-    	  true,
-    	  direction
-  	);
-
-    /* Sets values to init a initial position of animation on the screen.*/
-  	animation->set_values(
-    	  std::make_pair(320, 320),
-    	  std::make_pair(320, 320),
-    	  std::make_pair(0, 0)
-  	);
-
-    DEBUG("Animations created.");
-  	return animation;
-}
-
-/**
  * @brief Initialize Uncle's hitboxes.
  *
  * Initializes Uncle instance hitboxes.
@@ -210,6 +199,17 @@ void Uncle::initialize_state_map() {
   	states.set_state("ACTION_STATE","NORMAL");
     /* Ends debugger that represents the end of the method. */
     DEBUG("Uncle's state initialized.");
+}
+
+/**
+ * @brief Initialize uncle's audio effects.
+ *
+ * Not implemented.
+ *
+ * @return void.
+ */
+
+void Uncle::initialize_audio_effects() {
 }
 
 /**
@@ -274,102 +274,6 @@ void Uncle::notify(engine::Observable *game_object) {
 }
 
 /**
- * @brief Uncle's attack.
- *
- * This method define Uncle's state while is attacking, is on attack or
- * while is dying.
- *
- * @param little_girl Object to be attacked.
- * @return void.
- */
-
-void Uncle::attack(engine::GameObject* little_girl) {
-    DEBUG("The uncle is attacking.");
-
-  	std::string actual_action_state = ""; /**< String.
-    Gets the actual state of the uncle. */
-    actual_action_state = get_state("ACTION_STATE");
-
-  	if (actual_action_state == "DYING") {
-        INFO("The Uncle is dying.");
-    		return;
-  	}
-    else {
-        /* The Uncle stills alive. */
-    }
-
-  	if (actual_action_state == "ON_ATTACK"
-  		|| actual_action_state == "ATTACKING") {
-
-        if (get_actual_animation()->is_finished) {
-            states.set_state("ACTION_STATE","NORMAL");
-            set_actual_animation(animations["idle_animation"]);
-        }
-        else {
-            return;
-        }
-  	}
-    else {
-        /* The Uncle is in a idle state. */
-    }
-}
-
-/**
- * @brief Define a basic attack.
- *
- * Method not implemented.
- *
- * @return void.
- */
-
-void Uncle::basic_attack(){
-}
-
-/**
- * @brief Define action when is on attack.
- *
- * Event called when Uncle is attacking.
- *
- * @param game_object Object to be attacked.
- * @return void.
- */
-
-void Uncle::on_attack(engine::GameObject *game_object) {
-  	states.set_state("ACTION_STATE","ON_ATTACK");
-
-  	hit(game_object, 1);
-  	if (is_alive()) {
-    	  set_actual_animation(animations["on_attack_animation"]);
-    	  //play_song("hit_me");
-  	}
-    else {
-        /* The Uncle is dead. */
-    }
-}
-
-/**
- * @brief Death method.
- *
- * This method define an animation when Uncle is dead.
- *
- * @param game_object Uncle.
- * @return void.
- */
-
-void Uncle::die(engine::GameObject *game_object) {
-    DEBUG("The uncle is dying.");
-  	std::string actual_x_state = ""; /**< String.
-    Gets the actual state of the uncle. */
-    actual_x_state = get_state("X_STATE");
-    /* Sets a state that represents when uncle is dead. */
-    states.set_state("ACTION_STATE", "DYING");
-    /* Initiates the animation that show the uncle dying.*/
-  	set_actual_animation(animations["dying_animation"]);
-  	//play_song("hit_me");
-    DEBUG("The uncle died.");
-}
-
-/**
  * @brief Event for the collision.
  *
  * Method called everytime when two game objects collides.
@@ -414,4 +318,100 @@ void Uncle::on_collision(
     else {
         /* The girl is not attacking the Uncle. */
     }
+}
+
+/**
+ * @brief Define a basic attack.
+ *
+ * Method not implemented.
+ *
+ * @return void.
+ */
+
+void Uncle::basic_attack(){
+}
+
+/**
+ * @brief Uncle's attack.
+ *
+ * This method define Uncle's state while is attacking, is on attack or
+ * while is dying.
+ *
+ * @param little_girl Object to be attacked.
+ * @return void.
+ */
+
+void Uncle::attack(engine::GameObject* little_girl) {
+    DEBUG("The uncle is attacking.");
+
+  	std::string actual_action_state = ""; /**< String.
+    Gets the actual state of the uncle. */
+    actual_action_state = get_state("ACTION_STATE");
+
+  	if (actual_action_state == "DYING") {
+        INFO("The Uncle is dying.");
+    		return;
+  	}
+    else {
+        /* The Uncle stills alive. */
+    }
+
+  	if (actual_action_state == "ON_ATTACK"
+  		|| actual_action_state == "ATTACKING") {
+
+        if (get_actual_animation()->is_finished) {
+            states.set_state("ACTION_STATE","NORMAL");
+            set_actual_animation(animations["idle_animation"]);
+        }
+        else {
+            return;
+        }
+  	}
+    else {
+        /* The Uncle is in a idle state. */
+    }
+}
+
+/**
+ * @brief Define action when is on attack.
+ *
+ * Event called when Uncle is attacking.
+ *
+ * @param game_object Object to be attacked.
+ * @return void.
+ */
+
+void Uncle::on_attack(engine::GameObject *game_object) {
+  	states.set_state("ACTION_STATE","ON_ATTACK");
+
+  	hit(game_object, 1);
+  	if (is_alive()) {
+    	  set_actual_animation(animations["on_attack_animation"]);
+    	  //play_song("hit_me");
+  	}
+    else {
+        /* The Uncle is dead. */
+    }
+}
+
+/**
+ * @brief Death method.
+ *
+ * This method define an animation when Uncle is dead.
+ *
+ * @param game_object Uncle.
+ * @return void.
+ */
+
+void Uncle::die(engine::GameObject *game_object) {
+    DEBUG("The uncle is dying.");
+  	std::string actual_x_state = ""; /**< String.
+    Gets the actual state of the uncle. */
+    actual_x_state = get_state("X_STATE");
+    /* Sets a state that represents when uncle is dead. */
+    states.set_state("ACTION_STATE", "DYING");
+    /* Initiates the animation that show the uncle dying.*/
+  	set_actual_animation(animations["dying_animation"]);
+  	//play_song("hit_me");
+    DEBUG("The uncle died.");
 }
