@@ -11,6 +11,7 @@
 #include "game.hpp"
 #include <unistd.h>
 #include "log.hpp"
+#include <assert.h>
 
 using namespace engine;
 
@@ -23,6 +24,7 @@ Game* Game::instance = NULL; /**< initialization of the game instance singleton 
  * @return void.
  */
 void throw_error(const char* function) {
+    assert(function);
     WARN(("Something's wrong in %s\n", function));
     exit(-1);
 }
@@ -36,14 +38,7 @@ void throw_error(const char* function) {
  */
 Game& Game::get_instance() {
     DEBUG("Getting instance of game");
-    if (!instance) {
-        /* if the instance is null */
-        WARN("Instance is null. Exiting.");
-        exit(1);
-    }
-    else {
-        /*Do nothing*/
-    }
+    assert(instance);
 
     return *instance;
 }
@@ -79,7 +74,7 @@ Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions) {
  */
 void Game::init() {
     int img_flags = IMG_INIT_PNG; /**< flags for sdl image lib */
-
+    
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
         /* if the initialization of the video and audio doesn't work properly */
         WARN("Audio and video not initialized properly");
@@ -192,6 +187,9 @@ void Game::close() {
  * @return void.
  */
 void renderScreen(SDL_Renderer* renderer, Scene* actual_scene) {
+    assert(renderer);
+    assert(actual_scene);
+
     const Uint8 r_value = 0xE2;
     const Uint8 g_value = 0xAC;
     const Uint8 b_value = 0xF3;
@@ -254,6 +252,8 @@ void Game::run() {
  * @return void.
  */
 void Game::set_information(std::string p_name,std::pair<int,int> p_dimensions) {
+    assert(p_dimensions.first >= 0 && p_dimensions.second >= 0);
+
     set_name(p_name);
     set_window_dimensions(p_dimensions);
 }
