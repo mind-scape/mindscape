@@ -13,6 +13,7 @@
 #include <string>
 #include <iostream>
 #include "../include/log.hpp"
+#include <assert.h>
 
 using namespace engine;
 
@@ -236,6 +237,8 @@ void Audio::pause_music() {
  * @return void.
  */
 void Audio::set_repetitions(int repeat) {
+    assert(repeat >= 0);
+
     if (audio_music != NULL) {
     /* Validates if music is not a null object */
         audio_repeat = repeat;
@@ -255,6 +258,8 @@ void Audio::set_repetitions(int repeat) {
  * @return void.
  */
 void Audio::set_duration(float duration) {
+    assert(duration >= 0);
+
     effect_duration = 0;
     effect_duration = duration * 1000;
     DEBUG(("Function: %s - effect_duration: %f", __func__, effect_duration));
