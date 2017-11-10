@@ -55,7 +55,12 @@ namespace mindscape {
 		
 		void initialize_state_map();
 		void initialize_hitboxes();
-		void initialize_animations();
+		void initialize_idle_animations();
+		void initialize_running_animations();
+		void initialize_jumping_animations();
+		void initialize_attacking_animations();
+		void initialize_on_attack_animations();
+		void initialize_dying_animations();
 		void initialize_audio_effects();
 		void initialize_as_physicable();
 		void jump(std::string);
@@ -63,6 +68,22 @@ namespace mindscape {
 		void move_left(std::string, std::string);
 		void attack();
 		void on_attack(engine::GameObject *);
+		void on_collision_plataform(
+			engine::GameObject *other,
+			engine::Hitbox *p_my_hitbox,
+			engine::Hitbox *p_other_hitbox);
+		void on_collision_scorpion(
+			engine::GameObject *other,
+			engine::Hitbox *p_my_hitbox,
+			engine::Hitbox *p_other_hitbox);
+		void on_collision_spider(
+			engine::GameObject *other,
+			engine::Hitbox *p_my_hitbox,
+			engine::Hitbox *p_other_hitbox);
+		void on_collision_goop(
+			engine::GameObject *other,
+			engine::Hitbox *p_my_hitbox,
+			engine::Hitbox *p_other_hitbox);
 		void die(engine::GameObject *);
 		engine::Animation *create_animation(
 				std::string path,

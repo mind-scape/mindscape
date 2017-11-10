@@ -35,7 +35,11 @@ HudFox::HudFox(
             //No engine Keyboard Event needed.
         }
     ) {
-        initialize_animations();
+        initialize_zero_star_animations();
+        initialize_one_star_animations();
+        initialize_two_star_animations();
+        initialize_three_star_animations();
+        initialize_fading_star_animations();
         initialize_audio_effects();
 };
 
@@ -104,11 +108,11 @@ engine::Animation* HudFox::create_animation(
 /**
  * @brief Initiates Hud Fox's animation.  
  * 
- * Initiates all Hud Fox's sprites(images).
+ * Initiates zero star Hud Fox's sprites(images).
  *
  * @return void.
  */
-void HudFox::initialize_animations() {
+void HudFox::initialize_zero_star_animations() {
 
     DEBUG("Started");
     const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
@@ -124,6 +128,26 @@ void HudFox::initialize_animations() {
         "RIGHT"
     );
     add_animation("zero_star", fox_zero_star);
+        
+    fox_zero_star->activate();
+    set_actual_animation(fox_zero_star);
+
+}
+
+/**
+ * @brief Initiates Hud Fox's animation.  
+ * 
+ * Initiates on star Hud Fox's sprites(images).
+ *
+ * @return void.
+ */
+void HudFox::initialize_one_star_animations() {
+
+    DEBUG("Started");
+    const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    const int default_sprite_column = 1;  /**< Integer. Default sprite column, RANGE 1 */
+    const double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */
     
     engine::Animation* fox_one_star = nullptr;
     fox_one_star = create_animation(
@@ -132,7 +156,22 @@ void HudFox::initialize_animations() {
         "RIGHT"
     );
     add_animation("one_star", fox_one_star);
-    
+}
+/**
+ * @brief Initiates Hud Fox's animation.  
+ * 
+ * Initiates two star Hud Fox's sprites(images).
+ *
+ * @return void.
+ */
+void HudFox::initialize_two_star_animations() {
+
+    DEBUG("Started");
+    const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    const int default_sprite_column = 1;  /**< Integer. Default sprite column, RANGE 1 */
+    const double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */
+
     engine::Animation* fox_two_star = nullptr;
     fox_two_star = create_animation(
         "../assets/images/sprites/hud/hud_fox_2.png",
@@ -140,7 +179,22 @@ void HudFox::initialize_animations() {
         "RIGHT"
     );
     add_animation("two_star", fox_two_star);
-    
+}
+
+/**
+ * @brief Initiates Hud Fox's animation.  
+ * 
+ * Initiates three Hud Fox's sprites(images).
+ *
+ * @return void.
+ */
+void HudFox::initialize_three_star_animations() {
+
+    DEBUG("Started");
+    const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    const int default_sprite_column = 1;  /**< Integer. Default sprite column, RANGE 1 */
+    const double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */    
     engine::Animation* fox_three_star = nullptr;
     fox_three_star = create_animation(
         "../assets/images/sprites/hud/hud_fox_3.png",
@@ -148,7 +202,19 @@ void HudFox::initialize_animations() {
         "RIGHT"
     );
     add_animation("three_star", fox_three_star);
-    
+}
+
+/**
+ * @brief Initiates Hud Fox's animation.  
+ * 
+ * Initiates fading star Hud Fox's sprites(images).
+ *
+ * @return void.
+ */
+void HudFox::initialize_fading_star_animations() {
+
+    DEBUG("Started");
+    const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
     const int sprite_columns_tree_star = 4; /**< Default sprite column of tree 
     star fading */
     const double duration_tree_star = 1.0; /**< Default duration of tree 
@@ -162,9 +228,6 @@ void HudFox::initialize_animations() {
     );
     fox_three_star_fading->in_loop = false;
     add_animation("three_star_fading", fox_three_star_fading);
-    
-    fox_zero_star->activate();
-    set_actual_animation(fox_zero_star);
 
     DEBUG("Ended");
 }
@@ -300,7 +363,6 @@ void HudFox::notify(engine::Observable* game_object) {
     }
 
 }
-
 
 
 

@@ -51,7 +51,12 @@ LittleGirl::LittleGirl(
 	/* Inicialize all the characterists of the Little Girl */
 	initialize_state_map();
 	initialize_hitboxes();
-	initialize_animations();
+	initialize_idle_animations();
+	initialize_running_animations();
+	initialize_jumping_animations();
+	initialize_attacking_animations();
+	initialize_on_attack_animations();
+	initialize_dying_animations();
 	initialize_audio_effects();
 	initialize_as_physicable();
 };
@@ -138,35 +143,16 @@ void LittleGirl::initialize_as_physicable() {
 }
 
 /**
- * @brief Initialize all animations
+ * @brief Initialize idle animations
  *
  * @return void
  */
-void LittleGirl::initialize_animations() {
+void LittleGirl::initialize_idle_animations() {
 	DEBUG("Started");
 	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
     int default_sprite_column = 9;  /**< Integer. Default sprite column */
     double default_animation_duration = 0.9;  /**< Double. Default animation 
     duration in seconds */
-
-
-	/* Initiates animation of the Little Girl's running to right */
-	DEBUG("running_right_animation");
-	engine::Animation *running_right_animation = create_animation(
-		"../assets/images/sprites/little_girl/little_girl_running_right.png",
-		default_sprite_line, default_sprite_column, default_animation_duration,
-		"RIGHT"
-	);
-	add_animation("running_right_animation", running_right_animation);
-
-	/* Initiates animation of the Little Girl's running to left */
-	DEBUG("running_left_animation");
-	engine::Animation *running_left_animation = create_animation(
-		"../assets/images/sprites/little_girl/little_girl_running_left.png",
-		default_sprite_line, default_sprite_column, default_animation_duration,
-		"LEFT"
-	);
-	add_animation("running_left_animation", running_left_animation);
 
 	/* Initiates animation of the Little Girl's standing looking right */
 	default_sprite_column = 10;
@@ -188,8 +174,58 @@ void LittleGirl::initialize_animations() {
 	);
 	add_animation("idle_left_animation", idle_left_animation);
 
+
+	/* Initiates Little Girl animation when She's standing */
+	idle_right_animation->activate();
+	set_actual_animation(idle_right_animation);
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief Initialize running animations
+ *
+ * @return void
+ */
+void LittleGirl::initialize_running_animations() {
+	DEBUG("Started");
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 9;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */
+
+	/* Initiates animation of the Little Girl's running to right */
+	DEBUG("running_right_animation");
+	engine::Animation *running_right_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_running_right.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
+	);
+	add_animation("running_right_animation", running_right_animation);
+
+	/* Initiates animation of the Little Girl's running to left */
+	DEBUG("running_left_animation");
+	engine::Animation *running_left_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_running_left.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
+	);
+	add_animation("running_left_animation", running_left_animation);
+}
+
+/**
+ * @brief Initialize jumping animations
+ *
+ * @return void
+ */
+void LittleGirl::initialize_jumping_animations() {
+	DEBUG("Started");
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 5;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */
+
 	/* Initiates animation of the Little Girl's jumping to right */
-	default_sprite_column = 5;
 	DEBUG("jumping_right_animation");
 	engine::Animation *jumping_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_jumping_right.png",
@@ -206,9 +242,21 @@ void LittleGirl::initialize_animations() {
 		"LEFT"
 	);
 	add_animation("jumping_left_animation", jumping_left_animation);
+}
+
+/**
+ * @brief Initialize attacking animations
+ *
+ * @return void
+ */
+void LittleGirl::initialize_attacking_animations() {
+	DEBUG("Started");
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 9;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.4;  /**< Double. Default animation 
+    duration in seconds */
 
 	/* Initiates animation of the Little Girl's attacking on right direction */
-	default_animation_duration = 0.4;
 	DEBUG("attacking_right_animation");
 	engine::Animation *attacking_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_attacking_right.png",
@@ -225,10 +273,21 @@ void LittleGirl::initialize_animations() {
 		"LEFT"
 	);
 	add_animation("attacking_left_animation", attacking_left_animation);
+}
+
+/**
+ * @brief Initialize on attack animations
+ *
+ * @return void
+ */
+void LittleGirl::initialize_on_attack_animations() {
+	DEBUG("Started");
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 3;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.8;  /**< Double. Default animation 
+    duration in seconds */
 
 	/* Initiates animation of the Little Girl when She's been attacking in right */
-	default_sprite_column = 3;
-	default_animation_duration = 0.8;
 	DEBUG("on_attack_right_animation");
 	engine::Animation *on_attack_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
@@ -245,9 +304,21 @@ void LittleGirl::initialize_animations() {
 		"LEFT"
 	);
 	add_animation("on_attack_left_animation", on_attack_left_animation);
+}
+
+/**
+ * @brief Initialize dying animations
+ *
+ * @return void
+ */
+void LittleGirl::initialize_dying_animations() {
+	DEBUG("Started");
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 5;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */
 
 	/* Initiates animation of the Little Girl when She's dying looking to left*/
-	default_sprite_column = 5;
 	DEBUG("dying_left_animation");
 	engine::Animation *dying_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_dying_left.png",
@@ -269,13 +340,8 @@ void LittleGirl::initialize_animations() {
 	dying_right_animation->in_loop = false;
 	dying_right_animation->is_a_final_animation = true;
 	add_animation("dying_right_animation", dying_right_animation);
-
-	/* Initiates Little Girl animation when She's standing */
-	idle_right_animation->activate();
-	set_actual_animation(idle_right_animation);
-
-	DEBUG("Ended");
 }
+
 
 /**
  * @brief Creates an animation
@@ -600,11 +666,32 @@ void LittleGirl::on_collision(
 	
 	DEBUG("Started");
 
-	/* Gets instances of the Enemies */
+	on_collision_plataform(other, p_my_hitbox, p_other_hitbox);
+	on_collision_scorpion(other, p_my_hitbox, p_other_hitbox);
+	on_collision_spider(other, p_my_hitbox, p_other_hitbox);
+	on_collision_goop(other, p_my_hitbox, p_other_hitbox);
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision happens and she's falling
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_plataform(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Plaform */
 	Platform *platform = dynamic_cast<Platform *>(other);
-	Scorpion *scorpion = dynamic_cast<Scorpion *>(other);
-	Spider *spider = dynamic_cast<Spider *>(other);
-	Goop *goop = dynamic_cast<Goop *>(other);
 	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
 	engine::Hitbox *other_hitbox = 
 			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
@@ -619,6 +706,31 @@ void LittleGirl::on_collision(
 	else {
         /* Do nothing */
     }
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision with a scorpion happens
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_scorpion(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Spider */
+	Scorpion *scorpion = dynamic_cast<Scorpion *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = 
+			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 	
 	if (scorpion &&
 		scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -635,6 +747,31 @@ void LittleGirl::on_collision(
 	else {
     	/* Do nothing */
     }
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision with a spider happens
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_spider(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Spider */
+	Spider *spider = dynamic_cast<Spider *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = 
+			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 	
 	if (spider &&
 		spider->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -652,6 +789,31 @@ void LittleGirl::on_collision(
         /* Do nothing */
     }
 
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision with a goop happens
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_goop(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Goop */
+	Goop *goop = dynamic_cast<Goop *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = 
+			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+	
 	if (goop) {
 	/* If the goop is coming to the Little Girl's direction */
 
