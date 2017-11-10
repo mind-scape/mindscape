@@ -10,38 +10,16 @@ using namespace mindscape;
 typedef mindscape::GameObjectFactory::Options Opts;
 
 /**
- * @brief Updates Game level.
- *
- * Initiates changing of level, such as changes of scenes.
- *
- * @param level Level to be changed.
- * @param path Path of new level.
- * @return void.
- */
-void LevelFactory::update_level(engine::Level *level, std::string path) {
-    DEBUG("Started: update_level()");
-
-    std::vector<engine::GameObject *> new_objects = execute_dat(level, path);
-
-    for (auto game_object : new_objects) {
-        level->activate_game_object(game_object);
-        game_object->load();
-    }
-
-    DEBUG("Ended: update_level()");
-}
-
-/**
- * @brief Executes Level's data.
- *
- * Sets all dimension, coordinates, audios and game's objects in the level.
- *
- * @param level Level to be changed.
- * @param path Path of the level.
- * @return GameObject Vector of new game objects.
- */
+* @brief Executes Level's data.
+*
+* Sets all dimension, coordinates, audios and game's objects in the level.
+*
+* @param level Level to be changed.
+* @param path Path of the level.
+* @return GameObject Vector of new game objects.
+*/
 std::vector<engine::GameObject *> LevelFactory::execute_dat(
-    engine::Level *level, std::string path) {
+ engine::Level *level, std::string path) {
     DEBUG("Started: GameObject execute_dat()");
 
     std::vector<std::string> includes;
@@ -49,7 +27,7 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
 
     GameObjectFactory mindscape_factory = GameObjectFactory();
     engine::PersistenceDat *persistence =
-        engine::PersistenceDat::get_instance();
+    engine::PersistenceDat::get_instance();
     engine::PersistenceMap *objects = persistence->load(path);
 
     if (!!objects) {
@@ -69,7 +47,7 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
                 displacement.second = std::stoi(object["displ_y"]);
 
                 mindscape_factory.fabricate_hitbox(level->get_object_by_name(
-                object["belongs_to"]), displacement, dimensions);
+                    object["belongs_to"]), displacement, dimensions);
             }
             else if (type == Opts::IMAGE) {
                 int priority = 0;
@@ -156,16 +134,16 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
             }
             else {
                 engine::GameObject * constructed_obj =
-                    mindscape_factory.fabricate(
-                        type, object["id"],
-                        std::make_pair(std::stoi(object["x"]),
-                        std::stoi(object["y"])), std::stoi(object["priority"])
-                    );
+                mindscape_factory.fabricate(
+                    type, object["id"],
+                    std::make_pair(std::stoi(object["x"]),
+                    std::stoi(object["y"])), std::stoi(object["priority"])
+                );
 
                 /* If follow key is declared */
                 if (object.count("follows") > 0) {
                     engine::Observable * observable =
-                        level->get_object_by_name(object["follows"]);
+                    level->get_object_by_name(object["follows"]);
 
                     observable->attach_observer(constructed_obj);
                 }
@@ -188,14 +166,14 @@ std::vector<engine::GameObject *> LevelFactory::execute_dat(
 }
 
 /**
- * @brief Fabricates Game Level.
- *
- * Realizes all the process to build the game level.
- *
- * @fn execute_dat Decribed above.
- * @param path Path of the level datas.
- * @return GameObject Vector of new game objects.
- */
+* @brief Fabricates Game Level.
+*
+* Realizes all the process to build the game level.
+*
+* @fn execute_dat Decribed above.
+* @param path Path of the level datas.
+* @return GameObject Vector of new game objects.
+*/
 engine::Level *LevelFactory::fabricate_level(std::string path) {
     INFO("Building Game Level");
 
@@ -205,6 +183,28 @@ engine::Level *LevelFactory::fabricate_level(std::string path) {
     return level;
 
     DEBUG("Ended: Building Game level");
+}
+
+/**
+ * @brief Updates Game level.
+ *
+ * Initiates changing of level, such as changes of scenes.
+ *
+ * @param level Level to be changed.
+ * @param path Path of new level.
+ * @return void.
+ */
+void LevelFactory::update_level(engine::Level *level, std::string path) {
+    DEBUG("Started: update_level()");
+
+    std::vector<engine::GameObject *> new_objects = execute_dat(level, path);
+
+    for (auto game_object : new_objects) {
+        level->activate_game_object(game_object);
+        game_object->load();
+    }
+
+    DEBUG("Ended: update_level()");
 }
 
 /**
