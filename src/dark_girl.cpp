@@ -521,24 +521,39 @@ void DarkGirl::initialize_as_physicable() {
  * @return void
  */
 void DarkGirl::on_collision(engine::GameObject* other,
-							engine::Hitbox* p_my_hitbox,
-							engine::Hitbox* p_other_hitbox) {
+									 engine::Hitbox* p_my_hitbox,
+									 engine::Hitbox* p_other_hitbox) {
 
-	DEBUG("on_collision")
-	/* Gets instances of the Enemies */
+	on_collision_goop(other, p_my_hitbox,p_other_hitbox);
+	on_collision_spider(other, p_my_hitbox,p_other_hitbox);
+	on_collision_platform(other, p_my_hitbox,p_other_hitbox);
+	on_collision_scorpion(other, p_my_hitbox,p_other_hitbox);
+}
+
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision with the platform
+ *
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void DarkGirl::on_collision_platform(engine::GameObject* other,
+									 engine::Hitbox* p_my_hitbox,
+									 engine::Hitbox* p_other_hitbox) {
+
+	DEBUG("on_collision_platform")
+	/* Gets instances of the platform */
 	Platform* platform = nullptr;
 	platform = dynamic_cast<Platform *>(other);
 
-	Scorpion* scorpion = nullptr;
-	scorpion = dynamic_cast<Scorpion *>(other);
-	Spider* spider = nullptr;
-	spider = dynamic_cast<Spider *>(other);
-
-	Goop* goop = nullptr;
-	goop = dynamic_cast<Goop *>(other);
-
 	engine::Hitbox* my_hitbox = nullptr;
 	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
 	engine::Hitbox* other_hitbox = nullptr;
 	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
@@ -551,6 +566,35 @@ void DarkGirl::on_collision(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
+	DEBUG("on_collision_platform finished")
+}
+
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision with the scorpion
+ *
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void DarkGirl::on_collision_scorpion(engine::GameObject* other,
+									 engine::Hitbox* p_my_hitbox,
+									 engine::Hitbox* p_other_hitbox) {
+
+	DEBUG("on_collision_scorpion")
+	/* Gets instances of the scorpion */
+	Scorpion* scorpion = nullptr;
+	scorpion = dynamic_cast<Scorpion *>(other);
+
+	engine::Hitbox* my_hitbox = nullptr;
+	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
+	engine::Hitbox* other_hitbox = nullptr;
+	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
 	if(scorpion &&
 	   scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -567,6 +611,35 @@ void DarkGirl::on_collision(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
+	DEBUG("on_collision_scorpion finished")
+}
+
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision with the spider
+ *
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void DarkGirl::on_collision_spider(engine::GameObject* other,
+								   engine::Hitbox* p_my_hitbox,
+								   engine::Hitbox* p_other_hitbox) {
+
+	DEBUG("on_collision")
+	/* Gets instances of the spider */
+	Spider* spider = nullptr;
+	spider = dynamic_cast<Spider *>(other);
+
+	engine::Hitbox* my_hitbox = nullptr;
+	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
+	engine::Hitbox* other_hitbox = nullptr;
+	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
 	if(spider &&
 	   spider->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -583,6 +656,35 @@ void DarkGirl::on_collision(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
+	DEBUG("on_collision_spider finished")
+}
+
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision with the goop
+ *
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void DarkGirl::on_collision_goop(engine::GameObject* other,
+								 engine::Hitbox* p_my_hitbox,
+								 engine::Hitbox* p_other_hitbox) {
+
+	DEBUG("on_collision_goop")
+	/* Gets instances of the goop */
+	Goop* goop = nullptr;
+	goop = dynamic_cast<Goop *>(other);
+
+	engine::Hitbox* my_hitbox = nullptr;
+	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
+	engine::Hitbox* other_hitbox = nullptr;
+	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
 
 	if(goop) {
@@ -614,8 +716,7 @@ void DarkGirl::on_collision(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
-
-	DEBUG("on_collision finished")
+	DEBUG("on_collision_goop finished")
 }
 
 /**

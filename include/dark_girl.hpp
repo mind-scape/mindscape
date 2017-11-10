@@ -73,12 +73,18 @@ namespace mindscape {
                 std::string direction
         );
 
+		void on_collision_platform(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+		void on_collision_scorpion(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+		void on_collision_spider(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+		void on_collision_goop(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+
     public:
         DarkGirl(std::string name, std::pair<int, int> position, int priority);
         ~DarkGirl(){};
 
         void on_event(GameEvent);
-        void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+		void on_collision(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+
         void update_state();
     };
 }
