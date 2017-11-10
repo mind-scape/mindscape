@@ -666,11 +666,32 @@ void LittleGirl::on_collision(
 	
 	DEBUG("Started");
 
-	/* Gets instances of the Enemies */
+	on_collision_plataform(other, p_my_hitbox, p_other_hitbox);
+	on_collision_scorpion(other, p_my_hitbox, p_other_hitbox);
+	on_collision_spider(other, p_my_hitbox, p_other_hitbox);
+	on_collision_goop(other, p_my_hitbox, p_other_hitbox);
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision happens and she's falling
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_plataform(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Plaform */
 	Platform *platform = dynamic_cast<Platform *>(other);
-	Scorpion *scorpion = dynamic_cast<Scorpion *>(other);
-	Spider *spider = dynamic_cast<Spider *>(other);
-	Goop *goop = dynamic_cast<Goop *>(other);
 	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
 	engine::Hitbox *other_hitbox = 
 			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
@@ -685,6 +706,31 @@ void LittleGirl::on_collision(
 	else {
         /* Do nothing */
     }
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision with a scorpion happens
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_scorpion(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Spider */
+	Scorpion *scorpion = dynamic_cast<Scorpion *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = 
+			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 	
 	if (scorpion &&
 		scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -701,6 +747,31 @@ void LittleGirl::on_collision(
 	else {
     	/* Do nothing */
     }
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision with a spider happens
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_spider(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Spider */
+	Spider *spider = dynamic_cast<Spider *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = 
+			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 	
 	if (spider &&
 		spider->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -718,6 +789,31 @@ void LittleGirl::on_collision(
         /* Do nothing */
     }
 
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision with a goop happens
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_goop(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Goop */
+	Goop *goop = dynamic_cast<Goop *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = 
+			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+	
 	if (goop) {
 	/* If the goop is coming to the Little Girl's direction */
 

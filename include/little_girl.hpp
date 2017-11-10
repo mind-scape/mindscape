@@ -68,6 +68,22 @@ namespace mindscape {
 		void move_left(std::string, std::string);
 		void attack();
 		void on_attack(engine::GameObject *);
+		void on_collision_plataform(
+			engine::GameObject *other,
+			engine::Hitbox *p_my_hitbox,
+			engine::Hitbox *p_other_hitbox);
+		void on_collision_scorpion(
+			engine::GameObject *other,
+			engine::Hitbox *p_my_hitbox,
+			engine::Hitbox *p_other_hitbox);
+		void on_collision_spider(
+			engine::GameObject *other,
+			engine::Hitbox *p_my_hitbox,
+			engine::Hitbox *p_other_hitbox);
+		void on_collision_goop(
+			engine::GameObject *other,
+			engine::Hitbox *p_my_hitbox,
+			engine::Hitbox *p_other_hitbox);
 		void die(engine::GameObject *);
 		engine::Animation *create_animation(
 				std::string path,
