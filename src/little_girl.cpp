@@ -18,6 +18,7 @@
 #include <typeinfo>
 #include <algorithm>
 #include <unistd.h>
+#include <assert.h>
 
 using namespace mindscape;
 
@@ -118,7 +119,9 @@ void LittleGirl::initialize_hitboxes() {
 	);
 	
 	/* Adds both components in game */
+	assert(hitbox != nullptr);
 	add_component(hitbox);
+	assert(footer != nullptr);
 	add_component(footer);
 
 	DEBUG("Ended");
@@ -163,6 +166,7 @@ void LittleGirl::initialize_idle_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"RIGHT"
 	);
+	assert(idle_right_animation != nullptr);
 	add_animation("idle_right_animation", idle_right_animation);
 
 	/* Initiates animation of the Little Girl's standing looking left */
@@ -172,6 +176,7 @@ void LittleGirl::initialize_idle_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"LEFT"
 	);
+	assert(idle_left_animation != nullptr);
 	add_animation("idle_left_animation", idle_left_animation);
 
 
@@ -201,6 +206,7 @@ void LittleGirl::initialize_running_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"RIGHT"
 	);
+	assert(running_right_animation != nullptr);
 	add_animation("running_right_animation", running_right_animation);
 
 	/* Initiates animation of the Little Girl's running to left */
@@ -210,6 +216,7 @@ void LittleGirl::initialize_running_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"LEFT"
 	);
+	assert(running_left_animation != nullptr);
 	add_animation("running_left_animation", running_left_animation);
 }
 
@@ -232,6 +239,7 @@ void LittleGirl::initialize_jumping_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"RIGHT"
 	);
+	assert(jumping_right_animation != nullptr);
 	add_animation("jumping_right_animation", jumping_right_animation);
 
 	/* Initiates animation of the Little Girl's jumping to left */
@@ -241,6 +249,7 @@ void LittleGirl::initialize_jumping_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"LEFT"
 	);
+	assert(jumping_left_animation != nullptr);
 	add_animation("jumping_left_animation", jumping_left_animation);
 }
 
@@ -263,6 +272,7 @@ void LittleGirl::initialize_attacking_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"RIGHT"
 	);
+	assert(attacking_right_animation != nullptr);
 	add_animation("attacking_right_animation", attacking_right_animation);
 
 	/* Initiates animation of the Little Girl's attacking on left direction */
@@ -272,6 +282,7 @@ void LittleGirl::initialize_attacking_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"LEFT"
 	);
+	assert(attacking_left_animation != nullptr);
 	add_animation("attacking_left_animation", attacking_left_animation);
 }
 
@@ -294,6 +305,7 @@ void LittleGirl::initialize_on_attack_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"RIGHT"
 	);
+	assert(on_attack_right_animation != nullptr);
 	add_animation("on_attack_right_animation", on_attack_right_animation);
 
 	/* Initiates animation of the Little Girl when She's been attacking in left */
@@ -303,6 +315,7 @@ void LittleGirl::initialize_on_attack_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"LEFT"
 	);
+	assert(on_attack_left_animation != nullptr);
 	add_animation("on_attack_left_animation", on_attack_left_animation);
 }
 
@@ -325,9 +338,11 @@ void LittleGirl::initialize_dying_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"LEFT"
 	);
-	add_animation("dying_left_animation", dying_left_animation);
+
+	assert(dying_left_animation != nullptr);
 	dying_left_animation->in_loop = false;
 	dying_left_animation->is_a_final_animation = true;
+	add_animation("dying_left_animation", dying_left_animation);
 
 	/* Initiates animation of the Little Girl when She's dying looking to right */
 	default_animation_duration = 1.0;
@@ -337,6 +352,7 @@ void LittleGirl::initialize_dying_animations() {
 		default_sprite_line, default_sprite_column, default_animation_duration,
 		"RIGHT"
 	);
+	assert(dying_right_animation != nullptr);
 	dying_right_animation->in_loop = false;
 	dying_right_animation->is_a_final_animation = true;
 	add_animation("dying_right_animation", dying_right_animation);
@@ -364,6 +380,13 @@ engine::Animation *LittleGirl::create_animation(
 		std::string direction) {
 	
 	DEBUG("Started");
+
+	/* Verifying values of the variables */
+    assert(path != "");
+    assert(sprite_lines);
+    assert(sprite_columns);
+    assert(direction != "");
+
 
 	engine::Game &game = engine::Game::get_instance(); /* Gets game instance */
 	
@@ -400,6 +423,9 @@ engine::Animation *LittleGirl::create_animation(
 	
 	DEBUG("Ended");
 
+    /* Verifyes animation creation */
+    assert(animation != nullptr);
+
 	return animation;
 }
 
@@ -413,6 +439,9 @@ engine::Animation *LittleGirl::create_animation(
  * @return void
  */
 void LittleGirl::jump(std::string actual_x_state) {
+
+	/* Verifyes actual_x_state */
+    assert(actual_x_state != "");
 
 	if (get_state("Y_STATE") != "JUMPING" 
 		|| get_state("Y_STATE") != "FALLING") {
@@ -444,6 +473,7 @@ void LittleGirl::jump(std::string actual_x_state) {
 
 		/* Gets actual animation and increments jump_animation_count value */
 		engine::Animation *actual_animation = get_actual_animation();
+		assert(actual_animation != nullptr);
 		jumping_animation_count += 1;
 
 		if (jumping_animation_count < 26) {
@@ -494,8 +524,13 @@ void LittleGirl::jump(std::string actual_x_state) {
 void LittleGirl::move_right(std::string actual_x_state, 
 	std::string actual_y_state) {
 	
+	/* Verifyes actual_x_state and actual_y_state */
+	assert(actual_y_state != "");
+	assert(actual_x_state != "");
+
 	/* Gets actual animation and increases coordinateOnTexture value in 192 */
 	engine::Animation *actual_animation = get_actual_animation();
+	assert(actual_animation != nullptr);
 	actual_animation->coordinatesOnTexture.first += 192;
 	
 	if (actual_animation->coordinatesOnTexture.first >= 1728) {
@@ -543,8 +578,13 @@ void LittleGirl::move_right(std::string actual_x_state,
 void LittleGirl::move_left(std::string actual_x_state,
 	std::string actual_y_state) {
 	
+	/* Verifyes actual_x_state and actual_y_state */
+	assert(actual_y_state != "");
+	assert(actual_x_state != "");
+
 	/* Gets actual animation and decreases coordinateOnTexture value in 192 */
 	engine::Animation *actual_animation = get_actual_animation();
+	assert(actual_animation != nullptr);
 	actual_animation->coordinatesOnTexture.first -= 192;
 	
 	if (actual_animation->coordinatesOnTexture.first <= 0) {
@@ -587,6 +627,8 @@ void LittleGirl::attack() {
 
 	/* Gets actual state in x axis */
 	std::string actual_x_state = states.get_state("X_STATE");
+	assert(actual_x_state != "");
+
 	states.set_state("ACTION_STATE", "ATTACKING"); /* Sets states 
 	equal Attacking */
 	
@@ -624,6 +666,7 @@ void LittleGirl::attack() {
  * @return void
  */
 void LittleGirl::on_attack(GameObject *game_object) {
+	assert(game_object != nullptr);
 
 	/* Gets actual state in x axis */
 	std::string actual_x_state = states.get_state("X_STATE");
@@ -666,6 +709,11 @@ void LittleGirl::on_collision(
 	
 	DEBUG("Started");
 
+	assert(other != nullptr);
+	assert(p_my_hitbox != nullptr);
+	assert(p_other_hitbox!= nullptr);
+
+
 	on_collision_plataform(other, p_my_hitbox, p_other_hitbox);
 	on_collision_scorpion(other, p_my_hitbox, p_other_hitbox);
 	on_collision_spider(other, p_my_hitbox, p_other_hitbox);
@@ -689,6 +737,11 @@ void LittleGirl::on_collision_plataform(
 		engine::Hitbox *p_other_hitbox) {
 	
 	DEBUG("Started");
+
+	assert(other != nullptr);
+	assert(p_my_hitbox != nullptr);
+	assert(p_other_hitbox!= nullptr);
+
 
 	/* Gets instances of the Plaform */
 	Platform *platform = dynamic_cast<Platform *>(other);
@@ -725,6 +778,11 @@ void LittleGirl::on_collision_scorpion(
 		engine::Hitbox *p_other_hitbox) {
 	
 	DEBUG("Started");
+
+	assert(other != nullptr);
+	assert(p_my_hitbox != nullptr);
+	assert(p_other_hitbox!= nullptr);
+
 
 	/* Gets instances of the Spider */
 	Scorpion *scorpion = dynamic_cast<Scorpion *>(other);
@@ -767,6 +825,10 @@ void LittleGirl::on_collision_spider(
 	
 	DEBUG("Started");
 
+	assert(other != nullptr);
+	assert(p_my_hitbox != nullptr);
+	assert(p_other_hitbox!= nullptr);
+
 	/* Gets instances of the Spider */
 	Spider *spider = dynamic_cast<Spider *>(other);
 	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
@@ -807,6 +869,10 @@ void LittleGirl::on_collision_goop(
 		engine::Hitbox *p_other_hitbox) {
 	
 	DEBUG("Started");
+
+	assert(other != nullptr);
+	assert(p_my_hitbox != nullptr);
+	assert(p_other_hitbox!= nullptr);
 
 	/* Gets instances of the Goop */
 	Goop *goop = dynamic_cast<Goop *>(other);
@@ -1066,6 +1132,7 @@ void LittleGirl::initialize_audio_effects() {
 			engine::Audio::CHUNK);
 	little_girl_steps->set_duration(1);
 	little_girl_steps->set_effect_volume(45);
+	assert(little_girl_steps != nullptr);
 	add_component(little_girl_steps);
 
 	/* Initiates sound effect while the Little Girl is been hit */
@@ -1074,6 +1141,7 @@ void LittleGirl::initialize_audio_effects() {
 			"../assets/audios/effects_songs/menina_apanhando.wav",
 			engine::Audio::CHUNK);
 	little_girl_getting_hit->set_duration(0.5);
+	assert(little_girl_getting_hit != nullptr);
 	add_component(little_girl_getting_hit);
 
 	/* Initiates sound effect while the Little Girl is using the sword */
@@ -1082,6 +1150,7 @@ void LittleGirl::initialize_audio_effects() {
 			"../assets/audios/effects_songs/espada_fase_1.wav",
 			engine::Audio::CHUNK);
 	sword_song->set_duration(0.4);
+	assert(sword_song != nullptr);
 	add_component(sword_song);
 
 	DEBUG("Ended");
