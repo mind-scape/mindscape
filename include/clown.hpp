@@ -35,7 +35,9 @@ namespace mindscape {
     class Clown : public Enemy {
     private:
         void initialize_state_map();
-        void initialize_hitboxes();
+        void initialize_foot_hitbox();
+		void initialize_head_hitbox();
+		void initialize_attack_hitbox();
         void initialize_animation_on_attack();
         void initialize_animation_dying();
         void initialize_animation_attacking();
@@ -45,6 +47,10 @@ namespace mindscape {
         void initialize_audio_effects();
         void on_attack(engine::GameObject *);
         void attack(engine::GameObject*);
+		void attacking(engine::GameObject*);
+		void dying(engine::GameObject*);
+		void vunerable(engine::GameObject*);
+		void attack_girl(engine::GameObject*);
         void basic_attack();
         void double_attack();
         void serial_attack();

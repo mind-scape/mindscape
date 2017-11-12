@@ -40,13 +40,14 @@ Clown::Clown(
 ) {
 	/* Initializes all the characteristics for the clown */
 	initialize_state_map();
-	initialize_hitboxes();
+	initialize_foot_hitbox();
+	initialize_head_hitbox();
+	initialize_attack_hitbox();
 	initialize_animation_on_attack();
 	initialize_animation_dying();
 	initialize_animation_attacking();
 	initialize_animation_idle();
 	initialize_animation_idle_vunerable();
-
 	initialize_as_physicable();
 	initialize_audio_effects();
 };
@@ -109,10 +110,9 @@ engine::Animation *Clown::create_animation(
  */
 void Clown::initialize_animation_on_attack() {
 
-	DEBUG("intialize_animations")
-
-	/* Initializes the anitmation when the clown is getting a hit */
 	DEBUG("on_attack_animation")
+	/* Initializes the anitmation when the clown is getting a hit */
+
 	engine::Animation *on_attack_animation = nullptr;
 
 	const std::pair<int, int> default_dimensions_clown =
@@ -146,7 +146,7 @@ void Clown::initialize_animation_on_attack() {
 	);
 	on_attack_animation->in_loop = false;
 	add_animation("on_attack_animation", on_attack_animation);
-
+	DEBUG("on_attack_animation finished")
 }
 
 /**
@@ -157,6 +157,7 @@ void Clown::initialize_animation_on_attack() {
  * @return void
  */
 void Clown::initialize_animation_dying(){
+
 	/* Initializes the animation when the clown is dying */
 	DEBUG("dying_animation")
 	engine::Animation *dying_animation = nullptr;
@@ -193,8 +194,7 @@ void Clown::initialize_animation_dying(){
 	dying_animation->in_loop = false;
 	dying_animation->is_a_final_animation = true;
 	add_animation("dying_animation", dying_animation);
-
-
+	DEBUG("dying_animation finished")
 }
 
 /**
@@ -205,6 +205,7 @@ void Clown::initialize_animation_dying(){
  * @return void
  */
 void Clown::initialize_animation_attacking() {
+
 	/* Initializes the animation when clown is attacking */
 	DEBUG("attacking_animation")
 	engine::Animation *attacking_animation = nullptr;
@@ -239,8 +240,7 @@ void Clown::initialize_animation_attacking() {
 			default__coordinate_on_texture_clown
 	);
 	add_animation("attacking_animation", attacking_animation);
-
-
+	DEBUG("attacking_animation finished")
 }
 
 /**
@@ -288,6 +288,7 @@ void Clown::initialize_animation_idle() {
 	add_animation("idle_animation", idle_animation);
 	idle_animation->activate();
 	set_actual_animation(idle_animation);
+	DEBUG("idle_animation finished")
 }
 
 /**
@@ -298,6 +299,7 @@ void Clown::initialize_animation_idle() {
  * @return void
  */
 void Clown::initialize_animation_idle_vunerable(){
+
 	/* Initializes the animation when the clown if vunerable to get a hit */
 	DEBUG("idle_vunelrable_animation")
 	engine::Animation *idle_vulnerable_animation = nullptr;
@@ -366,12 +368,14 @@ void Clown::initialize_as_physicable() {
  * @return void
  */
 void Clown::on_collision(engine::GameObject* other,
-							engine::Hitbox* p_my_hitbox,
-							engine::Hitbox* p_other_hitbox) {
+						 engine::Hitbox* p_my_hitbox,
+						 engine::Hitbox* p_other_hitbox) {
 
+	DEBUG("on_collision")
 	on_collision_platform(other, p_my_hitbox,p_other_hitbox);
 	on_collision_little_girl(other, p_my_hitbox,p_other_hitbox);
 	on_collision_goop(other, p_my_hitbox,p_other_hitbox);
+	DEBUG("on_collision finished")
 }
 
 /**
@@ -386,10 +390,10 @@ void Clown::on_collision(engine::GameObject* other,
  * @return void
  */
 void Clown::on_collision_platform(engine::GameObject *other,
-						 engine::Hitbox *p_my_hitbox,
-						 engine::Hitbox *p_other_hitbox) {
+								  engine::Hitbox *p_my_hitbox,
+								  engine::Hitbox *p_other_hitbox) {
 
-	DEBUG("on_collision")
+	DEBUG("on_collision_platform")
 	/* Get the instances of the enemies */
 	Platform *platform = nullptr;
 	platform = dynamic_cast<Platform *>(other);
@@ -409,7 +413,7 @@ void Clown::on_collision_platform(engine::GameObject *other,
 	else {
 		/*Do Nothing */
 	}
-
+	DEBUG("on_collision_platform finished")
 }
 
 /**
@@ -424,9 +428,10 @@ void Clown::on_collision_platform(engine::GameObject *other,
  * @return void
  */
 void Clown::on_collision_little_girl(engine::GameObject *other,
-						 engine::Hitbox *p_my_hitbox,
-						 engine::Hitbox *p_other_hitbox) {
+									 engine::Hitbox *p_my_hitbox,
+									 engine::Hitbox *p_other_hitbox) {
 
+	DEBUG("on_collision_little_girl")
 	LittleGirl *little_girl = nullptr;
 	little_girl = dynamic_cast<LittleGirl *>(other);
 
@@ -460,6 +465,7 @@ void Clown::on_collision_little_girl(engine::GameObject *other,
 	else {
 		/*Do Nothing */
 	}
+	DEBUG("on_collision_little_girl finished")
 }
 
 /**
@@ -474,9 +480,10 @@ void Clown::on_collision_little_girl(engine::GameObject *other,
  * @return void
  */
 void Clown::on_collision_goop(engine::GameObject *other,
-						 engine::Hitbox *p_my_hitbox,
-						 engine::Hitbox *p_other_hitbox) {
+							  engine::Hitbox *p_my_hitbox,
+							  engine::Hitbox *p_other_hitbox) {
 
+	DEBUG("on_collision_goop")
 	Goop *goop = nullptr;
 	goop = dynamic_cast<Goop *>(other);
 
@@ -515,37 +522,35 @@ void Clown::on_collision_goop(engine::GameObject *other,
 			else {
 				/*Do Nothing */
 			}
-
 		}
 		else {
 			/*Do Nothing */
 		}
-
 	}
 	else {
 		/*Do Nothing */
 	}
-
-	DEBUG("on_collision finished")
+	DEBUG("on_collision_goop finished")
 }
 
 /**
  * @brief Initializes Clown hitboxes
  *
- * Initializes clown instance hitboxes
+ * Initializes clown instance foot hitbox
  *
  * @return void
  *
  */
-void Clown::initialize_hitboxes() {
+void Clown::initialize_foot_hitbox() {
+
 	/* Get actual state of the game */
-	DEBUG("initialize_hitboxes")
+	DEBUG("initialize_foot_hitbox")
 	engine::Game &game = engine::Game::get_instance();
 
-	const std::pair<int,int> default_foothitbox_displacement =
+	const std::pair<int, int> default_foothitbox_displacement =
 			std::make_pair(160, 380); /**< Pair(int, int). Hitbox's displacement */
 
-	const std::pair<int,int> default_foothitbox_dimension =
+	const std::pair<int, int> default_foothitbox_dimension =
 			std::make_pair(180, 20); /**< Pair(int, int). Hitbox's dimension */
 
 	/* Creates the foot hitbox for the clown */
@@ -560,12 +565,28 @@ void Clown::initialize_hitboxes() {
 	);
 	/* Add component to the game */
 	add_component(foot_hitbox);
+	DEBUG("initialize_foot_hitbox finished")
+}
 
-	const std::pair<int,int> default_attack_hitbox_displacement =
+/**
+ * @brief Initializes Clown hitboxes
+ *
+ * Initializes clown instace attack hitbox
+ *
+ * @return void
+ *
+ */
+void Clown::initialize_attack_hitbox() {
+
+	/* Get actual state of the game */
+	DEBUG("initialize_attack_hitbox")
+	engine::Game &game = engine::Game::get_instance();
+
+	const std::pair<int, int> default_attack_hitbox_displacement =
 			std::make_pair(120, 170); /**< Pair(int, int).
  			Hitbox's displacement */
 
-	const std::pair<int,int> default_attack_hitbox_dimension =
+	const std::pair<int, int> default_attack_hitbox_dimension =
 			std::make_pair(100, 25); /**< Pair(int, int).
  			Hitbox's dimension */
 
@@ -581,6 +602,22 @@ void Clown::initialize_hitboxes() {
 	);
 	/* Add component to the game */
 	add_component(attack_hitbox);
+	DEBUG("initialize_attack_hitbox finished")
+}
+
+/**
+ * @brief Initializes Clown hitboxes
+ *
+ * Initializes clown instance head hitbox
+ *
+ * @return void
+ *
+ */
+void Clown::initialize_head_hitbox() {
+
+	/* Get actual state of the game */
+	DEBUG("initialize_head_hitbox")
+	engine::Game &game = engine::Game::get_instance();
 
 	const std::pair<int,int> default_head_hitbox_displacement =
 			std::make_pair(120, 90); /**< Pair(int, int).
@@ -603,7 +640,7 @@ void Clown::initialize_hitboxes() {
 	/* Add component to the game */
 	add_component(head_hitbox);
 
-	DEBUG("initialize_hitboxes finished")
+	DEBUG("initialize_head_hitbox finished ")
 }
 
 /**
@@ -729,7 +766,24 @@ engine::GameObject *Clown::create_goop() {
  *
  * @return void
  */
-void Clown::attack(engine::GameObject *little_girl) {
+void Clown::attack(engine::GameObject *little_girl){
+
+	attacking(little_girl);
+	dying(little_girl);
+	attack_girl(little_girl);
+	vunerable(little_girl);
+}
+
+/**
+ * @brief Method for clown attack
+ *
+ * Method called when the clown is vunerable
+ *
+ * @param little_girl object to be attacked
+ *
+ * @return void
+ */
+void Clown::vunerable(engine::GameObject *little_girl) {
 
 	DEBUG("attack")
 	/* Gets the actual action state of the clown  */
@@ -743,8 +797,7 @@ void Clown::attack(engine::GameObject *little_girl) {
 			/* if the actual animation of the clown is finished */
 			INFO("animation has finished")
 			set_actual_animation(animations["idle_vulnerable_animation"]);
-		}
-		else {
+		} else {
 			/*Do Nothing */
 		}
 
@@ -759,26 +812,29 @@ void Clown::attack(engine::GameObject *little_girl) {
 			states.set_state("ACTION_STATE", "NORMAL");
 			set_actual_animation(animations["idle_animation"]);
 			vulnerable_counter = 0;
-		}
-		else {
+		} else {
 			/* Else do nothing */
 			return;
 		}
-	}
-	else {
+	} else {
 		/*Do Nothing */
 	}
 
-	if (actual_action_state == "DYING") {
-		/* if the actual action state of the clown is dying */
-		INFO("clown is dying")
-		return;
-	}
-	else {
-		/*Do Nothing */
-	}
+}
 
-
+/**
+ * @brief Method for clown attack
+ *
+ * Method called when the clown is attacking
+ *
+ * @param little_girl object to be attacked
+ *
+ * @return void
+ */
+void Clown::attacking(engine::GameObject *little_girl) {
+	/* Gets the actual action state of the clown  */
+	std::string actual_action_state = "";
+	actual_action_state = get_state("ACTION_STATE");
 	if (actual_action_state == "ON_ATTACK" ||
 		actual_action_state == "ATTACKING") {
 		/* if the actual action state of the clown is on attack or attacking */
@@ -788,31 +844,42 @@ void Clown::attack(engine::GameObject *little_girl) {
 			INFO("animation has finished")
 			states.set_state("ACTION_STATE", "NORMAL");
 			set_actual_animation(animations["idle_animation"]);
-		}
-
-		else {
+		} else {
 			/* Else do nothing*/
 			return;
 		}
-	}
-	else {
+	} else {
 		/*Do Nothing */
 	}
+}
 
+/**
+ * @brief Method for clown attack
+ *
+ * Method called when the clown attack little girl
+ *
+ * @param little_girl object to be attacked
+ *
+ * @return void
+ */
+void Clown::attack_girl(engine::GameObject *little_girl) {
 
+	/* Gets the actual action state of the clown  */
+	std::string actual_action_state = "";
+	actual_action_state = get_state("ACTION_STATE");
 
-	int clown_position = 0; /**< Interger. Clown position on the x axis */
+	float clown_position = 0; /**< Interger. Clown position on the x axis */
 
 	/* Gets the position of the clown on the x axis */
 	clown_position = get_position_x();
 
-	int little_girl_position = 0; /**<Interger. Little girl
+	float little_girl_position = 0; /**<Interger. Little girl
 	position on the x axis*/
 
 	/*Gets the position of the little girl on the x axis */
 	little_girl_position = little_girl->get_position_x();
 
-	int distance_from_girl = 0; /**< Interger. distance in between
+	float distance_from_girl = 0; /**< Interger. distance in between
  	the little girl and the clown */
 
 	const int distance_from_girl_limit_max = 650;/**< Interger.
@@ -824,7 +891,8 @@ void Clown::attack(engine::GameObject *little_girl) {
 	/* Gets the distance from the little girl */
 	distance_from_girl = clown_position - little_girl_position;
 
-	if (distance_from_girl < distance_from_girl_limit_max) {
+	if (distance_from_girl < distance_from_girl_limit_max
+		&& actual_action_state != "VULNERABLE") {
 		/* if the distance from girl is lower than 650*/
 		INFO("distance from girl")
 		/* increment the attack animation trigger +1*/
@@ -884,6 +952,31 @@ void Clown::attack(engine::GameObject *little_girl) {
 	}
 
 	DEBUG("attack finished")
+}
+
+/**
+ * @brief Method for clown attack
+ *
+ * Method called when the clown is dying
+ *
+ * @param little_girl object to be attacked
+ *
+ * @return void
+ */
+void Clown::dying(engine::GameObject *little_girl) {
+
+	// meio do metodo 3 chamada
+	/* Gets the actual action state of the clown  */
+	std::string actual_action_state = "";
+	actual_action_state = get_state("ACTION_STATE");
+
+	if (actual_action_state == "DYING") {
+		/* if the actual action state of the clown is dying */
+		INFO("clown is dying")
+		return;
+	} else {
+		/*Do Nothing */
+	}
 }
 
 /**
