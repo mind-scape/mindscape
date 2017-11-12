@@ -41,7 +41,12 @@ Clown::Clown(
 	/* Initializes all the characteristics for the clown */
 	initialize_state_map();
 	initialize_hitboxes();
-	initialize_animations();
+	initialize_animation_on_attack();
+	initialize_animation_dying();
+	initialize_animation_attacking();
+	initialize_animation_idle();
+	initialize_animation_idle_vunerable();
+
 	initialize_as_physicable();
 	initialize_audio_effects();
 };
@@ -98,11 +103,11 @@ engine::Animation *Clown::create_animation(
 /**
  * @brief Initializes Clown animations
  *
- * Initializes animations for clown in game
+ * Initializes animations on attack of the clown.
  *
  * @return void
  */
-void Clown::initialize_animations() {
+void Clown::initialize_animation_on_attack() {
 
 	DEBUG("intialize_animations")
 
@@ -110,11 +115,11 @@ void Clown::initialize_animations() {
 	DEBUG("on_attack_animation")
 	engine::Animation *on_attack_animation = nullptr;
 
-	const std::pair<int,int> default_dimensions_clown =
+	const std::pair<int, int> default_dimensions_clown =
 			std::make_pair(448, 448); /**< Pair(int, int).
  			default dimensions and coordinates of the clown */
 
-	const std::pair<int,int> default__coordinate_on_texture_clown =
+	const std::pair<int, int> default__coordinate_on_texture_clown =
 			std::make_pair(0, 0); /**< Pair(int, int).
  			default coordinate on texture of the clown */
 
@@ -142,9 +147,30 @@ void Clown::initialize_animations() {
 	on_attack_animation->in_loop = false;
 	add_animation("on_attack_animation", on_attack_animation);
 
+}
+
+/**
+ * @brief Initializes Clown animations
+ *
+ * Initializes animations dying of the clown.
+ *
+ * @return void
+ */
+void Clown::initialize_animation_dying(){
 	/* Initializes the animation when the clown is dying */
 	DEBUG("dying_animation")
 	engine::Animation *dying_animation = nullptr;
+
+	const std::pair<int, int> default_dimensions_clown =
+			std::make_pair(448, 448); /**< Pair(int, int).
+ 			default dimensions and coordinates of the clown */
+
+	const std::pair<int, int> default__coordinate_on_texture_clown =
+			std::make_pair(0, 0); /**< Pair(int, int).
+ 			default coordinate on texture of the clown */
+
+	const int default_sprite_line = 1; /** Interger. Default sprite
+ 	line for animations */
 
 	const int default_sprite_column_dying = 5; /** Interger.
  	Default sprite column */
@@ -168,9 +194,31 @@ void Clown::initialize_animations() {
 	dying_animation->is_a_final_animation = true;
 	add_animation("dying_animation", dying_animation);
 
+
+}
+
+/**
+ * @brief Initializes Clown animations
+ *
+ * Initializes animations attacking of the clown.
+ *
+ * @return void
+ */
+void Clown::initialize_animation_attacking() {
 	/* Initializes the animation when clown is attacking */
 	DEBUG("attacking_animation")
 	engine::Animation *attacking_animation = nullptr;
+
+	const std::pair<int, int> default_dimensions_clown =
+			std::make_pair(448, 448); /**< Pair(int, int).
+ 			default dimensions and coordinates of the clown */
+
+	const std::pair<int, int> default__coordinate_on_texture_clown =
+			std::make_pair(0, 0); /**< Pair(int, int).
+ 			default coordinate on texture of the clown */
+
+	const int default_sprite_line = 1; /** Interger. Default sprite
+ 	line for animations */
 
 	const int default_sprite_column_attacking = 6; /** Interger.
  	Default sprite column */
@@ -192,11 +240,34 @@ void Clown::initialize_animations() {
 	);
 	add_animation("attacking_animation", attacking_animation);
 
+
+}
+
+/**
+ * @brief Initializes Clown animations
+ *
+ * Initializes animations idle of the clown.
+ *
+ * @return void
+ */
+void Clown::initialize_animation_idle() {
+
 	/* Initializes the clown standing animation */
 	DEBUG("idle_animation")
 	engine::Animation *idle_animation = nullptr;
 
-	const int default_sprite_column_idle= 15; /** Interger.
+	const std::pair<int, int> default_dimensions_clown =
+			std::make_pair(448, 448); /**< Pair(int, int).
+ 			default dimensions and coordinates of the clown */
+
+	const std::pair<int, int> default__coordinate_on_texture_clown =
+			std::make_pair(0, 0); /**< Pair(int, int).
+ 			default coordinate on texture of the clown */
+
+	const int default_sprite_line = 1; /** Interger. Default sprite
+ 	line for animations */
+
+	const int default_sprite_column_idle = 15; /** Interger.
  	Default sprite column */
 
 	const double default_animation_duration_idle = 3; /** Double.
@@ -215,10 +286,40 @@ void Clown::initialize_animations() {
 			default__coordinate_on_texture_clown
 	);
 	add_animation("idle_animation", idle_animation);
+	idle_animation->activate();
+	set_actual_animation(idle_animation);
+}
 
+/**
+ * @brief Initializes Clown animations
+ *
+ * Initializes animations vunerable of the clown.
+ *
+ * @return void
+ */
+void Clown::initialize_animation_idle_vunerable(){
 	/* Initializes the animation when the clown if vunerable to get a hit */
 	DEBUG("idle_vunelrable_animation")
 	engine::Animation *idle_vulnerable_animation = nullptr;
+
+
+	const std::pair<int, int> default_dimensions_clown =
+			std::make_pair(448, 448); /**< Pair(int, int).
+ 			default dimensions and coordinates of the clown */
+
+	const std::pair<int, int> default__coordinate_on_texture_clown =
+			std::make_pair(0, 0); /**< Pair(int, int).
+ 			default coordinate on texture of the clown */
+
+	const int default_sprite_line = 1; /** Interger. Default sprite
+ 	line for animations */
+
+	const int default_sprite_column_idle= 15; /** Interger.
+ 	Default sprite column */
+
+	const double default_animation_duration_idle = 3; /** Double.
+ 	Default sprite line for animations */
+
 	idle_vulnerable_animation = create_animation(
 			"../assets/images/sprites/enemies/clown/clown_vulnerable_idle.png",
 			default_sprite_line,
@@ -232,9 +333,6 @@ void Clown::initialize_animations() {
 			default__coordinate_on_texture_clown
 	);
 	add_animation("idle_vulnerable_animation", idle_vulnerable_animation);
-
-	idle_animation->activate();
-	set_actual_animation(idle_animation);
 
 	DEBUG("intialize_animations finished")
 }
@@ -267,7 +365,27 @@ void Clown::initialize_as_physicable() {
  *
  * @return void
  */
-void Clown::on_collision(engine::GameObject *other,
+void Clown::on_collision(engine::GameObject* other,
+							engine::Hitbox* p_my_hitbox,
+							engine::Hitbox* p_other_hitbox) {
+
+	on_collision_platform(other, p_my_hitbox,p_other_hitbox);
+	on_collision_little_girl(other, p_my_hitbox,p_other_hitbox);
+	on_collision_goop(other, p_my_hitbox,p_other_hitbox);
+}
+
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision with the platform
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void Clown::on_collision_platform(engine::GameObject *other,
 						 engine::Hitbox *p_my_hitbox,
 						 engine::Hitbox *p_other_hitbox) {
 
@@ -275,13 +393,10 @@ void Clown::on_collision(engine::GameObject *other,
 	/* Get the instances of the enemies */
 	Platform *platform = nullptr;
 	platform = dynamic_cast<Platform *>(other);
-	LittleGirl *little_girl = nullptr;
-	little_girl = dynamic_cast<LittleGirl *>(other);
-	Goop *goop = nullptr;
-	goop = dynamic_cast<Goop *>(other);
 
 	engine::Hitbox *my_hitbox = nullptr;
 	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
 	engine::Hitbox *other_hitbox = nullptr;
 	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
@@ -295,6 +410,31 @@ void Clown::on_collision(engine::GameObject *other,
 		/*Do Nothing */
 	}
 
+}
+
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision with the little girl
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void Clown::on_collision_little_girl(engine::GameObject *other,
+						 engine::Hitbox *p_my_hitbox,
+						 engine::Hitbox *p_other_hitbox) {
+
+	LittleGirl *little_girl = nullptr;
+	little_girl = dynamic_cast<LittleGirl *>(other);
+
+	engine::Hitbox *my_hitbox = nullptr;
+	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
+	engine::Hitbox *other_hitbox = nullptr;
+	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
 	if (little_girl &&
 		little_girl->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -320,7 +460,31 @@ void Clown::on_collision(engine::GameObject *other,
 	else {
 		/*Do Nothing */
 	}
+}
 
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision with the goop
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void Clown::on_collision_goop(engine::GameObject *other,
+						 engine::Hitbox *p_my_hitbox,
+						 engine::Hitbox *p_other_hitbox) {
+
+	Goop *goop = nullptr;
+	goop = dynamic_cast<Goop *>(other);
+
+	engine::Hitbox *my_hitbox = nullptr;
+	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
+	engine::Hitbox *other_hitbox = nullptr;
+	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
 	if (goop) {
 		/* if goop*/
@@ -923,7 +1087,7 @@ void Clown::on_attack(engine::GameObject *game_object) {
 
 	if (is_alive()) {
 		/* if the object is alive set the actual
-	   	animation to on attack animation */
+		   animation to on attack animation */
 		INFO("object is alive")
 		set_actual_animation(animations["on_attack_animation"]);
 		//play_song("hit_me");
