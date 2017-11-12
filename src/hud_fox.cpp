@@ -9,6 +9,7 @@
  */
 #include "../include/hud_fox.hpp"
 #include "../engine/include/log.hpp"
+#include <assert.h>
 
 using namespace mindscape;
 
@@ -65,6 +66,13 @@ engine::Animation* HudFox::create_animation(
     std::string direction) {
 
     DEBUG("Started");
+
+    /* Verifying values of the variables */
+    assert(path != "");
+    assert(sprite_lines);
+    assert(sprite_columns);
+    assert(direction != "");
+
     engine::Game& game = engine::Game::get_instance();
     
     /* Constants for default animation creation */
@@ -102,6 +110,9 @@ engine::Animation* HudFox::create_animation(
 
     DEBUG("Ended");
     
+    /* Verifyes animation creation */
+    assert(animation != nullptr);
+
     return animation;
 }
 
@@ -127,8 +138,12 @@ void HudFox::initialize_zero_star_animations() {
         default_sprite_line, default_sprite_column, default_animation_duration,
         "RIGHT"
     );
+    
+    /* Verifyes animation creation */
+    assert(fox_zero_star != nullptr);
     add_animation("zero_star", fox_zero_star);
-        
+
+    /* Activates zero star animation */  
     fox_zero_star->activate();
     set_actual_animation(fox_zero_star);
 
@@ -155,7 +170,11 @@ void HudFox::initialize_one_star_animations() {
         default_sprite_line, default_sprite_column, default_animation_duration,
         "RIGHT"
     );
+
+    /* Verifyes animation creation */
+    assert(fox_one_star != nullptr);
     add_animation("one_star", fox_one_star);
+
 }
 /**
  * @brief Initiates Hud Fox's animation.  
@@ -178,7 +197,11 @@ void HudFox::initialize_two_star_animations() {
         default_sprite_line, default_sprite_column, default_animation_duration,
         "RIGHT"
     );
+
+    /* Verifyes animation creation */
+    assert(fox_two_star != nullptr);
     add_animation("two_star", fox_two_star);
+
 }
 
 /**
@@ -201,6 +224,9 @@ void HudFox::initialize_three_star_animations() {
         default_sprite_line, default_sprite_column, default_animation_duration,
         "RIGHT"
     );
+
+    /* Verifyes animation creation */
+    assert(fox_three_star != nullptr);
     add_animation("three_star", fox_three_star);
 }
 
@@ -227,6 +253,9 @@ void HudFox::initialize_fading_star_animations() {
         "RIGHT"
     );
     fox_three_star_fading->in_loop = false;
+
+    /* Verifyes animation creation */
+    assert(fox_three_star_fading != nullptr);
     add_animation("three_star_fading", fox_three_star_fading);
 
     DEBUG("Ended");
@@ -248,6 +277,8 @@ void HudFox::initialize_audio_effects() {
         "heart", "../assets/audios/effects_songs/mindscape_heart.wav", 
         engine::Audio::CHUNK);
     
+    /* Verifyes audio intialization */
+    assert(take_this_hp != nullptr);
     /* Set duration of the sound effect and add component in game */
     const int sound_duration = 1; /**< Integer. Duration of the sound effect in seconds*/
     take_this_hp->set_duration(sound_duration);
