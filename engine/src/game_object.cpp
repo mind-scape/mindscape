@@ -239,10 +239,10 @@ void GameObject::free_animations() {
  */
 void GameObject::draw() {
 	draw_audios();
-	draw_images();
 	draw_animations();
-	draw_hitboxes();
+	draw_images();
 	draw_texts();
+	draw_hitboxes();
 }
 
 /**

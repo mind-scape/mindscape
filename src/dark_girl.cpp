@@ -49,8 +49,13 @@ DarkGirl::DarkGirl(
 ), Fighter(90) {
 	/* Initializes all the characteristics for the Dark Girl */
 	initialize_state_map();
-	initialize_hitboxes();
-	initialize_animations();
+	initialize_hitbox();
+	initialize_footer_hitbox();
+	initialize_running_animation();
+	initialize_idle_animation();
+	initialize_jumping_animation();
+	initialize_attacking_animation();
+	initialize_dying_animation();
 	initialize_audio_effects();
 	initialize_as_physicable();
 };
@@ -115,16 +120,15 @@ engine::Animation* DarkGirl::create_animation(
 /**
  * @brief Initializes dark girl animations
  *
- * Initializes animations for dark girl in second level
+ * Initializes running animation for dark girl in second level
  *
  * @return void
  */
-void DarkGirl::initialize_animations() {
-	DEBUG("initialize_animations");
-
+void DarkGirl::initialize_running_animation() {
+	DEBUG("initialize_running_right_animation ");
 	/* Initializes animation of the Dark Girl running right */
-	DEBUG("running_right_animation");
-	engine::Animation* running_right_animation = nullptr;
+	DEBUG("running_right_animation finished");
+	engine::Animation *running_right_animation = nullptr;
 
 	const int default_sprite_line = 1; /** Interger. Default sprite
  	line for animations */
@@ -145,7 +149,7 @@ void DarkGirl::initialize_animations() {
 
 	/* Initializes animation of the Dark Girl running left */
 	DEBUG("running_left_animation");
-	engine::Animation* running_left_animation = nullptr;
+	engine::Animation *running_left_animation = nullptr;
 	running_left_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_running_left.png",
 			default_sprite_line,
@@ -153,10 +157,24 @@ void DarkGirl::initialize_animations() {
 			default_animation_duration_running, "LEFT"
 	);
 	add_animation("running_left_animation", running_left_animation);
+	DEBUG("initialize_running_right_animation finished");
+}
 
+/**
+ * @brief Initializes dark girl animations
+ *
+ * Initializes idle animation for dark girl in second level
+ *
+ * @return void
+ */
+void DarkGirl::initialize_idle_animation() {
+	DEBUG("initialize_idle_animation");
 	/* Initializes animation of the Dark Girl standing looking right */
 	DEBUG("idle_right_animation");
-	engine::Animation* idle_right_animation = nullptr;
+	engine::Animation *idle_right_animation = nullptr;
+
+	const int default_sprite_line = 1; /** Interger. Default sprite
+ 	line for animations */
 
 	const int default_sprite_column_idle = 10; /** Interger. Default
  	sprite column */
@@ -174,7 +192,7 @@ void DarkGirl::initialize_animations() {
 
 	/* Initializes animation of the Dark Girl standing looking left */
 	DEBUG("idle_left_animation");
-	engine::Animation* idle_left_animation = nullptr;
+	engine::Animation *idle_left_animation = nullptr;
 	idle_left_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_idle_left.png",
 			default_sprite_line,
@@ -183,9 +201,28 @@ void DarkGirl::initialize_animations() {
 	);
 	add_animation("idle_left_animation", idle_left_animation);
 
+	/* Initializes animation of the Dark Girl
+	when she is standing */
+	idle_right_animation->activate();
+	set_actual_animation(idle_right_animation);
+	DEBUG("initialize_idle_animation finished");
+}
+
+/**
+ * @brief Initializes dark girl animations
+ *
+ * Initializes jumping animation for dark girl in second level
+ *
+ * @return void
+ */
+void DarkGirl::initialize_jumping_animation() {
+	DEBUG("initialize_jumping_animation");
 	/* Initializes animation of the Dark Girl jumping to the right */
 	DEBUG("jumping_right_animation");
-	engine::Animation* jumping_right_animation = nullptr;
+	engine::Animation *jumping_right_animation = nullptr;
+
+	const int default_sprite_line = 1; /** Interger. Default sprite
+ 	line for animations */
 
 	const int default_sprite_column_jumping = 5; /** Interger. Default
  	sprite column */
@@ -203,7 +240,7 @@ void DarkGirl::initialize_animations() {
 
 	/* Initializes animation of the Dark Girl jumping to the left */
 	DEBUG("jumping_left_animation");
-	engine::Animation* jumping_left_animation = nullptr;
+	engine::Animation *jumping_left_animation = nullptr;
 	jumping_left_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_jumping_left.png",
 			default_sprite_line,
@@ -211,10 +248,24 @@ void DarkGirl::initialize_animations() {
 			default_animation_duration_jumping, "LEFT"
 	);
 	add_animation("jumping_left_animation", jumping_left_animation);
+	DEBUG("initialize_jumping_animation finished");
+}
 
+/**
+ * @brief Initializes dark girl animations
+ *
+ * Initializes attacking animation for dark girl in second level
+ *
+ * @return void
+ */
+void DarkGirl::initialize_attacking_animation() {
+	DEBUG("initialize_attacking_animation");
 	/* Initializes animation of the Dark Girl attacking to the right */
 	DEBUG("attacking_right_animation");
-	engine::Animation* attacking_right_animation = nullptr;
+	engine::Animation *attacking_right_animation = nullptr;
+
+	const int default_sprite_line = 1; /** Interger. Default sprite
+ 	line for animations */
 
 	const int default_sprite_column_attacking = 5; /** Interger. Default
  	sprite column */
@@ -233,7 +284,7 @@ void DarkGirl::initialize_animations() {
 
 	/* Initializes animation of the Dark Girl attacking to the left */
 	DEBUG("attacking_left_animation");
-	engine::Animation* attacking_left_animation = nullptr;
+	engine::Animation *attacking_left_animation = nullptr;
 	attacking_left_animation = create_animation(
 			"../assets/images/sprites/dark_girl/dark_girl_attacking_left.png",
 			default_sprite_line,
@@ -242,11 +293,25 @@ void DarkGirl::initialize_animations() {
 	);
 	attacking_left_animation->in_loop = false;
 	add_animation("attacking_left_animation", attacking_left_animation);
+	DEBUG("initialize_attacking_animation finished");
+}
 
+/**
+ * @brief Initializes dark girl animations
+ *
+ * Initializes dying animation for dark girl in second level
+ *
+ * @return void
+ */
+void DarkGirl::initialize_dying_animation(){
+	DEBUG("initialize_dying_animation")
 	/* Initializes animation of the Dark Girl
 	when she was sying looking to the left */
 	DEBUG("dying_left_animation");
 	engine::Animation* dying_left_animation = nullptr;
+
+	const int default_sprite_line = 1; /** Interger. Default sprite
+ 	line for animations */
 
 	const int default_sprite_column_dying = 5; /** Interger. Default
  	sprite column */
@@ -279,36 +344,30 @@ void DarkGirl::initialize_animations() {
 	dying_right_animation->in_loop = false;
 	dying_right_animation->is_a_final_animation = true;
 	add_animation("dying_right_animation", dying_right_animation);
-
-	/* Initializes animation of the Dark Girl
-	when she is standing */
-	idle_right_animation->activate();
-	set_actual_animation(idle_right_animation);
-
-	DEBUG("initialize_animations finished");
+	DEBUG("initialize_dying_animation finished");
 }
 
 /**
  * @brief Initializes hitboxes for dark girl
  *
- * Initializes dark girl instance hitboxes
+ * Initializes dark girl instance hitbox
  *
  * @return void
  */
-void DarkGirl::initialize_hitboxes() {
-	DEBUG("initialize_hitboxes");
+void DarkGirl::initialize_hitbox() {
+	DEBUG("initialize_hitbox");
 
 	/* Get actual state of the game */
-	engine::Game& game = engine::Game::get_instance();
+	engine::Game &game = engine::Game::get_instance();
 
-	const std::pair<int,int> default_hitbox_displacement =
+	const std::pair<int, int> default_hitbox_displacement =
 			std::make_pair(60, 45); /**< Pair(int, int). Hitbox's displacement */
 
-	const std::pair<int,int> default_hitbox_dimension =
+	const std::pair<int, int> default_hitbox_dimension =
 			std::make_pair(50, 130); /**< Pair(int, int). Hitbox's dimension */
 
 	/* Creates Dark Girl Hitbox*/
-	engine::Hitbox* hitbox = nullptr;
+	engine::Hitbox *hitbox = nullptr;
 	hitbox = new engine::Hitbox(
 			"hitbox",
 			get_position(),
@@ -319,6 +378,20 @@ void DarkGirl::initialize_hitboxes() {
 
 	/* Add component in the game */
 	add_component(hitbox);
+	DEBUG("initialize_hitbox finished");
+}
+
+/**
+ * @brief Initializes hitboxes for dark girl
+ *
+ * Initializes dark girl instance footer hitbox
+ *
+ * @return void
+ */
+void DarkGirl::initialize_footer_hitbox(){
+	DEBUG("initialize_footer_hitbox");
+
+	engine::Game &game = engine::Game::get_instance();
 
 	const std::pair<int,int> default_footer_displacement =
 			std::make_pair(60, 180); /**< Pair(int, int). Hitbox's displacement */
@@ -339,7 +412,7 @@ void DarkGirl::initialize_hitboxes() {
 	/* Add component in the game */
 	add_component(footer);
 
-	DEBUG("initialize_hitboxes finished");
+	DEBUG("initialize_footer_hitbox finished");
 }
 
 /**
@@ -350,7 +423,6 @@ void DarkGirl::initialize_hitboxes() {
  * @return void
  */
 void DarkGirl::initialize_state_map() {
-
 	/* Sets the initial position of the Dark Girl on the game,
 	also her action and states*/
 	DEBUG("initialize_state_map");
@@ -449,24 +521,39 @@ void DarkGirl::initialize_as_physicable() {
  * @return void
  */
 void DarkGirl::on_collision(engine::GameObject* other,
-							engine::Hitbox* p_my_hitbox,
-							engine::Hitbox* p_other_hitbox) {
+									 engine::Hitbox* p_my_hitbox,
+									 engine::Hitbox* p_other_hitbox) {
 
-	DEBUG("on_collision")
-	/* Gets instances of the Enemies */
+	on_collision_goop(other, p_my_hitbox,p_other_hitbox);
+	on_collision_spider(other, p_my_hitbox,p_other_hitbox);
+	on_collision_platform(other, p_my_hitbox,p_other_hitbox);
+	on_collision_scorpion(other, p_my_hitbox,p_other_hitbox);
+}
+
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision with the platform
+ *
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void DarkGirl::on_collision_platform(engine::GameObject* other,
+									 engine::Hitbox* p_my_hitbox,
+									 engine::Hitbox* p_other_hitbox) {
+
+	DEBUG("on_collision_platform")
+	/* Gets instances of the platform */
 	Platform* platform = nullptr;
 	platform = dynamic_cast<Platform *>(other);
 
-	Scorpion* scorpion = nullptr;
-	scorpion = dynamic_cast<Scorpion *>(other);
-	Spider* spider = nullptr;
-	spider = dynamic_cast<Spider *>(other);
-
-	Goop* goop = nullptr;
-	goop = dynamic_cast<Goop *>(other);
-
 	engine::Hitbox* my_hitbox = nullptr;
 	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
 	engine::Hitbox* other_hitbox = nullptr;
 	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
@@ -479,6 +566,35 @@ void DarkGirl::on_collision(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
+	DEBUG("on_collision_platform finished")
+}
+
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision with the scorpion
+ *
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void DarkGirl::on_collision_scorpion(engine::GameObject* other,
+									 engine::Hitbox* p_my_hitbox,
+									 engine::Hitbox* p_other_hitbox) {
+
+	DEBUG("on_collision_scorpion")
+	/* Gets instances of the scorpion */
+	Scorpion* scorpion = nullptr;
+	scorpion = dynamic_cast<Scorpion *>(other);
+
+	engine::Hitbox* my_hitbox = nullptr;
+	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
+	engine::Hitbox* other_hitbox = nullptr;
+	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
 	if(scorpion &&
 	   scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -495,6 +611,35 @@ void DarkGirl::on_collision(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
+	DEBUG("on_collision_scorpion finished")
+}
+
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision with the spider
+ *
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void DarkGirl::on_collision_spider(engine::GameObject* other,
+								   engine::Hitbox* p_my_hitbox,
+								   engine::Hitbox* p_other_hitbox) {
+
+	DEBUG("on_collision")
+	/* Gets instances of the spider */
+	Spider* spider = nullptr;
+	spider = dynamic_cast<Spider *>(other);
+
+	engine::Hitbox* my_hitbox = nullptr;
+	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
+	engine::Hitbox* other_hitbox = nullptr;
+	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
 	if(spider &&
 	   spider->get_state("ACTION_STATE") == "ATTACKING" &&
@@ -511,6 +656,35 @@ void DarkGirl::on_collision(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
+	DEBUG("on_collision_spider finished")
+}
+
+/**
+ * @brief On Collision event
+ *
+ * Method called everytime there is a collision with the goop
+ *
+ *
+ * @param other the other game object that collided
+ * @param p_my_hitbox hitbox that recives the collision
+ * @param p_other_hitbox hitbox that collided
+ *
+ * @return void
+ */
+void DarkGirl::on_collision_goop(engine::GameObject* other,
+								 engine::Hitbox* p_my_hitbox,
+								 engine::Hitbox* p_other_hitbox) {
+
+	DEBUG("on_collision_goop")
+	/* Gets instances of the goop */
+	Goop* goop = nullptr;
+	goop = dynamic_cast<Goop *>(other);
+
+	engine::Hitbox* my_hitbox = nullptr;
+	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+
+	engine::Hitbox* other_hitbox = nullptr;
+	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
 
 	if(goop) {
@@ -542,8 +716,7 @@ void DarkGirl::on_collision(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
-
-	DEBUG("on_collision finished")
+	DEBUG("on_collision_goop finished")
 }
 
 /**
