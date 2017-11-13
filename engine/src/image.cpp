@@ -12,6 +12,7 @@
 #include "image.hpp"
 #include <string>
 #include "log.hpp"
+#include <assert.h>
 
 using namespace engine;
 
@@ -88,6 +89,7 @@ void Image::free() {
  * @return
  */
 void Image::draw(int x, int y) {
+
     SDL_Rect ret = {coordinatesOnTexture.first,
                     coordinatesOnTexture.second,
                     dimensionOnTexture.first,
@@ -113,6 +115,10 @@ void Image::draw(int x, int y) {
 void Image::set_values(std::pair<int, int> _dimension_on_screen,
 					   std::pair<int, int> _dimension_on_texture,
 					   std::pair<int, int> _coordinates_on_texture) {
+
+  assert(_dimension_on_screen.first >= 0 && dimension_on_screen.second >= 0);
+  assert(_dimension_on_texture.first >= 0 && _dimension_on_texture.second >= 0);
+  assert(_coordinates_on_texture.first >= 0 && _coordinates_on_texture.second >= 0);
 
 	dimension_on_screen = _dimension_on_screen;
 	dimensionOnTexture = _dimension_on_texture;
