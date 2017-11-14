@@ -23,16 +23,23 @@ namespace engine{
      */
     class PersistenceDat : public Persistence {
     private:
+        /* Constructor */
         PersistenceDat(){};
+
+        /* Loop methods */
         static PersistenceDat *instance;
 
     public:
-        static PersistenceDat *get_instance();
+        /* Destructor */
         ~PersistenceDat(){};
 
+        /* Data methods */
         void operator = (PersistenceDat const&) = delete;
-        PersistenceMap * load (std::string);
         bool dump (std::string, PersistenceMap *);
+
+        /* Loop methods */
+        static PersistenceDat *get_instance();
+        PersistenceMap * load (std::string);
     };
 }
 #endif

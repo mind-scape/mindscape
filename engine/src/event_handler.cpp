@@ -71,9 +71,10 @@ std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now) {
 			has_events = true; /**< make variable responsible for checking if has events to be processed true */
 		}
 
-		else
+		else {
 			/* increments the iterator */
 			++it;
+		}
 	}
 
 	if(!has_events) {

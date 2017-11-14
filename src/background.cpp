@@ -8,6 +8,7 @@
 * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
 */
 #include "../include/background.hpp"
+#include "../engine/include/log.hpp"
 
 using namespace mindscape;
 /**
@@ -21,14 +22,25 @@ using namespace mindscape;
 void Background::on_event(GameEvent game_event){
     std::string event_name = game_event.game_event_name;
 
-    if (event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level) {
-    /* When character is moving left */
-        set_position_x(get_position_x() + paralax); /* Moves background x coordinate to the right */
+    if (this->name == "main_background") {
+      /* This avoids making parallax event happen in the menu */
+      return;
     }
 
+    if (event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level) {
+        /* When character is moving left */
+
+        /* Moves background x coordinate to the right */
+        set_position_x(get_position_x() + paralax);
+    }
     else if (event_name == "MOVE_RIGHT" && !engine::GameObject::on_limit_of_level) {
-    /* When character is moving right */
-        set_position_x(get_position_x() - paralax); /* Moves background x coordinate to the left */
+        /* When character is moving right */
+
+        /* Moves background x coordinate to the left */
+        set_position_x(get_position_x() - paralax);
+    }
+    else {
+        INFO("Caracter is stopped");
     }
 }
 /**
@@ -41,10 +53,10 @@ void Background::on_event(GameEvent game_event){
 */
 void Background::set_paralax(int p_paralax) {
     if (p_paralax > 10 || p_paralax < 0) {
-    /* If paralax is out of valid range */
+        /* If paralax is out of valid range */
+
         paralax = 10; /* Sets paralax to a valid value */
     }
-    
     else {
         paralax = p_paralax; /* Sets paralax to the given parameter */
     }

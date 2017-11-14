@@ -30,6 +30,7 @@ using namespace mindscape;
  *
  * @return void
  */
+const int little_max_hitpoints = 90; /**< Integer. Little Girl's max hitpoints */
 LittleGirl::LittleGirl(
 		std::string name,
 		std::pair<int, int> position,
@@ -45,12 +46,17 @@ LittleGirl::LittleGirl(
 				{engine::KeyboardEvent::DOWN,  "CROUCH"},
 				{engine::KeyboardEvent::F,     "ATTACK"},
 		}
-), Fighter(90) {
+), Fighter(little_max_hitpoints) {
 	
 	/* Inicialize all the characterists of the Little Girl */
 	initialize_state_map();
 	initialize_hitboxes();
-	initialize_animations();
+	initialize_idle_animations();
+	initialize_running_animations();
+	initialize_jumping_animations();
+	initialize_attacking_animations();
+	initialize_on_attack_animations();
+	initialize_dying_animations();
 	initialize_audio_effects();
 	initialize_as_physicable();
 };
@@ -81,21 +87,33 @@ void LittleGirl::initialize_hitboxes() {
 	/* Gets actual state of the game */
 	engine::Game &game = engine::Game::get_instance();
 
+	const std::pair<int, int> default_hitbox_displacement = 
+		std::make_pair(60, 45); /**< Pair(int, int). Hitbox's displacement */
+	const std::pair<int, int> default_hitbox_dimension = std::make_pair(50, 130); 
+	/**< Pair(int, int). Hitbox's dimensions */
+
 	/* Creates Little Girl's hitbox */
 	engine::Hitbox *hitbox = new engine::Hitbox(
 			"hitbox", /* Hitbox's name */
 			get_position(), /* Little Girl's coordinate */
-			std::make_pair(60, 45), /* Hitbox's displacement */
-			std::make_pair(50, 130), /* Hitbox's dimentions */
+			default_hitbox_displacement,
+			default_hitbox_dimension,
 			game.get_renderer() /* Gets Renderer */
 	);
 	
+
+
+	const std::pair<int, int> footer_hitbox_displacement = 
+		std::make_pair(60, 180); /**< Pair(int, int). "Footer" Hitbox's displacement */
+	const std::pair<int, int> footer_hitbox_dimension = std::make_pair(50, 20); 
+	/**< Pair(int, int). "Footer" Hitbox's dimensions */
+
 	/* Creates Little Girl's hitbox on footer */
 	engine::Hitbox *footer = new engine::Hitbox(
 			"footer", /* Hitbox's name */
 			get_position(), /* Little Girl's coordinate */
-			std::make_pair(60, 180), /* "Footer" Hitbox's displacement */
-			std::make_pair(50, 20), /* "Footer" Hitbox's dimentions */
+			footer_hitbox_displacement,
+			footer_hitbox_dimension,
 			game.get_renderer() /* Gets Renderer */
 	);
 	
@@ -107,70 +125,43 @@ void LittleGirl::initialize_hitboxes() {
 }
 
 /**
- * @brief Initialize all audio effects
+ * @brief Initialize the object as physicable
+ *
+ * This makes the object vulnerable to collisions and forces like gravity
  *
  * @return void
  */
-void LittleGirl::initialize_audio_effects() {
+void LittleGirl::initialize_as_physicable() {
 	DEBUG("Started");
-
-	/* Initiates sound effect while the Little Girl is walking */
-	engine::Audio *little_girl_steps = new engine::Audio(
-			"steps",
-			"../assets/audios/effects_songs/menina_passos_rapido.wav",
-			engine::Audio::CHUNK);
-	little_girl_steps->set_duration(1);
-	little_girl_steps->set_effect_volume(45);
-	add_component(little_girl_steps);
-
-	/* Initiates sound effect while the Little Girl is been hit */
-	engine::Audio *little_girl_getting_hit = new engine::Audio(
-			"hit_me",
-			"../assets/audios/effects_songs/menina_apanhando.wav",
-			engine::Audio::CHUNK);
-	little_girl_getting_hit->set_duration(0.5);
-	add_component(little_girl_getting_hit);
-
-	/* Initiates sound effect while the Little Girl is using the sword */
-	engine::Audio *sword_song = new engine::Audio(
-			"sword_attack",
-			"../assets/audios/effects_songs/espada_fase_1.wav",
-			engine::Audio::CHUNK);
-	sword_song->set_duration(0.4);
-	add_component(sword_song);
+  
+	/* Gets Physics object and makes Little Girl collidable */
+	engine::Physics *physics = engine::Physics::get_instance();
+	physics->add_physicable(this);
+	collidable = true;
 
 	DEBUG("Ended");
 }
 
 /**
- * @brief Initialize all animations
+ * @brief Initialize idle animations
  *
  * @return void
  */
-void LittleGirl::initialize_animations() {
+void LittleGirl::initialize_idle_animations() {
 	DEBUG("Started");
-
-	/* Initiates animation of the Little Girl's running to right */
-	DEBUG("running_right_animation");
-	engine::Animation *running_right_animation = create_animation(
-		"../assets/images/sprites/little_girl/little_girl_running_right.png",
-		1, 9, 0.9, "RIGHT"
-	);
-	add_animation("running_right_animation", running_right_animation);
-
-	/* Initiates animation of the Little Girl's running to left */
-	DEBUG("running_left_animation");
-	engine::Animation *running_left_animation = create_animation(
-		"../assets/images/sprites/little_girl/little_girl_running_left.png",
-		1, 9, 0.9, "LEFT"
-	);
-	add_animation("running_left_animation", running_left_animation);
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 9;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */
 
 	/* Initiates animation of the Little Girl's standing looking right */
+	default_sprite_column = 10;
+	default_animation_duration = 1.5;
 	DEBUG("idle_right_animation");
 	engine::Animation *idle_right_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_idle_right.png",
-		1, 10, 1.5, "RIGHT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
 	);
 	add_animation("idle_right_animation", idle_right_animation);
 
@@ -178,77 +169,11 @@ void LittleGirl::initialize_animations() {
 	DEBUG("idle_left_animation");
 	engine::Animation *idle_left_animation = create_animation(
 		"../assets/images/sprites/little_girl/little_girl_idle_left.png",
-		1, 10, 1.5, "LEFT"
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
 	);
 	add_animation("idle_left_animation", idle_left_animation);
 
-	/* Initiates animation of the Little Girl's jumping to right */
-	DEBUG("jumping_right_animation");
-	engine::Animation *jumping_right_animation = create_animation(
-		"../assets/images/sprites/little_girl/little_girl_jumping_right.png",
-		1, 5, 1.5, "RIGHT"
-	);
-	add_animation("jumping_right_animation", jumping_right_animation);
-
-	/* Initiates animation of the Little Girl's jumping to left */
-	DEBUG("jumping_left_animation");
-	engine::Animation *jumping_left_animation = create_animation(
-		"../assets/images/sprites/little_girl/little_girl_jumping_left.png",
-		1, 5, 1.5, "LEFT"
-	);
-	add_animation("jumping_left_animation", jumping_left_animation);
-
-	/* Initiates animation of the Little Girl's attacking on right direction */
-	DEBUG("attacking_right_animation");
-	engine::Animation *attacking_right_animation = create_animation(
-		"../assets/images/sprites/little_girl/little_girl_attacking_right.png",
-		1, 5, 0.4, "RIGHT"
-	);
-	add_animation("attacking_right_animation", attacking_right_animation);
-
-	/* Initiates animation of the Little Girl's attacking on left direction */
-	DEBUG("attacking_left_animation");
-	engine::Animation *attacking_left_animation = create_animation(
-		"../assets/images/sprites/little_girl/little_girl_attacking_left.png",
-		1, 5, 0.4, "LEFT"
-	);
-	add_animation("attacking_left_animation", attacking_left_animation);
-
-	/* Initiates animation of the Little Girl when She's been attacking in right */
-	DEBUG("on_attack_right_animation");
-	engine::Animation *on_attack_right_animation = create_animation(
-		"../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
-		1, 3, 0.8, "RIGHT"
-	);
-	add_animation("on_attack_right_animation", on_attack_right_animation);
-
-	/* Initiates animation of the Little Girl when She's been attacking in left */
-	DEBUG("on_attack_left_animation");
-	engine::Animation *on_attack_left_animation = create_animation(
-		"../assets/images/sprites/little_girl/little_girl_on_attack_left.png",
-		1, 3, 0.8, "LEFT"
-	);
-	add_animation("on_attack_left_animation", on_attack_left_animation);
-
-	/* Initiates animation of the Little Girl when She's dying looking to left*/
-	DEBUG("dying_left_animation");
-	engine::Animation *dying_left_animation = create_animation(
-		"../assets/images/sprites/little_girl/little_girl_dying_left.png",
-		1, 5, 0.8, "LEFT"
-	);
-	add_animation("dying_left_animation", dying_left_animation);
-	dying_left_animation->in_loop = false;
-	dying_left_animation->is_a_final_animation = true;
-
-	/* Initiates animation of the Little Girl when She's dying looking to right */
-	DEBUG("dying_right_animation");
-	engine::Animation *dying_right_animation = create_animation(
-			"../assets/images/sprites/little_girl/little_girl_dying_right.png",
-			1, 5, 1.0, "RIGHT"
-	);
-	dying_right_animation->in_loop = false;
-	dying_right_animation->is_a_final_animation = true;
-	add_animation("dying_right_animation", dying_right_animation);
 
 	/* Initiates Little Girl animation when She's standing */
 	idle_right_animation->activate();
@@ -256,6 +181,167 @@ void LittleGirl::initialize_animations() {
 
 	DEBUG("Ended");
 }
+
+/**
+ * @brief Initialize running animations
+ *
+ * @return void
+ */
+void LittleGirl::initialize_running_animations() {
+	DEBUG("Started");
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 9;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */
+
+	/* Initiates animation of the Little Girl's running to right */
+	DEBUG("running_right_animation");
+	engine::Animation *running_right_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_running_right.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
+	);
+	add_animation("running_right_animation", running_right_animation);
+
+	/* Initiates animation of the Little Girl's running to left */
+	DEBUG("running_left_animation");
+	engine::Animation *running_left_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_running_left.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
+	);
+	add_animation("running_left_animation", running_left_animation);
+}
+
+/**
+ * @brief Initialize jumping animations
+ *
+ * @return void
+ */
+void LittleGirl::initialize_jumping_animations() {
+	DEBUG("Started");
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 5;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */
+
+	/* Initiates animation of the Little Girl's jumping to right */
+	DEBUG("jumping_right_animation");
+	engine::Animation *jumping_right_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_jumping_right.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
+	);
+	add_animation("jumping_right_animation", jumping_right_animation);
+
+	/* Initiates animation of the Little Girl's jumping to left */
+	DEBUG("jumping_left_animation");
+	engine::Animation *jumping_left_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_jumping_left.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
+	);
+	add_animation("jumping_left_animation", jumping_left_animation);
+}
+
+/**
+ * @brief Initialize attacking animations
+ *
+ * @return void
+ */
+void LittleGirl::initialize_attacking_animations() {
+	DEBUG("Started");
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 9;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.4;  /**< Double. Default animation 
+    duration in seconds */
+
+	/* Initiates animation of the Little Girl's attacking on right direction */
+	DEBUG("attacking_right_animation");
+	engine::Animation *attacking_right_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_attacking_right.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
+	);
+	add_animation("attacking_right_animation", attacking_right_animation);
+
+	/* Initiates animation of the Little Girl's attacking on left direction */
+	DEBUG("attacking_left_animation");
+	engine::Animation *attacking_left_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_attacking_left.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
+	);
+	add_animation("attacking_left_animation", attacking_left_animation);
+}
+
+/**
+ * @brief Initialize on attack animations
+ *
+ * @return void
+ */
+void LittleGirl::initialize_on_attack_animations() {
+	DEBUG("Started");
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 3;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.8;  /**< Double. Default animation 
+    duration in seconds */
+
+	/* Initiates animation of the Little Girl when She's been attacking in right */
+	DEBUG("on_attack_right_animation");
+	engine::Animation *on_attack_right_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_on_attack_right.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
+	);
+	add_animation("on_attack_right_animation", on_attack_right_animation);
+
+	/* Initiates animation of the Little Girl when She's been attacking in left */
+	DEBUG("on_attack_left_animation");
+	engine::Animation *on_attack_left_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_on_attack_left.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
+	);
+	add_animation("on_attack_left_animation", on_attack_left_animation);
+}
+
+/**
+ * @brief Initialize dying animations
+ *
+ * @return void
+ */
+void LittleGirl::initialize_dying_animations() {
+	DEBUG("Started");
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    int default_sprite_column = 5;  /**< Integer. Default sprite column */
+    double default_animation_duration = 0.9;  /**< Double. Default animation 
+    duration in seconds */
+
+	/* Initiates animation of the Little Girl when She's dying looking to left*/
+	DEBUG("dying_left_animation");
+	engine::Animation *dying_left_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_dying_left.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"LEFT"
+	);
+	add_animation("dying_left_animation", dying_left_animation);
+	dying_left_animation->in_loop = false;
+	dying_left_animation->is_a_final_animation = true;
+
+	/* Initiates animation of the Little Girl when She's dying looking to right */
+	default_animation_duration = 1.0;
+	DEBUG("dying_right_animation");
+	engine::Animation *dying_right_animation = create_animation(
+		"../assets/images/sprites/little_girl/little_girl_dying_right.png",
+		default_sprite_line, default_sprite_column, default_animation_duration,
+		"RIGHT"
+	);
+	dying_right_animation->in_loop = false;
+	dying_right_animation->is_a_final_animation = true;
+	add_animation("dying_right_animation", dying_right_animation);
+}
+
 
 /**
  * @brief Creates an animation
@@ -281,252 +367,40 @@ engine::Animation *LittleGirl::create_animation(
 
 	engine::Game &game = engine::Game::get_instance(); /* Gets game instance */
 	
+	/* Constants for default animation creation */
+    const bool default_is_active = false;
+    const std::pair<int, int> default_displacement = std::make_pair(0, 0);
+    const int default_priority = 1;
+    const bool default_in_loop = true;
 	/* Creates an animation Object of the Little Girl */
 	engine::Animation *animation = new engine::Animation(
 			game.get_renderer(),
 			path,               
-			false,             
-			std::make_pair(0, 0),
-			1,                
+			default_is_active,             
+			default_displacement,
+			default_priority,                
 			sprite_lines,         
 			sprite_columns,       
 			duration,         
-			true,            
+			default_in_loop,            
 			direction          
 	);
 	
-	/* Set dimentions on screen and, coordinates and dimention on texture */
+	/* Defaults dimensions and coordinates of little girl in pixels */
+	const std::pair<int, int> default_dimensions_little_girl = 
+        std::make_pair(192, 192);
+    const std::pair<int, int> coordinates_on_texture_little_girl = 
+        std::make_pair(0, 0);
+	/* Set dimensions on screen and, coordinates and dimension on texture */
 	animation->set_values(
-			std::make_pair(192, 192),
-			std::make_pair(192, 192),
-			std::make_pair(0, 0)
+			default_dimensions_little_girl,
+			default_dimensions_little_girl,
+			coordinates_on_texture_little_girl
 	);
 	
 	DEBUG("Ended");
 
 	return animation;
-}
-
-/**
- * @brief Initialize the object as physicable
- *
- * This makes the object vulnerable to collisions and forces like gravity
- *
- * @return void
- */
-void LittleGirl::initialize_as_physicable() {
-	DEBUG("Started");
-
-	/* Gets Physics object and makes Little Girl collidable */
-	engine::Physics *physics = engine::Physics::get_instance();
-	physics->add_physicable(this);
-	collidable = true;
-
-	DEBUG("Ended");
-}
-
-/**
- * @brief On collision event
- *
- * Method called everytime a collision happens
- *
- * @param other The other object which collided
- * @param p_my_hitbox This object hitbox which received the collision
- * @param p_other_hitbox The other object hitbox which provided the collision
- */
-void LittleGirl::on_collision(
-		engine::GameObject *other,
-		engine::Hitbox *p_my_hitbox,
-		engine::Hitbox *p_other_hitbox) {
-	
-	DEBUG("Started");
-
-	/* Gets instances of the Enemies */
-	Platform *platform = dynamic_cast<Platform *>(other);
-	Scorpion *scorpion = dynamic_cast<Scorpion *>(other);
-	Spider *spider = dynamic_cast<Spider *>(other);
-	Goop *goop = dynamic_cast<Goop *>(other);
-	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-	engine::Hitbox *other_hitbox = 
-			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
-	
-	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "footer") { 
-	/* If she is falling on a platform */
-
-		set_speed_y(0.0);
-		set_position_y(other_hitbox->get_coordinates().second - 180);
-	}
-
-	else {
-        /* Do nothing */
-    }
-	
-	if (scorpion &&
-		scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
-		other_hitbox->get_name() == "scorpion_attack" &&
-		scorpion->get_actual_animation()->actual_column == 1) {
-	/* If the scorpion is attacking the Little Girl */
-
-		/* Makes the Little Girl be hit and plays the sound effect */
-		play_song("hit_me");
-		on_attack(other);
-		hit(other, 1);
-	}
-
-	else {
-    	/* Do nothing */
-    }
-	
-	if (spider &&
-		spider->get_state("ACTION_STATE") == "ATTACKING" &&
-		other_hitbox->get_name() == "spider_attack" &&
-		spider->get_actual_animation()->actual_column == 3) {
-	/* If the spider is attacking the Little Girl */
-
-		/* Makes the Little Girl be hit and plays the sound effect */
-		play_song("hit_me");
-		on_attack(other);
-		hit(other, 1);
-	}
-	
-	else {
-        /* Do nothing */
-    }
-
-	if (goop) {
-	/* If the goop is coming to the Little Girl's direction */
-
-		if (get_state("ACTION_STATE") == "ATTACKING" && 
-			goop->get_state("ACTION_STATE") != "REFUTED") {
-		/* If the goop has been refuted by the Girl */
-
-			/* Makes the goop be refuted */
-			goop->set_speed_x(goop->get_speed_x() * (-1));
-			goop->set_speed_y(-10);
-			goop->set_actual_animation(
-				goop->animations["refuted_goop_animation"]
-			);
-			goop->states.set_state("ACTION_STATE", "REFUTED");
-		} 
-
-		else if (get_state("ACTION_STATE") != "ATTACKING") {
-		/* If the goop hits the Girl */
-			
-			/* Makes the Little Girl be hit and plays the sound effect */
-			play_song("hit_me");
-			on_attack(other);
-			hit(other, 1);
-		}
-
-		else {
-        	/* Do nothing */
-    	}
-	}
-
-	else {
-        /* Do nothing */
-    }
-
-	DEBUG("Ended");
-}
-
-/**
- * @brief Method for dying
- *
- * This method is called when the little girl must die
- *
- * @param game_object
- */
-void LittleGirl::die(engine::GameObject *game_object) {
-	DEBUG("Started");
-
-	std::string actual_x_state = get_state("X_STATE");
-	
-	if (actual_x_state == "LOOKING_LEFT") {
-	/* If the Little Girl is dying looking left */
-
-		/* Sets the animation of the Little Girl dying looking left */
-		states.set_state("ACTION_STATE", "DYING");
-		set_actual_animation(animations["dying_left_animation"]);
-	} 
-
-	else if (actual_x_state == "LOOKING_RIGHT") {
-	/* If the Little Girl is dying looking right */
-
-		/* Sets the animation of the Little Girl dying looking right */
-		states.set_state("ACTION_STATE", "DYING");
-		set_actual_animation(animations["dying_right_animation"]);
-	}
-
-	else {
-        /* Do nothing */
-    }
-	
-	/* Creates "level" of Game over */
-	LevelFactory *level_factory = new LevelFactory();
-	engine::Game *game = &(engine::Game::get_instance());
-	level_factory->update_level(
-			dynamic_cast<engine::Level *>(game->get_actual_scene()),
-			"../data/game_over.dat"
-	);
-	
-	/* Pauses the game */
-	game->set_state(engine::Game::PAUSED);
-
-	DEBUG("Ended");
-}
-
-/**
- * @brief Registers an event
- *
- * This method receives an event and registers it
- *
- * @param game_event The event to be registered
- *
- * @return void
- */
-void LittleGirl::on_event(GameEvent game_event) {
-
-	std::string event_name = game_event.game_event_name; /* Gets name of the 
-	game event */
-	std::string actual_x_state = states.get_state("X_STATE"); /* Gets x 
-	coordinates of the game event */
-	std::string actual_y_state = states.get_state("Y_STATE"); /* Gets y 
-	coordinates of the game event */	
-	std::string actual_action_state = states.get_state("ACTION_STATE"); /* Gets  
-	action state of the game event */
-	
-	if (event_name == "JUMP" && actual_y_state == "ON_GROUND") {
-	/* If the event is JUMP and the girl is on ground */
-
-		/* Makes the Girl jump */
-		jump(actual_x_state);
-	} 
-
-	else if (event_name == "MOVE_LEFT") {
-	/* If the event is MOVE LEFT */
-
-		/* Makes the Girl move to the left */
-		move_left(actual_x_state, actual_y_state);
-	}
-
-	else if (event_name == "MOVE_RIGHT") {
-	/* If the event is MOVE RIGHT */
-
-		/* Makes the Girl move to the right */
-		move_right(actual_x_state, actual_y_state);
-	}
-
-	else if (event_name == "ATTACK" && actual_action_state != "ATTACKING") {
-	/* If the event is ATTACK and the action state is diffrent from ATTACKING */
-
-		/* Makes the Girl attack */
-		attack();
-	}
-
-	else {
-        /* Do nothing */
-    }
 }
 
 /**
@@ -777,6 +651,306 @@ void LittleGirl::on_attack(GameObject *game_object) {
 }
 
 /**
+ * @brief On collision event
+ *
+ * Method called everytime a collision happens
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	on_collision_plataform(other, p_my_hitbox, p_other_hitbox);
+	on_collision_scorpion(other, p_my_hitbox, p_other_hitbox);
+	on_collision_spider(other, p_my_hitbox, p_other_hitbox);
+	on_collision_goop(other, p_my_hitbox, p_other_hitbox);
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision happens and she's falling
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_plataform(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Plaform */
+	Platform *platform = dynamic_cast<Platform *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = 
+			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+	
+	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "footer") { 
+	/* If she is falling on a platform */
+
+		set_speed_y(0.0);
+		set_position_y(other_hitbox->get_coordinates().second - 180);
+	}
+
+	else {
+        /* Do nothing */
+    }
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision with a scorpion happens
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_scorpion(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Spider */
+	Scorpion *scorpion = dynamic_cast<Scorpion *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = 
+			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+	
+	if (scorpion &&
+		scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
+		other_hitbox->get_name() == "scorpion_attack" &&
+		scorpion->get_actual_animation()->actual_column == 1) {
+	/* If the scorpion is attacking the Little Girl */
+
+		/* Makes the Little Girl be hit and plays the sound effect */
+		play_song("hit_me");
+		on_attack(other);
+		hit(other, 1);
+	}
+
+	else {
+    	/* Do nothing */
+    }
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision with a spider happens
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_spider(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Spider */
+	Spider *spider = dynamic_cast<Spider *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = 
+			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+	
+	if (spider &&
+		spider->get_state("ACTION_STATE") == "ATTACKING" &&
+		other_hitbox->get_name() == "spider_attack" &&
+		spider->get_actual_animation()->actual_column == 3) {
+	/* If the spider is attacking the Little Girl */
+
+		/* Makes the Little Girl be hit and plays the sound effect */
+		play_song("hit_me");
+		on_attack(other);
+		hit(other, 1);
+	}
+	
+	else {
+        /* Do nothing */
+    }
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief On collision event
+ *
+ * Method called everytime a collision with a goop happens
+ *
+ * @param other The other object which collided
+ * @param p_my_hitbox This object hitbox which received the collision
+ * @param p_other_hitbox The other object hitbox which provided the collision
+ */
+void LittleGirl::on_collision_goop(
+		engine::GameObject *other,
+		engine::Hitbox *p_my_hitbox,
+		engine::Hitbox *p_other_hitbox) {
+	
+	DEBUG("Started");
+
+	/* Gets instances of the Goop */
+	Goop *goop = dynamic_cast<Goop *>(other);
+	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
+	engine::Hitbox *other_hitbox = 
+			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
+	
+	if (goop) {
+	/* If the goop is coming to the Little Girl's direction */
+
+		if (get_state("ACTION_STATE") == "ATTACKING" && 
+			goop->get_state("ACTION_STATE") != "REFUTED") {
+		/* If the goop has been refuted by the Girl */
+
+			/* Makes the goop be refuted */
+			goop->set_speed_x(goop->get_speed_x() * (-1));
+			goop->set_speed_y(-10);
+			goop->set_actual_animation(
+				goop->animations["refuted_goop_animation"]
+			);
+			goop->states.set_state("ACTION_STATE", "REFUTED");
+		} 
+
+		else if (get_state("ACTION_STATE") != "ATTACKING") {
+		/* If the goop hits the Girl */
+			
+			/* Makes the Little Girl be hit and plays the sound effect */
+			play_song("hit_me");
+			on_attack(other);
+			hit(other, 1);
+		}
+
+		else {
+        	/* Do nothing */
+    	}
+	}
+
+	else {
+        /* Do nothing */
+    }
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief Method for dying
+ *
+ * This method is called when the little girl must die
+ *
+ * @param game_object
+ */
+void LittleGirl::die(engine::GameObject *game_object) {
+	DEBUG("Started");
+
+	std::string actual_x_state = get_state("X_STATE");
+	
+	if (actual_x_state == "LOOKING_LEFT") {
+	/* If the Little Girl is dying looking left */
+
+		/* Sets the animation of the Little Girl dying looking left */
+		states.set_state("ACTION_STATE", "DYING");
+		set_actual_animation(animations["dying_left_animation"]);
+	} 
+
+	else if (actual_x_state == "LOOKING_RIGHT") {
+	/* If the Little Girl is dying looking right */
+
+		/* Sets the animation of the Little Girl dying looking right */
+		states.set_state("ACTION_STATE", "DYING");
+		set_actual_animation(animations["dying_right_animation"]);
+	}
+
+	else {
+        /* Do nothing */
+    }
+	
+	/* Creates "level" of Game over */
+	LevelFactory *level_factory = new LevelFactory();
+	engine::Game *game = &(engine::Game::get_instance());
+	level_factory->update_level(
+			dynamic_cast<engine::Level *>(game->get_actual_scene()),
+			"../data/game_over.dat"
+	);
+	
+	/* Pauses the game */
+	game->set_state(engine::Game::PAUSED);
+
+	DEBUG("Ended");
+}
+
+/**
+ * @brief Registers an event
+ *
+ * This method receives an event and registers it
+ *
+ * @param game_event The event to be registered
+ *
+ * @return void
+ */
+void LittleGirl::on_event(GameEvent game_event) {
+
+	std::string event_name = game_event.game_event_name; /* Gets name of the 
+	game event */
+	std::string actual_x_state = states.get_state("X_STATE"); /* Gets x 
+	coordinates of the game event */
+	std::string actual_y_state = states.get_state("Y_STATE"); /* Gets y 
+	coordinates of the game event */	
+	std::string actual_action_state = states.get_state("ACTION_STATE"); /* Gets  
+	action state of the game event */
+	
+	if (event_name == "JUMP" && actual_y_state == "ON_GROUND") {
+	/* If the event is JUMP and the girl is on ground */
+
+		/* Makes the Girl jump */
+		jump(actual_x_state);
+	} 
+
+	else if (event_name == "MOVE_LEFT") {
+	/* If the event is MOVE LEFT */
+
+		/* Makes the Girl move to the left */
+		move_left(actual_x_state, actual_y_state);
+	}
+
+	else if (event_name == "MOVE_RIGHT") {
+	/* If the event is MOVE RIGHT */
+
+		/* Makes the Girl move to the right */
+		move_right(actual_x_state, actual_y_state);
+	}
+
+	else if (event_name == "ATTACK" && actual_action_state != "ATTACKING") {
+	/* If the event is ATTACK and the action state is diffrent from ATTACKING */
+
+		/* Makes the Girl attack */
+		attack();
+	}
+
+	else {
+        /* Do nothing */
+    }
+}
+
+/**
  * @brief Updates the state
  *
  * Updates the state on the states map
@@ -876,4 +1050,39 @@ void LittleGirl::update_state() {
 	set_position_x(get_position_x() - get_speed_x());
 	set_speed_x(0.0);
 
+}
+/**
+ * @brief Initialize all audio effects
+ *
+ * @return void
+ */
+void LittleGirl::initialize_audio_effects() {
+	DEBUG("Started");
+
+	/* Initiates sound effect while the Little Girl is walking */
+	engine::Audio *little_girl_steps = new engine::Audio(
+			"steps",
+			"../assets/audios/effects_songs/menina_passos_rapido.wav",
+			engine::Audio::CHUNK);
+	little_girl_steps->set_duration(1);
+	little_girl_steps->set_effect_volume(45);
+	add_component(little_girl_steps);
+
+	/* Initiates sound effect while the Little Girl is been hit */
+	engine::Audio *little_girl_getting_hit = new engine::Audio(
+			"hit_me",
+			"../assets/audios/effects_songs/menina_apanhando.wav",
+			engine::Audio::CHUNK);
+	little_girl_getting_hit->set_duration(0.5);
+	add_component(little_girl_getting_hit);
+
+	/* Initiates sound effect while the Little Girl is using the sword */
+	engine::Audio *sword_song = new engine::Audio(
+			"sword_attack",
+			"../assets/audios/effects_songs/espada_fase_1.wav",
+			engine::Audio::CHUNK);
+	sword_song->set_duration(0.4);
+	add_component(sword_song);
+
+	DEBUG("Ended");
 }

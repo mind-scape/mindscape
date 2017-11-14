@@ -97,69 +97,22 @@ void Fox::initialize_state_map() {
 }
 
 /**
- * @brief Notifies Fox of Little Girl's state.  
+ * @brief Initiates Fox's physics.  
  * 
- * Verifies Little Girl's situation, as life and position, and do actions like
- *  heal the Little Girl, jump, move or rest.
+ * Applies physics forces in character as gravity, and makes it collidable.
  *
- * @param game_object Object for observe game's situation.
  * @return void.
  */
-void Fox::notify(engine::Observable *game_object) {
+void Fox::initialize_as_physicable() {
+    DEBUG("Started");
 
-    LittleGirl* little_girl = nullptr;
-    little_girl = dynamic_cast<LittleGirl *>(game_object);
-    
-    if(little_girl) {
-    /* If the Little Girl exists */ 
+    /* Gets Physics object and makes Fox collidable */
+    engine::Physics *physics = nullptr;
+    physics = engine::Physics::get_instance();
+    physics->add_physicable(this);
+    collidable = true;
 
-        INFO("Fox notify: Little Girl is NOT NULL");
-
-        if(!little_girl->is_life_full() && get_star_count() == 3) {
-            /* If the Little Girl's life is full and Fox has 3 stars */ 
-
-            little_girl->heal(30);
-            must_give_hp_to_girl = false;
-            animation_hud_fading = true;
-        }
-
-        else {
-            /* Do nothing */
-        }
-
-
-        if(little_girl->get_position_y() + 70 == get_position_y()) {
-            /* If the Little Girl's position is the same of the Fox */ 
-
-            move(little_girl);
-        }
-
-        else if(little_girl && 
-            little_girl->get_position_y() + 70 != get_position_y() &&
-            little_girl->get_state("Y_STATE") == "ON_GROUND" && 
-            get_state("Y_STATE") == "ON_GROUND") {
-            /* If the Little Girl's position is different of the Fox and both 
-            are on the ground */ 
-            
-            jump(little_girl);
-        }
-
-        else if(little_girl->get_state("Y_STATE") != "ON_GROUND" && 
-            get_state("Y_STATE") == "ON_GROUND") {
-            /* If the Little Girl's position is different
-            from "Ground" and the Fox is on the ground */
-            set_speed_x(0.0);
-        }
-
-        else {
-            /* Do nothing */
-        }
-    }
-
-    else {
-        /* Do nothing */
-       WARN("Fox notify(): Little Girl is NULL");
-    }
+    DEBUG("Ended");
 }
 
 /**
@@ -285,25 +238,6 @@ engine::Animation* Fox::create_animation(
     DEBUG("Ended");
 
     return animation;
-}
-
-/**
- * @brief Initiates Fox's physics.  
- * 
- * Applies physics forces in character as gravity, and makes it collidable.
- *
- * @return void.
- */
-void Fox::initialize_as_physicable() {
-    DEBUG("Started");
-
-    /* Gets Physics object and makes Fox collidable */
-    engine::Physics *physics = nullptr;
-    physics = engine::Physics::get_instance();
-    physics->add_physicable(this);
-    collidable = true;
-
-    DEBUG("Ended");
 }
 
 /**
@@ -750,6 +684,73 @@ void Fox::on_collision(engine::GameObject* other,
         /* Do nothing */
     }
 
+}
+
+
+/**
+ * @brief Notifies Fox of Little Girl's state.  
+ * 
+ * Verifies Little Girl's situation, as life and position, and do actions like
+ *  heal the Little Girl, jump, move or rest.
+ *
+ * @param game_object Object for observe game's situation.
+ * @return void.
+ */
+void Fox::notify(engine::Observable *game_object) {
+
+    LittleGirl* little_girl = nullptr;
+    little_girl = dynamic_cast<LittleGirl *>(game_object);
+    
+    if(little_girl) {
+    /* If the Little Girl exists */ 
+
+        INFO("Fox notify: Little Girl is NOT NULL");
+
+        if(!little_girl->is_life_full() && get_star_count() == 3) {
+            /* If the Little Girl's life is full and Fox has 3 stars */ 
+
+            little_girl->heal(30);
+            must_give_hp_to_girl = false;
+            animation_hud_fading = true;
+        }
+
+        else {
+            /* Do nothing */
+        }
+
+
+        if(little_girl->get_position_y() + 70 == get_position_y()) {
+            /* If the Little Girl's position is the same of the Fox */ 
+
+            move(little_girl);
+        }
+
+        else if(little_girl && 
+            little_girl->get_position_y() + 70 != get_position_y() &&
+            little_girl->get_state("Y_STATE") == "ON_GROUND" && 
+            get_state("Y_STATE") == "ON_GROUND") {
+            /* If the Little Girl's position is different of the Fox and both 
+            are on the ground */ 
+            
+            jump(little_girl);
+        }
+
+        else if(little_girl->get_state("Y_STATE") != "ON_GROUND" && 
+            get_state("Y_STATE") == "ON_GROUND") {
+            /* If the Little Girl's position is different
+            from "Ground" and the Fox is on the ground */
+            set_speed_x(0.0);
+        }
+
+        else {
+            /* Do nothing */
+        }
+    }
+
+    else {
+        /* Do nothing */
+       WARN("Fox notify(): Little Girl is NULL");
+    }
 }
 
 /**

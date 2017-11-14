@@ -30,19 +30,22 @@ namespace mindscape {
     */
     class Background : public engine::GameObject {
         private:
+            /* Animation effect */
             int paralax = 0; /**< Integer. Defines the paralax value to create
                                  visual effect*/
 
         public:
+
+            /* Constructor and destructor */
             Background(
                 std::string name, /**< String. Name of the background file*/
-                std::pair<int, int> position, /**< Pair<int, int>. Position of 
+                std::pair<int, int> position, /**< Pair<int, int>. Position of
                                                 the background*/
                 int priority /**< Priority of the background .*/
             )
             :engine::GameObject(
-                name, 
-                position, 
+                name,
+                position,
                 priority,
                 {
                 {engine::KeyboardEvent::LEFT,"MOVE_LEFT"},
@@ -50,13 +53,13 @@ namespace mindscape {
                 }
             ){
             };
-
             ~Background(){};
-            
+
+            /* Loop methods */
             void on_event(GameEvent game_event);
-            
+
+            /* Animation effect */
             void set_paralax(int);
-            
             int get_paralax();
     };
 }

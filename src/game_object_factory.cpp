@@ -87,48 +87,6 @@ engine::GameObject* GameObjectFactory::fabricate(
 }
 
 /**
-* @brief Fabricates the fox's hud.
-*
-* The method fabricates the fox's information
-*
-* @param std::string containing the identification of the object
-* @param std:pair containing the coordinates of the new object
-* @param int containing the priority of the new object
-* @return engine::GameObject* containing the reference of the new object.
-*/
-engine::GameObject* GameObjectFactory::fabricate_hud_fox(std::string name,
-   std::pair<int, int> position, int priority) {
-    DEBUG("Started: GameObject fabricate_hud_fox()");
-    /* Inializes a GameObject object and creates a HudFox object */
-    engine::GameObject* hud_fox = nullptr;
-    hud_fox = new HudFox(name, position, priority);
-    
-    DEBUG("Ended: GameObject fabricate_hud_fox()");
-    return hud_fox;
-}
-
-/**
-* @brief Fabricates the girl's hud.
-*
-* The method fabricates the girl's information
-*
-* @param std::string containing the identification of the object
-* @param std:pair containing the coordinates of the new object
-* @param int containing the priority of the new object
-* @return engine::GameObject* containing the reference of the new object.
-*/
-engine::GameObject* GameObjectFactory::fabricate_hud_girl(std::string name,
-   std::pair<int, int> position, int priority) {
-    DEBUG("Started: GameObject fabricate_hud_girl()");
-    /* Inializes a GameObject object and creates a HudGirl object */    
-    engine::GameObject* hud_girl = nullptr;
-    hud_girl = new HudGirl(name, position, priority);
-
-    DEBUG("Ended: GameObject fabricate_hud_girl()");
-    return hud_girl;
-}
-
-/**
 * @brief Fabricates the button.
 *
 * The method fabricates the button
@@ -147,48 +105,6 @@ engine::GameObject* GameObjectFactory::fabricate_button(std::string name,
 
     DEBUG("Ended: GameObject fabricate_button()");
     return button;
-}
-
-/**
-* @brief Fabricates the selection arrow.
-*
-* The method fabricates the selection arrow
-*
-* @param std::string containing the identification of the object
-* @param std:pair containing the coordinates of the new object
-* @param int containing the priority of the new object
-* @return engine::GameObject* containing the reference of the new object.
-*/
-engine::GameObject* GameObjectFactory::fabricate_select_arrow(std::string name,
-   std::pair<int, int> position, int priority) {
-    DEBUG("Started: GameObject fabricate_select_arrow()");
-    /* Inializes a GameObject object and creates a SelectArrow object */
-    engine::GameObject* select_arrow = nullptr;
-    select_arrow = new SelectArrow(name, position, priority);
-
-    DEBUG("Ended: GameObject fabricate_select_arrow()");
-    return select_arrow;
-}
-
-/**
-* @brief Fabricates the fox.
-*
-* The method fabricates the fox character
-*
-* @param std::string containing the identification of the object
-* @param std:pair containing the coordinates of the new object
-* @param int containing the priority of the new object
-* @return engine::GameObject* containing the reference of the new object.
-*/
-engine::GameObject* GameObjectFactory::fabricate_fox(std::string name,
-   std::pair<int, int> position, int priority) {
-    DEBUG("Started: GameObject fabricate_fox()");
-    /* Inializes a GameObject object and creates a Fox object */
-    engine::GameObject* fox = nullptr;
-    fox = new Fox(name, position, priority);
-
-    DEBUG("Ended: GameObject fabricate_fox()");
-    return fox;
 }
 
 /**
@@ -245,6 +161,153 @@ engine::GameObject* GameObjectFactory::fabricate_platform(std::string name,
 }
 
 /**
+* @brief Fabricates the fox's hud.
+*
+* The method fabricates the fox's information
+*
+* @param std::string containing the identification of the object
+* @param std:pair containing the coordinates of the new object
+* @param int containing the priority of the new object
+* @return engine::GameObject* containing the reference of the new object.
+*/
+engine::GameObject* GameObjectFactory::fabricate_hud_fox(std::string name,
+   std::pair<int, int> position, int priority) {
+    DEBUG("Started: GameObject fabricate_hud_fox()");
+    /* Inializes a GameObject object and creates a HudFox object */
+    engine::GameObject* hud_fox = nullptr;
+    hud_fox = new HudFox(name, position, priority);
+    
+    DEBUG("Ended: GameObject fabricate_hud_fox()");
+    return hud_fox;
+}
+
+/**
+* @brief Fabricates the girl's hud.
+*
+* The method fabricates the girl's information
+*
+* @param std::string containing the identification of the object
+* @param std:pair containing the coordinates of the new object
+* @param int containing the priority of the new object
+* @return engine::GameObject* containing the reference of the new object.
+*/
+engine::GameObject* GameObjectFactory::fabricate_hud_girl(std::string name,
+   std::pair<int, int> position, int priority) {
+    DEBUG("Started: GameObject fabricate_hud_girl()");
+    /* Inializes a GameObject object and creates a HudGirl object */    
+    engine::GameObject* hud_girl = nullptr;
+    hud_girl = new HudGirl(name, position, priority);
+
+    DEBUG("Ended: GameObject fabricate_hud_girl()");
+    return hud_girl;
+}
+
+/**
+* @brief Fabricates the selection arrow.
+*
+* The method fabricates the selection arrow
+*
+* @param std::string containing the identification of the object
+* @param std:pair containing the coordinates of the new object
+* @param int containing the priority of the new object
+* @return engine::GameObject* containing the reference of the new object.
+*/
+engine::GameObject* GameObjectFactory::fabricate_select_arrow(std::string name,
+   std::pair<int, int> position, int priority) {
+    DEBUG("Started: GameObject fabricate_select_arrow()");
+    /* Inializes a GameObject object and creates a SelectArrow object */
+    engine::GameObject* select_arrow = nullptr;
+    select_arrow = new SelectArrow(name, position, priority);
+
+    DEBUG("Ended: GameObject fabricate_select_arrow()");
+    return select_arrow;
+}
+
+/**
+* @brief Fabricates the girl.
+*
+* The method fabricates the girl character
+*
+* @param std::string containing the identification of the object
+* @param std:pair containing the coordinates of the new object
+* @param int containing the priority of the new object
+* @return engine::GameObject* containing the reference of the new object.
+*/
+engine::GameObject* GameObjectFactory::fabricate_little_girl(std::string name,
+   std::pair<int, int> position, int priority) {
+    DEBUG("Started: GameObject fabricate_little_girl()");
+    /* Inializes a GameObject object and creates a Little Girl object */
+    engine::GameObject *little_girl = nullptr;
+    little_girl = new LittleGirl(name , position, priority);
+
+    DEBUG("Ended: GameObject fabricate_little_girl()");
+    return little_girl;
+}
+
+/**
+* @brief Fabricates the fox.
+*
+* The method fabricates the fox character
+*
+* @param std::string containing the identification of the object
+* @param std:pair containing the coordinates of the new object
+* @param int containing the priority of the new object
+* @return engine::GameObject* containing the reference of the new object.
+*/
+engine::GameObject* GameObjectFactory::fabricate_fox(std::string name,
+   std::pair<int, int> position, int priority) {
+    DEBUG("Started: GameObject fabricate_fox()");
+    /* Inializes a GameObject object and creates a Fox object */
+    engine::GameObject* fox = nullptr;
+    fox = new Fox(name, position, priority);
+
+    DEBUG("Ended: GameObject fabricate_fox()");
+    return fox;
+}
+
+/**
+* @brief Fabricates the star.
+*
+* The method fabricates the star
+*
+* @param std::string containing the identification of the object
+* @param std:pair containing the coordinates of the new object
+* @param int containing the priority of the new object
+* @return engine::GameObject* containing the reference of the new object.
+*/
+engine::GameObject* GameObjectFactory::fabricate_star(std::string name,
+  std::pair<int, int> position, int priority) {
+    DEBUG("Started: GameObject fabricate_star()");
+    /* Inializes a GameObject object and creates a Scorpion object */
+    engine::GameObject* scorpion = nullptr;
+    scorpion = new Star(name, position, priority);
+
+    DEBUG("Ended: GameObject fabricate_star()");
+    return scorpion;
+}
+
+/**
+* @brief Fabricates the dark girl.
+*
+* The method fabricates the dark girl character
+*
+* @param std::string containing the identification of the object
+* @param std:pair containing the coordinates of the new object
+* @param int containing the priority of the new object
+* @return engine::GameObject* containing the reference of the new object.
+*/
+engine::GameObject* GameObjectFactory::fabricate_dark_girl(std::string name,
+  std::pair<int, int> position, int priority) {
+    DEBUG("Started");
+    /* Inializes a GameObject object and creates a Dark Girl object */
+    engine::GameObject* dark_girl = nullptr;
+    dark_girl = new DarkGirl(name , position, priority);
+
+    DEBUG("Ended");
+    return dark_girl;
+}
+
+/**
 * @brief Fabricates the spider.
 *
 * The method fabricates the spider character
@@ -287,45 +350,66 @@ engine::GameObject* GameObjectFactory::fabricate_scorpion(std::string name,
 }
 
 /**
-* @brief Fabricates the star.
+* @brief Fabricates the clown.
 *
-* The method fabricates the star
+* The method fabricates the clown character
 *
 * @param std::string containing the identification of the object
 * @param std:pair containing the coordinates of the new object
 * @param int containing the priority of the new object
 * @return engine::GameObject* containing the reference of the new object.
 */
-engine::GameObject* GameObjectFactory::fabricate_star(std::string name,
+engine::GameObject* GameObjectFactory::fabricate_clown(std::string name,
   std::pair<int, int> position, int priority) {
-    DEBUG("Started: GameObject fabricate_star()");
-    /* Inializes a GameObject object and creates a Scorpion object */
-    engine::GameObject* scorpion = nullptr;
-    scorpion = new Star(name, position, priority);
+    DEBUG("Started");
+    /* Inializes a GameObject object and creates a Clown object */
+    engine::GameObject* clown = nullptr;
+    clown = new Clown(name , position, priority);
 
-    DEBUG("Ended: GameObject fabricate_star()");
-    return scorpion;
+    DEBUG("Ended");
+    return clown;
 }
 
 /**
-* @brief Fabricates the girl.
+* @brief Fabricates the uncle.
 *
-* The method fabricates the girl character
+* The method fabricates the uncle character
 *
 * @param std::string containing the identification of the object
 * @param std:pair containing the coordinates of the new object
 * @param int containing the priority of the new object
 * @return engine::GameObject* containing the reference of the new object.
 */
-engine::GameObject* GameObjectFactory::fabricate_little_girl(std::string name,
+engine::GameObject* GameObjectFactory::fabricate_uncle(std::string name,
    std::pair<int, int> position, int priority) {
-    DEBUG("Started: GameObject fabricate_little_girl()");
-    /* Inializes a GameObject object and creates a Little Girl object */
-    engine::GameObject *little_girl = nullptr;
-    little_girl = new LittleGirl(name , position, priority);
+    DEBUG("Started");
+    /* Inializes a GameObject object and creates an Uncle object */
+    engine::GameObject* uncle = nullptr;
+    uncle = new Uncle(name, position, priority);
 
-    DEBUG("Ended: GameObject fabricate_little_girl()");
-    return little_girl;
+    DEBUG("Ended");
+    return uncle;
+}
+
+/**
+* @brief Fabricates the arm.
+*
+* The method fabricates the arm character
+*
+* @param std::string containing the identification of the object
+* @param std:pair containing the coordinates of the new object
+* @param int containing the priority of the new object
+* @return engine::GameObject* containing the reference of the new object.
+*/
+engine::GameObject* GameObjectFactory::fabricate_arm(std::string name,
+  std::pair<int, int> position, int priority) {
+    DEBUG("Started");
+    /* Inializes a GameObject object and creates an Arm object */
+    engine::GameObject* arm = nullptr;
+    arm = new Arm(name , position, priority);
+
+    DEBUG("Ended");
+    return arm;
 }
 
 /**
@@ -513,86 +597,3 @@ engine::GameObject* GameObjectFactory::fabricate_music_player(
     return music_player;
 }
 
-/**
-* @brief Fabricates the clown.
-*
-* The method fabricates the clown character
-*
-* @param std::string containing the identification of the object
-* @param std:pair containing the coordinates of the new object
-* @param int containing the priority of the new object
-* @return engine::GameObject* containing the reference of the new object.
-*/
-engine::GameObject* GameObjectFactory::fabricate_clown(std::string name,
-  std::pair<int, int> position, int priority) {
-    DEBUG("Started");
-    /* Inializes a GameObject object and creates a Clown object */
-    engine::GameObject* clown = nullptr;
-    clown = new Clown(name , position, priority);
-
-    DEBUG("Ended");
-    return clown;
-}
-
-/**
-* @brief Fabricates the dark girl.
-*
-* The method fabricates the dark girl character
-*
-* @param std::string containing the identification of the object
-* @param std:pair containing the coordinates of the new object
-* @param int containing the priority of the new object
-* @return engine::GameObject* containing the reference of the new object.
-*/
-engine::GameObject* GameObjectFactory::fabricate_dark_girl(std::string name,
-  std::pair<int, int> position, int priority) {
-    DEBUG("Started");
-    /* Inializes a GameObject object and creates a Dark Girl object */
-    engine::GameObject* dark_girl = nullptr;
-    dark_girl = new DarkGirl(name , position, priority);
-
-    DEBUG("Ended");
-    return dark_girl;
-}
-
-/**
-* @brief Fabricates the uncle.
-*
-* The method fabricates the uncle character
-*
-* @param std::string containing the identification of the object
-* @param std:pair containing the coordinates of the new object
-* @param int containing the priority of the new object
-* @return engine::GameObject* containing the reference of the new object.
-*/
-engine::GameObject* GameObjectFactory::fabricate_uncle(std::string name,
-   std::pair<int, int> position, int priority) {
-    DEBUG("Started");
-    /* Inializes a GameObject object and creates an Uncle object */
-    engine::GameObject* uncle = nullptr;
-    uncle = new Uncle(name, position, priority);
-
-    DEBUG("Ended");
-    return uncle;
-}
-
-/**
-* @brief Fabricates the arm.
-*
-* The method fabricates the arm character
-*
-* @param std::string containing the identification of the object
-* @param std:pair containing the coordinates of the new object
-* @param int containing the priority of the new object
-* @return engine::GameObject* containing the reference of the new object.
-*/
-engine::GameObject* GameObjectFactory::fabricate_arm(std::string name,
-  std::pair<int, int> position, int priority) {
-    DEBUG("Started");
-    /* Inializes a GameObject object and creates an Arm object */
-    engine::GameObject* arm = nullptr;
-    arm = new Arm(name , position, priority);
-
-    DEBUG("Ended");
-    return arm;
-}

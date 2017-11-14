@@ -108,7 +108,24 @@ void SelectArrow::on_event(GameEvent game_event) {
 		}
 	}
 
+	arrow_select(event_name);
+	
+}
 
+/**
+ * @brief Updates the object state
+ *
+ * @return void
+ */
+void SelectArrow::update_state() {
+}
+
+/**
+ * @brief Chose the arrow to be selected
+ *
+ * @return void
+ */
+void SelectArrow::arrow_select(std::string event_name) {
 	switch (arrow_seletor) {
 
 		//Initialize
@@ -149,12 +166,4 @@ void SelectArrow::on_event(GameEvent game_event) {
 		default:
 			break;
 	}
-}
-
-/**
- * @brief Updates the object state
- *
- * @return void
- */
-void SelectArrow::update_state() {
 }
