@@ -27,7 +27,12 @@ namespace mindscape {
 	class MusicPlayer : public engine::GameObject {
 	private:
 		int cont = 0;
-		bool test = true; /**< Boolean. Boolean that defines if the test mode is on*/
+
+		bool test = true; /**< Boolean. Boolean that defines if the test
+		mode is on*/
+
+		bool passed = false; /**< Boolean. Boolean that defines if the
+		music is faded.*/
 
 		engine::Time *timer; /**< engine::Time*. A pointer to a timer*/
 
