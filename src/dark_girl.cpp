@@ -17,6 +17,7 @@
 #include <typeinfo>
 #include <algorithm>
 #include <unistd.h>
+#include <assert.h>
 
 using namespace mindscape;
 
@@ -83,8 +84,17 @@ engine::Animation* DarkGirl::create_animation(
 
 	DEBUG("create_animation");
 
+	assert(image_path != "");
+	assert(sprite_lines);
+	assert(sprite_columns);
+	assert(direction != "")
+
 	engine::Game& game = engine::Game::get_instance();
 
+	const bool default_is_active = false;
+	const std::pair<int, int> default_displacement = std::make_pair(0, 0);
+	const int default_priority = 1;
+	const bool default_in_loop = true;
 
 	/* Creates and initializes the object of the Dark GIrl */
 	engine::Animation* animation = nullptr;
@@ -92,28 +102,35 @@ engine::Animation* DarkGirl::create_animation(
 			game.get_renderer(),
 			image_path,
 			// is_active
-			false,
+			default_is_active,
 			// displacement
-			std::make_pair(0, 0),
+			default_displacement,
 			// priority
-			1,
+			default_priority,
 			sprite_lines,
 			sprite_columns,
 			duration,
 			// in_loop
-			true,
+			default_in_loop,
 			direction
 	);
 
+
+	/* Defaults dimensions and coordinates of dark girl in pixels */
+	const std::pair<int, int> default_dimensions_dark_girl = std::make_pair(192, 192);
+
+	const std::pair<int, int> coordinates_on_texture_dark_girl = std::make_pair(0, 0);
+
 	/* Set dimentions on screen and, coordinates and dimention on texture  */
 	animation->set_values(
-			std::make_pair(192, 192),
-			std::make_pair(192, 192),
-			std::make_pair(0, 0)
+			default_dimensions_dark_girl,
+			default_dimensions_dark_girl,
+			coordinates_on_texture_dark_girl
 	);
 
 	DEBUG("create_animation finished");
 
+	assert(animation != nullptr);
 	return animation;
 }
 
@@ -145,6 +162,7 @@ void DarkGirl::initialize_running_animation() {
 			default_sprite_column_running,
 			default_animation_duration_running, "RIGHT"
 	);
+	assert(running_right_animation != nullptr);
 	add_animation("running_right_animation", running_right_animation);
 
 	/* Initializes animation of the Dark Girl running left */
@@ -156,6 +174,7 @@ void DarkGirl::initialize_running_animation() {
 			default_sprite_column_running,
 			default_animation_duration_running, "LEFT"
 	);
+	assert(running_left_animation != nullptr);
 	add_animation("running_left_animation", running_left_animation);
 	DEBUG("initialize_running_right_animation finished");
 }
@@ -188,6 +207,7 @@ void DarkGirl::initialize_idle_animation() {
 			default_sprite_column_idle,
 			default_animation_duration_idle, "RIGHT"
 	);
+	assert(idle_right_animation != nullptr);
 	add_animation("idle_right_animation", idle_right_animation);
 
 	/* Initializes animation of the Dark Girl standing looking left */
@@ -199,6 +219,7 @@ void DarkGirl::initialize_idle_animation() {
 			default_sprite_column_idle,
 			default_animation_duration_idle, "LEFT"
 	);
+	assert(idle_left_animation != nullptr);
 	add_animation("idle_left_animation", idle_left_animation);
 
 	/* Initializes animation of the Dark Girl
@@ -236,6 +257,7 @@ void DarkGirl::initialize_jumping_animation() {
 			default_sprite_column_jumping,
 			default_animation_duration_jumping, "RIGHT"
 	);
+	assert(jumping_right_animation != nullptr);
 	add_animation("jumping_right_animation", jumping_right_animation);
 
 	/* Initializes animation of the Dark Girl jumping to the left */
@@ -247,6 +269,7 @@ void DarkGirl::initialize_jumping_animation() {
 			default_sprite_column_jumping,
 			default_animation_duration_jumping, "LEFT"
 	);
+	assert(jumping_left_animation != nullptr);
 	add_animation("jumping_left_animation", jumping_left_animation);
 	DEBUG("initialize_jumping_animation finished");
 }
@@ -280,6 +303,7 @@ void DarkGirl::initialize_attacking_animation() {
 			default_animation_duration_attacking, "RIGHT"
 	);
 	attacking_right_animation->in_loop = false;
+	assert(attacking_right_animation != nullptr);
 	add_animation("attacking_right_animation", attacking_right_animation);
 
 	/* Initializes animation of the Dark Girl attacking to the left */
@@ -292,6 +316,7 @@ void DarkGirl::initialize_attacking_animation() {
 			default_animation_duration_attacking, "LEFT"
 	);
 	attacking_left_animation->in_loop = false;
+	assert(attacking_left_animation != nullptr);
 	add_animation("attacking_left_animation", attacking_left_animation);
 	DEBUG("initialize_attacking_animation finished");
 }
@@ -328,6 +353,7 @@ void DarkGirl::initialize_dying_animation(){
 
 	dying_left_animation->in_loop = false;
 	dying_left_animation->is_a_final_animation = true;
+	assert(dying_left_animation != nullptr);
 	add_animation("dying_left_animation", dying_left_animation);
 
 	/* Initializes animation of the Dark Girl
@@ -343,6 +369,7 @@ void DarkGirl::initialize_dying_animation(){
 
 	dying_right_animation->in_loop = false;
 	dying_right_animation->is_a_final_animation = true;
+	assert( dying_right_animation != nullptr);
 	add_animation("dying_right_animation", dying_right_animation);
 	DEBUG("initialize_dying_animation finished");
 }
@@ -377,6 +404,7 @@ void DarkGirl::initialize_hitbox() {
 	);
 
 	/* Add component in the game */
+	assert(hitbox != nullptr);
 	add_component(hitbox);
 	DEBUG("initialize_hitbox finished");
 }
@@ -410,6 +438,7 @@ void DarkGirl::initialize_footer_hitbox(){
 	);
 
 	/* Add component in the game */
+	assert(footer != nullptr);
 	add_component(footer);
 
 	DEBUG("initialize_footer_hitbox finished");
