@@ -87,7 +87,7 @@ engine::Animation* DarkGirl::create_animation(
 	assert(image_path != "");
 	assert(sprite_lines);
 	assert(sprite_columns);
-	assert(direction != "")
+	assert(direction != "");
 
 	engine::Game& game = engine::Game::get_instance();
 
@@ -303,7 +303,7 @@ void DarkGirl::initialize_attacking_animation() {
 			default_animation_duration_attacking, "RIGHT"
 	);
 	attacking_right_animation->in_loop = false;
-	assert(attacking_right_animation != nullptr);
+
 	add_animation("attacking_right_animation", attacking_right_animation);
 
 	/* Initializes animation of the Dark Girl attacking to the left */
@@ -475,9 +475,9 @@ void DarkGirl::initialize_audio_effects() {
 	DEBUG("little_girl_steps")
 	engine::Audio * little_girl_steps = nullptr;
 
-	const double sound_duration_steps  = 1; /**Double. Sound duration effect */
+	const float sound_duration_steps  = 1; /**Float. Sound duration effect */
 
-	const double sound_volume = 45; /**Double. Sound duration effect */
+	const int sound_volume = 45; /**Int. Sound duration effect */
 
 	little_girl_steps = new engine::Audio(
 			"steps",
@@ -487,13 +487,14 @@ void DarkGirl::initialize_audio_effects() {
 
 	little_girl_steps->set_duration(sound_duration_steps);
 	little_girl_steps->set_effect_volume(sound_volume);
+	assert(little_girl_steps != nullptr);
 	add_component(little_girl_steps);
 
 	/* Initializes Audio effects while the Dark GIrl is getting a hit*/
 	DEBUG("little_gitl_getting_hit")
 	engine::Audio * little_girl_getting_hit = nullptr;
 
-	const double sound_duration = 0.5; /**Double. Sound duration effect */
+	const float sound_duration = 0.5; /**Float. Sound duration effect */
 
 	little_girl_getting_hit = new engine::Audio(
 			"hit_me",
@@ -502,6 +503,7 @@ void DarkGirl::initialize_audio_effects() {
 	);
 
 	little_girl_getting_hit->set_duration(sound_duration);
+	assert(little_girl_getting_hit != nullptr);
 	add_component(little_girl_getting_hit);
 
 	/* Initializes Audio effects while the Dark GIrl is Attacking*/
@@ -513,6 +515,7 @@ void DarkGirl::initialize_audio_effects() {
 			engine::Audio::CHUNK
 	);
 	sword_song->set_duration(sound_duration);
+	assert(sword_song != nullptr);
 	add_component(sword_song);
 
 	DEBUG("initialize_audio_effects finished");
@@ -532,6 +535,7 @@ void DarkGirl::initialize_as_physicable() {
 
 	engine::Physics *physics = nullptr;
 	physics = engine::Physics::get_instance();
+	assert(physics != nullptr);
 	physics->add_physicable(this);
 	collidable = true;
 
@@ -595,6 +599,9 @@ void DarkGirl::on_collision_platform(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
+	assert(platform != nullptr);
+	assert(my_hitbox != nullptr);
+	assert(p_my_hitbox != nullptr);
 	DEBUG("on_collision_platform finished")
 }
 
@@ -640,6 +647,9 @@ void DarkGirl::on_collision_scorpion(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
+
+	assert(my_hitbox != nullptr);
+	assert(p_my_hitbox != nullptr);
 	DEBUG("on_collision_scorpion finished")
 }
 
@@ -685,6 +695,8 @@ void DarkGirl::on_collision_spider(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
+	assert(my_hitbox != nullptr);
+	assert(p_my_hitbox != nullptr);
 	DEBUG("on_collision_spider finished")
 }
 
@@ -745,6 +757,9 @@ void DarkGirl::on_collision_goop(engine::GameObject* other,
 	else {
 		/* Do nothing */
 	}
+
+	assert(my_hitbox != nullptr);
+	assert(p_my_hitbox != nullptr);
 	DEBUG("on_collision_goop finished")
 }
 
@@ -762,22 +777,27 @@ void DarkGirl::on_event(GameEvent game_event) {
 	/* Gets the name of the game event */
 	std::string event_name = "";
 	event_name = game_event.game_event_name;
+	assert(event_name != "");
 
 	/* Gets the actual animation of the dark girl  */
 	engine::Animation* actual_animation = nullptr;
 	actual_animation = get_actual_animation();
+	assert(actual_animation != nullptr);
 
 	/* Gets x coordinates of the game event */
 	std::string actual_x_state = "";
 	actual_x_state = states.get_state("X_STATE");
+	assert(actual_x_state != "");
 
 	/* Gets y coordinates of the game event */
 	std::string actual_y_state = "";
 	actual_y_state = states.get_state("Y_STATE");
+	assert(actual_y_state != "");
 
 	/* Gets the action state of the game event */
 	std::string actual_action_state = "";
 	actual_action_state = states.get_state("ACTION_STATE");
+	assert(actual_action_state != "");
 
 	if(event_name == "JUMP" && actual_y_state == "ON_GROUND") {
 		/* if the event is jump and the dark girl is on groun */
@@ -823,7 +843,7 @@ void DarkGirl::on_event(GameEvent game_event) {
 void DarkGirl::jump(std::string actual_x_state) {
 
 	DEBUG("jump");
-
+	assert(actual_x_state != "");
 	if(get_state("Y_STATE") != "JUMPING" ||
 	   get_state("Y_STATE") != "FALLING") {
 		/*if the states of the dark girl on y axis is
@@ -855,15 +875,13 @@ void DarkGirl::jump(std::string actual_x_state) {
 		else {
 			/*Do Nothing */
 		}
-
 		/* Gets the actual animation and increments
 		jumping_animation_count value */
 		engine::Animation* actual_animation = nullptr;
 		actual_animation = get_actual_animation();
-
+		assert(actual_animation != nullptr);
 		jumping_animation_count += 1; /**Increment
  		jumping animation counter by 1 */
-
 		const int jumping_animation_count_max = 26; /**Interger. Constant of
 		jumping animation counter */
 
@@ -877,7 +895,6 @@ void DarkGirl::jump(std::string actual_x_state) {
 
 				const int coordinate_on_texture_minimum = 192;/**Interger.
  				Minimum coordinate on texture constant */
-
 				const int coordinate_on_texture_max = 960;/**Interger. Maximum
  				coordinate on texture constant */
 
@@ -926,11 +943,14 @@ void DarkGirl::jump(std::string actual_x_state) {
 void DarkGirl::move_right(std::string actual_x_state,
 						  std::string actual_y_state) {
 
+	assert(actual_x_state != "");
+	assert(actual_y_state != "");
 	/* Gets the actual animation and increses
 	the coordinatesOnTexture value in 192*/
 	DEBUG("move_right");
 	engine::Animation* actual_animation = nullptr;
 	actual_animation = get_actual_animation();
+	assert(actual_animation != nullptr);
 
 	const int coordinates_on_texture_lower  = 192;/**Interger. Minimum
  	coordinate on texture constant */
@@ -985,12 +1005,14 @@ void DarkGirl::move_right(std::string actual_x_state,
  */
 void DarkGirl::move_left(std::string actual_x_state,
 						 std::string actual_y_state) {
-
+	assert(actual_x_state != "");
+	assert(actual_y_state != "");
 	/* Gets the actual animation and decreases
 	the coordinatesOnTexture value in 192*/
 	DEBUG("move_left");
 	engine::Animation* actual_animation = nullptr;
 	actual_animation = get_actual_animation();
+	assert(actual_animation != nullptr);
 
 	const int coordinates_on_texture_lower  = 192;/**Interger. Minimum
  	coordinate on texture constant */
@@ -1046,6 +1068,7 @@ void DarkGirl::attack() {
 	DEBUG("attack");
 	std::string actual_x_state = "";
 	actual_x_state = states.get_state("X_STATE");
+	assert(actual_x_state != "");
 
 	/* Sets states equal  attack */
 	states.set_state("ACTION_STATE", "ATTACKING");
@@ -1088,6 +1111,7 @@ void DarkGirl::on_attack(GameObject *game_object) {
 	/* Gets the actual state on the X axis */
 	std::string actual_x_state = "";
 	actual_x_state = states.get_state("X_STATE");
+	assert(actual_x_state != "");
 
 	/* Sets states equal to on attacking */
 	states.set_state("ACTION_STATE", "ON_ATTACK");
@@ -1125,15 +1149,17 @@ void DarkGirl::update_state() {
 	/* Gets the actual animations */
 	engine::Animation* actual_animation = nullptr;
 	actual_animation = get_actual_animation();
+	assert(actual_animation != nullptr);
 
 	/* Gets the actual state on the X axis */
 	std::string actual_x_state = "";
 	actual_x_state = states.get_state("X_STATE");
+	assert(actual_x_state != "");
 
 	/* Gets the actual state on the Y axis */
 	std::string actual_y_state = "";
 	actual_y_state = states.get_state("Y_STATE");
-
+	assert(actual_y_state != "");
 	/* Gets the actual action state of the dark girl */
 	std::string actual_action_state = states.get_state("ACTION_STATE");
 
@@ -1244,6 +1270,7 @@ void DarkGirl::die(engine::GameObject *game_object) {
 	DEBUG("die");
 	std::string actual_x_state = "";
 	actual_x_state = get_state("X_STATE");
+	assert(actual_x_state != "");
 
 	if(actual_x_state == "LOOKING_LEFT") {
 		/* If dark girl is dying looking left  */
