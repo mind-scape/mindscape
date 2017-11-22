@@ -9,6 +9,7 @@
  */
 
 #include "time.hpp"
+#include "log.hpp"
 
 using namespace engine;
 
@@ -41,7 +42,7 @@ unsigned Time::time_elapsed() {
 	else {
 		/* Do nothing */
 	}
-	
+
 	return m_time_elapsed;
 }
 
@@ -94,6 +95,10 @@ void Time::resume_timer() {
  * @return void
  */
 void Time::update_time(unsigned now) {
+	if(now < 0) {
+			ERROR("Can't set a negative time for now");
+	}
+
 	m_time_elapsed += now - m_last_update;
 	m_last_update = now;
 }

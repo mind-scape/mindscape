@@ -22,8 +22,6 @@ using namespace engine;
 void Level::load() {
     for(auto game_object : objects) {
         /* loops every game object in the objects list */
-        std::cout << "Loading " << game_object->name << std::endl;
-
         game_object->load();
 
         for(auto hit : game_object->get_hitboxes()) {
@@ -42,8 +40,6 @@ void Level::load() {
 void Level::free() {
     for(auto game_object : objects) {
 		/* iterates every game object in the objects list */
-        std::cout << "Freeing" << game_object->name << std::endl;
-
         game_object->free();
     }
 

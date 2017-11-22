@@ -8,6 +8,7 @@
 * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
 */
 #include "physics.hpp"
+#include <assert.h>
 
 using namespace engine;
 
@@ -26,6 +27,7 @@ Physics *Physics::get_instance() {
 	if (!instance) {
 		instance = new Physics();
 	}
+	assert(instance);
 
 	return instance;
 }
@@ -39,13 +41,18 @@ Physics *Physics::get_instance() {
 * @return std::pair with the new speed.
 */
 std::pair<float, float> Physics::calculate_speed(std::pair<float, float> speed) {
-	std::pair<float, float> new_speed (0.0, 0.0);
+	if (speed.first > -1000 && speed.first < 1000 && speed.second > -1000 && speed.second < 1000) {
+		std::pair<float, float> new_speed (0.0, 0.0);
+		new_speed.first = speed.first;
+		new_speed.second = speed.second + gravity;
 
-	new_speed.first = speed.first;
-	new_speed.second = speed.second + gravity;
+		return new_speed;
+	}
+	else {
 
-	return new_speed;
+	}
 }
+
 /**
 * @brief Calculates the position of an object.
 *
@@ -57,12 +64,14 @@ std::pair<float, float> Physics::calculate_speed(std::pair<float, float> speed) 
 */
 std::pair<float, float> Physics::calculate_position(std::pair<float, float> position, std::pair<float, float> speed) {
 	std::pair<float, float> new_position (0.0, 0.0);
-
+	
 	new_position.first = position.first + speed.first;
 	new_position.second = position.second + speed.second;
 
 	return new_position;
+
 }
+
 /**
 * @brief Updates the speed of a game object.
 *
@@ -72,11 +81,14 @@ std::pair<float, float> Physics::calculate_position(std::pair<float, float> posi
 * @return void.
 */
 void Physics::update_speed(GameObject *game_object) {
+	assert(game_object);
+
 	std::pair<float, float> old_speed = game_object->get_speed();
 	std::pair<float, float> new_speed = calculate_speed(old_speed);
 
 	game_object->set_speed(new_speed);
 }
+
 /**
 * @brief Updates the position of a game object.
 *
@@ -86,12 +98,15 @@ void Physics::update_speed(GameObject *game_object) {
 * @return void.
 */
 void Physics::update_position(GameObject *game_object) {
+	assert(game_object);
+
 	std::pair<float, float> speed = game_object->get_speed();
 	std::pair<float, float> old_position = game_object->get_position();
 	std::pair<float, float> new_position = calculate_position(old_position, speed);
 
 	game_object->set_position(new_position);
 }
+
 /**
 * @brief Updates speed and position of a game object.
 *
@@ -101,9 +116,12 @@ void Physics::update_position(GameObject *game_object) {
 * @return void.
 */
 void Physics::act_on(GameObject *game_object) {
+	assert(game_object);
+
 	update_speed(game_object);
 	update_position(game_object);
 }
+
 /**
 * @brief Ensures that the game object will be affected by the physics engine.
 *
@@ -113,8 +131,11 @@ void Physics::act_on(GameObject *game_object) {
 * @return void.
 */
 void Physics::add_physicable(GameObject *game_object) {
+	assert(game_object);
+
 	physicables.push_back(game_object);
 }
+
 /**
 * @brief Ensures that the physical actions will affect all active objects.
 *
@@ -129,6 +150,7 @@ void Physics::act() {
 		}
 	}
 }
+
 /**
 * @brief Getter method for gravity.
 *
@@ -137,5 +159,6 @@ void Physics::act() {
 * @return float with the gravity value.
 */
 float Physics::get_gravity() {
+	assert(gravity >= 0);
 	return gravity;
 }

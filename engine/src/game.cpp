@@ -11,6 +11,7 @@
 #include "game.hpp"
 #include <unistd.h>
 #include "log.hpp"
+#include <assert.h>
 
 using namespace engine;
 
@@ -23,6 +24,7 @@ Game* Game::instance = NULL; /**< initialization of the game instance singleton 
  * @return void.
  */
 void throw_error(const char* function) {
+    assert(function);
     WARN(("Something's wrong in %s\n", function));
     exit(-1);
 }
@@ -36,14 +38,7 @@ void throw_error(const char* function) {
  */
 Game& Game::get_instance() {
     DEBUG("Getting instance of game");
-    if (!instance) {
-        /* if the instance is null */
-        WARN("Instance is null. Exiting.");
-        exit(1);
-    }
-    else {
-        /*Do nothing*/
-    }
+    assert(instance);
 
     return *instance;
 }
@@ -79,9 +74,9 @@ Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions) {
  */
 void Game::init() {
     int img_flags = IMG_INIT_PNG; /**< flags for sdl image lib */
-
+    
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
-        /* if the initialization of the video and audio doesn't works properly */
+        /* if the initialization of the video and audio doesn't work properly */
         WARN("Audio and video not initialized properly");
         throw_error("SDL_Init");
     }
@@ -181,6 +176,38 @@ void Game::close() {
     SDL_Quit();
 }
 
+/**
+ * @brief Renders a given scene.
+ *
+ * Given a scene, it replaces the previous with the given.
+ *
+ * @params SDL_Renderer* renderer that will render the new scene.
+ * @params Scene* actual_scene that is the scene that will be updated.
+ *
+ * @return void.
+ */
+void renderScreen(SDL_Renderer* renderer, Scene* actual_scene) {
+    assert(renderer);
+    assert(actual_scene);
+
+    const Uint8 r_value = 0xE2;
+    const Uint8 g_value = 0xAC;
+    const Uint8 b_value = 0xF3;
+    const Uint8 a_value = 0x00;
+
+    SDL_SetRenderDrawColor(renderer, r_value, g_value, b_value, a_value);
+    SDL_RenderClear(renderer);
+    actual_scene->draw();
+    SDL_RenderPresent(renderer);
+}
+
+/**
+ * @brief Runs the game.
+ *
+ * Runs the game updating the scenes and verifying the states.
+ *
+ * @return void.
+ */
 void Game::run() {
     state = RUNNING;
     DEBUG("Game is running");
@@ -206,10 +233,7 @@ void Game::run() {
                 /*Do nothing*/
             }
 
-            SDL_SetRenderDrawColor(renderer, 0xE2, 0xAC, 0xF3, 0x00);
-            SDL_RenderClear(renderer);
-            actual_scene->draw();
-            SDL_RenderPresent(renderer);
+            renderScreen(renderer, actual_scene);
         }
     }
     else {
@@ -228,6 +252,8 @@ void Game::run() {
  * @return void.
  */
 void Game::set_information(std::string p_name,std::pair<int,int> p_dimensions) {
+    assert(p_dimensions.first >= 0 && p_dimensions.second >= 0);
+
     set_name(p_name);
     set_window_dimensions(p_dimensions);
 }
@@ -270,6 +296,43 @@ void Game::change_scene(Scene *level) {
 }
 
 /**
+ * @brief This routine validates an RGBA color.
+ *
+ * It is important to use RGBA to change the opacity of the background.
+ * R (red) G (green) B (blue) is the regular colors and the A is the opacity nivel.
+ *
+ * @param integer containing the quantity of the red color.
+ * @param integer containing the quantity of the green color.
+ * @param integer containing the quantity of the blue color.
+ * @param integer containing the quantity of the Alpha (A) opacity.
+ * @return void.
+ */
+bool RGBA_color_is_valid(int R, int G, int B, int A) {
+    bool color_is_valid = true;
+    if (R < 0 || R > 255) {
+        /*Given value for red channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+    else if (G < 0 || G > 255) {
+        /*Given value for green channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+    else if (B < 0 || B > 255) {
+        /*Given value for blue channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+    else if (A < 0 || A > 255) {
+        /*Given value for alpha channel is out of limits, therefore, invalid*/
+        color_is_valid = false;
+    }
+    else {
+        /*All values are valid*/
+    }
+
+    return color_is_valid;
+}
+
+/**
  * @brief This Routine set the game background color.
  *
  * It is important to use RGBA to change the opacity of the background.
@@ -282,7 +345,11 @@ void Game::change_scene(Scene *level) {
  * @return void.
  */
 void Game::set_game_background_color(int R, int G, int B, int A) {
-    game_background_color = Color(R, G, B, A);
+
+    if (RGBA_color_is_valid(R, G, B, A)) {
+        /*Ensures that the color values given are valid*/ 
+        game_background_color = Color(R, G, B, A);
+    }
 }
 
 /**

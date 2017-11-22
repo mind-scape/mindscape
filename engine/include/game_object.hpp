@@ -50,6 +50,28 @@ namespace engine {
 	 */
 	class GameObject : public Observer, public Observable {
 	private:
+		/* Loading methods */
+
+		bool load_images();
+		bool load_animations();
+		bool load_texts();
+		bool load_audios();
+
+		/* Free components methods */
+
+		void free_images();
+		void free_audios();
+		void free_texts();
+		void free_animations();
+
+		/* Draw components methods */
+
+		void draw_images();
+		void draw_audios();
+		void draw_animations();
+		void draw_hitboxes();
+		void draw_texts();
+
 		/* Physics stuff */
 
 		std::pair<float, float> speed = std::make_pair(0.0, 0.0);  /**< Pair. Speed to move game object. */

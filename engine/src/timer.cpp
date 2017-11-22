@@ -10,6 +10,7 @@
 
 #include "../include/timer.hpp"
 #include <include/log.hpp>
+#include <assert.h>
 
 using namespace engine;
 
@@ -75,6 +76,7 @@ int Timer::get_total_time() {
 
 int Timer::get_elapsed_time() {
     int total_time = SDL_GetTicks();
+    assert(total_time >= 0);
 
     if (!is_running) {
         DEBUG("total_time");

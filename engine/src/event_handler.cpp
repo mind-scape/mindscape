@@ -1,5 +1,6 @@
 #include <include/log.hpp>
 #include "event_handler.hpp"
+#include <assert.h>
 
 using namespace engine;
 
@@ -7,6 +8,9 @@ std::list<GameObject *> EventHandler::listeners; /**< objects listening for even
 
 void EventHandler::dispatch_pending_events(unsigned now) {
 	INFO("Dispatching pending events");
+	
+	assert(now);
+	
 
 	engine::Game& game = engine::Game::get_instance(); /**< singleton game's instance */
 	auto keyboard_events = pending_keyboard_events(now); /**< keyboard events that were not processed yet */
@@ -47,6 +51,8 @@ void EventHandler::dispatch_pending_events(unsigned now) {
 
 std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now) {
 	INFO("Getting all pending keyboard events");
+	
+	assert(now);
 
 	get_events_until_now(now);
 	auto it = sdl_events.begin();
@@ -71,9 +77,10 @@ std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now) {
 			has_events = true; /**< make variable responsible for checking if has events to be processed true */
 		}
 
-		else
+		else {
 			/* increments the iterator */
 			++it;
+		}
 	}
 
 	if(!has_events) {
@@ -86,7 +93,7 @@ std::list<KeyboardEvent> EventHandler::pending_keyboard_events(unsigned now) {
 
 void EventHandler::try_to_get_delayed_keys(std::list<KeyboardEvent>& events) {
 	INFO("Pump for getting delayed events");
-
+	
 	SDL_PumpEvents();
 	const Uint8 *state = SDL_GetKeyboardState(NULL); /**< states of the keys of the keyboard */
 
@@ -106,6 +113,8 @@ void EventHandler::try_to_get_delayed_keys(std::list<KeyboardEvent>& events) {
 
 void EventHandler::get_events_until_now(unsigned now) {
 	INFO("Getting all events happened until now");
+	
+	assert(now);
 
 	if (last_update == now) {
 		/* returns if the last update is equals to now */
@@ -143,6 +152,8 @@ void EventHandler::get_events_until_now(unsigned now) {
 
 void EventHandler::add_listener(GameObject * listener) {
 	INFO("Adding " + listener->name + " as listener");
+	
+	assert(listener);
 
 	if(listener != NULL) {
 		/* if the listener is null (no listeners registered) */
@@ -152,6 +163,8 @@ void EventHandler::add_listener(GameObject * listener) {
 
 void EventHandler::remove_listener(GameObject * listener) {
 	INFO("Removing " + listener->name + " from listeners");
+	
+	assert(listener);
 
 	if(listener != NULL) {
 		/* if the listener is not null (not empty) */
