@@ -35,18 +35,32 @@ namespace mindscape {
     class Clown : public Enemy {
     private:
         void initialize_state_map();
-        void initialize_hitboxes();
-        void initialize_animations();
+        void initialize_foot_hitbox();
+		void initialize_head_hitbox();
+		void initialize_attack_hitbox();
+        void initialize_animation_on_attack();
+        void initialize_animation_dying();
+        void initialize_animation_attacking();
+        void initialize_animation_idle();
+        void initialize_animation_idle_vunerable();
         void initialize_as_physicable();
         void initialize_audio_effects();
         void on_attack(engine::GameObject *);
         void attack(engine::GameObject*);
+		void attacking(engine::GameObject*);
+		void dying(engine::GameObject*);
+		void vunerable(engine::GameObject*);
+		void attack_girl(engine::GameObject*);
         void basic_attack();
         void double_attack();
         void serial_attack();
         void on_attack();
         void die(engine::GameObject*);
-        GameObject* create_goop();
+		void on_collision_platform(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+		void on_collision_little_girl(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+		void on_collision_goop(engine::GameObject*, engine::Hitbox*, engine::Hitbox*);
+
+		GameObject* create_goop();
         engine::Animation *create_animation(
                 std::string path,
                 int sprite_lines,
@@ -54,7 +68,9 @@ namespace mindscape {
                 double duration,
                 std::string direction
         );
-        int goops_counter = 0; /**<Interger. Variable to count the number
+
+
+		int goops_counter = 0; /**<Interger. Variable to count the number
         * the number of goops */
 
         int attack_animation_trigger = 0 /**<Interger. Variable to
@@ -67,6 +83,7 @@ namespace mindscape {
         * clown vunerable or not*/
 
         std::vector<engine::GameObject*> clown_goops;
+
 
     public:
         Clown(
