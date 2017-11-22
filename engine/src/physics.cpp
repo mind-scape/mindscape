@@ -8,6 +8,7 @@
 * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
 */
 #include "physics.hpp"
+#include <assert.h>
 
 using namespace engine;
 
@@ -26,6 +27,7 @@ Physics *Physics::get_instance() {
 	if (!instance) {
 		instance = new Physics();
 	}
+	assert(instance);
 
 	return instance;
 }
@@ -63,10 +65,10 @@ std::pair<float, float> Physics::calculate_speed(std::pair<float, float> speed) 
 std::pair<float, float> Physics::calculate_position(std::pair<float, float> position, std::pair<float, float> speed) {
 	std::pair<float, float> new_position (0.0, 0.0);
 	
-		new_position.first = position.first + speed.first;
-		new_position.second = position.second + speed.second;
+	new_position.first = position.first + speed.first;
+	new_position.second = position.second + speed.second;
 
-		return new_position;
+	return new_position;
 
 }
 
@@ -79,6 +81,8 @@ std::pair<float, float> Physics::calculate_position(std::pair<float, float> posi
 * @return void.
 */
 void Physics::update_speed(GameObject *game_object) {
+	assert(game_object);
+
 	std::pair<float, float> old_speed = game_object->get_speed();
 	std::pair<float, float> new_speed = calculate_speed(old_speed);
 
@@ -94,6 +98,8 @@ void Physics::update_speed(GameObject *game_object) {
 * @return void.
 */
 void Physics::update_position(GameObject *game_object) {
+	assert(game_object);
+
 	std::pair<float, float> speed = game_object->get_speed();
 	std::pair<float, float> old_position = game_object->get_position();
 	std::pair<float, float> new_position = calculate_position(old_position, speed);
@@ -110,6 +116,8 @@ void Physics::update_position(GameObject *game_object) {
 * @return void.
 */
 void Physics::act_on(GameObject *game_object) {
+	assert(game_object);
+
 	update_speed(game_object);
 	update_position(game_object);
 }
@@ -123,6 +131,8 @@ void Physics::act_on(GameObject *game_object) {
 * @return void.
 */
 void Physics::add_physicable(GameObject *game_object) {
+	assert(game_object);
+
 	physicables.push_back(game_object);
 }
 
@@ -149,5 +159,6 @@ void Physics::act() {
 * @return float with the gravity value.
 */
 float Physics::get_gravity() {
+	assert(gravity >= 0);
 	return gravity;
 }
