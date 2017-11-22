@@ -10,6 +10,7 @@
 
 #include "../include/hud_girl.hpp"
 #include "../engine/include/log.hpp"
+#include <assert.h>
 
 using namespace mindscape;
 
@@ -60,6 +61,9 @@ engine::Animation* HudGirl::create_animation(
     int sprite_columns,
     double duration,
     std::string direction) {
+		assert(!path.empty() && !direction.empty());
+		assert(sprite_lines >= 0 && sprite_columns >= 0 && duration >= 0.0);
+
         DEBUG("Started: HudGirl create_animation()");
 
         engine::Game& game = engine::Game::get_instance(); /**< Instance. Initialize instace of the game */
@@ -103,7 +107,9 @@ engine::Animation* HudGirl::create_animation(
 * @return void.
 */
 void HudGirl::notify(engine::Observable* game_object) {
-    DEBUG("Started: HudGirl notify()");
+	assert(game_object);
+
+	DEBUG("Started: HudGirl notify()");
 
     LittleGirl* little_girl = nullptr; /**< LittleGirl. initialize a new girl */
     little_girl = dynamic_cast<LittleGirl *>(game_object);
@@ -148,11 +154,18 @@ void HudGirl::initialize_animations() {
     hp = create_image();
     add_component(hp);
 
+	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    const int default_sprite_column = 1;  /**< Integer. Default sprite column, RANGE 1 */
+    const double default_animation_duration = 0.9;  /**< Double. Default animation
+    duration in seconds */
+
     engine::Animation* girl_hp = nullptr; /**< Animation. Initialize pointer of girl_hp animation */
     girl_hp = create_animation(
         "../assets/images/sprites/hud/hud_girl.png",
-        1,1,0.9, "RIGHT"
+        default_sprite_line, default_sprite_column, default_animation_duration,
+		  "RIGHT"
     );
+
     add_animation("girl_hp", girl_hp);
     girl_hp->activate();
     set_actual_animation(girl_hp);
@@ -174,17 +187,20 @@ engine::Image* HudGirl::create_image() {
     engine::Game& game = engine::Game::get_instance(); /**< Instance. Game instance */
     engine::Image* health_bar = nullptr; /**< Image. Image pointer of health_bar */
 
+	assert(*game);
+
     health_bar = new engine::Image(game.get_renderer(),
     "../assets/images/sprites/sprites_test/health_bar.jpg",
     true, std::make_pair(74, 64), 70);
 
     const int max_hp = 180; /**< const int. Max life of the girl */
     const int min_hp = 10; /**< const int. Min life of the girl */
+	const int default_health_bar = 0; /**< const int. Default health_bar */
 
     health_bar->set_values(
         std::make_pair(max_hp, min_hp),
         std::make_pair(max_hp, min_hp),
-        std::make_pair(0, 0)
+        std::make_pair(default_health_bar, default_health_bar)
     );
 
     return health_bar;
