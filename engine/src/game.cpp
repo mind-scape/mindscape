@@ -74,7 +74,7 @@ Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions) {
  */
 void Game::init() {
     int img_flags = IMG_INIT_PNG; /**< flags for sdl image lib */
-    
+
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
         /* if the initialization of the video and audio doesn't work properly */
         WARN("Audio and video not initialized properly");
@@ -307,7 +307,7 @@ void Game::change_scene(Scene *level) {
  * @param integer containing the quantity of the Alpha (A) opacity.
  * @return void.
  */
-bool RGBA_color_is_valid(int R, int G, int B, int A) {
+bool Game::RGBA_color_is_valid(int R, int G, int B, int A) {
     bool color_is_valid = true;
     if (R < 0 || R > 255) {
         /*Given value for red channel is out of limits, therefore, invalid*/
@@ -347,7 +347,7 @@ bool RGBA_color_is_valid(int R, int G, int B, int A) {
 void Game::set_game_background_color(int R, int G, int B, int A) {
 
     if (RGBA_color_is_valid(R, G, B, A)) {
-        /*Ensures that the color values given are valid*/ 
+        /*Ensures that the color values given are valid*/
         game_background_color = Color(R, G, B, A);
     }
 }
