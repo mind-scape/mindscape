@@ -195,7 +195,7 @@ void Audio::play_music_type() {
 
             const int fade_time = 500;
 
-            if(Mix_FadeInMusic(audio_music, -1, fade_time)==-1) {
+            if(Mix_FadeInMusic(audio_music, 0, fade_time)==-1) {
                 INFO("Fade in is finished.");
             } else {
                 /* Applies the fade in to starts the music. */
