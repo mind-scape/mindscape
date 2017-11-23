@@ -10,6 +10,7 @@
 
 #include "../include/text.hpp"
 #include "../include/log.hpp"
+#include <assert.h>
 
 using namespace engine;
 
@@ -22,7 +23,8 @@ using namespace engine;
  */
 bool Text::load() {
 	font = TTF_OpenFont(font_path.c_str(), font_size);
-
+	assert(font);
+	/*Variables declaration*/
 	SDL_Color sdl_color = {
 			color.r,
 			color.g,
@@ -47,7 +49,7 @@ bool Text::load() {
 		);
 	}
 	else {
-		surface = TTF_RenderText_Solid(font, text.c_str(), sdl_color);
+		surface = TTF_RenderText_Solid(font, text.c_str(), sdl_color);	
 	}
 
 	if (surface == NULL) {
@@ -72,6 +74,8 @@ bool Text::load() {
 
 			weigth = surface->w;
 			heigth = surface->h;
+			assert(weigth);
+			assert(heigth);
 
 			activate();
 			SDL_FreeSurface(surface);
