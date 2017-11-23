@@ -268,6 +268,7 @@ void Game::set_information(std::string p_name,std::pair<int,int> p_dimensions) {
  * @return void.
  */
 void Game::change_scene(Scene *level) {
+    /*Function core*/
     DEBUG("Changing scene");
     if (actual_scene) {
 		/* if actual scene is not null */
@@ -279,6 +280,7 @@ void Game::change_scene(Scene *level) {
         /*Do nothing*/
     }
 
+    /*Modifies referenced parameter*/
     level->activate();
     actual_scene = level;
     load_media();
@@ -308,7 +310,10 @@ void Game::change_scene(Scene *level) {
  * @return void.
  */
 bool Game::RGBA_color_is_valid(int R, int G, int B, int A) {
+    /*Variables declaration*/
     bool color_is_valid = true;
+
+    /*Function core*/
     if (R < 0 || R > 255) {
         /*Given value for red channel is out of limits, therefore, invalid*/
         color_is_valid = false;
@@ -345,7 +350,6 @@ bool Game::RGBA_color_is_valid(int R, int G, int B, int A) {
  * @return void.
  */
 void Game::set_game_background_color(int R, int G, int B, int A) {
-
     if (RGBA_color_is_valid(R, G, B, A)) {
         /*Ensures that the color values given are valid*/
         game_background_color = Color(R, G, B, A);
