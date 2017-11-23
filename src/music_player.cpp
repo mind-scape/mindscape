@@ -13,6 +13,7 @@
 #include "../engine/include/audio.hpp"
 #include "../engine/include/log.hpp"
 #include <stdlib.h>
+#include <assert.h>
 
 using namespace mindscape;
 
@@ -119,6 +120,8 @@ void MusicPlayer::update_state() {
 void MusicPlayer::on_event(GameEvent game_event) {
     std::string event_name = "";
     event_name = game_event.game_event_name;
+
+    assert(event_name != "");
 
     const int minimal_position = 0;
     const int displacement = 10;
