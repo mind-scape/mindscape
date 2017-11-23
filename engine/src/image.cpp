@@ -26,10 +26,11 @@ using namespace engine;
 bool Image::load() {
     DEBUG("Loading image");
     free();
-
+    /*Variables declaration*/
     SDL_Texture* new_texture = NULL; /**< sdl texture new texture converted */
     SDL_Surface* loaded_surface = IMG_Load(image_path.c_str()); /**< surface loaded to be converted */
 
+    /*Function core*/
     if (loaded_surface != NULL) {
         /* if the loaded surface is null (didnt work properly) */
         new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
@@ -89,7 +90,7 @@ void Image::free() {
  * @return
  */
 void Image::draw(int x, int y) {
-
+    /*Variable declaration*/
     SDL_Rect ret = {coordinatesOnTexture.first,
                     coordinatesOnTexture.second,
                     dimensionOnTexture.first,
@@ -100,7 +101,8 @@ void Image::draw(int x, int y) {
                             y+get_displacement().second, this->get_width(),
                             this->get_height()}; /**< on screen rendering rectangle */
 
-	SDL_RenderCopy(renderer, texture, &ret, &render_quad);
+    /*Function core*/
+	  SDL_RenderCopy(renderer, texture, &ret, &render_quad);
 }
 
 /**
@@ -115,11 +117,12 @@ void Image::draw(int x, int y) {
 void Image::set_values(std::pair<int, int> _dimension_on_screen,
 					   std::pair<int, int> _dimension_on_texture,
 					   std::pair<int, int> _coordinates_on_texture) {
-
+  /*Parameter verification*/
   assert(_dimension_on_screen.first >= 0 && dimension_on_screen.second >= 0);
   assert(_dimension_on_texture.first >= 0 && _dimension_on_texture.second >= 0);
   assert(_coordinates_on_texture.first >= 0 && _coordinates_on_texture.second >= 0);
 
+  /*Function core*/
 	dimension_on_screen = _dimension_on_screen;
 	dimensionOnTexture = _dimension_on_texture;
 	coordinatesOnTexture = _coordinates_on_texture;
