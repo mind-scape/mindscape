@@ -10,6 +10,7 @@
 #include "scene.hpp"
 #include "physics.hpp"
 #include <algorithm>
+#include <assert.h>
 
 using namespace engine;
 /**
@@ -22,6 +23,7 @@ using namespace engine;
 * @return bool that is true if the priority of the first is smaller than the second.
 */
 bool compare_scene(engine::GameObject* a, GameObject* b) {
+    assert(a && b);
     return a->priority < b->priority;
 }
 /**
@@ -33,6 +35,7 @@ bool compare_scene(engine::GameObject* a, GameObject* b) {
 * @return Scene containing the added object.
 */
 void Scene::add_object(engine::GameObject* object) {
+    assert(object);
     objects.push_back(object);
     sort(objects.begin(), objects.end(), compare_scene);
 }
@@ -45,6 +48,7 @@ void Scene::add_object(engine::GameObject* object) {
 * @return returns the GameObject if it was found or NULL if it wasn't.
 */
 GameObject *Scene::get_object_by_name(std::string name) {
+    assert(!name.empty());
     for (auto game_object : objects) {
         if (name == game_object->name) {
             return game_object;
@@ -65,6 +69,7 @@ GameObject *Scene::get_object_by_name(std::string name) {
 * @return void.
 */
 void Scene::activate_game_object(GameObject *go) {
+    assert(go);
     go->activate();
     EventHandler::add_listener(go);
 }
@@ -77,6 +82,7 @@ void Scene::activate_game_object(GameObject *go) {
 * @return void.
 */
 void Scene::deactivate_game_object(std::string game_object_name) {
+    assert(!game_object_name.empty());
     int counter = 0;
     
     for (auto go : objects) {

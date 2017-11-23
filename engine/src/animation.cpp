@@ -10,6 +10,7 @@
 
 #include <cmath>
 #include <include/log.hpp>
+#include <assert.h>
 #include "../include/animation.hpp"
 
 using namespace engine;
@@ -27,6 +28,7 @@ bool Animation::load() {
 
 	time_of_sprite =
 			(int) std::ceil(double(duration_of_animation) / double(total_sprites));
+	assert(time_of_sprite > 0);
 
 	aux_time = 0;
 	Image::load();
@@ -104,7 +106,7 @@ void Animation::draw(int x, int y) {
 	}
 
 	if(time_of_sprite == 0.0) {
-		time_of_sprite = 1.0;
+		time_of_sprite = static_cast<int>(1.0);
 	}
 	else {
 		/* Do nothing */
@@ -135,6 +137,8 @@ void Animation::draw(int x, int y) {
  */
 void Animation::set_sprites_order(int total_sprites, std::string direction) {
 	INFO("Setting sprites order to " + direction + " in " + this->get_name());
+
+	assert(!direction.empty());
 
 	if(total_sprites <= 0) {
 		ERROR("Number of sprites can't be less than zero");
@@ -169,5 +173,6 @@ void Animation::set_sprites_order(int total_sprites, std::string direction) {
  */
 void Animation::set_game_object(GameObject *obj) {
 	INFO("Setting " + obj->name + " as owner for " + this->get_name());
+	assert(obj);
 	game_object = obj;
 }

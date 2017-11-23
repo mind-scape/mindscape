@@ -14,6 +14,7 @@
 #include "game.hpp"
 #include "../include/log.hpp"
 #include <algorithm>
+#include <assert.h>
 
 using namespace engine;
 
@@ -31,6 +32,7 @@ bool GameObject::on_limit_of_level; /**< Boolean. Determines if game object is i
  * @return The component who have higher priority.
  */
 bool compare(Component *a, Component *b) {
+	assert(a && b);
 	return a->get_priority() < b->get_priority();
 }
 
@@ -43,6 +45,7 @@ bool compare(Component *a, Component *b) {
  * @return void.
  */
 void GameObject::add_component(Component *component) {
+	assert(component);
 	if(dynamic_cast<Audio *>(component)) {
 		/* Add an audio component to the map of audios of that game object */
 		INFO("Adding Audio Component " + component->get_name() + " to " + this->name);
@@ -78,6 +81,8 @@ void GameObject::add_component(Component *component) {
  */
 void GameObject::add_animation(std::string animation_name, Animation *animation) {
 	/* Attach an animation previous created to a game object */
+	assert(!animation_name.empty());
+	assert(animation);
 	INFO("Adding animation " + animation->get_name() + " to " + this->name);
 	animations[animation_name] = animation;
 	animation->set_game_object(this);
@@ -325,6 +330,7 @@ void GameObject::draw_texts() {
  * @return The other game object witch is the same as the actual.
  */
 bool GameObject::equals(GameObject *other) {
+	assert(other);
 	return (this == other);
 }
 
@@ -367,6 +373,7 @@ void GameObject::collide(GameObject *other) {
  * @return void.
  */
 void GameObject::run_collisions(GameObject *other) {
+	assert(other);
 	for(auto my_hitbox : hitboxes) {
 		for(auto other_hitbox : other->get_hitboxes()) {
 			/* Get status of hitboxes */
@@ -407,6 +414,7 @@ void GameObject::update_hitboxes() {
  * @return The state of the object.
  */
 std::string GameObject::get_state(std::string state_name) {
+	assert(!state_name.empty());
 	return states.get_state(state_name);
 }
 
@@ -561,6 +569,7 @@ void GameObject::set_speed_y(float v_y) {
  */
 void GameObject::set_actual_animation(Animation *animation) {
 	INFO("Changing " + this->name + " animation to " + animation->get_name());
+	assert(animation);
 	if(actual_animation != NULL) {
 		/* Validation to determs if current animation is not null*/
 		actual_animation->deactivate();
@@ -666,6 +675,7 @@ void GameObject::create_hitbox(
 	INFO("Creating hitbox for " + this->name);
 
 	Game &game = Game::get_instance();
+	assert(game);
 	/* Instantiate objects calling contrutor and passsing params */
 	Hitbox *hitbox = new Hitbox("hitbox",
 								this->get_position(),
@@ -686,6 +696,7 @@ void GameObject::create_hitbox(
  */
 void GameObject::attach_observer(Observer *observer) {
 	INFO("Attaching observer to " + this->name);
+	assert(observer);
 	observers.push_back(observer);
 }
 
@@ -699,6 +710,7 @@ void GameObject::attach_observer(Observer *observer) {
  */
 void GameObject::detach_observer(Observer *observer) {
 	INFO("Releasing observer from " + this->name);
+	assert(observer);
 	observers.remove(observer);
 }
 

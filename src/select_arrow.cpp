@@ -13,6 +13,7 @@
 #include "../engine/include/level.hpp"
 #include "../engine/include/audio.hpp"
 #include "level_factory.hpp"
+#include <assert.h>
 
 using namespace mindscape;
 
@@ -57,9 +58,14 @@ void SelectArrow::initialize_arrow() {
 
 	sel->activate();
 	add_component(sel);
+	
+	assert(timer);
+
 	timer->init();
 
 	action = new Action(Action::Command::CHANGE_SCENE);
+
+	assert(action);
 }
 
 /**
@@ -73,6 +79,7 @@ void SelectArrow::initialize_arrow() {
  */
 void SelectArrow::on_event(GameEvent game_event) {
 	std::string event_name = game_event.game_event_name;
+	assert(event_name != "");
 
 	time += timer->time_elapsed() - time_aux;
 	time_aux = timer->time_elapsed();
@@ -126,8 +133,10 @@ void SelectArrow::update_state() {
  * @return void
  */
 void SelectArrow::arrow_select(std::string event_name) {
-	switch (arrow_seletor) {
+	assert(event_name != "");
 
+	switch (arrow_seletor) {
+		assert(arrow_seletor >= 0);
 		//Initialize
 		case (0):
 			set_position(std::make_pair(get_position().first, 175));

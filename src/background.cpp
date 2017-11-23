@@ -9,6 +9,7 @@
 */
 #include "../include/background.hpp"
 #include "../engine/include/log.hpp"
+#include <assert.h>
 
 using namespace mindscape;
 /**
@@ -20,12 +21,9 @@ using namespace mindscape;
 * @return void.
 */
 void Background::on_event(GameEvent game_event){
-    std::string event_name = game_event.game_event_name;
+	assert(!game_event.game_event_name.empty());
 
-    if (this->name == "main_background") {
-      /* This avoids making parallax event happen in the menu */
-      return;
-    }
+    std::string event_name = game_event.game_event_name;
 
     if (event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level) {
         /* When character is moving left */
@@ -52,6 +50,8 @@ void Background::on_event(GameEvent game_event){
 * @return void.
 */
 void Background::set_paralax(int p_paralax) {
+	assert(p_paralax >= 0);
+
     if (p_paralax > 10 || p_paralax < 0) {
         /* If paralax is out of valid range */
 

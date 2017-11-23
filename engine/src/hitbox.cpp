@@ -12,6 +12,7 @@
 #include <iostream>
 #include "hitbox.hpp"
 #include <include/log.hpp>
+#include <assert.h>
 
 using namespace engine;
 
@@ -21,6 +22,8 @@ using namespace engine;
  * @return std::pair<int, int> Dimensions of the hitbox.
  */
 std::pair<int, int> Hitbox::get_dimensions() {
+    assert(hitbox.w >= 0 && hitbox.h >= 0);
+
     return std::make_pair(hitbox.w, hitbox.h);
 }
 
@@ -32,6 +35,7 @@ std::pair<int, int> Hitbox::get_dimensions() {
  */
 void Hitbox::set_dimensions(std::pair<int, int> p_dimensions) {
     INFO("Setting all dimensions of hitboxes!");
+    assert(p_dimensions.first >= 0 && p_dimensions.second >= 0);
 
     /*
      * Is the dimensions of the hitbox. w = width and h = height.
@@ -53,6 +57,8 @@ void Hitbox::set_dimensions(std::pair<int, int> p_dimensions) {
  */
 void Hitbox::set_displacement(std::pair<int, int> go_coordinates,
     std::pair<int, int> p_displacement) {
+    assert(go_coordinates.first >= 0 && go_coordinates.second >= 0);
+    assert(p_displacement.first >= 0 && p_displacement.second >= 0);
 
     /*
      * Hitbox x and y are the coordinates of the hitbox and your movement.
@@ -77,7 +83,6 @@ void Hitbox::set_displacement(std::pair<int, int> go_coordinates,
  * @return void.
  */
 void Hitbox::update(std::pair<int, int> go_coordinates) {
-
     /*
      * Hitbox x and y are the update coordinates of the hitbox and your movement.
      * All the coordinates are in pixels.
@@ -92,7 +97,8 @@ void Hitbox::update(std::pair<int, int> go_coordinates) {
  * @return Returns the position in axis X and Y of the hitbox.
  */
 std::pair<int, int> Hitbox::get_coordinates() {
-    return std::make_pair(hitbox.x, hitbox.y);
+    std::pair<int, int> coordinates = std::make_pair(hitbox.x, hitbox.y);   
+    return coordinates;
 }
 
 /**
@@ -106,6 +112,7 @@ std::pair<int, int> Hitbox::get_coordinates() {
  */
 bool Hitbox::collides_with(Hitbox* other_hitbox) {
     // INFO("Identifies collision with two different hitboxes");
+    //assert(other_hitbox);
 
     int left_a = 0; /**< int. Coordinate of the hitbox in axis x */
     int right_a = 0; /**< int. Coordinate in axis x and width of the hitbox */
@@ -209,6 +216,8 @@ void Hitbox::initialize() {
         INFO("Surfaces' loaded");
 
         new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
+
+        assert(new_texture);
 
         if (new_texture == NULL) {
             /* if the texture is null  */

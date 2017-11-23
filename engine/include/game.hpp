@@ -58,6 +58,7 @@ namespace engine {
 
         void init();
         void set_information(std::string,std::pair<int,int>);
+        bool RGBA_color_is_valid(int R, int G, int B, int A);
 
     public:
         ~Game() {};
