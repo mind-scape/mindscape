@@ -42,10 +42,12 @@ Audio::Audio(
  */
 bool Audio::load() {
     timer->init();
+    assert(timer != NULL);
 
     if (m_audio_type == MUSIC) {
     /* Separate MUSIC from  CHUNK */
         audio_music = Mix_LoadMUS(audio_path.c_str());
+        assert(audio_music != "");
 
         if (!audio_music) {
         /* Verifys if music is not an null object */
@@ -61,6 +63,7 @@ bool Audio::load() {
     else if (m_audio_type == CHUNK) {
     /* Separate CHUNK from  MUSIC*/
         audio_chunk = Mix_LoadWAV(audio_path.c_str());
+        assert(audio_chunk != "");
 
         if (!audio_chunk) {
         /* Verifys if chuck is not an null object */
