@@ -7,14 +7,18 @@
 *
 * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
 */
+#include <iostream>
+#include <assert.h>
 #include "action.hpp"
 #include "../engine/include/game.hpp"
 #include "../engine/include/log.hpp"
 #include "level_factory.hpp"
-#include <iostream>
 
 using namespace mindscape;
 
+/*
+ * Call the fuctions.
+ */
 void change_scene(engine::Game *game, std::string param);
 void pause_game(engine::Game *game, std::string param);
 void play_game(engine::Game *game, std::string param);
@@ -30,13 +34,22 @@ void play_game(engine::Game *game, std::string param);
 void Action::execute(std::string param) {
 	engine::Game *game = &(engine::Game::get_instance()); /**< engine::Game. Instance of the game */
 
+	assert(game && !param.empty());
+
+	/*
+	 * This block of code interacts with the game scene.
+	 */
 	if (command == Action::CHANGE_SCENE) {
+		/* Changes the game scene based on the param to changes level_factory.*/
+
 		change_scene(game, param);
 	}
 	else if (command == Action::PAUSE_GAME) {
+		/* Pause the game based in the game state.*/
 		pause_game(game, param);
 	}
 	else if (command == Action::PLAY_GAME) {
+		/* Changes the game state to RUNNING and play the game. */
 		play_game(game, param);
 	}
 	else {
@@ -53,6 +66,8 @@ void Action::execute(std::string param) {
  * @param std::string containing the level name
  */
 void change_scene(engine::Game *game, std::string param){
+	assert(game && !param.empty());
+
 	LevelFactory *level_factory = new LevelFactory(); /**< LevelFactory. Initialize a new LevelFactory */
 	engine::Level *level = level_factory->fabricate_level(param); /**< engine::Level. Initialize the right level */
 
@@ -71,6 +86,8 @@ void change_scene(engine::Game *game, std::string param){
  * @param std::string containing the level name
  */
 void pause_game(engine::Game *game, std::string param){
+	assert(game && !param.empty());
+
 	if (game->get_state() != engine::Game::PAUSED) {
 		/**<
 		 * A GameObject to change background to pause_background.
@@ -110,6 +127,8 @@ void pause_game(engine::Game *game, std::string param){
  * @param std::string containing the level name
  */
 void play_game(engine::Game *game, std::string param){
+	assert(game && !param.empty());
+
 	if (game->get_state() != engine::Game::PAUSED) {
 		/**<
 		 * A GameObject to change background to pause_background.

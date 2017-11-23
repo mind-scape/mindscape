@@ -10,7 +10,7 @@
 
 #include "../include/platform.hpp"
 #include "../engine/include/game.hpp"
-
+#include <assert.h>
 using namespace mindscape;
 
 /**
@@ -43,7 +43,6 @@ Platform::Platform(
  * @return void
  */
 void Platform::on_event(GameEvent game_event) {
-
 	platform_movement(game_event);
 
 	/*
@@ -69,6 +68,8 @@ void Platform::on_event(GameEvent game_event) {
  * @return void.
  */
 void Platform::platform_movement(GameEvent game_event){
+	assert(!game_event.game_event_name.empty());
+
 	std::string event_name = game_event.game_event_name; /**< string. Name of the game_event */
 	const int movement_platform = 10; /**< int. Movement of the platform (value in pixels) */
 

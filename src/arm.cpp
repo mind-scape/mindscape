@@ -8,6 +8,7 @@
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
  */
 
+#include <assert.h>
 #include "../include/arm.hpp"
 #include "../include/platform.hpp"
 #include "../engine/include/log.hpp"
@@ -59,6 +60,9 @@ void Arm::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
 	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox); /**< Hitbox. Arm hitbox */
 	engine::Hitbox *other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox); /**< Hitbox. Girl hitbox */
 
+	assert(p_my_hitbox && p_other_hitbox && other);
+	assert(my_hitbox && other_hitbox && platform);
+
 	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "arm_hitbox") {
 		/* If arm is not falling */
 
@@ -90,6 +94,9 @@ void Arm::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
  */
 void Arm::initialize_as_physicable() {
 	engine::Physics *physics = engine::Physics::get_instance(); /**< Instance. Instance of the game */
+
+	assert(physics);
+
 	physics->add_physicable(this);
 
 	collidable = true;
@@ -105,6 +112,8 @@ void Arm::initialize_as_physicable() {
  * @return void
  */
 void Arm::on_event(GameEvent game_event) {
+	assert(!game_event.game_event_name.empty());
+
 	std::string event_name = game_event.game_event_name;
 	const int movement_arm = 10; /**< const int. Movemet of the arm in pixels */
 
@@ -184,7 +193,13 @@ engine::Animation *Arm::create_animation(
 		int sprite_columns,
 		double duration,
 		std::string direction) {
+
+	assert(!image_path.empty() && !direction.empty());
+	assert(sprite_lines >= 0 && sprite_columns >= 0 && duration >= 0.0);
+
 	engine::Game &game = engine::Game::get_instance();
+
+	assert(&game);
 
 	engine::Animation *animation = new engine::Animation(
 			game.get_renderer(),
@@ -217,6 +232,8 @@ engine::Animation *Arm::create_animation(
  */
 void Arm::initialize_hitboxes() {
 	engine::Game &game = engine::Game::get_instance();
+
+	assert(&game);
 
 	engine::Hitbox *arm_hitbox = new engine::Hitbox(
 			"arm_hitbox",
