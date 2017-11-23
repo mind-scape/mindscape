@@ -56,6 +56,7 @@ Game& Game::initialize(std::string p_name, std::pair<int, int> p_dimensions) {
         instance = new Game();
         instance->set_information(p_name, p_dimensions);
         instance->init();
+        assert(instance);
     }
     else {
         /*Do nothing*/
@@ -145,6 +146,7 @@ void Game::init() {
  */
 void Game::load_media() {
     actual_scene->load();
+    assert(actual_scene);
     loaded_media = true;
 }
 
@@ -154,6 +156,7 @@ void Game::load_media() {
  * @return Returns the situation of media.
  */
  bool Game::is_media_loaded() {
+    assert(loaded_media == 1 || loaded_media == 0);
     return loaded_media;
 }
 
@@ -217,6 +220,8 @@ void Game::run() {
         SDL_Event e;
 
         EventHandler event_handler = EventHandler();
+
+        assert(event_handler);
 
         Time::init();
 
@@ -292,6 +297,7 @@ void Game::change_scene(Scene *level) {
  *
  */
  Scene* Game::get_actual_scene() {
+    assert(actual_scene);
     return actual_scene;
 }
 
