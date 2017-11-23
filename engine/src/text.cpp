@@ -22,7 +22,7 @@ using namespace engine;
  */
 bool Text::load() {
 	font = TTF_OpenFont(font_path.c_str(), font_size);
-
+	/*Variables declaration*/
 	SDL_Color sdl_color = {
 			color.r,
 			color.g,
@@ -39,6 +39,7 @@ bool Text::load() {
 
 	SDL_Surface *surface = NULL;
 
+	/*Function core*/
 	if (bg_color.a == 0x00) {
 		surface = TTF_RenderText_Blended(
 				font,
