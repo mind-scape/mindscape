@@ -309,7 +309,7 @@ void Game::change_scene(Scene *level) {
  * @param integer containing the quantity of the Alpha (A) opacity.
  * @return void.
  */
-bool RGBA_color_is_valid(int R, int G, int B, int A) {
+bool Game::RGBA_color_is_valid(int R, int G, int B, int A) {
     /*Variables declaration*/
     bool color_is_valid = true;
 
