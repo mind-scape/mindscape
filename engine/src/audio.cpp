@@ -196,7 +196,15 @@ void Audio::play_music_type() {
 
         if (Mix_PlayingMusic() == 0) {
         /* Verification to know if will play or resume music */
-            Mix_PlayMusic(audio_music, 0 );
+
+            const int fade_time = 500;
+
+            if(Mix_FadeInMusic(audio_music, 0, fade_time)==-1) {
+                INFO("Fade in is finished.");
+            } else {
+                /* Applies the fade in to starts the music. */
+            }
+
             DEBUG("Music is being played");
         }
         else if (Mix_PlayingMusic() == 1) {
@@ -224,6 +232,14 @@ void Audio::pause_music() {
     if (m_audio_type == MUSIC && Mix_PlayingMusic()) {
     /* Case is a music and is playing it, it can be paused here */
         Mix_PauseMusic();
+
+        /* Constants to define the fade time and the delay of the fade. */
+        const int fade_time = 500;
+        const int delay = 100;
+
+        while(!Mix_FadeOutMusic(fade_time) && Mix_PlayingMusic()) {
+            SDL_Delay(delay);
+        }
         DEBUG("Music is being paused");
     }
     else {
