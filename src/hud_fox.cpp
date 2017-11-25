@@ -67,7 +67,7 @@ engine::Animation* HudFox::create_animation(
 
     DEBUG("Started");
 
-    /* Verifying values of the variables */
+    /* Parameters verification */
     assert(path != "");
     assert(sprite_lines);
     assert(sprite_columns);
@@ -96,6 +96,7 @@ engine::Animation* HudFox::create_animation(
     );
 
 
+    /* Constants declaration */
     /* Defaults dimensions and coordinates of hud fox in pixels */
     const std::pair<int, int> default_dimensions_hud_fox = 
         std::make_pair(170, 78);
@@ -126,6 +127,7 @@ engine::Animation* HudFox::create_animation(
 void HudFox::initialize_zero_star_animations() {
 
     DEBUG("Started");
+    /* Constants declaration */
     const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
     const int default_sprite_column = 1;  /**< Integer. Default sprite column, RANGE 1 */
     const double default_animation_duration = 0.9;  /**< Double. Default animation 
@@ -159,6 +161,8 @@ void HudFox::initialize_zero_star_animations() {
 void HudFox::initialize_one_star_animations() {
 
     DEBUG("Started");
+
+    /* Constants declaration */
     const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
     const int default_sprite_column = 1;  /**< Integer. Default sprite column, RANGE 1 */
     const double default_animation_duration = 0.9;  /**< Double. Default animation 
@@ -186,6 +190,7 @@ void HudFox::initialize_one_star_animations() {
 void HudFox::initialize_two_star_animations() {
 
     DEBUG("Started");
+    /* Constants declaration */
     const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
     const int default_sprite_column = 1;  /**< Integer. Default sprite column, RANGE 1 */
     const double default_animation_duration = 0.9;  /**< Double. Default animation 
@@ -214,6 +219,7 @@ void HudFox::initialize_two_star_animations() {
 void HudFox::initialize_three_star_animations() {
 
     DEBUG("Started");
+    /* Constants declaration */
     const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
     const int default_sprite_column = 1;  /**< Integer. Default sprite column, RANGE 1 */
     const double default_animation_duration = 0.9;  /**< Double. Default animation 
@@ -240,6 +246,7 @@ void HudFox::initialize_three_star_animations() {
 void HudFox::initialize_fading_star_animations() {
 
     DEBUG("Started");
+    /* Constants declaration */
     const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
     const int sprite_columns_tree_star = 4; /**< Default sprite column of tree 
     star fading */
