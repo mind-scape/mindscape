@@ -85,15 +85,18 @@ void LittleGirl::initialize_state_map() {
  */
 void LittleGirl::initialize_hitboxes() {
 	DEBUG("Started");
+
 	/* Gets actual state of the game */
 	engine::Game &game = engine::Game::get_instance();
 
+	/* Constants declaration */
 	const std::pair<int, int> default_hitbox_displacement = 
 		std::make_pair(60, 45); /**< Pair(int, int). Hitbox's displacement */
 	const std::pair<int, int> default_hitbox_dimension = std::make_pair(50, 130); 
 	/**< Pair(int, int). Hitbox's dimensions */
 
 	/* Creates Little Girl's hitbox */
+	/* Variables declaration */
 	engine::Hitbox *hitbox = new engine::Hitbox(
 			"hitbox", /* Hitbox's name */
 			get_position(), /* Little Girl's coordinate */
@@ -103,7 +106,7 @@ void LittleGirl::initialize_hitboxes() {
 	);
 	
 
-
+	/*Constants declaration*/
 	const std::pair<int, int> footer_hitbox_displacement = 
 		std::make_pair(60, 180); /**< Pair(int, int). "Footer" Hitbox's displacement */
 	const std::pair<int, int> footer_hitbox_dimension = std::make_pair(50, 20); 
@@ -119,6 +122,7 @@ void LittleGirl::initialize_hitboxes() {
 	);
 	
 	/* Adds both components in game */
+	/* Vriables verification */
 	assert(hitbox != nullptr);
 	add_component(hitbox);
 	assert(footer != nullptr);
@@ -152,7 +156,10 @@ void LittleGirl::initialize_as_physicable() {
  */
 void LittleGirl::initialize_idle_animations() {
 	DEBUG("Started");
+	/* Constant declaration */
 	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    
+    /* Variables declaration */
     int default_sprite_column = 9;  /**< Integer. Default sprite column */
     double default_animation_duration = 0.9;  /**< Double. Default animation 
     duration in seconds */
@@ -194,7 +201,10 @@ void LittleGirl::initialize_idle_animations() {
  */
 void LittleGirl::initialize_running_animations() {
 	DEBUG("Started");
+	/* Constant declaration */
 	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    
+    /* Variables declaration */
     int default_sprite_column = 9;  /**< Integer. Default sprite column */
     double default_animation_duration = 0.9;  /**< Double. Default animation 
     duration in seconds */
@@ -227,7 +237,11 @@ void LittleGirl::initialize_running_animations() {
  */
 void LittleGirl::initialize_jumping_animations() {
 	DEBUG("Started");
+	
+	/* Constant declaration */
 	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
+    
+    /* Variables declaration */
     int default_sprite_column = 5;  /**< Integer. Default sprite column */
     double default_animation_duration = 0.9;  /**< Double. Default animation 
     duration in seconds */
@@ -260,8 +274,10 @@ void LittleGirl::initialize_jumping_animations() {
  */
 void LittleGirl::initialize_attacking_animations() {
 	DEBUG("Started");
+
+	/* Variables declaration */
 	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
-    int default_sprite_column = 9;  /**< Integer. Default sprite column */
+    int default_sprite_column = 5;  /**< Integer. Default sprite column */
     double default_animation_duration = 0.4;  /**< Double. Default animation 
     duration in seconds */
 
@@ -293,6 +309,8 @@ void LittleGirl::initialize_attacking_animations() {
  */
 void LittleGirl::initialize_on_attack_animations() {
 	DEBUG("Started");
+
+	/* Variables declaration */
 	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
     int default_sprite_column = 3;  /**< Integer. Default sprite column */
     double default_animation_duration = 0.8;  /**< Double. Default animation 
@@ -326,6 +344,7 @@ void LittleGirl::initialize_on_attack_animations() {
  */
 void LittleGirl::initialize_dying_animations() {
 	DEBUG("Started");
+	/* Variables declaration */
 	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
     int default_sprite_column = 5;  /**< Integer. Default sprite column */
     double default_animation_duration = 0.9;  /**< Double. Default animation 
@@ -382,6 +401,7 @@ engine::Animation *LittleGirl::create_animation(
 	DEBUG("Started");
 
 	/* Verifying values of the variables */
+	/* Parameters verification */
     assert(path != "");
     assert(sprite_lines);
     assert(sprite_columns);
@@ -396,6 +416,7 @@ engine::Animation *LittleGirl::create_animation(
     const int default_priority = 1;
     const bool default_in_loop = true;
 	/* Creates an animation Object of the Little Girl */
+	/* Function core */
 	engine::Animation *animation = new engine::Animation(
 			game.get_renderer(),
 			path,               
@@ -443,6 +464,7 @@ void LittleGirl::jump(std::string actual_x_state) {
 	/* Verifyes actual_x_state */
     assert(actual_x_state != "");
 
+    /* Function core */
 	if (get_state("Y_STATE") != "JUMPING" 
 		|| get_state("Y_STATE") != "FALLING") {
 	/* If the state in y axis is different from JUMPING or FALLING */
@@ -525,10 +547,12 @@ void LittleGirl::move_right(std::string actual_x_state,
 	std::string actual_y_state) {
 	
 	/* Verifyes actual_x_state and actual_y_state */
+	/* Parameters verification */
 	assert(actual_y_state != "");
 	assert(actual_x_state != "");
 
 	/* Gets actual animation and increases coordinateOnTexture value in 192 */
+	/* Variable declaration */
 	engine::Animation *actual_animation = get_actual_animation();
 	assert(actual_animation != nullptr);
 	actual_animation->coordinatesOnTexture.first += 192;
@@ -579,6 +603,7 @@ void LittleGirl::move_left(std::string actual_x_state,
 	std::string actual_y_state) {
 	
 	/* Verifyes actual_x_state and actual_y_state */
+	/* Parameters verification */
 	assert(actual_y_state != "");
 	assert(actual_x_state != "");
 
@@ -666,6 +691,7 @@ void LittleGirl::attack() {
  * @return void
  */
 void LittleGirl::on_attack(GameObject *game_object) {
+	/* Parameter verification */
 	assert(game_object != nullptr);
 
 	/* Gets actual state in x axis */
@@ -708,12 +734,12 @@ void LittleGirl::on_collision(
 		engine::Hitbox *p_other_hitbox) {
 	
 	DEBUG("Started");
-
+	/* Parameters verification */
 	assert(other != nullptr);
 	assert(p_my_hitbox != nullptr);
 	assert(p_other_hitbox!= nullptr);
 
-
+	/* Function core */
 	on_collision_plataform(other, p_my_hitbox, p_other_hitbox);
 	on_collision_scorpion(other, p_my_hitbox, p_other_hitbox);
 	on_collision_spider(other, p_my_hitbox, p_other_hitbox);
@@ -738,12 +764,14 @@ void LittleGirl::on_collision_plataform(
 	
 	DEBUG("Started");
 
+	/* Parameters verification */
 	assert(other != nullptr);
 	assert(p_my_hitbox != nullptr);
 	assert(p_other_hitbox!= nullptr);
 
 
 	/* Gets instances of the Plaform */
+	/* Variables declaration */
 	Platform *platform = dynamic_cast<Platform *>(other);
 	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
 	engine::Hitbox *other_hitbox = 
@@ -779,6 +807,7 @@ void LittleGirl::on_collision_scorpion(
 	
 	DEBUG("Started");
 
+	/* Paramters verification */
 	assert(other != nullptr);
 	assert(p_my_hitbox != nullptr);
 	assert(p_other_hitbox!= nullptr);
@@ -790,6 +819,7 @@ void LittleGirl::on_collision_scorpion(
 	engine::Hitbox *other_hitbox = 
 			dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 	
+	/* Function core */
 	if (scorpion &&
 		scorpion->get_state("ACTION_STATE") == "ATTACKING" &&
 		other_hitbox->get_name() == "scorpion_attack" &&
@@ -869,7 +899,7 @@ void LittleGirl::on_collision_goop(
 		engine::Hitbox *p_other_hitbox) {
 	
 	DEBUG("Started");
-
+	/* Parameters verification */
 	assert(other != nullptr);
 	assert(p_my_hitbox != nullptr);
 	assert(p_other_hitbox!= nullptr);
