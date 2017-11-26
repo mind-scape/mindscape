@@ -21,8 +21,10 @@ using namespace mindscape;
 * @return void.
 */
 void Background::on_event(GameEvent game_event){
+	/* Object verification */
 	assert(!game_event.game_event_name.empty());
 
+	/* Variable declaration */
     std::string event_name = game_event.game_event_name;
 
     if (event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level) {
@@ -50,6 +52,7 @@ void Background::on_event(GameEvent game_event){
 * @return void.
 */
 void Background::set_paralax(int p_paralax) {
+	/* Parameter verification */
 	assert(p_paralax >= 0);
 
     if (p_paralax > 10 || p_paralax < 0) {
