@@ -52,6 +52,7 @@ PersistenceDat *PersistenceDat::get_instance(){
  * @return void
  */
 bool PersistenceDat::dump(std::string path, PersistenceMap * data){
+	/* Files operation */
 	std::ofstream save_file;
 	save_file.open(path);
 
@@ -87,15 +88,20 @@ bool PersistenceDat::dump(std::string path, PersistenceMap * data){
  * @return game loaded
  */
 PersistenceMap * PersistenceDat::load(std::string p_path){
+	/* Object declaration */
 	PersistenceMap *data = nullptr;
 	data = new PersistenceMap();
 
+	/* Variable declaration */
 	std::stack<std::string> paths;
+
+	/* Files operation */
 	paths.push(p_path);
 	std::string line = "";
 
 	/* Reads the complete file */
 	while(!paths.empty()){
+		/* Files operation */
 		std::string path = paths.top();
 		paths.pop();
 		std::ifstream save_file;
@@ -106,6 +112,7 @@ PersistenceMap * PersistenceDat::load(std::string p_path){
 
 			/* Writes the opened file with game datas*/
 			while (std::getline(save_file,line)){
+				/* Variables declaration */
 				bool is_include = false;
 				std::istringstream iss(line);
 				std::string key = "";
