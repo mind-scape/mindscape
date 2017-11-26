@@ -278,8 +278,7 @@ void LittleGirl::initialize_attacking_animations() {
 	/* Variables declaration */
 	const int default_sprite_line = 1; /**< Integer. Default sprite line, RANGE 1 */
     int default_sprite_column = 5;  /**< Integer. Default sprite column */
-    double default_animation_duration = 0.4;  /**< Double. Default animation 
-    duration in seconds */
+    double default_animation_duration = 0.4;  /**< Double. Default animation
 
 	/* Initiates animation of the Little Girl's attacking on right direction */
 	DEBUG("attacking_right_animation");
@@ -289,6 +288,7 @@ void LittleGirl::initialize_attacking_animations() {
 		"RIGHT"
 	);
 	assert(attacking_right_animation != nullptr);
+	attacking_right_animation->in_loop = false;
 	add_animation("attacking_right_animation", attacking_right_animation);
 
 	/* Initiates animation of the Little Girl's attacking on left direction */
@@ -299,6 +299,7 @@ void LittleGirl::initialize_attacking_animations() {
 		"LEFT"
 	);
 	assert(attacking_left_animation != nullptr);
+	attacking_left_animation->in_loop = false;
 	add_animation("attacking_left_animation", attacking_left_animation);
 }
 
