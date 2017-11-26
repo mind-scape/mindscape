@@ -25,6 +25,7 @@ state Time::m_current_state;
  * @return void
  */
 void Time::init() {
+	/* Main logic */
 	now = SDL_GetTicks();
 	last_time = SDL_GetTicks();
 }
@@ -35,6 +36,7 @@ void Time::init() {
  * @return unsigned with the time elapsed
  */
 unsigned Time::time_elapsed() {
+	/* Main logic */
 	if (Time::m_current_state == RUNNING) {
 		unsigned now = real_time_elapsed();
 		update_time(now);
@@ -61,6 +63,7 @@ unsigned Time::real_time_elapsed() {
  * @return void
  */
 void Time::pause_timer() {
+	/* Main logic */
 	if (Time::m_current_state == RUNNING) {
 		unsigned now = real_time_elapsed();
 		update_time(now);
@@ -77,6 +80,7 @@ void Time::pause_timer() {
  * @return void
  */
 void Time::resume_timer() {
+	/* Main logic */
 	if (Time::m_current_state == PAUSED) {
 		unsigned now = real_time_elapsed();
 		m_last_update = now;
@@ -95,10 +99,12 @@ void Time::resume_timer() {
  * @return void
  */
 void Time::update_time(unsigned now) {
+	/* Error checking */
 	if(now < 0) {
 			ERROR("Can't set a negative time for now");
 	}
 
+	/* Main logic */
 	m_time_elapsed += now - m_last_update;
 	m_last_update = now;
 }
