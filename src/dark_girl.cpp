@@ -144,15 +144,11 @@ engine::Animation* DarkGirl::create_animation(
 void DarkGirl::initialize_running_animation() {
 	DEBUG("initialize_running_right_animation ");
 	/* Initializes animation of the Dark Girl running right */
-	DEBUG("running_right_animation finished");
 	engine::Animation *running_right_animation = nullptr;
-
 	const int default_sprite_line = 1; /** Interger. Default sprite
  	line for animations */
-
 	const int default_sprite_column_running = 9; /** Interger. Default
  	sprite column */
-
 	const double default_animation_duration_running = 0.9; /** Double.
  	Default sprite line for animations */
 
@@ -191,13 +187,10 @@ void DarkGirl::initialize_idle_animation() {
 	/* Initializes animation of the Dark Girl standing looking right */
 	DEBUG("idle_right_animation");
 	engine::Animation *idle_right_animation = nullptr;
-
 	const int default_sprite_line = 1; /** Interger. Default sprite
  	line for animations */
-
 	const int default_sprite_column_idle = 10; /** Interger. Default
  	sprite column */
-
 	const double default_animation_duration_idle = 1.5; /** Double.
  	Default sprite line for animations */
 
@@ -241,13 +234,10 @@ void DarkGirl::initialize_jumping_animation() {
 	/* Initializes animation of the Dark Girl jumping to the right */
 	DEBUG("jumping_right_animation");
 	engine::Animation *jumping_right_animation = nullptr;
-
 	const int default_sprite_line = 1; /** Interger. Default sprite
  	line for animations */
-
 	const int default_sprite_column_jumping = 5; /** Interger. Default
  	sprite column */
-
 	const double default_animation_duration_jumping = 1.5; /** Double.
  	Default sprite line for animations */
 
@@ -286,13 +276,10 @@ void DarkGirl::initialize_attacking_animation() {
 	/* Initializes animation of the Dark Girl attacking to the right */
 	DEBUG("attacking_right_animation");
 	engine::Animation *attacking_right_animation = nullptr;
-
 	const int default_sprite_line = 1; /** Interger. Default sprite
  	line for animations */
-
 	const int default_sprite_column_attacking = 5; /** Interger. Default
  	sprite column */
-
 	const double default_animation_duration_attacking = 0.5; /** Double.
  	Default sprite line for animations */
 
@@ -303,7 +290,6 @@ void DarkGirl::initialize_attacking_animation() {
 			default_animation_duration_attacking, "RIGHT"
 	);
 	attacking_right_animation->in_loop = false;
-
 	add_animation("attacking_right_animation", attacking_right_animation);
 
 	/* Initializes animation of the Dark Girl attacking to the left */
@@ -334,13 +320,10 @@ void DarkGirl::initialize_dying_animation(){
 	when she was sying looking to the left */
 	DEBUG("dying_left_animation");
 	engine::Animation* dying_left_animation = nullptr;
-
 	const int default_sprite_line = 1; /** Interger. Default sprite
  	line for animations */
-
 	const int default_sprite_column_dying = 5; /** Interger. Default
  	sprite column */
-
 	const double default_animation_duration_dying = 1.0; /** Double.
  	Default sprite line for animations */
 
@@ -386,10 +369,8 @@ void DarkGirl::initialize_hitbox() {
 
 	/* Get actual state of the game */
 	engine::Game &game = engine::Game::get_instance();
-
 	const std::pair<int, int> default_hitbox_displacement =
 			std::make_pair(60, 45); /**< Pair(int, int). Hitbox's displacement */
-
 	const std::pair<int, int> default_hitbox_dimension =
 			std::make_pair(50, 130); /**< Pair(int, int). Hitbox's dimension */
 
@@ -420,10 +401,8 @@ void DarkGirl::initialize_footer_hitbox(){
 	DEBUG("initialize_footer_hitbox");
 
 	engine::Game &game = engine::Game::get_instance();
-
 	const std::pair<int,int> default_footer_displacement =
 			std::make_pair(60, 180); /**< Pair(int, int). Hitbox's displacement */
-
 	const std::pair<int,int> default_footer_dimension =
 			std::make_pair(50, 20); /**< Pair(int, int). Hitbox's dimension */
 
@@ -474,9 +453,7 @@ void DarkGirl::initialize_audio_effects() {
 	/* Initializes Audio effects while the Dark GIrl is Walking*/
 	DEBUG("little_girl_steps")
 	engine::Audio * little_girl_steps = nullptr;
-
 	const float sound_duration_steps  = 1; /**Float. Sound duration effect */
-
 	const int sound_volume = 45; /**Int. Sound duration effect */
 
 	little_girl_steps = new engine::Audio(
@@ -583,10 +560,8 @@ void DarkGirl::on_collision_platform(engine::GameObject* other,
 	/* Gets instances of the platform */
 	Platform* platform = nullptr;
 	platform = dynamic_cast<Platform *>(other);
-
 	engine::Hitbox* my_hitbox = nullptr;
 	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-
 	engine::Hitbox* other_hitbox = nullptr;
 	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
@@ -625,10 +600,8 @@ void DarkGirl::on_collision_scorpion(engine::GameObject* other,
 	/* Gets instances of the scorpion */
 	Scorpion* scorpion = nullptr;
 	scorpion = dynamic_cast<Scorpion *>(other);
-
 	engine::Hitbox* my_hitbox = nullptr;
 	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-
 	engine::Hitbox* other_hitbox = nullptr;
 	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
@@ -673,10 +646,8 @@ void DarkGirl::on_collision_spider(engine::GameObject* other,
 	/* Gets instances of the spider */
 	Spider* spider = nullptr;
 	spider = dynamic_cast<Spider *>(other);
-
 	engine::Hitbox* my_hitbox = nullptr;
 	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-
 	engine::Hitbox* other_hitbox = nullptr;
 	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
@@ -720,10 +691,8 @@ void DarkGirl::on_collision_goop(engine::GameObject* other,
 	/* Gets instances of the goop */
 	Goop* goop = nullptr;
 	goop = dynamic_cast<Goop *>(other);
-
 	engine::Hitbox* my_hitbox = nullptr;
 	my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox);
-
 	engine::Hitbox* other_hitbox = nullptr;
 	other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox);
 
@@ -951,10 +920,8 @@ void DarkGirl::move_right(std::string actual_x_state,
 	engine::Animation* actual_animation = nullptr;
 	actual_animation = get_actual_animation();
 	assert(actual_animation != nullptr);
-
 	const int coordinates_on_texture_lower  = 192;/**Interger. Minimum
  	coordinate on texture constant */
-
 	const int coordinates_on_texture_higher = 1728;/**Interger. Maximum
  	coordinate on texture constant */
 
@@ -989,7 +956,6 @@ void DarkGirl::move_right(std::string actual_x_state,
 	else {
 		/* Do nothing */
 	}
-
 	DEBUG("move_right finished");
 }
 
@@ -1013,10 +979,8 @@ void DarkGirl::move_left(std::string actual_x_state,
 	engine::Animation* actual_animation = nullptr;
 	actual_animation = get_actual_animation();
 	assert(actual_animation != nullptr);
-
 	const int coordinates_on_texture_lower  = 192;/**Interger. Minimum
  	coordinate on texture constant */
-
 	const int coordinates_on_texture_higher = 1536;/**Interger. Maximum
  	coordinate on texture constant */
 
@@ -1150,12 +1114,10 @@ void DarkGirl::update_state() {
 	engine::Animation* actual_animation = nullptr;
 	actual_animation = get_actual_animation();
 	assert(actual_animation != nullptr);
-
 	/* Gets the actual state on the X axis */
 	std::string actual_x_state = "";
 	actual_x_state = states.get_state("X_STATE");
 	assert(actual_x_state != "");
-
 	/* Gets the actual state on the Y axis */
 	std::string actual_y_state = "";
 	actual_y_state = states.get_state("Y_STATE");
