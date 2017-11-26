@@ -24,8 +24,10 @@ using namespace engine;
  * @return The return is true if the animation was successfully created.
  */
 bool Animation::load() {
+	/* Log */
 	INFO("Loading animation " + this->get_name());
 
+	/* Main logic */
 	time_of_sprite =
 			(int) std::ceil(double(duration_of_animation) / double(total_sprites));
 	assert(time_of_sprite > 0);
@@ -52,8 +54,10 @@ bool Animation::load() {
  * @return void.
  */
 void Animation::activate() {
+	/* Log */
 	INFO("Activating " + this->get_name());
 
+	/* Main logic */
 	Component::activate();
 
 	if(!in_loop) {
@@ -76,6 +80,7 @@ void Animation::activate() {
  * @return void.
  */
 void Animation::draw(int x, int y) {
+	/* Main logic */
 	is_finished = false;
 	playing_duration_of_animation += time->get_elapsed_time() - aux_time;
 	aux_time = time->get_elapsed_time();
@@ -136,10 +141,13 @@ void Animation::draw(int x, int y) {
  * @return void.
  */
 void Animation::set_sprites_order(int total_sprites, std::string direction) {
+	/* Log */
 	INFO("Setting sprites order to " + direction + " in " + this->get_name());
 
+	/* Parameters checking */
 	assert(!direction.empty());
 
+	/* Main logic */
 	if(total_sprites <= 0) {
 		ERROR("Number of sprites can't be less than zero");
 	}
@@ -172,7 +180,12 @@ void Animation::set_sprites_order(int total_sprites, std::string direction) {
  * @return void.
  */
 void Animation::set_game_object(GameObject *obj) {
+	/* Log */
 	INFO("Setting " + obj->name + " as owner for " + this->get_name());
+
+	/* Parameters checking */
 	assert(obj);
+
+	/* Main logic */
 	game_object = obj;
 }
