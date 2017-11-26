@@ -56,19 +56,23 @@ Arm::Arm(
  */
 void Arm::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
 					   engine::Hitbox *p_other_hitbox) {
+    /* Objects declaration */
 	Platform *platform = dynamic_cast<Platform *>(other); /**< Plataform. Plataform of the game */
 	engine::Hitbox *my_hitbox = dynamic_cast<engine::Hitbox *>(p_my_hitbox); /**< Hitbox. Arm hitbox */
 	engine::Hitbox *other_hitbox = dynamic_cast<engine::Hitbox *>(p_other_hitbox); /**< Hitbox. Girl hitbox */
 
+	/* Parameters & objects verification */
 	assert(p_my_hitbox && p_other_hitbox && other);
 	assert(my_hitbox && other_hitbox && platform);
 
 	if (get_speed_y() >= 0 && platform && my_hitbox->get_name() == "arm_hitbox") {
 		/* If arm is not falling */
 
+		/* Constants declaration */
 		const int movement_arm_axis_y = 30; /**< const int. Movement arm in pixel */
 		const float speed_arm = 0.0; /**< const float. Speed arm */
 
+		/* Values set */
 		set_speed_y(speed_arm);
 		set_position_y(other_hitbox->get_coordinates()
 		 .second - movement_arm_axis_y);
@@ -93,12 +97,14 @@ void Arm::on_collision(engine::GameObject *other, engine::Hitbox *p_my_hitbox,
  * @return void
  */
 void Arm::initialize_as_physicable() {
+	/* Object declaration */
 	engine::Physics *physics = engine::Physics::get_instance(); /**< Instance. Instance of the game */
 
+	/* Object verification */
 	assert(physics);
 
+	/* State of the physics and hitboxes */
 	physics->add_physicable(this);
-
 	collidable = true;
 }
 
@@ -112,8 +118,10 @@ void Arm::initialize_as_physicable() {
  * @return void
  */
 void Arm::on_event(GameEvent game_event) {
+	/* Parameters verification */
 	assert(!game_event.game_event_name.empty());
 
+	/* Constants and variables declaration */
 	std::string event_name = game_event.game_event_name;
 	const int movement_arm = 10; /**< const int. Movemet of the arm in pixels */
 
@@ -145,30 +153,38 @@ void Arm::on_event(GameEvent game_event) {
  * @return void
  */
 void Arm::initialize_animations() {
+	/* Constants declaration */
+	const int default_sprite_line = 1;
+	const int default_sprite_column = 4;
+	const float default_animation_duration = 3.0;
+	const std::pair<int, int> default_dimensions_arm =
+	 std::make_pair(405, 542);
+ 	const std::pair<int, int> coordinates_on_texture_arm =
+	 std::make_pair(0, 0);
+
+	/* Instance and values of objects */
 	engine::Animation *right_arm = create_animation(
 			"../assets/images/sprites/enemies/arm/right_arm.png",
-			1, 4, 3.0, "RIGHT"
+			default_sprite_line, default_sprite_column,
+			default_animation_duration, "RIGHT"
 	);
 
-	right_arm->set_values(
-			std::make_pair(405, 542),
-			std::make_pair(405, 542),
-			std::make_pair(0, 0)
-	);
+	right_arm->set_values(default_dimensions_arm,
+						  default_dimensions_arm,
+				  		  coordinates_on_texture_arm);
 
 	add_animation("right_arm", right_arm);
 	right_arm->activate();
 
 	engine::Animation *left_arm = create_animation(
 			"../assets/images/sprites/enemies/arm/left_arm.png",
-			1, 4, 3.0, "LEFT"
+			default_sprite_line, default_sprite_column,
+			default_animation_duration, "LEFT"
 	);
 
-	left_arm->set_values(
-			std::make_pair(405, 542),
-			std::make_pair(405, 542),
-			std::make_pair(0, 0)
-	);
+	right_arm->set_values(default_dimensions_arm,
+						  default_dimensions_arm,
+				  		  coordinates_on_texture_arm);
 
 	add_animation("left_arm", left_arm);
 	set_actual_animation(right_arm);
@@ -194,11 +210,14 @@ engine::Animation *Arm::create_animation(
 		double duration,
 		std::string direction) {
 
+	/* Parameters verification */
 	assert(!image_path.empty() && !direction.empty());
 	assert(sprite_lines >= 0 && sprite_columns >= 0 && duration >= 0.0);
 
+	/* Object declaration */
 	engine::Game &game = engine::Game::get_instance();
 
+	/* Object verification */
 	assert(&game);
 
 	engine::Animation *animation = new engine::Animation(
@@ -214,11 +233,16 @@ engine::Animation *Arm::create_animation(
 			direction
 	);
 
-	animation->set_values(
-			std::make_pair(320, 320),
-			std::make_pair(320, 320),
-			std::make_pair(0, 0)
-	);
+	/* Constants declaration */
+	const std::pair<int, int> default_dimensions_animation =
+	 std::make_pair(320, 320);
+	const std::pair<int, int> coordinates_on_texture_animation =
+	 std::make_pair(0, 0);
+
+	/* Animation values */
+	animation->set_values(default_dimensions_animation,
+						  default_dimensions_animation,
+						  coordinates_on_texture_animation);
 
 	return animation;
 }
@@ -231,10 +255,13 @@ engine::Animation *Arm::create_animation(
  * @return void
  */
 void Arm::initialize_hitboxes() {
+	/* Object declaration */
 	engine::Game &game = engine::Game::get_instance();
 
+	/* Object verification */
 	assert(&game);
 
+	/* Hitboxe's values */
 	engine::Hitbox *arm_hitbox = new engine::Hitbox(
 			"arm_hitbox",
 			this->get_position(),
