@@ -16,9 +16,8 @@
 
 using namespace mindscape;
 
-/*
- * Call the fuctions.
- */
+/* Function call */
+
 void change_scene(engine::Game *game, std::string param);
 void pause_game(engine::Game *game, std::string param);
 void play_game(engine::Game *game, std::string param);
@@ -32,8 +31,10 @@ void play_game(engine::Game *game, std::string param);
 * @return void.
 */
 void Action::execute(std::string param) {
+	/* Object Declaration */
 	engine::Game *game = &(engine::Game::get_instance()); /**< engine::Game. Instance of the game */
 
+	/* Parameters verification */
 	assert(game && !param.empty());
 
 	/*
@@ -66,8 +67,10 @@ void Action::execute(std::string param) {
  * @param std::string containing the level name
  */
 void change_scene(engine::Game *game, std::string param){
+	/* Parameters verification */
 	assert(game && !param.empty());
 
+	/* Object declaration */
 	LevelFactory *level_factory = new LevelFactory(); /**< LevelFactory. Initialize a new LevelFactory */
 	engine::Level *level = level_factory->fabricate_level(param); /**< engine::Level. Initialize the right level */
 
@@ -86,6 +89,7 @@ void change_scene(engine::Game *game, std::string param){
  * @param std::string containing the level name
  */
 void pause_game(engine::Game *game, std::string param){
+	/* Parameters verification */
 	assert(game && !param.empty());
 
 	if (game->get_state() != engine::Game::PAUSED) {
@@ -103,6 +107,7 @@ void pause_game(engine::Game *game, std::string param){
 			/* Do nothing */
 		}
 
+		/* Object declaration */
 		LevelFactory *level_factory = new LevelFactory();
 		level_factory->update_level(
 				dynamic_cast<engine::Level *>(game->get_actual_scene()),
@@ -127,6 +132,7 @@ void pause_game(engine::Game *game, std::string param){
  * @param std::string containing the level name
  */
 void play_game(engine::Game *game, std::string param){
+	/* Parameters verification */
 	assert(game && !param.empty());
 
 	if (game->get_state() != engine::Game::PAUSED) {
@@ -135,7 +141,6 @@ void play_game(engine::Game *game, std::string param){
 		 */
 		engine::GameObject *pause_background =
 		 game->get_actual_scene()->get_object_by_name("pause_background");
-
 		game->get_actual_scene()->deactivate_game_object("pause_background");
 
 		if (pause_background) {
