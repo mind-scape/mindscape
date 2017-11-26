@@ -1073,8 +1073,7 @@ void DarkGirl::attack() {
 void DarkGirl::on_attack(GameObject *game_object) {
 	DEBUG("on_attack")
 	/* Gets the actual state on the X axis */
-	std::string actual_x_state = "";
-	actual_x_state = states.get_state("X_STATE");
+	std::string actual_x_state = states.get_state("X_STATE");
 	assert(actual_x_state != "");
 
 	/* Sets states equal to on attacking */
@@ -1103,48 +1102,72 @@ void DarkGirl::on_attack(GameObject *game_object) {
 /**
  * @brief Update the state map
  *
- * Updates the states on the state map
+ * update the state map of the dark girl
  *
  * @return void
  *
  */
-void DarkGirl::update_state() {
+void DarkGirl::update_state(){
+	update_state_get_position();
+	update_state_attacking();
+	update_state_idle();
+	update_state_on_ground();
+}
+
+/**
+ * @brief Update the state map
+ *
+ * get the dark girl position to update state
+ *
+ * @return void
+ *
+ */
+void DarkGirl::update_state_get_position() {
 	DEBUG("update_state")
 	/* Gets the actual animations */
-	engine::Animation* actual_animation = nullptr;
+	engine::Animation *actual_animation = nullptr;
 	actual_animation = get_actual_animation();
 	assert(actual_animation != nullptr);
-	/* Gets the actual state on the X axis */
-	std::string actual_x_state = "";
-	actual_x_state = states.get_state("X_STATE");
-	assert(actual_x_state != "");
-	/* Gets the actual state on the Y axis */
-	std::string actual_y_state = "";
-	actual_y_state = states.get_state("Y_STATE");
-	assert(actual_y_state != "");
-	/* Gets the actual action state of the dark girl */
-	std::string actual_action_state = states.get_state("ACTION_STATE");
 
 	const int position_y_axis_minimum = 576; /** Minimum position
  	on the Y axis */
 
-	if(get_position_y() >= position_y_axis_minimum) {
+	if (get_position_y() >= position_y_axis_minimum) {
 		/* if the position on the y axis is higher  or equal than 576*/
 		INFO("position on the Y axis")
 
 		/* Keep the dark girl alive */
-		die(NULL);
-	}
-	else {
+		die(nullptr);
+	} else {
 		/* Do nothing */
 	}
+}
 
-	if(actual_action_state == "ATTACKING"
-	   || actual_action_state == "ON_ATTACK") {
+/**
+ * @brief Update the state map
+ *
+ * update state when de dark girl is attacking or
+ * being on attack
+ *
+ * @return void
+ *
+ */
+void DarkGirl::update_state_attacking() {
+
+	/* Gets the actual animations */
+	engine::Animation *actual_animation = nullptr;
+	actual_animation = get_actual_animation();
+	assert(actual_animation != nullptr);
+
+	/* Gets the actual action state of the dark girl */
+	std::string actual_action_state = states.get_state("ACTION_STATE");
+
+	if (actual_action_state == "ATTACKING"
+		|| actual_action_state == "ON_ATTACK") {
 		/*if the actual state is attack or beeing attacked */
 		INFO("ATTACKING OR ON_ATTACK")
 
-		if(get_actual_animation()->is_finished) {
+		if (get_actual_animation()->is_finished) {
 			/* if the animation is finished */
 			INFO("animation is finished")
 
@@ -1155,41 +1178,79 @@ void DarkGirl::update_state() {
 		else {
 			return;
 		}
-	}
-	else {
+	} else {
 		/* Do nothing */
 	}
+}
 
-	if(get_speed_x() == 0.0 && get_speed_y() == 0.0
-	   && actual_action_state == "NORMAL") {
+/**
+ * @brief Update the state map
+ *
+ * get the dark girl standing position
+ *
+ * @return void
+ *
+ */
+void DarkGirl::update_state_idle() {
+
+	/* Gets the actual animations */
+	engine::Animation *actual_animation = nullptr;
+	actual_animation = get_actual_animation();
+	assert(actual_animation != nullptr);
+
+	/* Gets the actual state on the X axis */
+	std::string actual_x_state = states.get_state("X_STATE");
+	assert(actual_x_state != "");
+
+	/* Gets the actual action state of the dark girl */
+	std::string actual_action_state = states.get_state("ACTION_STATE");
+
+	if (get_speed_x() == 0.0 && get_speed_y() == 0.0
+		&& actual_action_state == "NORMAL") {
 		/* if the dark girl is moving */
 		INFO("dark girl is moving")
 
-		if(actual_x_state == "LOOKING_RIGHT") {
+		if (actual_x_state == "LOOKING_RIGHT") {
 			/* if the dark girl is looking right */
 			INFO("dark girl is looking right")
 
 			/* Makes she stand looking right */
 			set_actual_animation(animations["idle_right_animation"]);
-		}
-
-		else if(actual_x_state == "LOOKING_LEFT") {
+		} else if (actual_x_state == "LOOKING_LEFT") {
 			/* else if the dark girl is looking left */
 			INFO("dark girl is looking left")
 
 			/* Makes she stand looking left */
 			set_actual_animation(animations["idle_left_animation"]);
-		}
-		else {
+		} else {
 			/*Do Nothing */
 		}
 
 		/* Sets the jumping_animation_count equal to 0*/
 		jumping_animation_count = 0;
-	}
-	else {
+	} else {
 		/*Do Nothing */
 	}
+}
+
+/**
+ * @brief Update the state map
+ *
+ * check the state of the dark girl on the Y axis
+ *
+ * @return void
+ *
+ */
+void DarkGirl::update_state_on_ground(){
+		/* Gets the actual animations */
+		engine::Animation *actual_animation = nullptr;
+		actual_animation = get_actual_animation();
+		assert(actual_animation != nullptr);
+
+
+		/* Gets the actual state on the Y axis */
+		std::string actual_y_state = states.get_state("Y_STATE");
+		assert(actual_y_state != "");
 
 	if(get_speed_y() == 0.0 && get_state("Y_STATE") != "JUMPING") {
 		/* if the dark girl has no speed in the y axis
@@ -1230,9 +1291,8 @@ void DarkGirl::die(engine::GameObject *game_object) {
 
 	/* Gets the actual state of the dark Girl */
 	DEBUG("die");
-	std::string actual_x_state = "";
-	actual_x_state = get_state("X_STATE");
-	assert(actual_x_state != "");
+	std::string actual_x_state = get_state("X_STATE");
+
 
 	if(actual_x_state == "LOOKING_LEFT") {
 		/* If dark girl is dying looking left  */
@@ -1254,6 +1314,7 @@ void DarkGirl::die(engine::GameObject *game_object) {
 		/*Do Nothing */
 	}
 
+	assert(actual_x_state != "");
 	sleep(1);
 
 	DEBUG("die finished");

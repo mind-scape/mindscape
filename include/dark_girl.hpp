@@ -63,6 +63,10 @@ namespace mindscape {
         void move_right(std::string,std::string);
         void move_left(std::string,std::string);
         void attack();
+		void update_state_get_position();
+		void update_state_attacking();
+		void update_state_idle();
+		void update_state_on_ground();
         void on_attack(engine::GameObject *);
         void die(engine::GameObject*);
         engine::Animation *create_animation(
