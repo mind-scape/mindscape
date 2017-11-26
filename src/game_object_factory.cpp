@@ -8,7 +8,7 @@
 * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
 */
 #include "game_object_factory.hpp"
-#include "../engine/include/log.hpp"
+#include "log.hpp"
 
 using namespace mindscape;
 /**

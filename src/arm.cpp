@@ -9,9 +9,9 @@
  */
 
 #include <assert.h>
-#include "../include/arm.hpp"
-#include "../include/platform.hpp"
-#include "../engine/include/log.hpp"
+#include "arm.hpp"
+#include "platform.hpp"
+#include "log.hpp"
 
 using namespace mindscape;
 

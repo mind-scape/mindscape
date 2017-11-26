@@ -11,7 +11,7 @@
 #ifndef TIMER
 #define TIMER
 
-#include "../include/SDL2basics.hpp"
+#include "SDL2basics.hpp"
 
 namespace engine {
 

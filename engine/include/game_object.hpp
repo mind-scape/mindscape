@@ -35,7 +35,7 @@
 #include "animation.hpp"
 #include "observer.hpp"
 #include "observable.hpp"
-#include "../../include/game_event.hpp"
+#include "game_event.hpp"
 
 namespace engine {
 

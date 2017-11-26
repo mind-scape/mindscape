@@ -1,7 +1,7 @@
-#include "../include/level_factory.hpp"
+#include "level_factory.hpp"
 #include "../engine/include/persistence_dat.hpp"
 #include "../engine/include/observable.hpp"
-#include "../engine/include/log.hpp"
+#include "log.hpp"
 #include <unordered_map>
 #include <vector>
 

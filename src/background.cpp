@@ -7,8 +7,8 @@
 *
 * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
 */
-#include "../include/background.hpp"
-#include "../engine/include/log.hpp"
+#include "background.hpp"
+#include "log.hpp"
 #include <assert.h>
 
 using namespace mindscape;

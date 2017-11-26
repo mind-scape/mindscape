@@ -10,7 +10,7 @@
  */
 
 
-#include "../include/state_map.hpp"
+#include "state_map.hpp"
 
 using namespace engine;
 

@@ -8,8 +8,8 @@
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
  */
 
-#include "../include/text.hpp"
-#include "../include/log.hpp"
+#include "text.hpp"
+#include "log.hpp"
 #include <assert.h>
 
 using namespace engine;

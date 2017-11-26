@@ -13,7 +13,7 @@
 #ifndef TRANSLATOR_H
 #define TRANSLATOR_H
 
-#include "../../include/game_event.hpp"
+#include "game_event.hpp"
 #include <list>
 #include "keyboard_event.hpp"
 #include "event_handler.hpp"

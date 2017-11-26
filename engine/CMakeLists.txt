@@ -7,6 +7,7 @@ file(GLOB_RECURSE SOURCES "${ENGINE_SRC}/*.cpp")
 # Including headers
 include_directories(${ENGINE})
 include_directories(${ENGINE_INCLUDE})
+include_directories("../include")
 
 add_library(engine STATIC ${SOURCES})
 set_property(TARGET engine PROPERTY CXX_STANDARD 11)

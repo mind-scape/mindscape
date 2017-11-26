@@ -8,10 +8,10 @@
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
  */
 
-#include "../include/spider.hpp"
-#include "../include/platform.hpp"
-#include "../include/little_girl.hpp"
-#include "../engine/include/log.hpp"
+#include "spider.hpp"
+#include "platform.hpp"
+#include "little_girl.hpp"
+#include "log.hpp"
 #include <stdlib.h>
 
 using namespace mindscape;

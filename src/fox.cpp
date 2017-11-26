@@ -8,10 +8,10 @@
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
  */
 
-#include "../include/fox.hpp"
+#include "fox.hpp"
 #include "../engine/include/game.hpp"
 #include "../engine/include/physics.hpp"
-#include "../engine/include/log.hpp"
+#include "log.hpp"
 #include <cmath>
 
 //TODO generalize methos create_animation in GOs

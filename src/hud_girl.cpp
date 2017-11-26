@@ -8,8 +8,8 @@
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
  */
 
-#include "../include/hud_girl.hpp"
-#include "../engine/include/log.hpp"
+#include "hud_girl.hpp"
+#include "log.hpp"
 #include <assert.h>
 
 using namespace mindscape;

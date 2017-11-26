@@ -7,7 +7,7 @@
 *
 * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
 */
-#include "../include/boss.hpp"
+#include "boss.hpp"
 
 using namespace mindscape;
 /**

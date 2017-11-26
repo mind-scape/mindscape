@@ -9,11 +9,11 @@
  *
  */
 
-#include "../include/clown.hpp"
-#include "../include/platform.hpp"
-#include "../include/little_girl.hpp"
+#include "clown.hpp"
+#include "platform.hpp"
+#include "little_girl.hpp"
 #include "../engine/include/game.hpp"
-#include "../engine/include/log.hpp"
+#include "log.hpp"
 #include "level_factory.hpp"
 #include <stdlib.h>
 #include <assert.h>

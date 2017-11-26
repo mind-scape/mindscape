@@ -8,7 +8,7 @@
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
  */
 
-#include "../include/star.hpp"
+#include "star.hpp"
 #include "fox.hpp"
 
 using namespace mindscape;

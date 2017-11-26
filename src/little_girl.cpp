@@ -8,12 +8,12 @@
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
  */
 
-#include "../include/little_girl.hpp"
-#include "../include/platform.hpp"
-#include "../include/scorpion.hpp"
-#include "../include/goop.hpp"
+#include "little_girl.hpp"
+#include "platform.hpp"
+#include "scorpion.hpp"
+#include "goop.hpp"
 #include "../engine/include/game.hpp"
-#include "../engine/include/log.hpp"
+#include "log.hpp"
 #include "level_factory.hpp"
 #include <typeinfo>
 #include <algorithm>

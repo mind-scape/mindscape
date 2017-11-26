@@ -8,7 +8,7 @@
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
  */
 
-#include "../include/platform.hpp"
+#include "platform.hpp"
 #include "../engine/include/game.hpp"
 #include <assert.h>
 using namespace mindscape;

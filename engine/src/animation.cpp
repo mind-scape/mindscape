@@ -11,7 +11,7 @@
 #include <cmath>
 #include <include/log.hpp>
 #include <assert.h>
-#include "../include/animation.hpp"
+#include "animation.hpp"
 
 using namespace engine;
 

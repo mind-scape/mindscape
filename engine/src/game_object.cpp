@@ -12,7 +12,7 @@
 
 #include "game_object.hpp"
 #include "game.hpp"
-#include "../include/log.hpp"
+#include "log.hpp"
 #include <algorithm>
 #include <assert.h>
 

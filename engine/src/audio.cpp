@@ -8,11 +8,11 @@
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
  */
 
-#include "../include/audio.hpp"
+#include "audio.hpp"
 #include "game.hpp"
 #include <string>
 #include <iostream>
-#include "../include/log.hpp"
+#include "log.hpp"
 #include <assert.h>
 
 using namespace engine;

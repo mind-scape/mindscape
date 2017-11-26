@@ -11,7 +11,7 @@
 #include <assert.h>
 #include "action.hpp"
 #include "../engine/include/game.hpp"
-#include "../engine/include/log.hpp"
+#include "log.hpp"
 #include "level_factory.hpp"
 
 using namespace mindscape;

@@ -8,10 +8,10 @@
  * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
  */
 
-#include "../include/music_player.hpp"
-#include "../include/little_girl.hpp"
+#include "music_player.hpp"
+#include "little_girl.hpp"
 #include "../engine/include/audio.hpp"
-#include "../engine/include/log.hpp"
+#include "log.hpp"
 #include <stdlib.h>
 #include <assert.h>
 

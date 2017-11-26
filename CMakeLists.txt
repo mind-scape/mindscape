@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 project(mindscape LANGUAGES CXX)
-set(CMAKE_CXX_STANDARD 11)                                                                                                                                 
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Creating variables
 
@@ -20,6 +20,7 @@ add_subdirectory(${ENGINE})
 # Including header files
 
 include_directories(${INCLUDE_DIR})
+include_directories("engine/include")
 
 # Creating executable and adding libraries to CMake
 

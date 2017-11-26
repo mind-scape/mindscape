@@ -8,7 +8,7 @@
  * https://github.com/TecProg2017-2/mindscape/blob/ master/LICENSE.md
  */
 
-#include "../include/timer.hpp"
+#include "timer.hpp"
 #include <include/log.hpp>
 #include <assert.h>
 
