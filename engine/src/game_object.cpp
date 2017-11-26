@@ -32,6 +32,7 @@ bool GameObject::on_limit_of_level; /**< Boolean. Determines if game object is i
  * @return The component who have higher priority.
  */
 bool compare(Component *a, Component *b) {
+	/* Parameters checking */
 	assert(a && b);
 	return a->get_priority() < b->get_priority();
 }
@@ -45,7 +46,10 @@ bool compare(Component *a, Component *b) {
  * @return void.
  */
 void GameObject::add_component(Component *component) {
+	/* Parameters checking */
 	assert(component);
+
+	/* Main logic */
 	if(dynamic_cast<Audio *>(component)) {
 		/* Add an audio component to the map of audios of that game object */
 		INFO("Adding Audio Component " + component->get_name() + " to " + this->name);
@@ -81,9 +85,14 @@ void GameObject::add_component(Component *component) {
  */
 void GameObject::add_animation(std::string animation_name, Animation *animation) {
 	/* Attach an animation previous created to a game object */
+	/* Parameters checking */
 	assert(!animation_name.empty());
 	assert(animation);
+
+	/* Log */
 	INFO("Adding animation " + animation->get_name() + " to " + this->name);
+
+	/* Main logic */
 	animations[animation_name] = animation;
 	animation->set_game_object(this);
 }
@@ -98,8 +107,10 @@ void GameObject::add_animation(std::string animation_name, Animation *animation)
  * @return boolean true meaning that everything finishes fine.
  */
 bool GameObject::load() {
+	/* Log */
 	INFO("Loading components for " + this->name);
 
+	/* Main logic */
 	bool success = load_images() && load_audios() && load_animations() && load_texts();
 
 	return success;
@@ -113,6 +124,7 @@ bool GameObject::load() {
  * @return boolean true meaning that everything finishes fine.
  */
 bool GameObject::load_images() {
+	/* Main logic */
 	for(auto image : images) {
 		image->load();
 	}
@@ -127,6 +139,7 @@ bool GameObject::load_images() {
  * @return boolean true meaning that everything finishes fine.
  */
 bool GameObject::load_texts() {
+	/* Main logic */
 	for(auto text : texts) {
 		text->load();
 	}
@@ -141,6 +154,7 @@ bool GameObject::load_texts() {
  * @return boolean true meaning that everything finishes fine.
  */
 bool GameObject::load_audios() {
+	/* Main logic */
 	for(auto audio : audios) {
 		audio->load();
 	}
@@ -155,6 +169,7 @@ bool GameObject::load_audios() {
  * @return boolean true meaning that everything finishes fine.
  */
 bool GameObject::load_animations() {
+	/* Main logic */
 	for(auto animation : animations) {
 		animation.second->load();
 	}
@@ -170,8 +185,10 @@ bool GameObject::load_animations() {
  * @return void.
  */
 void GameObject::free() {
+	/* Log */
 	INFO("Freeing " + this->name + " object components");
 
+	/* Main logic */
 	free_images();
 	free_animations();
 	free_audios();
@@ -187,6 +204,7 @@ void GameObject::free() {
  * @return void.
  */
 void GameObject::free_images() {
+	/* Main logic */
 	for(auto image : images) {
 		image->free();
 	}
@@ -201,6 +219,7 @@ void GameObject::free_images() {
  * @return void.
  */
 void GameObject::free_audios() {
+	/* Main logic */
 	for(auto audio : audios) {
 		audio->free();
 	}
@@ -215,6 +234,7 @@ void GameObject::free_audios() {
  * @return void.
  */
 void GameObject::free_texts() {
+	/* Main logic */
 	for(auto text : texts) {
 		text->free();
 	}
@@ -229,6 +249,7 @@ void GameObject::free_texts() {
  * @return void.
  */
 void GameObject::free_animations() {
+	/* Main logic */
 	for(auto animation : animations) {
 		animation.second->free();
 	}
@@ -243,6 +264,7 @@ void GameObject::free_animations() {
  * @return void.
  */
 void GameObject::draw() {
+	/* Main logic */
 	draw_audios();
 	draw_animations();
 	draw_images();
@@ -256,6 +278,7 @@ void GameObject::draw() {
  * @return void.
  */
 void GameObject::draw_images() {
+	/* Main logic */
 	for(auto image : images) {
 		if(image->is_active()) {
 			/* Verifies if image(s) is active and not null, then show on screen */
@@ -272,6 +295,7 @@ void GameObject::draw_images() {
  * @return void.
  */
 void GameObject::draw_audios() {
+	/* Main logic */
 	for(auto audio : audios) {
 		audio->draw(position.first, position.second);
 	}
@@ -283,6 +307,7 @@ void GameObject::draw_audios() {
  * @return void.
  */
 void GameObject::draw_animations() {
+	/* Main logic */
 	for(auto animation : animations) {
 		if(animation.second->is_active()) {
 			/* Verifies if animation is active and not null, then show on screen */
@@ -299,6 +324,7 @@ void GameObject::draw_animations() {
  * @return void.
  */
 void GameObject::draw_hitboxes() {
+	/* Main logic */
 	for(auto hitbox : hitboxes) {
 		if(hitbox->wanna_draw_hitbox()) {
 			/* Verifies if hitboxes(s) is active and not null, then show on screen */
@@ -315,6 +341,7 @@ void GameObject::draw_hitboxes() {
  * @return void.
  */
 void GameObject::draw_texts() {
+	/* Main logic */
 	for(auto text : texts) {
 		text->draw(position.first, position.second);
 	}
@@ -330,6 +357,7 @@ void GameObject::draw_texts() {
  * @return The other game object witch is the same as the actual.
  */
 bool GameObject::equals(GameObject *other) {
+	/* Parameters checking */
 	assert(other);
 	return (this == other);
 }
@@ -355,6 +383,7 @@ std::vector<Hitbox *> GameObject::get_hitboxes() {
  * @return void.
  */
 void GameObject::collide(GameObject *other) {
+	/* Main logic */
 	if(!this->equals(other)) {
 		/* In case that one game object is diferent from other objects then it will run collisions and verify both objetcs hitboxes */
 		this->run_collisions(other);
@@ -373,7 +402,10 @@ void GameObject::collide(GameObject *other) {
  * @return void.
  */
 void GameObject::run_collisions(GameObject *other) {
+		/* Parameters checking */
 	assert(other);
+
+	/* Main logic */
 	for(auto my_hitbox : hitboxes) {
 		for(auto other_hitbox : other->get_hitboxes()) {
 			/* Get status of hitboxes */
@@ -399,6 +431,7 @@ void GameObject::run_collisions(GameObject *other) {
  * @return void.
  */
 void GameObject::update_hitboxes() {
+	/* Main logic */
 	for(auto hitbox : hitboxes) {
 		hitbox->update(position);
 	}
@@ -414,7 +447,10 @@ void GameObject::update_hitboxes() {
  * @return The state of the object.
  */
 std::string GameObject::get_state(std::string state_name) {
+	/* Parameters checking */
 	assert(!state_name.empty());
+
+	/* Main logic */
 	return states.get_state(state_name);
 }
 
@@ -568,8 +604,13 @@ void GameObject::set_speed_y(float v_y) {
  * @return void.
  */
 void GameObject::set_actual_animation(Animation *animation) {
+	/* Log */
 	INFO("Changing " + this->name + " animation to " + animation->get_name());
+
+	/* Parameters checking */
 	assert(animation);
+
+	/* Main logic */
 	if(actual_animation != NULL) {
 		/* Validation to determs if current animation is not null*/
 		actual_animation->deactivate();
@@ -626,8 +667,10 @@ void GameObject::deactivate() {
  * @return void.
  */
 void GameObject::deactivate_components() {
+	/* Log */
 	INFO("Deactivating " + this->name + " components");
 
+	/* Main logic */
 	for(auto image : images) {
 		image->deactivate();
 	}
@@ -672,8 +715,10 @@ void GameObject::update_state() {
 void GameObject::create_hitbox(
 		std::pair<int, int> displacement,
 		std::pair<int, int> dimensions) {
+	/* Log */
 	INFO("Creating hitbox for " + this->name);
 
+	/* Main logic */
 	Game &game = Game::get_instance();
 	assert(game);
 	/* Instantiate objects calling contrutor and passsing params */
@@ -695,8 +740,13 @@ void GameObject::create_hitbox(
  * @return void.
  */
 void GameObject::attach_observer(Observer *observer) {
+	/* Log */
 	INFO("Attaching observer to " + this->name);
+
+	/* Parameters checking */
 	assert(observer);
+
+	/* Main logic */
 	observers.push_back(observer);
 }
 
@@ -723,6 +773,7 @@ void GameObject::detach_observer(Observer *observer) {
  * @return void.
  */
 void GameObject::notify_observers() {
+	/* Main logic */
 	for(auto observer : observers) {
 		observer->notify(this);
 	}
@@ -737,8 +788,10 @@ void GameObject::notify_observers() {
  * @return Address of object called matched audio containing the game object audio.
  */
 Audio *GameObject::get_audio_by_name(std::string audio_name) {
+/* Log */
 	INFO("Getting audio " + audio_name + " in " + this->name);
 
+	/* Main logic */
 	Audio *matched_audio = NULL;
 
 	for(auto audio : audios) {
@@ -765,8 +818,10 @@ Audio *GameObject::get_audio_by_name(std::string audio_name) {
  * @return void.
  */
 void GameObject::play_song(std::string song_name) {
+	/* Log */
 	INFO("Playing song " + song_name + " in " + this->name);
 
+	/* Main logic */
 	/* Instantiate object song */
 	Audio *song = get_audio_by_name(song_name);
 
@@ -786,8 +841,10 @@ void GameObject::play_song(std::string song_name) {
  * @return void.
  */
 void GameObject::stop_song(std::string song_name) {
+	/* Log */
 	INFO("Stoping song " + song_name + " in " + this->name);
 
+	/* Main logic */
 	Audio *song = get_audio_by_name(song_name);
 
 	/* Stop songs. If is a music it will be stopped in pause_music, case is a audio effect in stop_effect */
@@ -808,6 +865,7 @@ void GameObject::stop_song(std::string song_name) {
  * @return void.
  */
 void GameObject::set_repetitions(std::string song_name, int repet) {
+	/* Main logic */
 	/* Instantiate object song  and set number of repetitions */
 	if(repet <= 0) {
 		ERROR("Can't have a number of repetitions less or equal to zero");
@@ -829,8 +887,10 @@ void GameObject::set_repetitions(std::string song_name, int repet) {
  * @return void.
  */
 void GameObject::set_music_volume(std::string song_name, int vol) {
+	/* Log */
 	INFO("Setting " + song_name + " volume in " + this->name);
 
+	/* Main logic */
 	if(vol < 0) {
 		ERROR("Can't set negative value for volume");
 	}
@@ -851,8 +911,10 @@ void GameObject::set_music_volume(std::string song_name, int vol) {
  * @return void.
  */
 void GameObject::free_music(std::string song_name) {
+	/* Log */
 	INFO("Freeing " + song_name + " in " + this->name);
 
+	/* Main logic */
 	/* Instantiate object song  and delete it. Normally this will be called in game close operation */
 	Audio *song = get_audio_by_name(song_name);
 	song->free();
