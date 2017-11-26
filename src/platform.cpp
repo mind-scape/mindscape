@@ -43,6 +43,9 @@ Platform::Platform(
  * @return void
  */
 void Platform::on_event(GameEvent game_event) {
+	/* Functions call */
+
+	/* Movement of platform */
 	platform_movement(game_event);
 
 	/*
@@ -68,8 +71,10 @@ void Platform::on_event(GameEvent game_event) {
  * @return void.
  */
 void Platform::platform_movement(GameEvent game_event){
+	/* Parameter verification */
 	assert(!game_event.game_event_name.empty());
 
+	/* Variables and constants declaration */
 	std::string event_name = game_event.game_event_name; /**< string. Name of the game_event */
 	const int movement_platform = 10; /**< int. Movement of the platform (value in pixels) */
 
@@ -99,6 +104,7 @@ void Platform::platform_movement(GameEvent game_event){
  */
 void Platform::first_level_clown(GameEvent game_event){
 	if (name == "clown_tree") {
+		/* Constants declaration */
 		const int first_level_inicial_limiter = -1300; /**< Int. Left limit in pixel of the girl can walk */
 		const int first_level_final_limiter = 13350; /**< Int. Right limit in pixel of the girl can walk */
 
@@ -138,6 +144,7 @@ void Platform::first_level_clown(GameEvent game_event){
  */
 void Platform::second_level_boss(GameEvent game_event){
 	if (name == "limiter") {
+		/* Constants declaration */
 		const int second_level_inicial_limiter = 0; /**< Int. Left limit in pixel of the girl can walk */
 		const int second_level_final_limiter = 3000; /**< Int. Right limit in pixel of the girl can walk */
 
