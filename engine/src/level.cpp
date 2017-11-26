@@ -20,6 +20,7 @@ using namespace engine;
  *
  */
 void Level::load() {
+  /* Main logic */
     for(auto game_object : objects) {
         /* loops every game object in the objects list */
         game_object->load();
@@ -38,6 +39,7 @@ void Level::load() {
  *
  */
 void Level::free() {
+  /* Main logic */
     for(auto game_object : objects) {
 		/* iterates every game object in the objects list */
         game_object->free();
@@ -53,6 +55,7 @@ void Level::free() {
  *
  */
 void Level::draw() {
+  /* Main logic */
     for(auto game_object : objects) {
 		/* iterates every game object in the objects list */
         if(game_object->is_active()) {
