@@ -58,7 +58,7 @@ void SelectArrow::initialize_arrow() {
 
 	sel->activate();
 	add_component(sel);
-	
+
 	assert(timer);
 
 	timer->init();
@@ -116,7 +116,7 @@ void SelectArrow::on_event(GameEvent game_event) {
 	}
 
 	arrow_select(event_name);
-	
+
 }
 
 /**
@@ -136,7 +136,6 @@ void SelectArrow::arrow_select(std::string event_name) {
 	assert(event_name != "");
 
 	switch (arrow_seletor) {
-		assert(arrow_seletor >= 0);
 		//Initialize
 		case (0):
 			set_position(std::make_pair(get_position().first, 175));
