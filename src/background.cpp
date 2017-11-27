@@ -27,6 +27,11 @@ void Background::on_event(GameEvent game_event){
 	/* Variable declaration */
     std::string event_name = game_event.game_event_name;
 
+		if (this->name == "main_background") {
+			/* This avoids making parallax event happen in the menu */
+			return;
+		}
+
     if (event_name == "MOVE_LEFT" && !engine::GameObject::on_limit_of_level) {
         /* When character is moving left */
 
