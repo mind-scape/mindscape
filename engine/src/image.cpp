@@ -1,55 +1,148 @@
+/**
+ * @file image.cpp
+ *
+ * @brief Purpose: Contains methods to images management
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ *
+ */
 #include "image.hpp"
 #include <string>
+#include "log.hpp"
+#include <assert.h>
 
 using namespace engine;
 
-bool Image::load(){
-  free();
+/**
+ * @brief Method Load
+ *
+ * Responsible for load the game images and create the texture
+ *
+ * @return void
+ */
+bool Image::load() {
+    DEBUG("Loading image");
+    free();
+    /*Variables declaration*/
+    SDL_Texture* new_texture = NULL; /**< sdl texture new texture converted */
+    SDL_Surface* loaded_surface = IMG_Load(image_path.c_str()); /**< surface loaded to be converted */
 
-  SDL_Texture* new_texture = NULL;
+    /*Function core*/
+    if (loaded_surface != NULL) {
+        /* if the loaded surface is null (didnt work properly) */
+        new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
 
-  SDL_Surface* loaded_surface = IMG_Load( image_path.c_str() );
-  if( loaded_surface != NULL ){
-    new_texture = SDL_CreateTextureFromSurface( renderer, loaded_surface );
-    if(new_texture == NULL){
-      printf( "Unable to create texture from %s! SDL Error: %s\n", image_path.c_str(), SDL_GetError() );
+        if (new_texture == NULL) {
+			/* if the texture is null */
+            WARN("Unable to create texture");
+        }
+        else {
+            /*Do nothing*/
+        }
+
+        SDL_FreeSurface(loaded_surface);
+    }
+    else {
+		/* if the surface loaded properly */
+        WARN("Unable to load image");
     }
 
-    SDL_FreeSurface( loaded_surface );
-  }else{
-    printf("Unable to load image %s! Image error: %s\n",image_path.c_str(), IMG_GetError() );
-  }
-
-  texture = new_texture;
-  return texture != NULL;
+	texture = nullptr;
+	texture = new_texture;
+	return texture != nullptr;
 }
 
-void Image::free(){
-  if( texture != NULL){
-    SDL_DestroyTexture(texture);
-    texture = NULL;
-    dimensionOnScreen.first = 0;
-    dimensionOnScreen.second = 0;
-  }
+/**
+ * @brief Free Method
+ *
+ * Method responsible for close the game
+ *
+ * @return void
+ */
+void Image::free() {
+    DEBUG("Trying to free image");
+    if (texture != NULL) {
+        /* if the texture didnt load properly */
+        WARN("Image could not be freed");
+        SDL_DestroyTexture(texture);
+
+		texture = nullptr;
+
+		dimension_on_screen.first = 0;
+		dimension_on_screen.second = 0;
+    }
+    else {
+        /*Do nothing*/
+    }
 }
 
-void Image::draw(int x, int y){
-  SDL_Rect ret = {coordinatesOnTexture.first,coordinatesOnTexture.second, dimensionOnTexture.first, dimensionOnTexture.second};
-  // This render_quad tells where the image will appear in the screen
-  SDL_Rect render_quad = {x+get_displacement().first, y+get_displacement().second, this->get_width(), this->get_height()};
-  SDL_RenderCopy(renderer, texture, &ret, &render_quad);
+/**
+ * @brief Draw
+ *
+ * Draw the image on the screen
+ *
+ * @param x position in axis x on the screen
+ * @param y position in axis y on the screen
+ *
+ * @return
+ */
+void Image::draw(int x, int y) {
+    /*Variable declaration*/
+    SDL_Rect ret = {coordinatesOnTexture.first,
+                    coordinatesOnTexture.second,
+                    dimensionOnTexture.first,
+                    dimensionOnTexture.second}; /**< rectangle holding the images positions and dimensions */
+
+    // This render_quad tells where the image will appear in the screen
+    SDL_Rect render_quad = {x+get_displacement().first,
+                            y+get_displacement().second, this->get_width(),
+                            this->get_height()}; /**< on screen rendering rectangle */
+
+    /*Function core*/
+	  SDL_RenderCopy(renderer, texture, &ret, &render_quad);
 }
 
-void Image::set_values(std::pair<int, int> _dimensionOnScreen, std::pair<int, int> _dimensionOnTexture, std::pair<int, int> _coordinatesOnTexture){
-  dimensionOnScreen = _dimensionOnScreen;
-  dimensionOnTexture = _dimensionOnTexture;
-  coordinatesOnTexture = _coordinatesOnTexture;
+/**
+ * @brief Methods Set values
+ *
+ * Set the position and dimension of the texture on the screen
+ *
+ * @param _dimension_on_screen size in the screen of the texture
+ * @param _dimension_on_texture size of the texture
+ * @param _coordinates_on_texture coordinates in axis x,y
+ */
+void Image::set_values(std::pair<int, int> _dimension_on_screen,
+					   std::pair<int, int> _dimension_on_texture,
+					   std::pair<int, int> _coordinates_on_texture) {
+  /*Parameter verification*/
+  assert(_dimension_on_screen.first >= 0 && dimension_on_screen.second >= 0);
+  assert(_dimension_on_texture.first >= 0 && _dimension_on_texture.second >= 0);
+  assert(_coordinates_on_texture.first >= 0 && _coordinates_on_texture.second >= 0);
+
+  /*Function core*/
+	dimension_on_screen = _dimension_on_screen;
+	dimensionOnTexture = _dimension_on_texture;
+	coordinatesOnTexture = _coordinates_on_texture;
 }
 
-int Image::get_width(){
-  return dimensionOnScreen.first;
+/**
+ * @brief Get Width
+ *
+ * @return width dimension
+ */
+int Image::get_width() {
+	return dimension_on_screen.first;
 }
 
-int Image::get_height(){
-  return dimensionOnScreen.second;
+/**
+ * @brief Get Height
+ *
+ * @return the height dimension
+ */
+int Image::get_height() {
+	return dimension_on_screen.second;
+
 }

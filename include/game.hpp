@@ -2,8 +2,8 @@
 #define GAME_H
 
 class Game {
-  Game(){};
-  ~Game(){};
+  	Game() {};
+  	~Game() {};
 };
 
 #endif

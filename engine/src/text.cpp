@@ -1,72 +1,123 @@
-#include "../include/text.hpp"
-#include "game.hpp"
-#include <string>
+/**
+ * @file text.cpp
+ * @brief Purpose: Contains methods to game class' management.
+ *
+ * MIT License
+ * Copyright (c) 2017 MindScape
+ *
+ * https://github.com/TecProg2017-2/mindscape/blob/master/LICENSE.md
+ */
+
+#include "text.hpp"
+#include "log.hpp"
+#include <assert.h>
 
 using namespace engine;
 
-bool Text::load(){
-  font = TTF_OpenFont(font_path.c_str(), font_size);
+/**
+ * @brief Loads text
+ *
+ * Loads the text and get it ready to be displayed on the screen
+ *
+ * @return void
+ */
+bool Text::load() {
+	font = TTF_OpenFont(font_path.c_str(), font_size);
+	assert(font);
+	/*Variables declaration*/
+	SDL_Color sdl_color = {
+			color.r,
+			color.g,
+			color.b,
+			color.a
+	};
 
-  SDL_Color sdl_color = {
-    color.r,
-    color.g,
-    color.b,
-    color.a
-  };
+	SDL_Color bg_color = {
+			background_color.r,
+			background_color.g,
+			background_color.b,
+			background_color.a
+	};
 
-  SDL_Color bg_color = {
-    background_color.r,
-    background_color.g,
-    background_color.b,
-    background_color.a
-  };
+	SDL_Surface *surface = NULL;
 
-  SDL_Surface * surface = NULL;
+	/*Function core*/
+	if (bg_color.a == 0x00) {
+		surface = TTF_RenderText_Blended(
+				font,
+				text.c_str(),
+				sdl_color
+		);
+	}
+	else {
+		surface = TTF_RenderText_Solid(font, text.c_str(), sdl_color);	
+	}
 
-  if(bg_color.a == 0x00){
-    surface = TTF_RenderText_Blended(
-      font,
-      text.c_str(),
-      sdl_color
-    );
-  }else{
-    surface = TTF_RenderText_Solid(font, text.c_str(), sdl_color);
-  }
+	if (surface == NULL) {
+		WARN("The text surface cannot be NULL");
+		return false;
+	}
+	else {
+		texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-  if(surface == NULL){
-    printf("\nThe text surface cannot be NULL\n");
-    return false;
-  }
+		if (!texture) {
+			WARN(("\nError in the text_texture :%s\n", SDL_GetError()));
+		}
+		else {
+			/*Do nothing*/
+		}
 
-  texture = SDL_CreateTextureFromSurface(renderer, surface);
+		if (texture == NULL) {
+			WARN("The text_texture cannot be NULL");
+			return false;
+		}
+		else {
 
-  if(!texture){
-    printf("\nError in the text_texture :%s\n", SDL_GetError());
-  }
+			weigth = surface->w;
+			heigth = surface->h;
+			assert(weigth);
+			assert(heigth);
 
-  if(texture == NULL){
-    printf("\n The text_texture cannot be NULL\n");
-    return false;
-  }
+			activate();
+			SDL_FreeSurface(surface);
 
-  weigth = surface->w;
-  heigth = surface->h;
+			return true;
 
-  activate();
-  SDL_FreeSurface(surface);
-  return true;
+		}
+
+	}
 }
 
-void Text::free(){
-  SDL_DestroyTexture(texture);
-  texture = NULL;
+/**
+ * @brief Frees the text
+ *
+ * Frees the text from the memory
+ *
+ * @return void
+ */
+void Text::free() {
+	DEBUG("Freeing text");
+	SDL_DestroyTexture(texture);
+	texture = NULL;
 
-  TTF_CloseFont(font);
-  font = NULL;
+	TTF_CloseFont(font);
+	font = NULL;
 }
 
-void Text::draw(int x, int y){
-  SDL_Rect renderQuad = {x + get_displacement().first,
-    y + get_displacement().second, weigth, heigth};
-  SDL_RenderCopy(renderer, texture, NULL, &renderQuad);
+/**
+ * @brief Draws the text
+ *
+ * Draws the thexo to the screen
+ *
+ * @param x X position for the text
+ * @param y Y position for the text
+ */
+void Text::draw(int x, int y) {
+	DEBUG("Drawing text");
+	SDL_Rect renderQuad = {x + get_displacement().first,
+						   y + get_displacement().second,
+						   weigth,
+						   heigth};
+
+	SDL_RenderCopy(renderer, texture, NULL, &renderQuad);
 }
