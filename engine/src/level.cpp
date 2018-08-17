@@ -1,4 +1,5 @@
 #include "level.hpp"
+#include <iostream>
 
 using namespace engine;
 
@@ -23,6 +24,10 @@ void Level::free(){
 void Level::draw(){
   for(auto game_object : objects){
     if(game_object->is_active()){
+      if(game_object->name == "arm_left"){
+        game_object->set_actual_animation(game_object->animations["left_arm"]);
+      }
+
       game_object->draw();
     }
   }
