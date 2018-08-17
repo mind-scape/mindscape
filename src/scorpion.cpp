@@ -13,7 +13,7 @@ Scorpion::Scorpion(
     name,
     position,
     priority,
-    100
+    80
   ){
     initialize_state_map();
     initialize_hitboxes();
@@ -263,7 +263,7 @@ void Scorpion::move(engine::GameObject* girl){
     }else if(distance_from_girl <= 300){
       states.set_state("ACTION_STATE","NORMAL");
       if(distance_from_girl >= 50){
-        set_position_x(get_position_x() - (same_nivel? 8 : 3));
+        set_position_x(get_position_x() - (same_nivel? 5 : 3));
         set_actual_animation(animations["walking_left_animation"]);
       }else{
         if(same_nivel)
@@ -279,7 +279,7 @@ void Scorpion::move(engine::GameObject* girl){
       set_actual_animation(animations["idle_right_animation"]);
     }else if(distance_from_girl <= 588){
       if(distance_from_girl >= 200){
-        set_position_x(get_position_x() + (same_nivel? 8 : 3));
+        set_position_x(get_position_x() + (same_nivel? 5 : 3));
         set_actual_animation(animations["walking_right_animation"]);
       }else{
         if(same_nivel)
